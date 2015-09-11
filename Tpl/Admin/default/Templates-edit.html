@@ -1,0 +1,29 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>修改模板{$file}</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Templates/index')}">返回模板管理</a>
+            </p>
+            <form action="{:U('Templates/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle" width="100%">
+                   
+                    <tr>
+						<td> <textarea name="content" cols="150" rows="24" style="width:99%;height:450px">{$content}</textarea></td>
+					</tr> 
+                    <tr>
+						<td  class="t-right"><input type="submit" class="input-submit" value="保存" />
+						<input type="button" class="input-submit" value="取消不保存" onclick="location.href='{:U('Templates/index')}';" />
+						<input type="hidden" name="file" value="{$_GET['file']}" />
+                        </td>
+					</tr>
+            </table>
+          
+        </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

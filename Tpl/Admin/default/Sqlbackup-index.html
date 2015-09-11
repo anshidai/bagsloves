@@ -1,0 +1,84 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>数据库备份</h1>
+            <p class="msg info">提示：<label id="msg"></label>
+            
+            </p>
+            
+            <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>数据表</span></a></li>
+					<li><a href="#tab02"><span>数据库</span></a></li>
+				</ul>
+			</div>
+			 <div id="tab01">  
+
+
+    <h3>数据表:</h3>    
+<form id="upload" METHOD=POST action="{:U('Sqlbackup/outputData')}"  >
+ <table class="nostyle">
+  <tr>
+	<td style="width:120px;">数据表:</td>
+	<td><select NAME="tableName[]" id="tableName" class="medium" size="12" multiple >
+<volist name="tables" id="table" >
+<option value="{$table}" <in name="table|strtolower" value="$Think.get.table">selected</in>>{$table}</option>  
+</volist>
+</select></td>
+</tr>
+  <tr>
+	<td style="width:120px;">导出格式:</td>
+	<td><select name="type" class="small" >
+    <option value="SQL" > SQL </option>
+    <option value="CSV" > CSV </option>
+   </select></td>
+</tr>
+  <tr>
+	<td style="width:120px;">是否zip压缩:</td>
+	<td><select name="zip" class="small">
+    <option value="0" >无压缩 </option>
+    <option value="1" >压缩 </option>
+   </select></td>
+</tr>
+<tr>
+		<td colspan="2" class="t-right">
+		 <input type="submit" class="input-submit" value="备份" />
+        </td>
+	</tr>
+            </table>
+            </form>
+            
+             </div>
+<div id="tab02">
+            
+
+	<h3>数据库:</h3>
+	<form id="upload" METHOD=POST action="{:U('Sqlbackup/outputData')}">
+ <table class="nostyle">
+  <tr>
+	<td style="width:120px;">导出格式:</td>
+	<td><select name="type" class="small" >
+    <option value="SQL" > SQL </option>
+   </select></td>
+</tr>
+  <tr>
+	<td style="width:120px;">是否zip压缩:</td>
+	<td><select name="zip" class="small">
+    
+    <option value="0" >无压缩 </option>
+    <option value="1" >压缩 </option>
+   </select></td>
+</tr>
+ <tr>
+		<td colspan="2" class="t-right">
+		 <input type="submit" class="input-submit" value="备份" />
+        </td>
+	</tr>
+            </table>
+            </form>
+  </div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

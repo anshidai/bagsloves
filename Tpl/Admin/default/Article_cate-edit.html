@@ -1,0 +1,121 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:"{:U('Article_cate/upload')}",
+				secureuri:false,
+				fileElementId:'fileToUpload',
+				dataType: 'json',
+				success: function (data, status)
+				{
+					if (status==1){
+						$("#msg").text(data.info);
+					}
+					else{
+						$("#msg").text(data.info);
+						$('#imgurlbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");	
+						$("#imgurlbox").show();
+						$("#imgurl").val(data.data['savename']);
+					}
+
+
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)		
+		return false;
+
+	}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑文章类别</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+            
+            <p id="btn-create" class="box">
+              <a href="{:U('Article_cate/catelist')}">返回类别列表</a>
+            </p>
+            <form action="{:U('Article_cate/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+                   <tr>
+						<td style="width:120px;">类别名(必填):</td>
+						<td><input type="text" size="60" name="name" class="input-text" value="{$list['name']}" /></td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">副类别名(选填):</td>
+						<td><input type="text" size="60" name="name2" class="input-text" value="{$list['name2']}" /></td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">LOGO:</td>
+						<td><input type="file" size="20" id="fileToUpload" name="fileToUpload" class="input-text"  /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload();" /><input type="hidden" name="img_url" id="imgurl" value="{$list['img_url']}" /><notempty name="list['img_url']"><input type="button" onclick="window.location.href='{:U('Article_cate/setimg_empty',array('f'=>'img_url','id'=>$list['id']))}';" value="删除图片"/></notempty>
+                        <br>
+                          <span id="imgurlbox">
+                         <notempty name="list['img_url']">
+                         <img src="__ROOT__/{$list['img_url']}" />
+                         </notempty>
+                         </span>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="{$list['sort']}" /></td>
+					</tr>
+                    
+                     <tr>
+						<td style="width:120px;">上级分类:</td>
+						<td>
+						<select name="pid">
+						{$cateoption}
+						</select>
+
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" checked />是<input type="radio" value="0"  name="status" class="input-text"   />否</td>
+					</tr>
+               
+					 <tr>
+						<td style="width:120px;">内容:</td>
+						<td width="550">
+						<html:editor id="remark" name="remark" height="400x" width="100%" type="FCKeditor" >{$list['remark']}</html:editor>
+						<!--<textarea name="article_content" cols="60" rows="10" class="input-text"></textarea>--></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">关键字(SEO):</td>
+						<td><textarea name="keywords" cols="60" rows="10" class="input-text">{$list['keywords']}</textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">描述(SEO):</td>
+						<td><textarea name="description" cols="60" rows="10" class="input-text">{$list['description']}</textarea></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            <script language="javascript" type="text/javascript">
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			   $("select[name=pid] option[value={$list.pid}]").attr('selected',true);
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

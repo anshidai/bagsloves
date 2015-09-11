@@ -1,0 +1,161 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<div id="content" class="box">
+<script language="javascript">
+function CheckLodop(){
+   var oldVersion=LODOP.Version;
+       newVerion="5.0.6.0";	
+   if (oldVersion==null){
+	document.write("<h3><font color='#FF00FF'>打印控件未安装!点击这里<a href='__ROOT__/Public/printplugins/install_lodop.exe'>执行安装</a>,安装后请刷新页面。</font></h3>");
+	if (navigator.appName=="Netscape")
+	document.write("<h3><font color='#FF00FF'>（Firefox浏览器用户需先点击这里<a href='__ROOT__/Public/printplugins/install_lodop.xpi'>安装运行环境</a>）</font></h3>");
+   } else if (oldVersion<newVerion)
+	document.write("<h3><font color='#FF00FF'>打印控件需要升级!点击这里<a href='__ROOT__/Public/printplugins/install_lodop.exe'>执行升级</a>,升级后请重新进入。</font></h3>");
+}
+</script>
+<object  id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> </object>
+<script language="javascript">
+var LODOP=document.getElementById("LODOP");//这行语句是为了符合DTD规范
+
+</script>
+<!-- Content (Right Column) -->
+		
+
+			<h1>发货处理</h1>
+            <p class="msg info">提示：建议使用IE系列浏览器
+            <script language="JavaScript" type="text/javascript">
+            	CheckLodop();
+            </script>
+            </p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Orders/orderslist')}">订单列表</a>
+            </p>
+            <h4>订单编号：</h4>
+            <hr>
+            <h3>{$list.order_sn}</h3>
+            <h4>以下为发货地址信息：</h4>
+            <hr>
+            <table class="nostyle">
+            <tr>
+            <td>发件人</td>
+            <td>{$list.sender_sname}</td>
+            </tr>
+            <tr>
+            <td>城市</td>
+            <td>{$list.sender_city}</td>
+            </tr>
+            <tr>
+            <td>地区（省份）</td>
+            <td>{$list.sender_region}</td>
+            </tr>
+            <tr>
+            <td>国家</td>
+            <td>{$list.sender_country}</td>
+            </tr>
+            <tr>
+            <td>地址</td>
+            <td>{$list.sender_address}</td>
+            </tr>
+            <tr>
+            <td>邮编</td>
+            <td>{$list.sender_zip}</td>
+            </tr>
+            <tr>
+            <td>电话</td>
+            <td>{$list.sender_tel}</td>
+            </tr>
+            </table>
+            
+            <h4>以下为用户的收货信息：</h4>
+            <hr>
+            
+            <table class="nostyle">
+              <tr>
+                <td>收件人</td>
+                <td>{$list.delivery_name}</td>
+              </tr>
+              <tr>
+                <td>城市</td>
+                <td>{$list.delivery_city}</td>
+              </tr>
+              <tr>
+                <td>地区（省份）</td>
+                <td>{$list.delivery_state}</td>
+              </tr>
+              <tr>
+                <td>国家</td>
+                <td>{$list.delivery_country}</td>
+              </tr>
+              <tr>
+                <td>邮编</td>
+                <td>{$list.delivery_zip}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{$list.delivery_telephone}</td>
+              </tr>
+              <tr>
+                <td>地址</td>
+                <td>{$list.delivery_address}</td>
+              </tr>
+            </table>
+            
+            <h4>以下为快递信息</h4>
+            <hr>
+            <form action="{:U('Orders/dosendgoods')}" name="myform" method="post">
+            <input type="hidden" name="sender_sname" value="{:GetValue('sender_sname')}">
+            <input type="hidden" name="sender_city" value="{:GetValue('sender_city')}">
+            <input type="hidden" name="sender_region" value="{:GetValue('sender_region')}">
+            <input type="hidden" name="sender_country" value="{:GetValue('sender_country')}">
+            <input type="hidden" name="sender_address" value="{:GetValue('sender_address')}">
+            <input type="hidden" name="sender_zip" value="{:GetValue('sender_zip')}">
+            <input type="hidden" name="sender_tel" value="{:GetValue('sender_tel')}">
+            
+            <input type="hidden" name="delivery_name" value="{$list.delivery_name}">
+            <input type="hidden" name="delivery_city" value="{$list.delivery_city}">
+            <input type="hidden" name="delivery_state" value="{$list.delivery_state}">
+            <input type="hidden" name="delivery_country" value="{$list.delivery_country}">
+            <input type="hidden" name="delivery_zip" value="{$list.delivery_zip}">
+            <input type="hidden" name="delivery_telephone" value="{$list.delivery_telephone}">
+            <input type="hidden" name="delivery_address" value="{$list.delivery_address}">
+            
+            <input type="hidden" name="order_id" value="{$list.id}">
+            <input type="hidden" name="order_sn" value="{$list.sn}">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">快递公司:</td>
+						<td>
+                        {$list.Express}
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">快递单编号:</td>
+						<td>{$list.ExpressSN}</td>
+					</tr> 
+                    
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="button" value="打印发货单" onClick="javascript:myPrintSetup2()">
+                        </td>
+					</tr>
+            </table>
+            
+            </form>
+            <script language="javascript" type="text/javascript"> 
+			function myPrintSetup2() {		
+				CreatePage();
+				LODOP.ADD_PRINT_SETUP_BKIMG("<img width='880' height='500' border='0' src='__PUBLIC__/skin/orders/{$list.Express}.jpg'>");
+				LODOP.SET_PRINT_PAGESIZE(2,'500px','880px','a4');
+				LODOP.PRINT_SETUP();		
+			};
+			function CreatePage() {
+				
+				LODOP.PRINT_INIT("打印快递单");
+				<volist name="blist" id="vo">
+				LODOP.ADD_PRINT_TEXT({$vo.top},{$vo.left},{$vo.width},{$vo.height},"{$list[$vo['filed']]}");
+				</volist>
+			};			
+			</script>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

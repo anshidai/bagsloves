@@ -1,0 +1,366 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+function ajaxFileUpload()
+{
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+	$.ajaxFileUpload
+	(
+	{
+		url:"{:U('Setting/upload')}",
+		secureuri:false,
+		fileElementId:'fileToUpload',
+		dataType: 'json',
+		success: function (data, status)
+		{
+			if (status==1){
+				$("#msg").text(data.info);
+			}
+			else{
+				$("#msg").text(data.info);
+				$('#sitelogobox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+				$("#sitelogobox").show();
+				$("#sitelogo").val(data.data.savename);
+			}
+		},
+		error: function (data, status, e)
+		{
+			alert(e);
+		}
+	}
+	)
+	return false;
+}
+function ajaxFileUpload2()
+{
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+	$.ajaxFileUpload
+	(
+	{
+		url:"{:U('Setting/upload')}",
+		secureuri:false,
+		fileElementId:'fileToUpload2',
+		dataType: 'json',
+		success: function (data, status)
+		{
+			if (status==1){
+				$("#msg").text(data.info);
+			}
+			else{
+				$("#msg").text(data.info);
+				$('#ImgWaterPathbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+				$("#ImgWaterPathbox").show();
+				$("#ImgWaterPath").val(data.data.savename);
+			}
+		},
+		error: function (data, status, e)
+		{
+			alert(e);
+		}
+	}
+	)
+	return false;
+}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			<h1>站点基本设置</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+            <form action="{:U('Setting/doBase')}" name="myform" method="post">
+            <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>基本信息</span></a></li>
+					<li><a href="#tab02"><span>参数设置</span></a></li>
+					<li><a href="#tab03"><span>公告设置</span></a></li>
+					<li><a href="#tab04"><span>产品说明</span></a></li>
+                    <li><a href="#tab05"><span>SEO资料</span></a></li>
+				</ul>
+			</div> 
+			<div id="tab01">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:160px;">网站名称(标题):</td>
+						<td><input type="text" size="40" name="sitename" class="input-text" value="{:GetValue('sitename')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">网站地址:</td>
+						<td><input type="text" size="40" name="siteurl" class="input-text" value="{:GetValue('siteurl')}" /></td>
+				 	</tr>
+				 	 <tr>
+						<td style="width:120px;">网站LOGO:</td>
+						<td><input type="file" size="20" id="fileToUpload" name="fileToUpload" class="input-text"  /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload();" /><input type="hidden" name="sitelogo" id="sitelogo" value="{:GetValue('sitelogo')}" />
+                        <br>
+                        <span id="sitelogobox">
+                         <if condition="GetValue('sitelogo') neq ''">
+                        <img src="__ROOT__/{:GetValue('sitelogo')}" width="100" />
+                        </if>
+                        </span>
+                       
+                        </td>
+					</tr>
+					
+					 <tr>
+						<td style="width:120px;">菜单显示产品计数</td>
+						<td>显示<input type="radio" size="40" name="productCount" class="input-text" value="1"  <eq name="productCount" value="1">checked=checked</eq>/>不显示<input type="radio" size="40" name="productCount" class="input-text" value="0"  <eq name="productCount" value="0">checked=checked</eq>/></td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">是否弹窗登录</td>
+						<td>直接弹窗<input type="radio" size="40" name="isAjaxLogin" class="input-text" value="1" <eq name="isAjaxLogin" value="1">checked=checked</eq>/>跳转登录<input type="radio" size="40" name="isAjaxLogin" class="input-text" value="0" <eq name="isAjaxLogin" value="0">checked=checked</eq>/></td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">首页搜索的关键字</td>
+						<td><input type="text" size="40" name="hotsearch" class="input-text" value="{:GetValue('hotsearch')}" />(用,逗号分隔)</td>
+					</tr>
+					<tr>
+						<td style="width:120px;">产品图片加水印:</td>
+						<td><input type="radio" value="1"  name="ImgWater" class="input-text"  <eq name="ImgWater" value="1">checked=checked</eq>/>启用
+						<input type="radio" value="0"  name="ImgWater" class="input-text" <eq name="ImgWater" value="0">checked=checked</eq> />禁用(产品图片小于水印图片时无效)</td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">水印图片:</td>
+						<td><input type="file" size="20" id="fileToUpload2" name="fileToUpload2" class="input-text"  /><input class="input-submit" id="upload2"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload2();" /><input type="hidden" name="ImgWaterPath" id="ImgWaterPath" value="{:GetValue('ImgWaterPath')}" />
+                        <br>
+                        <span id="ImgWaterPathbox">
+                        <if condition="GetValue('ImgWaterPath') neq ''">
+                        <img src="__ROOT__/{:GetValue('ImgWaterPath')}" width="100"  />
+                        </if></span>
+                       </td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">上传图片(文件)自动命名:</td>
+						<td><input type="radio" value="1"  name="uploadsaveRule" class="input-text"  <eq name="uploadsaveRule" value="1">checked=checked</eq>/>启用
+						<input type="radio" value="0"  name="uploadsaveRule" class="input-text" <eq name="uploadsaveRule" value="0">checked=checked</eq> />禁用(是否开启产品图片自动随机命名)
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">只限产品图加水印:</td>
+						<td><input type="radio" value="1"  name="is_only_proimg_water" class="input-text"  <eq name="is_only_proimg_water" value="1">checked=checked</eq>/>启用
+						<input type="radio" value="0"  name="is_only_proimg_water" class="input-text" <eq name="is_only_proimg_water" value="0">checked=checked</eq> />禁用(产品图片小于水印图片时无效)(关闭时全站上传图片时都加水印)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">水印透明度:</td>
+						<td><input type="text" size="20" name="ImageWaterAlpha" class="input-text" value="{:GetValue('ImageWaterAlpha')}"/>(百分比,默认80)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">水印位置:</td>
+						<td><table  class="nostyle">
+						<tr>
+						<td>随机位置<input type="radio" value="0"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="0">checked=checked</eq> /></td>
+						<td>顶端居左<input type="radio" value="1"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="1">checked=checked</eq> /></td>
+						<td>顶端居中<input type="radio" value="2"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="2">checked=checked</eq> /></td>
+						<td>顶端居右<input type="radio" value="3"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="3">checked=checked</eq> /></td>
+						<td>中部居左<input type="radio" value="4"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="4">checked=checked</eq> /></td>
+						</tr>
+						<tr>
+						<td>中部居中<input type="radio" value="5"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="5">checked=checked</eq>/></td>
+						<td>中部居右<input type="radio" value="6"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="6">checked=checked</eq> /></td>
+						<td>底端居左<input type="radio" value="7"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="7">checked=checked</eq> /></td>
+						<td>底端居中<input type="radio" value="8"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="8">checked=checked</eq> /></td>
+						<td>底端居右<input type="radio" value="9"  name="ImgWaterPos" class="input-text"  <eq name="ImgWaterPos" value="9">checked=checked</eq> /></td>
+						</tr>
+						</table>
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">Hotmail:</td>
+						<td><input type="text" size="40" name="Hotmail" class="input-text" value="{:GetValue('Hotmail')}" />(有多个用,逗号分开)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">Yahoo:</td>
+						<td><input type="text" size="40" name="Yahoo" class="input-text" value="{:GetValue('Yahoo')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">Email:</td>
+						<td><input type="text" size="40" name="Email" class="input-text" value="{:GetValue('Email')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">Skype:</td>
+						<td><input type="text" size="40" name="skype" class="input-text" value="{:GetValue('skype')}" /></td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">电话号码:</td>
+						<td><input type="text" size="40" name="tel" class="input-text" value="{:GetValue('tel')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">缩略图宽度:</td>
+						<td><input type="text" size="40" name="ImgThumbW" class="input-text" value="{:GetValue('ImgThumbW')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">缩略图高度:</td>
+						<td><input type="text" size="40" name="ImgThumbH" class="input-text" value="{:GetValue('ImgThumbH')}" /></td> 
+					</tr>
+					
+					<tr>
+					<td style="width:120px;">主题设置：</td>
+					<td>
+			   			<select name="theme">
+			   			<volist name="themes" id="vo">
+			            <option value="{$vo}" <eq name="theme" value="$vo">selected</eq>>{$vo}</option>
+			            </volist>
+			          </select>
+					</td>
+					</tr>
+					<tr>
+					<td style="width:120px;">语言设置：</td>
+					<td>
+			   			<select name="lang" >
+			   			<volist name="language" id="vo">
+			            <option value="{$vo}" <eq name="lang" value="$vo">selected</eq>>{$vo}</option>
+			            </volist>
+			          </select>
+					</td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">图片放大插件:</td>
+						<td><input type="radio" value="1"  name="isBigimg" class="input-text" <eq name="isBigimg" value="1">checked=checked</eq> />启用
+						<input type="radio" value="0"  name="isBigimg" class="input-text" <eq name="isBigimg" value="0">checked=checked</eq> />禁用(鼠标跟随产品大图)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">快速购物:</td>
+						<td><input type="radio" value="1"  name="quickbuy" class="input-text" <eq name="quickbuy" value="1">checked=checked</eq> />启用
+						<input type="radio" value="0"  name="quickbuy" class="input-text" <eq name="quickbuy" value="0">checked=checked</eq> />禁用(是否强制登录)</td>
+					</tr>
+					    <tr>
+						<td style="width:120px;">订单最小金额</td>
+						<td><input type="text" size="40" name="minimum_money" class="input-text" value="{:GetValue('minimum_money')}" /><input type="checkbox" onclick="if($(this).is(':checked')) $(this).prev('input').val(0);"/>关闭(低于这个金额不可下单)</td>
+					</tr>
+					   <tr>
+						<td style="width:120px;">自动识别细节图</td>
+						<td><input type="radio" size="40" name="auto_find_gallery" class="input-text" value="1"  <eq name="auto_find_gallery" value="1">checked=checked</eq> />启用 <input type="radio" size="40" name="auto_find_gallery" class="input-text" value="0"  <eq name="auto_find_gallery" value="0">checked=checked</eq> />禁用 (产品图片和产品主图名称一样，后面用_分隔的会自动识别成细节图，开启时原先的带_图片可能会有冲突)</td>
+					</tr>
+					</table>
+					</div>
+					<div id="tab02">
+					<table class="nostyle">
+					
+                
+                    <tr>
+						<td style="width:120px;">前台新进产品显示数:</td>
+						<td><input type="input" value="{:GetValue('newpro_num')}"  name="newpro_num" class="input-text"  />(默认9个)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台推荐产品显示数:</td>
+						<td><input type="input" value="{:GetValue('recpro_num')}"  name="recpro_num" class="input-text"  /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台热门产品显示数:</td>
+						<td><input type="input" value="{:GetValue('hotpro_num')}"  name="hotpro_num" class="input-text"  /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台优惠产品显示数:</td>
+						<td><input type="input" value="{:GetValue('spepro_num')}"  name="spepro_num" class="input-text"  /></td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台产品列表页显示数:</td>
+						<td><input type="input" value="{:GetValue('pro_num')}"  name="pro_num" class="input-text"  /></td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台类别产品页显示数:</td>
+						<td><input type="input" value="{:GetValue('cate_num')}"  name="cate_num" class="input-text"  /></td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台搜索产品页显示数:</td>
+						<td><input type="input" value="{:GetValue('search_num')}"  name="search_num" class="input-text"  /></td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台产品页相关产品显示数:</td>
+						<td><input type="input" value="{:GetValue('realted_num')}"  name="realted_num" class="input-text"  />(默认6个)</td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">前台浏览历史产品显示数:</td>
+						<td><input type="input" value="{:GetValue('broswer_history_num')}"  name="broswer_history_num" class="input-text"  />(默认6个)</td> 
+					</tr>
+					</table>
+			</div>
+			<div id="tab03">
+				<table class="nostyle">
+                    <tr>
+						<td style="width:120px;">首页公告:</td>
+						<td><html:editor id="hottitle" name="hottitle" height="400x" width="560px" type="FCKeditor" >{:GetValue('hottitle')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">产品信息页的说明:</td>
+						<td><html:editor id="proinfo_remark" name="proinfo_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('proinfo_remark')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">购物车页的说明:</td>
+						<td><html:editor id="cart_remark" name="cart_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('cart_remark')}</html:editor></td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">关闭网站:</td>
+						<td>是<input type="radio" value="1"  name="close_site" class="input-text" <eq name="close_site" value="1">checked=checked</eq> />
+						否<input type="radio" value="0"  name="close_site" class="input-text" <eq name="close_site" value="0">checked=checked</eq> /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">网站关闭公告:</td>
+						<td><html:editor id="close_site_content" name="close_site_content" height="400x" width="560px" type="FCKeditor" >{:GetValue('close_site_content')}</html:editor></td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">底部版权:</td>
+						<td><html:editor id="footer_content" name="footer_content" height="400x" width="560px" type="FCKeditor" >{:GetValue('footer_content')}</html:editor></td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">尾部代码（统计，客服等）:</td>
+						<td><TEXTAREA class="large bLeft"  NAME="footcode" ROWS="8" COLS="57">{:GetValue('footcode')}</TEXTAREA></td>
+					</tr>
+			</table>
+			</div>
+			<div id="tab04">
+				<table class="nostyle">
+                    <tr>
+						<td style="width:120px;">所有产品的说明:</td>
+						<td><html:editor id="allpro_remark" name="allpro_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('allpro_remark')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">新进产品的说明:</td>
+						<td><html:editor id="newpro_remark" name="newpro_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('newpro_remark')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">热卖产品的说明:</td>
+						<td><html:editor id="hotpro_remark" name="hotpro_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('hotpro_remark')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">推荐产品的说明:</td>
+						<td><html:editor id="recpro_remark" name="recpro_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('recpro_remark')}</html:editor></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">优惠产品的说明:</td>
+						<td><html:editor id="spepro_remark" name="spepro_remark" height="400x" width="560px" type="FCKeditor" >{:GetValue('spepro_remark')}</html:editor></td>
+					</tr>
+					
+			</table>
+			</div>
+			<div id="tab05">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">KeyWords(关键字):</td>
+						<td><TEXTAREA class="large bLeft"  NAME="keywords" ROWS="8" COLS="57">{:GetValue('keywords')}</TEXTAREA></td>
+					</tr>
+                    <tr valign="top">
+						<td style="width:120px;">Description(描述):</td>
+						<td><TEXTAREA class="large bLeft"  NAME="Description" ROWS="8" COLS="57">{:GetValue('Description')}</TEXTAREA></td>
+					</tr>
+			</table>
+			</div>
+            <p class="t-left"><input type="submit" class="input-submit" value="设置" /></p>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

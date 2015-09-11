@@ -1,0 +1,59 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<script type="text/javascript">
+function sortUpdate(){
+	document.payment_form.action='{:U('Setting/doSortUpdate')}';
+	document.payment_form.submit();
+}
+$(document).ready (
+function(){
+	//选中
+	$('#check').click(function(){
+		$('input[name^=id]').attr('checked',this.checked);
+	});
+	
+}
+);
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>支付设置</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Setting/addPayment')}">安装新支付接口</a>
+            </p>
+            <form name="payment_form" method="post" />
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="check" /></th>
+				    <th style="text-align:center" width="15%">显示名</th>
+				    <th style="text-align:center" width="15%">标识</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="7%">排序</th>
+				    <th style="text-align:center" width="35%">描述</th>                 
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" >{$vo.title}</td>
+				    <td style="text-align:left" >{$vo.name}<notempty name="vo['img_url']"><br/>
+		                    <img src="__ROOT__/{$vo.img_url}" />
+		                    </notempty></td>
+                    <td style="text-align:left" >{:getStatus(GetValue($vo['name'].'_status'))}</td>
+                     <td style="text-align:left" ><input type="text" value="{$vo['sort']}" name="sort[{$vo.id}]" size="5"/></td>
+                    <td style="text-align:left" >{$vo.remark}</td>
+                    <td style="text-align:center" ><a href="{:u('Setting/editPayment',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" title="编辑" /></a>&nbsp;<a href="{:u('Setting/setPayment',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/pro_set.jpg" title="设置"/></a>&nbsp;<a href="{:u('Setting/delPayment',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/pro_del.jpg" title="删除"/></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">
+            <input type="hidden" value="" name="status" /><input type="button" value="更新排序" onclick="sortUpdate();"/>
+            <input type="submit" value="禁用" onclick="document.payment_form.status.value='0';" /><input type="submit" value="启用" onclick="document.payment_form.status.value='1';" /></p>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > Document Not Found</div>
+          <div class="list2_content">
+　
+<table class="text" align="center" border="0" cellpadding="10" cellspacing="0" width="100%" style="text-align:left">
+<tbody><tr>
+<td>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td width="20">　</td>
+<td style="text-align:center"><img src="__PUBLIC__/skin/admin/404error.gif" height="66" width="400"></td>
+</tr></tbody></table></td></tr>
+<tr>
+<td>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td background="/./Tpl/default/Public/admin/dot_01.gif" height="1"></td></tr></tbody></table><br>
+<table class="text" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr>
+<td width="80">　</td>
+<td>
+<p><strong><font color="#ba1c1c">Document Not Found:</font></strong><br>
+  <br>
+Didn't find the page you want to visit, please check whether you input the correct URL. <br><br>Please try the following operations:</p>
+<p>·If you have in the address bar of input this page address, please make sure the spelling is correct.	<br>
+·Open the site, and then find point to your home page are interested in information links.<br>
+·Click <a href="javascript:history.back(1)"><font color="#BA1C1C">Back</font></a> or <a href="/"><font color="#BA1C1C">Go Home</font></a> link,or try other links.<br>
+·Click <a href="#"><font color="#BA1C1C">search</font></a> link,looking for information on the Internet.</p>
+<p>If you browse our website, been repeated this mistake, please contact your administrator!&nbsp;</p>
+<div><font color="#ba1c1c">Wait for 5 seconds, the system will automatically returned to the site's home page...</font></div></td></tr></tbody></table></td></tr></tbody></table>
+<!--<script language="JavaScript" type="text/javascript">
+function go()
+{
+        location.href = "/";
+}
+setTimeout("go()", 5000);
+</script>-->
+ </div>
+        </div>
+      </div>
+    </div>
+
+  <include file="Public:footer" />

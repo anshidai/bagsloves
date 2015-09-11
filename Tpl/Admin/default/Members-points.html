@@ -1,0 +1,81 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Members/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>会员积分管理</h1>
+            <p class="msg info">提示：</p>
+            <form action="{:U('Members/addpoints')}" method="post" >
+            <fieldset>
+				<legend>添加会员积分</legend>
+				<table class="nostyle">
+					<tbody>
+					<tr>
+						<td style="width: 70px;">email:</td>
+						<td><input type="text" class="input-text" name="email" size="40" value="{$email}"><input type="button" value="查找" 
+						onclick="form.action='{:U('Members/points')}';form.submit();"></input></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">当前积分:</td>
+						<td><span id="point">{$point}</span></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">当前等级:</td>
+						<td><span id="point">{$group["name"]}</span></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">添加积分:</td>
+						<td><input type="text" class="input-text" name="points" size="40">（正数为增加，负数为减少）</td>
+					</tr>
+					
+					
+					<tr>
+						<td class="t-right" colspan="2"><input type="submit" value="添加" class="input-submit"></td>
+					</tr>
+				</tbody></table>
+			</fieldset> 
+			</form>
+            
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

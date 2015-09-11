@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>购物订单打印</title>
+<style type="text/css" media="print">
+.noprint {
+	display : none
+}
+</style>
+<style type="text/css" media="screen,print">
+#think_run_time,#think_page_trace {
+	display:none;	
+}
+.x-barcode {
+	padding:0;
+	margin:0
+}
+body {
+	margin:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.td_frame {
+	padding:5px 0 5px 0;
+	border-bottom:2px solid #000000;
+}
+img {
+	padding:2px;
+	border:0;
+}
+p {
+	margin:8px 0 8px 0;
+}
+h1 {
+	font-size:16px;
+	font-weight:bold;
+	margin:0;
+}
+h2 {
+	font-size:14px;
+	font-weight:bold;
+	margin:0;
+}
+.table_data_title {
+	font-size:14px;
+	font-weight:bold;
+	height:25px;
+}
+.table_data_content {
+	height:20px;
+	line-height:20px;
+}
+#print_confirm {
+	width:100%;
+	height:30px;
+	border-top:1px solid #999999;
+	padding-top:4px;
+	background-color:#5473ae;
+	position:absolute;
+}
+#btn_print {
+	width:71px;
+	height:24px;
+	background-image:url(__PUBLIC__/skin/orders/btn_print.gif);
+	cursor:pointer;
+	margin-left:auto;
+	margin-right:auto;
+}
+#barcode {
+	width:150px;
+	height:50px;
+	background:url(__PUBLIC__/skin/orders/bar_code.gif) no-repeat;
+}
+</style>
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script language="JavaScript" type="text/javascript">
+	$(function(){
+		$('#chk_pic_print').click(function(){
+				$(this).attr('checked') && $('img').show() || $('img').hide();
+			}
+		);
+		$('#btn_print').click(function(){
+			window.print();
+		});
+		$('#remove').click(function(){
+			var index=$(this).parent().index();
+			$(this).parentsUntil('table').children('tr').each(function(i,el){
+				$(el).children('td').eq(index).remove();
+			});
+		});
+		$('.removeone').click(function(){
+			$(this).parent().parent().hide();
+		});
+	});
+</script>
+</head>
+<body>
+<div id="print1">
+  <table class="table_frame" align="center" border="0" cellpadding="0" cellspacing="0" width="90%">
+    <tbody>
+      <tr>
+        <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td class="td_frame"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <td colspan="3"></td>
+                        <td><div id="chk_print1" class="noprint">
+                            <input name="chk_pic_print" id="chk_pic_print" checked="checked" type="checkbox">
+                            <label class="label_pic_print" for="chk_pic_print">打印图片</label>
+                          </div></td>
+                      </tr>
+                      <tr>
+                        <td><img src=".././{:GetValue('sitelogo')}" height="60" width="150px"></td>
+                        <td width="35%"><h1>{:GetValue('sitename')}</h1> 
+                          {:GetValue('siteurl')}</td>
+                        <td style="font-size: 16pt;" width="40%"></td>
+                        <td width="20%"><p>客户：{$shippingInfo["member_firstname"]} {$shippingInfo["member_lastname"]}</p>
+                          <p> 电话：{$shippingInfo["member_telephone"]}</p></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+            <tbody>
+              <tr>
+                <td><h2>订单号：{$shippingInfo["sn"]}</h2></td>
+                <td align="right"><h2>订购日期：{:toDate($shippingInfo['dateline'])}</h2></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+            <tbody>
+              <tr class="table_data_title">
+                <td>No</td>
+                <td>ID</td>
+                <td>商品图片</td>
+                <td>商品名称</td>
+                <td>货号</td>
+                <td>成本价</td>
+                <td>供应商</td>
+                <td>单价</td>
+                <td>属性</td>
+                <td>数量</td>
+                <td>小计</td>
+                <td><a href="###" id="remove">移出</a></td>
+              </tr>
+              <volist name="list" id="vo" key="key">
+              <tr>
+                <td>{$key}</td>
+                <td>{$vo.products_id}</td>
+                 <td><img class="product" src="__ROOT__/{$vo.bigimage}" align="absmiddle" height="60" width="60"></td> 
+                <td>{$vo.products_name}</td>
+                
+                <td>{$vo.serial}</td>
+                <td>{$shippingInfo.currencies_code}{$vo.costprice}</td>
+                <td>{$vo.provider}</td>
+                
+                <td>{$shippingInfo.currencies_code}{$vo.price}</td>
+                <td> <volist name="vo['products_model']" id="subvo">
+					{$subvo['name']}:{$subvo['value']}<br/>
+
+</volist></td>
+                <td>{$vo.products_quantity}</td>
+                <td>{$shippingInfo.currencies_code}{$vo.products_total}</td>
+                <td><a href="###" class="removeone">移出</a></td>
+              </tr>
+              </volist>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td style="height: 150px;" valign="top" width="80%"> <p>订单附言：</p>
+                {$shippingInfo.BuyNote}
+                </td>
+                <td valign="top" width="20%">
+                <gt name="products_total" value="0">
+                	<p>商品总价：{$shippingInfo.currencies_code}{$products_total}</p>
+                </gt>
+                <notempty name="discount['text']">
+                	<p>折扣信息：{$discount['text']}</p>
+                </notempty>
+                <gt name="shippingInfo['shippingmoney']" value="0">
+                  <p>配送费用：{$shippingInfo.currencies_code}{$shippingInfo.shippingmoney}</p>
+                  </gt>
+                  <gt name="shippingInfo['insurance']" value="0">
+                  <p>保价费用：{$shippingInfo.currencies_code}{$shippingInfo.insurance}</p>
+                  </gt>
+                  <gt name="shippingInfo['paymoney']" value="0">
+                  <p>支付手续费：{$shippingInfo.currencies_code}{$shippingInfo.paymoney}</p>
+                  </gt>
+                  <gt name="total_weight" value="0">
+                  <p>总重量：{$total_weight}千克</p>
+                  </gt>
+                  <p>总金额：{$shippingInfo.currencies_code}{$shippingInfo['orders_total']}</p>
+                  </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      </table>
+       <table class="table_frame" align="center" border="0" cellpadding="0" cellspacing="0" width="90%" style="font-size:16px;">
+      <tr>
+        <td class="td_frame" align="center"><table width="90%" border="0" cellpadding="0" cellspacing="1" style="background-color:#000">
+  <tr> 
+    <td colspan="4" bgcolor="#FFFFFF" style="font-weight: bold;">收货信息</td>
+  </tr>
+  <tr>
+    <td width="12%" rowspan="2" bgcolor="#FFFFFF">姓名:</td>
+    <td width="34%" bgcolor="#FFFFFF">{$shippingInfo.delivery_firstname}/{$shippingInfo.delivery_lastname}</td>
+    <td width="33%" bgcolor="#FFFFFF">支付方式:</td>
+    <td width="21%" bgcolor="#FFFFFF">{$shippingInfo.payment_module_code}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">Email:{$shippingInfo.delivery_email}</td>
+    <td width="33%" bgcolor="#FFFFFF">配送方式:</td>
+    <td width="21%" bgcolor="#FFFFFF">{$shippingInfo['shipping_method']}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">国家:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_country}</td>
+    <td bgcolor="#FFFFFF">省份:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_state}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">城市:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_city}</td>
+    <td bgcolor="#FFFFFF">地址:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_address}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">邮编:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_zip}</td>
+    <td bgcolor="#FFFFFF">电话:</td>
+    <td bgcolor="#FFFFFF">{$shippingInfo.delivery_telephone}</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF">备注信息:</td>
+    <td colspan="3" bgcolor="#FFFFFF">{$shippingInfo.BuyNote}</td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="#FFFFFF" style="text-align: center;">此次共购买 <span style="color: #F93;">{$products_sum}</span> 件商品 应付总金额 <span style="color: #F93;">{$shippingInfo.currencies_code}{$shippingInfo['orders_total']}</span></td> 
+  </tr>
+</table></td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+<div id="print2"> </div>
+<div  id="print_confirm" class="noprint">
+  <div id="btn_print"></div>
+</div>
+</body>
+</html>

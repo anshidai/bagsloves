@@ -1,0 +1,265 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Template for designing a screen layout
+ * (de) Gestaltungsvorlage für die Erstellung eines Screenlayouts
+ *
+ * @copyright       Copyright 2005-2010, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.3
+ * @revision        $Revision:392 $
+ * @lastmodified    $Date:2009-07-05 12:18:40 +0200 (So, 05. Jul 2009) $
+ */
+  /** 
+   * (en) Forcing vertical scrollbars in IE8, Firefox, Webkit & Opera 
+   * (de) Erzwingen vertikaler Scrollbalken in IE8, Firefox, Webkit & Opera 
+   *
+   * @workaround
+   * @affected IE8, FF, Webkit, Opera
+   * @css-for all
+   * @valid CSS3
+   */
+
+
+ /*------------------------------------------------------------------------------------------------------*/
+
+ /**
+  * Design of the Basic Layout | Gestaltung des YAML Basis-Layouts
+  *
+  * @section layout-basics
+  */
+
+  /* Page margins and background | Randbereiche & Seitenhintergrund */
+  body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 20px;
+	color: #000000;
+	margin: 0px;
+	padding: 0px;
+}
+h1,h2,h3,h4,h5,h6 { page-break-after:avoid; }
+#topnav, #nav, #search, nav { display:none; }
+  /* Layout:Width, Background, Border | Layout:Breite, Hintergrund, Rahmen */
+
+  .page{
+	width: 960px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+  /* Design of the Main Layout Elements | Gestaltung der Hauptelemente des Layouts */
+  #header, #nav, #main, #footer { clear:both; }
+  #header { background-color: #000; }
+  #header_wrap {
+	height: 75px;
+	padding-top: 15px;
+	color: #26C6FC;
+	width: 960px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#header_wrap h2{
+	font-size: 25px;
+	font-weight: bold;
+	padding-right: 0px;
+	margin: 0px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	float: left;
+}
+
+#header_wrap h2 a{
+	color: #26C6FC;
+}
+#global-nav {
+	float: right;
+	width: 200px;
+	border: 1px solid #666;
+	padding: 7px;
+	margin: 0px;
+	text-align: center;
+	color: #26c6fc;
+}
+#global-nav li{
+	list-style-type: none;
+}
+.login a,.login a:hover{
+	color: #26c6fc;
+}
+
+  #topnav {  }
+
+  #main {
+	float: left;
+	width: 960px;
+}
+
+  #footer {
+	float: left;
+	width: 960px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+ /*------------------------------------------------------------------------------------------------------*/
+
+ /**
+  * Formatting of the Content Area | Formatierung der Inhaltsbereichs
+  *
+  * @section layout-main
+  */
+
+  #col1 {  }
+  #col1_content {  }
+
+  #col2 {
+	float: right;
+	width: 214px;
+	padding-top: 7px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+  #col2_content {
+	background-color: #f0f0f0;
+	width: 212px;
+	border: 1px solid #b0b0b0;
+	padding-top: 7px;
+	padding-right: 0px;
+	padding-bottom: 7px;
+	padding-left: 0px;
+	margin: 0px;
+}
+#col2_content ul{
+	margin: 0px;
+	padding: 0px;
+}
+  #col2_content .menu{
+	width: 202px;
+	float: left;
+	list-style-type: none;
+	margin-top: 2px;
+	background-color: #c0c0c0;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding-top: 5px;
+	padding-right: 0px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	font-weight: bolder;
+	line-height: 15px;
+	color: #4c3399;
+  }
+  #col2_content .menu a{
+	  color: #4c3399;
+  }
+  #col3 {
+	width: auto;
+	margin-left: 0px;
+	padding-top: 7px;
+	padding-right: 8px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+  #col3_content {  }
+
+
+ /*------------------------------------------------------------------------------------------------------*/
+
+ /**
+  * Design of Additional Layout Elements | Gestaltung weiterer Layoutelemente
+  *
+  * @section layout-misc
+  */
+  
+  
+  
+ /**
+  * ------------------------------------------------------------------------------------------------- #
+  *
+  * Skiplinks 
+  *
+  * (en) Visual styling for skiplink navigation
+  * (de) Visuelle Gestaltung der Skiplink-Navigation
+  *
+  * @section content-skiplinks
+  */
+  
+  #skiplinks a.skip:focus,
+  #skiplinks a.skip:active { 
+	color:#fff; 
+	background:#333; 
+	border-bottom:1px #000 solid;
+	padding:10px 0;
+	text-decoration:none;
+  }  
+.left_col3 {
+	float: left;
+	width: 360px;
+	line-height:25px;
+	padding-right:4px;
+}
+.left_col3 fieldset {
+	border: 1px solid #CCCCCC;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}
+.col3_nav {
+	float: left;
+	width: 730px;
+	text-align:left;
+	padding-right: 4px;
+	padding-left: 4px;
+	padding-top:5px;
+}
+.col3_nav h3 {
+	color: #333333;
+}
+.col3_nav span {
+	font-size: 14px;
+	color: #666666;
+	line-height: 20px;
+}
+.inputLabel {
+	display: block;
+}
+.forward {
+	padding-top: 15px;
+}
+.right_col3 {
+	float: left;
+	width: 360px;
+	line-height:25px;
+	padding-left:4px;
+}
+.right_col3 fieldset {
+    border: 1px solid #CCCCCC;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}
+.col3_content {
+	float: left;
+	width: 730px;
+	padding-right: 8px;
+	line-height:25px;
+}
+.col3_content fieldset {
+    border: 1px solid #CCCCCC;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}

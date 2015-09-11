@@ -1,0 +1,50 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑角色</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Role/add')}">添加新角色</a>
+            </p>
+            <form action="{:U('Role/Update')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">角色名称:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list['name']}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">上级分类:</td>
+						<td>
+                        
+                        <select name="pid" id="pid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="roletree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select>
+                        
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1"  name="status" id="status" class="input-text"  />启用<input type="radio" value="0"  name="status" class="input-text" id="status"  />禁用</td>
+					</tr>
+                    
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            <script language="javascript" type="text/javascript">
+			   $("#pid").val({$list['pid']});
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+            </form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

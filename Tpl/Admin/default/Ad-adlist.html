@@ -1,0 +1,82 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Ad/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+	//选中
+	$('#check').click(function(){
+		$('input[name^=id]').attr('checked',this.checked);
+	});
+	$('input:checkbox[name^=id]').each(function(i,el){
+		var id=$(this).val();
+		$(this).parent().next().children('a').click(function(){
+			if(!$(this).next().length){
+				$this=$(this);
+				$(this).after("<p><textarea>"+$(this).text()+"</textarea><br/><input type='button' class='save' value='保存'/><input type='button' class='cannel' value='取消'/></p>");
+
+				$(this).siblings().find('input.cannel').click(function(){
+					$(this).parent('p').remove();
+				});
+				$(this).siblings().find('input.save').click(function(){
+					$.post("{:U('Ad/rename')}",{ 'id':id,'remark':$(this).siblings('textarea').val() },function(data,status){
+						if(!data.status){
+							alert(data.info);
+						}else{
+							$this.text(data['data'].remark).siblings('p').remove();
+						}
+					},'json');
+				});
+			}
+			return false;
+		});
+	}).parents('tr').mouseover(function(){
+		$(this).css('background-color','#E6F7D4');
+	}).mouseout(function(){
+		$(this).css('background-color','#fff');
+	});
+}
+);
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>广告管理</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Ad/add')}">添加新广告</a>
+            </p>
+            <p>类型: <a href="{:U('Ad/adlist')}">所有</a><volist name="type" id="vo">&nbsp;&nbsp;<a href="{:U('Ad/adlist',array('type'=>$vo['type']))}">{$vo['type']}</a></volist>
+            	</p>
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="check" /></th>
+				    <th style="text-align:center" width="35%">广告名称</th>
+				    <th style="text-align:center" width="15%">类型</th>      
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" ><a href="javascript:void(0);">{$vo.remark}</a></td>
+				    <td style="text-align:center" >{$vo.type}</td>
+                    <td style="text-align:center" ><a href="{:u('Ad/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" /></a>&nbsp;&nbsp;<a  href="{:u('Ad/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/pro_del.jpg" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 <p class="t-left"><input type="button" value="批量删除" onclick="delall();" /></p>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

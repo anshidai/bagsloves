@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>{$msgTitle}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+body{background:#fff;margin:200px auto;font:14px/150% verdana,georgia,sans-serif;color:#000;text-align:center}
+a:link{color:#2c4c78;text-decoration:none}
+a:visited{color:#2c4c78;text-decoration:none}
+a:hover{color:#2c4c78;text-decoration:none}
+a:active{color:#2c4c78;text-decoration:none}
+h1{padding-right:4px;padding-left:4px;font-size:14px;background:#eee;padding-bottom:4px;margin:0px;padding-top:4px;border-bottom:#84b0c7 1px solid}
+div{border-right:#84b0c7 1px solid;border-top:#84b0c7 1px solid;background:#e5eef5;margin:0px auto;border-left:#84b0c7 1px solid;width:500px;border-bottom:#84b0c7 1px solid}p{padding-right:15px;padding-left:15px;padding-bottom:15px;margin:0px;padding-top:15px}
+</style>
+</head>
+<body>
+<div>
+<H1>{$msgTitle}</H1>
+<p>
+	<present name="message" ><font style="color:<eq name="status" value="1">blue<else/>red</eq>">{$message}</font><br/></present>
+	<present name="error" ><font style="color:red">{$error}</font></present>
+	<present name="closeWin" >System will <span id="jumpTo" style="color:blue;font-weight:bold">{$waitSecond}</span> Seconds automatically shut down, you do not want to wait, just click <a href="{$jumpUrl}">Here</a> Close</present>
+	<notpresent name="closeWin" >System will <span id="jumpTo" style="color:blue;font-weight:bold">{$waitSecond}</span> Seconds after the auto-jump, if you do not want to wait, just click <a href="{$jumpUrl}">Here</a> jump</notpresent>
+</p>
+</div>
+
+<script type="text/javascript">    
+function delayURL(secs, url)
+{       
+ var jumpTo = document.getElementById('jumpTo');
+ jumpTo.innerHTML=secs; 
+ if(--secs>0) {    
+	setTimeout("delayURL("+secs+",'"+url+"')",1000);    
+  }
+  else{      
+     location.href = url;    
+  }    
+ }
+
+delayURL({$waitSecond}, "{$jumpUrl}");
+ 
+</script>
+
+</body>
+</html>

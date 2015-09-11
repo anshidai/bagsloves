@@ -1,0 +1,60 @@
+<td style="width:120px;" colspan="2">
+<present name="attr">
+属性设置:<br/>
+<table  class="nostyle">
+                     <volist name="attr" id="vo">
+                    <tr>
+						<td style="width:120px;">
+                        <eq name="vo['input_type']" value="1">
+                        [<a href="javascript:void(0);" onClick="addvalues('{$vo.id}');">+</a>]
+                        </eq>
+                         [<a href="javascript:void(0);" onClick="$(this).parent().parent().remove();">-</a>]{$vo.name}:
+                        <input type="hidden" name="attr_id[]" value="{$vo.id}">
+                        </td>
+						<td>
+                        <label id="values_{$vo.id}">
+                        <eq name="vo['input_type']" value="0">
+                        <input type="text" size="40" name="attr_value_{$vo.id}[]" class="input-text" value="" />
+                        </eq>
+                        <eq name="vo['input_type']" value="1">
+                        <select name="attr_value_{$vo.id}[]">
+                        <option value="">请选择或删除</option>
+                        <volist name="vo['values']" id="subvo">
+                        <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                        </eq>
+                        
+                       
+                        <br>
+                        </label>
+                        
+                        <volist name="vo['attrs']" id="subvo1" key="kk">
+                        
+                        
+                        <label id="values_{$vo.id}">
+                      <!--  <eq name="vo['input_type']" value="0">
+                        <input type="text" size="40" name="attr_value_{$vo.id}[]" class="input-text" value="{$subvo1['attr_value']}" />
+                        </eq>-->
+                        <eq name="vo['input_type']" value="1">
+                        <select name="attr_value_{$vo.id}[]" id="attr_value_{$vo.id}_{$kk}">
+                        <option value="">请选择或删除</option>
+                        <volist name="vo['values']" id="subvo">                       
+                         <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                       <script language="JavaScript" type="text/javascript">
+                       	 document.getElementById("attr_value_{$vo.id}_{$kk}").value="{$subvo1['attr_value']}";
+                       </script>
+                       
+                        </eq> 
+                        <br/>                       
+                        </volist>
+                        
+                        <label id="newvalues_{$vo.id}">
+                        </label>
+                        </td>
+					</tr>
+                    </volist>
+</table>
+                    </present></td>

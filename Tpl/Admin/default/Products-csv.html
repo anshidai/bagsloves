@@ -1,0 +1,50 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>批量CSV文件处理</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span></p>
+            	
+            <p id="btn-create" class="box">
+              <a href="__ROOT__/Public/empty.csv" target="_blank">下载示例CSV</a>
+            </p>
+            <!-- Tabs -->
+			<div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>导出CSV</span></a></li>
+					<li><a href="#tab02"><span>导入CSV</span></a></li>
+				</ul>
+			</div> <!-- /tabs -->
+			
+            <div id="tab01">
+            <form action="{:U('Products/exportcsv')}"  method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+        	<tr>
+					<td style="width:120px;">指定导出类别:</td>
+					<td>  
+			<select name="cateid">
+			<option value="">所有类别</option>
+            <volist name="list" id="vo">
+            <option value="{$vo.id}">{:class_str_insert($vo['deep'],"----")}{$vo.name}</option>
+            </volist>
+            </select> <input type="submit" class="input-submit" value="导出" /></td>
+				</tr>
+            </table>
+            </form>
+            </div>
+            <div id="tab02"> 
+             <form action="{:U('Products/importcsv')}" method="post" enctype="multipart/form-data">
+             
+            <table class="nostyle">
+        	<tr>
+					<td style="width:120px;">CSV文件:</td>
+					<td><input type="file" size="40" name="csvfile" /> <input type="submit" class="input-submit" value="导入" /></td>
+				</tr>
+            </table>
+            
+            </div>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,70 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑节点</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Node/add')}">添加节点</a>
+            </p>
+            <form action="{:U('Node/Update')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">应用名:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">显示名:</td>
+						<td><input type="text" size="40" name="title" class="input-text" value="{$list.title}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">类型:</td>
+						<td>
+                        <select name="level" id="level" class="input-text" >
+                        <option value="1">应用</option>
+                        <option value="0">分组</option>
+                        <option value="2">模块</option>  
+                        <option value="3">操作</option>                        
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">上级节点:</td>
+						<td>
+                        <select name="pid" id="pid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="nodetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.title}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1" name="status" class="input-text"  />启用<input type="radio" value="0"  name="status" class="input-text"  />禁用</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">简单描述:</td>
+						<td><input type="text" size="60" name="remark" class="input-text" value="{$list.remark}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="20" name="sort" class="input-text" value="{$list.sort}" /></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            <script language="javascript" type="text/javascript">
+			   $("#pid").val({$list['pid']});
+			   $("#level").val({$list['level']});
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+            </form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,72 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>查看留言</h1>
+            <p class="msg info">提示：<label id="msg"></label>	</p>
+            
+            <form action="{:U('Products_ask/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+            		
+                    <tr>
+						<td style="width:120px;">类型:</td>
+						<td>{$list['type']|products_ask}
+						<present name="list['pro']['id']">
+						(<a href="{:build_url($list['pro'],'pro_url')}">{$list['pro']['name']}</a>)
+						</present>
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">星级:</td>
+						<td><img src='__PUBLIC__/skin/admin/stars_{$list.star|default="5"}_small.gif' />
+						</td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">邮箱:</td>
+							<td>{$list['email']}</td>
+                    <tr>
+						<td style="width:120px;">昵称:</td>
+						<td>{$list['name']}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">客户名称:</td>
+						<td>{$list['name']}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">已审核:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" checked />通过<input type="radio" value="0"  name="status" class="input-text"   />不通过</td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">标题:</td>
+						<td>{$list.title}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">内容:</td>
+						<td>{$list.content}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">IP地址:</td>
+						<td>{$list.ip}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">发表时间:</td>
+						<td>{:toDate($list['dateline'])}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">回复:</td>
+						<td><textarea name="replay" style="width:200px;height:200px">{$list.replay}</textarea></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            <script language="javascript" type="text/javascript">
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

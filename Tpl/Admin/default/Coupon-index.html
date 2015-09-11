@@ -1,0 +1,123 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Coupon/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+
+function status(id,_this){
+	$.post("{:U('Coupon/status')}",'id='+id,function(data){
+		$('img',_this).attr('src',data.data['imgurl']);
+	},'json');
+	
+}
+$(document).ready (
+function(){
+	//选中
+	$('#check').click(function(){
+		$('input[name^=id]').attr('checked',this.checked);
+	});
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$('input:checkbox[name^=id]').each(function(i,el){
+		var id=$(this).val();
+		$(this).parent().next().children('a').click(function(){
+			if(!$(this).next().length){
+				$this=$(this);
+				$(this).after("<p><textarea>"+$(this).text()+"</textarea><br/><input type='button' class='save' value='保存'/><input type='button' class='cannel' value='取消'/></p>");
+
+				$(this).siblings().find('input.cannel').click(function(){
+					$(this).parent('p').remove();
+				});
+				$(this).siblings().find('input.save').click(function(){
+					$.post("{:U('Coupon/rename')}",{ 'id':id,'name':$(this).siblings('textarea').val() },function(data,status){
+						if(!data.status){
+							alert(data.info);
+						}else{
+							$this.text(data['data'].name).siblings('p').remove();
+						}
+					},'json');
+				});
+			}
+			return false;
+		});
+	}).parents('tr').mouseover(function(){
+		$(this).css('background-color','#E6F7D4');
+	}).mouseout(function(){
+		$(this).css('background-color','#fff');
+	});
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			
+			<h1>优惠券列表</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+            <a href="{:U('Coupon/add')}">生成优惠券</a>
+            </p>
+            <form action="{:U('Coupon/index')}" method="get" >
+            优惠券号码:<input type="text" size="20" name="coupon" class="input-text" value="" />
+                        <input type="submit" value="搜索" />
+            </form>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="check" /></th>
+				    <th style="text-align:center" width="15%">名称</th>
+				    <th style="text-align:center" width="15%">号码</th>
+				    <th style="text-align:center" width="5%">金额</th>
+				    <th style="text-align:center" width="10%">生效时间</th>
+				    <th style="text-align:center" width="10%">到期时间</th>
+				    <th style="text-align:center" width="10%">创建时间</th>
+                    <th style="text-align:center" width="7%">过期</th>                
+                    <th style="text-align:center" width="7%">使用者</th>                
+                    <th style="text-align:center" width="5%">状态</th>                
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" id="classname" ><a href="javascript:void(0);">{$vo.name}</a></td>
+				    <td style="text-align:left" >{$vo['coupon']}</td>
+				    <td style="text-align:left" >{$vo['amount']}</td>
+				    <td style="text-align:left" >{:date('Y-m-d',$vo['start_time'])}</td>
+				    <td style="text-align:left" >{:date('Y-m-d',$vo['expire_time'])}</td>
+				    <td style="text-align:left" >{:date('Y-m-d',$vo['dateline'])}</td>
+			
+				    <td style="text-align:left" ><if condition="time() gt $vo['expire_time']"><span style="color:red">过期</span><else/>正常</if></td>
+				    <td style="text-align:left" >{$vo.user}</td>
+                    <td style="text-align:left" ><a href="javascript:void(0);" onclick="javascript:status({$vo['id']},this);">{:getStatus($vo["status"],true)}</a></td>
+                    <td style="text-align:center" ><a href="{:U('Coupon/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" /></a>&nbsp;<a name="del_{$vo.id}"  href="{:U('Coupon/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 <p class="t-left"><input type="button" value="批量删除" onclick="delall();" /></p>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

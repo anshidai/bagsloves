@@ -1,0 +1,59 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+  <script language="javascript" type="text/javascript">
+  $(function(){
+  	$('form[name=myform] input:checkbox').click(function(){
+  		if($(this).attr('checked')){
+  			$(this).prev('input').val(0);
+  		}
+  	});
+  });
+  $("input[name='sendemailtype'][value={:GetValue('sendemailtype')}]").attr("checked",true);
+  $("input[name='smtpisssl'][value={:GetValue('smtpisssl')}]").attr("checked",true);
+			</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>{$payment.name}相关费用设置</h1>
+            <p class="msg info">提示：</p>
+               <p id="btn-create" class="box">
+              <div id="pl"><a href="{:U('Setting/setPayment',array('id'=>$payment['id']))}">返回{$payment.name}设置</a></div>
+            </p>
+            <form action="{:U('Fee/Update')}" name="myform" method="post">
+            <table class="nostyle">
+                     
+                     <tr>
+						<td style="width:120px;">订单最小金额</td>
+						<td><input type="text" size="40" name="minimum_money" class="input-text" value="{$list.minimum_money}" /><input type="checkbox"/>关闭(低于这个金额不可下单)</td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">免支付手续费最小金额:</td>
+						<td><input type="text" size="40" name="min_freepaymoney" class="input-text" value="{$list.min_freepaymoney}" /><input type="checkbox"/>关闭
+						(高于这个金额商品免手续费)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">支付手续费:</td>
+						<td><input type="text" size="40" name="paymoney" class="input-text" value="{$list.paymoney}" /><input type="checkbox"/>(手续费百分比,如0.4)</td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">保险费:</td>
+						<td><input type="text" size="40" name="insurance" class="input-text" value="{$list.insurance}" /><input type="checkbox"/>(单位每件)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">免保险费最小金额:</td>
+						<td><input type="text" size="40" name="min_insurance" class="input-text" value="{$list.min_insurance}" /><input type="checkbox"/>(高于这个金额免保险费)</td>
+					</tr>
+                    
+                   
+                    <tr valign="top">
+						<td colspan="2" class="t-right">
+						<input type="hidden" name="id" value="{$list.id}" />
+						<input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr>
+            </table>
+          
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

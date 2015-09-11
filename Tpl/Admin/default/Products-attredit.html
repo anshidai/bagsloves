@@ -1,0 +1,332 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/fileprogress.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/handlers.js"></script>
+<script language="javascript">
+
+var swfu;
+function ajaxFileUpload(fileToUpload,timestamp)
+{
+
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+	{
+		url:"{:U('Products/upload')}",
+		secureuri:false,
+		fileElementId:fileToUpload,
+		dataType: 'json',
+		success: function (data, status)
+		{
+
+			if (status==1){
+				$("#msg").text(data.info);
+
+			}
+			else{
+				$("#msg").text(data.info);
+				$("#fileToUpload_look_"+timestamp).html("<img src=\"__ROOT__/"+data.data['savename']+"\" width='31' height='31'/>");
+				$("#fileToUpload_url_"+timestamp).val(data.data['savename']);
+			}
+
+
+		},
+		error: function (data, status, e)
+		{
+			alert(e);
+		}
+	}
+	)
+	return false;
+
+}
+function del(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Products/attrdel')}","id="+id);
+		$('input:checkbox[name^=id]:checked').parent().parent().remove();
+	}
+}
+function save(){
+	var querystring=new Object();
+	$('#attrbox tr:gt(0)').each(function(i){
+		var tr=$(this);
+		var products_attr_id=tr.find('input:hidden[name=id]').val() || '';
+		var attr_id=tr.find('input:hidden[name=attr_id]').val() || '';
+		if($(tr).attr('input_type')==3){
+			var attr_value=$("input[name=attr_value]:checkbox:checked",this).get().map(function(input){
+				return input.value;
+			}).join(',') || '';
+		}else if($(tr).attr('input_type')==1){
+			var attr_value=$(tr).find("select[name=attr_value][value!='']").val() || '';
+		}else if($(tr).attr('input_type')==0){
+			var attr_value=$(tr).find("input[name=attr_value][value!='']").val() || '';
+		}
+		var attr_price=tr.find('input:text[name=attr_price]').val() || '';
+		var sort=tr.find('input:text[name=sort]').val() || '';
+		var img_url = tr.find('input:hidden[name=img_url]').val() || '';
+		querystring['products_attr_id['+i+']']=products_attr_id;
+		querystring['attr_id['+i+']']=attr_id;
+		querystring['attr_value['+i+']']=attr_value;
+		querystring['attr_price['+i+']']=attr_price;
+		querystring['sort['+i+']']=sort;
+		querystring['img_url['+i+']']=img_url;
+	});
+	querystring.products_id=$('input:hidden[name=products_id]').val();
+	if(querystring.products_id){
+		$.post("{:U('Products/attrsave')}",querystring,function(data){
+			alert("保存成功！");
+		});
+	}
+}
+$(function(){
+	$("#checkAll").click(function () {
+		$("input:checkbox[name^=id]").attr("checked",$(this).attr("checked"));
+	});
+	$("#attrbox .copy").live("click",
+	function(){
+		var str=$(this).parent().parent().html();
+		var timestamp = Date.parse(new Date());
+		var td="<input type=\"hidden\" value=\"\" name=\"img_url\" id=\"fileToUpload_url_"+timestamp+"\"><input type=\"file\" id=\"fileToUpload_"+timestamp+"\" name=\"fileToUpload[]\"><input type=\"button\" onclick=\"return ajaxFileUpload(\'fileToUpload_"+timestamp+"\',\'"+timestamp+"\');\" value=\"上传\" name=\"upload\" id=\"upload\"><span id=\"fileToUpload_look_"+timestamp+"\"></span>";
+		var x=$(this).parent().parent().after("<tr>"+str+"</tr>");
+		$('input:file',x).parent().html(td);
+	}
+	);
+	$("#attrbox .save").live("click",function(){
+		var tr=$(this).parent().parent();
+		var input_type=tr.attr('input_type');
+		var id=$(this).parent().parent().find("[name=id]").attr("value");
+		var attr_id=$(this).parent().parent().find("[name=attr_id]").attr("value");
+		if(input_type==3){
+			var attr_value=$(this).parent().parent().find("[name=attr_value]:checked").get().map(function(i){
+				return i.value;
+			}).join(',');
+		}else{
+			var attr_value=$(this).parent().parent().find("[name=attr_value]").attr("value");
+		}
+		var attr_price=$(this).parent().parent().find("[name=attr_price]").attr("value");
+		var sort=$(this).parent().parent().find("[name=sort]").attr("value");
+		var img_url=$(this).parent().parent().find("[name=img_url]").attr("value");
+		var products_id=$("#products_id").attr("value");
+		$.getJSON(
+		"{:U('Products/attrsave')}",
+		{input_type:input_type,id:id,attr_id:attr_id,attr_value:attr_value,attr_price:attr_price,img_url:img_url,products_id:products_id,sort:sort},
+		function(data){
+			if(data.status==1){
+				alert("保存成功！");
+				tr.find("[name=id]").attr("value",data.id);
+				//var attr_value=tr.find(".copy").after("<input type='hidden' name='id' value='"+data.id+"' />");
+				var attr_value=tr.find(".copy").remove();
+
+			}
+			else{
+				alert("保存失败！");
+			}
+		}
+		);
+
+	});
+	$("#attrbox .delete").live("click",function(){
+		var tr=$(this).parent().parent();
+		var id=$(this).parent().parent().find("[name=id]").attr("value");
+		if(id>0){
+			$.getJSON(
+			"{:U('Products/attrdel')}",
+			{id:id},
+			function(data){
+				//alert("删除成功！");
+				tr.remove();
+			}
+			);
+		}else{
+			tr.remove();
+		}
+	});
+}
+);
+</script>
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>产品属性</h1>
+            <p class="msg info">提示：价格为要增加的价格</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Products/productslist')}">产品列表</a>
+            </p>
+             <table width="100%" id="attrbox" >
+				<tr >
+				    <th style="text-align:center" width="8%"><input type="checkbox" id="checkAll"/> </th>
+				    <th style="text-align:center" width="10%">属性名称</th>
+				    <th style="text-align:center" width="12%">值</th>
+                    <th style="text-align:center" width="10%">价格</th>                
+                    <th style="text-align:center" width="10%">排序</th>     
+                              
+                    <th style="text-align:center" width="20%">图片</th>              
+                    <th style="text-align:center" width="10%">操作</th>
+				</tr>
+				<volist name="attr" id="vo">
+				 <eq name="vo['input_type']" value="0">
+				 <if condition="count($vo['attrs']) eq 0">
+				<tr input_type="{$vo.input_type}">
+				    <td><font color="red">添加属性:</font></td>
+				    <td>{$vo.name}<input type="hidden" name="id" value="0"><input type="hidden" name="attr_id" value="{$vo.id}"></td>
+				    <td>
+                       <input type="text" value="" name="attr_value" />
+				    </td>
+				    <td><input name="attr_price"/></td>
+				    <td><input name="sort" /></td>
+				    
+				    <td>
+				    <input type="hidden" id="fileToUpload_url_{$vo.id}" name="img_url" value="" />
+				    <input name="fileToUpload[]" id="fileToUpload_{$vo.id}"  type="file"  /> 
+				    <input id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload_{$vo.id}','{$vo.id}');" /> 
+				    <span id="fileToUpload_look_{$vo.id}"></span>
+				      
+				    </td>
+				    <td>
+				   <!-- <a href="javascript:void(0);" class="copy" >复制</a>   -->
+				    <a href="javascript:void(0);" class="delete">删除</a>   
+				    <a href="javascript:void(0);" class="save">保存</a>   
+				    
+				    </td>
+				</tr>
+				</if>
+				</eq>
+				<eq name="vo['input_type']" value="1">
+				 <if condition="count($vo['values']) neq count($vo['attrs'])">
+				<tr  input_type="{$vo.input_type}">
+				    <td><font color="blue">添加属性:</font></td>
+				    <td>{$vo.name}<input type="hidden" name="id" value="0"><input type="hidden" name="attr_id" value="{$vo.id}"></td>
+				    <td>
+                       
+                        <select name="attr_value">
+                        <option value="" selected>请选择...</option>
+                        <volist name="vo['values']" id="subvo">
+                        <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                        
+				    </td>
+				    <td><input name="attr_price" /></td>
+				    <td><input name="sort"  /></td>
+				    
+				    <td>
+				    <input type="hidden" id="fileToUpload_url_{$vo.id}" name="img_url" value="" />
+				    <input name="fileToUpload[]" id="fileToUpload_{$vo.id}"  type="file"  /> 
+				    <input id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload_{$vo.id}','{$vo.id}');" /> 
+				    <span id="fileToUpload_look_{$vo.id}"></span>
+				    
+				    </td>
+				    <td>
+				    <a href="javascript:void(0);" class="copy" >复制</a>   
+				    <a href="javascript:void(0);" class="delete">删除</a>   
+				    <a href="javascript:void(0);" class="save">保存</a>   
+				    
+				    </td>
+				</tr>
+				</if>
+				</eq>
+				<eq name="vo['input_type']" value="3">
+				 <if condition="count($vo['attrs']) eq 0">
+				<tr  input_type="{$vo.input_type}">
+				    <td><font color="green">添加属性:</font></td>
+				    <td>{$vo.name}<input type="hidden" name="id" value="0"><input type="hidden" name="attr_id" value="{$vo.id}"></td>
+				    <td>
+				    
+                        <volist name="vo['values']" id="subvo">
+                       <input type="checkbox" name="attr_value" value="{$subvo}" />{$subvo}<br />
+
+                        
+                        </volist>
+                        
+				    </td>
+				    <td><input name="attr_price" /></td>
+				    <td><input name="sort"  /></td>
+				    
+				    <td>
+				    <input type="hidden" id="fileToUpload_url_{$vo.id}" name="img_url" value="" />
+				    <input name="fileToUpload[]" id="fileToUpload_{$vo.id}"  type="file"  /> 
+				    <input id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload_{$vo.id}','{$vo.id}');" /> 
+				    <span id="fileToUpload_look_{$vo.id}"></span>
+				    
+				    </td>
+				    <td>
+				    <a href="javascript:void(0);" class="copy" >复制</a>   
+				    <a href="javascript:void(0);" class="delete">删除</a>   
+				    <a href="javascript:void(0);" class="save">保存</a>   
+				    
+				    </td>
+				</tr>
+				</if>
+				</eq>
+				 <volist name="vo['attrs']" id="subvo1">
+				  <tr  input_type="{$vo.input_type}">
+				    <td><input type="checkbox" name="id[]" value="{$subvo1.id}" /> </td>
+				    <td>{$vo.name}<input type="hidden" name="id" value="{$subvo1.id}"><input type="hidden" name="attr_id" value="{$vo.id}"></td>
+				    <td>
+				        <eq name="vo['input_type']" value="0">
+				        
+                        <input type="text" size="40" name="attr_value" value="{$subvo1['attr_value']}" />
+                        </eq>
+                        <eq name="vo['input_type']" value="1">
+                        <select name="attr_value" id="{$subvo1['id']}">
+                        <option value="">请选择...</option>
+                        <volist name="vo['values']" id="subvo">                       
+                         <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                        
+                        <script type="text/javascript">
+                        $("#{$subvo1['id']}").val("{$subvo1['attr_value']}");
+						</script>
+                        </eq>
+                        
+				        <eq name="vo['input_type']" value="3">
+				         <volist name="vo['values']" id="subvo">
+                       <input type="checkbox" name="attr_value" value="{$subvo}" <in name="subvo" value="$subvo1['attr_value']">checked</in> />{$subvo}<br />
+
+                       
+                        </volist>
+                        </eq>
+				    </td>
+				    <td><input name="attr_price" value="{$subvo1['attr_price']}"></input></td>
+				    <td><input name="sort" value="{$subvo1['sort']}"></input></td>
+				    <td> 
+					    <input type="hidden" id="fileToUpload_url_{$subvo1['id']}" name="img_url" value="{$subvo1.img_url}" />
+					    <input name="img_url" type="file"   id="fileToUpload_{$subvo1['id']}" /> 
+					    <input id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload_{$subvo1['id']}','{$subvo1['id']}');" />
+					   <span id='fileToUpload_look_{$subvo1['id']}' >
+					   <notempty name="subvo1['img_url']">
+					   <img src="__ROOT__/{$subvo1['img_url']}"  width='31' height='31' / >
+					   </notempty>
+					   </span>
+					    </a>
+				    </td>
+				    <td> 
+				    <a href="javascript:void(0);" class="delete">删除</a>   
+				    <a href="javascript:void(0);" class="save">保存</a> 
+				    </td>
+				  </tr>
+				 </volist>
+			  </volist>
+			</table>
+			  <p class="t-left">
+            <input type="button" value="删除" onclick="del();" />
+            <input type="button" value="保存" onclick="save();" /></p>
+		</div> <!-- /content -->
+		<input type="hidden" id="products_id" name="products_id" value="{$pid}" />
+<include file="Public:adminfooter" />

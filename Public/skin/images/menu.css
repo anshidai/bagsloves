@@ -1,0 +1,28 @@
+#menu ul { 
+		/*background:url(ul-bg.gif) repeat-y 5px 0px;*/ overflow:hidden;
+	}
+	#menu ul li {
+		padding:5px 0 2px 15px; 
+		/*background:url(tree-ul-li.gif) no-repeat 5px -32px; */
+	}
+	/*#menu ul li ul {display:none;}*/
+	#menu ul li em {
+		cursor:pointer;
+		display:inline-block;
+		width:15px;
+		float:left;
+		height:15px;
+		margin-left:-14px;
+		background:url(tree-ul-li.gif) no-repeat -32px 2px;
+	}
+	#menu ul li em.off {
+		background-position: -17px -18px;
+	}
+	#menu ul li#end {
+		background-color:#FFF;
+	}
+	#menu ul.off { 
+		display:block;
+	}
+
+

@@ -1,0 +1,95 @@
+.cartlist {
+	padding: 4px;
+	border: 1px solid #CCCCCC;
+}
+
+#huo_d {
+	width: 190px;
+	background-color: #f4f4f4;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #DFDFDF;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #DFDFDF;
+	padding-left:10px;
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.cartlist td {
+	line-height: 20px;
+	color: #666666;
+	border: 1px solid #DFDFDF;
+	text-align: center;
+}
+.checkoutbox{
+	float: left;
+	width: 100%;
+	}
+.shou1 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.dizhi {
+	border: 1px solid #CCCCCC;
+	padding: 9px;
+}
+.dizhi ul {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.dizhi ul li {
+	line-height: 20px;
+	color: #999999;
+	text-align: left;
+}
+.dizhi ul li a {
+	line-height: 20px;
+	color: #999999;
+	text-decoration: underline;
+}
+.ding,.o_address {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #CCCCCC;
+	line-height: 20px;
+	color: #999999;
+	text-align: left;
+}
+.hide{
+	display:none;
+}
+.songh {
+	padding: 4px;
+	border: 1px solid #CCCCCC;
+}
+.huo_d {
+	width: 190px;
+	background-color: #f4f4f4;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #DFDFDF;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #DFDFDF;
+	padding-left:10px;
+	text-align:left;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.huo_f {
+	padding-left: 5px;
+	line-height: 20px;
+	color: #666666;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #DFDFDF;
+	padding-top:5px;
+	padding-bottom:5px;
+	text-align: left;
+}
+.huo_f span {
+	color: #CC3333;
+	font-size: 13px;
+}

@@ -1,0 +1,51 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新货币</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Currencies/currencieslist')}"><img src="__PUBLIC__/skin/admin/back_mang.jpg" /></a>
+            </p>
+            <form action="{:U('Currencies/Update')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">货币名称:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">代码:</td>
+						<td><input type="text" size="40" name="code" class="input-text" value="{$list.code}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">汇率:</td>
+						<td><input type="text" size="40" name="rate" class="input-text" value="{$list.rate}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">标识:</td>
+						<td><input type="text" size="40" name="symbol" class="input-text" value="{$list.symbol}" /></td>
+					</tr>
+					 
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" checked />是<input type="radio" value="0"  name="status" class="input-text"   />否</td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="40" name="sort" class="input-text" value="{$list.sort}" /></td>
+					</tr>
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" size="40" name="id" class="input-text" value="{$list.id}" />
+            </form>
+             <script language="javascript" type="text/javascript">
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,57 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>配置支付接口{$list['title']}</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Setting/payment')}">返回支付设置</a> <div id="pl"><a href="{:U('Fee/index',array('id'=>$list['id']))}">{$list['title']}费用设置</a></div> 
+            </p>
+            <form action="{:U('Setting/doBase')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:160px;">是否开启:</td>
+						<td><input type="radio" value="1"  name="{$list['name']}_status" class="input-text" <if condition="GetValue($list['name'].'_status') eq 1">checked</if> />启用<input type="radio" value="0"  name="{$list['name']}_status" class="input-text" <if condition="GetValue($list['name'].'_status') eq 0">checked</if> />禁用</td>
+					</tr>
+                    <tr>
+						<td style="width:160px;">是否自动提交:</td>
+						<td><input type="radio" value="1"  name="{$list['name']}_autosubmit" class="input-text"  <if condition="GetValue($list['name'].'_autosubmit') eq 1">checked</if>/>启用<input type="radio" value="0"  name="{$list['name']}_autosubmit" class="input-text" <if condition="GetValue($list['name'].'_autosubmit') eq 0">checked</if> />禁用 延迟时间(单位秒,默认5秒):<input type="text"  name="{$list['name']}_delay" class="input-text" value="{:GetValue($list['name'].'_delay')}"  /> </td>
+					</tr>
+                    <volist name="varlist" id="vo">
+                    
+                    <tr>
+						<td style="width:120px;">参数{:strtolower(L($vo))}:</td>
+						<td><input type="text" size="40" name="{$vo}" class="input-text" value="{:GetValue($vo)}" /> </td>					
+					</tr>                    
+                    </volist>
+                    
+                    
+                    
+                    <tr>
+						<td style="width:120px;">说明:</td>
+						<td>标签说明: 订单号码{sn} , 订单时间{time} , 付款方法{payname} , 总金额{total} , 提交{go}, 管理员邮箱{admin_email}
+						
+						<br/><html:editor id="desc" name="{$list.name}_desc" height="560px" width="560px" type="FCKeditor" >{:GetValue($list['name'].'_desc')}</html:editor></td>
+					</tr>              
+                    
+                    <tr>
+						<td colspan="2" class="t-right"><input type="button" class="input-submit" value="恢复默认说明" onclick="setContents('desc',$('#default').html());" /><input type="submit" class="input-submit" value="安装" />
+                        </td>
+					</tr>
+            </table>
+            <script language="javascript" type="text/javascript">
+			   $("input[name='{$list['name']}_status'][value={$status}]").attr("checked",true);
+			</script>
+            </form>
+            <div id="default" style="display:none">
+           <div id="payment_suc">
+<h2>Please remember your order number <font style="color:#689c12;">{sn}</font>,  order total amount  <strong style="color:red;font-weight:">{total}</strong>,  and then click on the button below to make a payment!</h2>
+<h2>Please wait, your order is being processed and you  will be redirected to the payment website.</h2>
+<div>If you are not automatically redirected to payment site...{go}</div>
+</div>
+            </div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

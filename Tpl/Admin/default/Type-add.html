@@ -1,0 +1,31 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新类型</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Type/catelist')}">商品类型</a>
+            </p>
+            <form action="{:U('Type/Insert')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">名称:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" name="status" value="1" checked="checked" />启用<input  name="status" type="radio" value="0"  />禁用</td>
+					</tr>
+                    
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="添加" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

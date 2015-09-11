@@ -1,0 +1,100 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function sortUpdate(){
+	document.catelist.action='{:U('Virtualcat/doSortUpdate')}';
+	document.catelist.submit();
+}
+
+$(function(){
+	
+	$(".classname>img").click (
+	function() {
+		var key=$(this).attr("key");
+		if($(this).attr("var")=="hide"){
+			$("tr[name^='"+key+"_']").show();
+			$(this).attr("var","show");
+			$(this).attr("src","__PUBLIC__/skin/images/menu_minus.gif");
+			$("tr[name^='"+key+"_']").attr("src","__PUBLIC__/skin/images/menu_minus.gif");
+		} else{
+			$("tr[name^='"+key+"_']").hide();
+			$(this).attr("var","hide");
+			$(this).attr("src","__PUBLIC__/skin/images/menu_plus.gif");
+			$("tr[name^='"+key+"_']").attr("src","__PUBLIC__/skin/images/menu_plus.gif");
+		}
+	});
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+	$('input:checkbox[name^=id]').each(function(i,el){
+		var id=$(this).val();
+		$(this).parent().next().children('a:first').click(function(){
+			if(!$(this).next().length){
+				$this=$(this);
+				$(this).after("<p><textarea>"+$(this).text()+"</textarea><br/><input type='button' class='save' value='保存'/><input type='button' class='cannel' value='取消'/></p>");
+
+				$(this).siblings().find('input.cannel').click(function(){
+					$(this).parent('p').remove();
+				});
+				$(this).siblings().find('input.save').click(function(){
+					$.post("{:U('Virtualcat/rename')}",{ 'id':id,'name':$(this).siblings('textarea').val() },function(data,status){
+						if(!data.status){
+							alert(data.info);
+						}else{
+							$this.text(data['data'].name).siblings('p').remove();
+						}
+					},'json');
+				});
+			}
+			return false;
+		});
+	}).parents('tr').mouseover(function(){
+		$(this).css('background-color','#E6F7D4');
+	}).mouseout(function(){
+		$(this).css('background-color','#fff');
+	});
+});
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>虚拟分类列表</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Virtualcat/add')}">添加新虚拟分类</a>
+            </p>
+             <p id="btn-create" class="box">
+            
+         
+            </p>
+            <form name="catelist" method="post" action="" >
+            <table width="100%">
+				<tr  pid="0">
+					<th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="35%">虚拟分类名称</th>
+                    <th style="text-align:center" width="2%">排序</th>      
+                    <th style="text-align:center" width="15%">操作</th>      
+				</tr>
+                <volist name="virtual_catelist" id="vo">
+                <tr  name="{$vo.key}" id="{$vo.key}" pid="{$vo.pid}">
+                	<td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:U('Virtualcat/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+				    <td  class="classname" >{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;&nbsp;")}<img var="hide" key="{$vo.key}" src="__PUBLIC__/skin/images/menu_plus.gif">&nbsp;<a href="javascript:void(0);">{$vo.name}</a></td>
+				    <td style="text-align:center">
+				     <input type="text" value="{$vo['sort']}" name="sort[{$vo.id}]" size="5"/>
+				    </td>
+				    <td style="text-align:center">
+				    <a href="{:U('Virtualcat/add',array('pid'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/add_sub.jpg"  title="添加子类"/></a> 
+				    <a href="{:U('Virtualcat/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg"  title="编辑"/></a> 
+				    <a href="{:U('Virtualcat/delete',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/out_del.jpg" title="删除"/></a> 
+				    <a href="{:U('Home-Pro/index',array('id'=>$vo['id'],'filter'=>$vo['filter']))}" target="_blank"><img src="__PUBLIC__/skin/admin/disp.jpg" title="产品显示"/></a></td>
+				</tr>
+                </volist>
+				
+			</table>
+			</form>
+            <p class="t-right"><input type="button" value="保存排序" onclick="sortUpdate();"/></p></p>		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

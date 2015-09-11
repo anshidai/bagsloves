@@ -1,0 +1,101 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Members/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",$(this).attr("checked"));
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>会员等级管理</h1>
+            <p class="msg info">提示：</p>
+            <form action="{:U('Members/groupsupdate')}" method="post" >
+            <fieldset>
+				<legend>更新会员等级</legend>
+				<table class="nostyle">
+					<tbody>
+					<tr>
+						<td style="width: 70px;">名称:</td>
+						<td><input type="text" class="input-text" name="name" size="40" value="{$volist['name']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">最小积分:</td>
+						<td><input type="text" class="input-text" name="minpoints" size="40" value="{$volist['minpoints']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">最大积分:</td>
+						<td><input type="text" class="input-text" name="maxpoints" size="40" value="{$volist['maxpoints']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">折扣率:</td>
+						<td><input type="text" class="input-text" name="discount" size="10" value="{$volist['discount']}"></td>
+					</tr>
+					<tr>
+						<td class="t-right" colspan="2"><input type="submit" value="更新" class="input-submit"></td>
+					</tr>
+				</tbody></table>
+			</fieldset> 
+			<input type="hidden" name="id" value="{$volist['id']}" />"
+			</form>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="15%">等级名称</th>
+				    <th style="text-align:center" width="15%">最小积分</th>
+                    <th style="text-align:center" width="17%">最大积分</th>   
+                    <th style="text-align:center" width="17%">折扣率</th>            
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> {$vo['id']}</td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+				    <td style="text-align:left" >{$vo['minpoints']}</td>
+                    <td style="text-align:left" >{$vo['maxpoints']}</td>
+                    <td style="text-align:left" >{$vo['discount']}</td>
+                    <td style="text-align:center" ><a href="{:u('Members/groupsedit',array('id'=>$vo['id']))}">编辑</a>&nbsp;|&nbsp;<a name="del_{$vo.id}"  href="{:u('Members/groupsdel',array('id'=>$vo['id']))}" >移除</a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

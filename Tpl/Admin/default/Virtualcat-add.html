@@ -1,0 +1,124 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加虚拟分类</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+            <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>基本资料</span></a></li>
+                    <li><a href="#tab02"><span>SEO信息</span></a></li>
+				</ul>
+			</div> 
+            <p id="btn-create" class="box">
+              <a href="{:U('Virtualcat/index')}">虚拟分类列表</a>
+            </p>
+            
+            <form action="{:U('Virtualcat/insert')}" name="myform" method="post" enctype="multipart/form-data">
+            <div id="tab01">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">分类名称(必填):</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="" /></td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">上级虚拟分类:</td>
+						<td> <select name="pid" class="input-text" >
+                        <option value="0">----无----</option>
+                        <volist name="virtual_catelist" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;└")}{$vo.name}</option>
+                        </volist>
+                        </select>顶级分类请选择“无”</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="" /></td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">状态:</td>
+						<td>
+						<input type="radio" value="1"  name="status" class="input-text" checked />启用<input type="radio" value="0"  name="status" class="input-text"   />禁用
+						</td>
+					</tr>                  
+                   
+                    
+                    <tr>
+						<td colspan="2"><strong>筛选条件:</strong></td>
+					</tr>
+					
+						
+						<tr>
+						<td>按价格区间筛选</td><td><input name="filter[pricefrom]" style="width:30px" type="text"> - <input name="filter[priceto]" style="width:30px" type="text"> 元</td>
+						</tr>
+						
+						
+						<tr>
+						<td>按商品关键词筛选</td><td><input type="text"  style="width:100px" name="filter[searchname]"></td>
+						</tr>
+						
+						<!--<tr>
+						<td>按类型筛选</td>
+						<td>
+						<select name="filter[type_id][]" id="type_id"  multiple="multiple">
+                        <option value="" style="font-weight:bold;">-全部类型-</option>
+                        <volist name="type_id" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                        </select></td>
+                        
+						</tr>-->
+						
+						<tr>
+						<td >商品分类</td>
+						<td><select name="filter[cateid][]" class="input-text" multiple="multiple">
+                        <option value="" style="font-weight:bold;">-所有分类-</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select></td> 
+						</tr>
+				
+                   
+					 <tr>
+						<td style="width:120px;">品牌:</td>
+						<td>
+                        <select name="filter[brandid][]" class="input-text"  multiple="multiple"  >
+                        <option value="" style="font-weight:bold;">-所有品牌-</option>
+                        <volist name="brandtree" id="vo">
+                        <option value="{$vo['id']}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+					</table>
+					</div>
+					 <div id="tab02">
+					 <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">标题(SEO):</td>
+						<td><input type="text" size="60" name="pagetitle" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">关键字(SEO):</td>
+						<td><textarea name="pagekey" cols="60" rows="10" class="input-text"></textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">描述(SEO):</td>
+						<td><textarea name="pagedec" cols="60" rows="10" class="input-text"></textarea></td>
+					</tr>
+                   
+           		 </table>
+            	</div>
+             <p class="t-left"><input type="submit" class="input-submit" value="添加" /></p>
+           
+            </form>
+		</div> <!-- /content -->
+		 <notempty name="_GET['pid']">
+             <script language="javascript" type="text/javascript">
+            document.myform.pid.value="{$_GET['pid']}";
+			</script>
+             </notempty>
+<include file="Public:adminfooter" />

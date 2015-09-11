@@ -1,0 +1,43 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑优惠券</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            
+            <p id="btn-create" class="box">
+              <a href="{:U('Coupon/index')}">优惠券列表</a>
+            </p>
+            <form action="{:U('Coupon/update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">名称(必填):</td>
+						<td><input type="hidden"  name="id" class="input-text" value="{$list.id}" /><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">启用:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" <eq name="list['status']" value="1">checked</eq> />是<input type="radio" value="0"  name="status" class="input-text"  <eq name="list['status']" value="0">checked</eq> />否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">金额:</td>
+						<td><input type="text"  name="amount" class="input-text" value="{$list.amount}" />支持小数点两位</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">启用时间:</td>
+						<td><input type="text" name="start_time" size="24" onclick="$(this).val('').calendar()" value="{:date('Y-m-d h:i',$list['start_time'])}" />
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">到期时间:</td>
+						<td><input type="text" name="expire_time"  size="24"  onclick="$(this).val('').calendar()" value="{:date('Y-m-d h:i',$list['expire_time'])}"/>
+						</td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="保存" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

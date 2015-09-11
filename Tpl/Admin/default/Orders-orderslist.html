@@ -1,0 +1,152 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Orders/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+function print_all(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要打印的项!');
+	}else{
+		$('form[name=tempform] input:hidden[name=id]').val(id);
+		$('form[name=tempform]').attr('action','{:U('Orders/printall')}').submit();
+	}
+}
+function export_order(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要导出的订单!');
+	}else{
+		$('form[name=tempform] input:hidden[name=id]').val(id);
+		$('form[name=tempform]').attr({
+		'action':'{:U('Orders/export')}',
+		'target':'_blank'
+		}).submit();
+	}
+}
+function excel(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要导出的订单!');
+	}else{
+		$('form[name=tempform] input:hidden[name=id]').val(id);
+		$('form[name=tempform]').attr({
+		'action':'{:U('Orders/excel')}',
+		'target':'_blank'
+		}).submit();
+	}
+}
+function set_orders_status(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择订单!');
+	}else{
+		$('form[name=orders_status] input:hidden[name=id]').val(id);
+		$('form[name=orders_status]').submit();
+	}
+}
+
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			<h1>订单管理</h1>
+            <p class="msg info">提示：</p>
+            	 <p id="btn-create" class="box">
+            <form action="{:U('Orders/orderslist')}" method="get" >
+            订单号:<input type="text" size="20" name="sn" class="input-text" value="" />
+            <input type="submit" value="搜索" />
+            </form>
+            </p>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="6%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="10%">编号</th>
+				    <th style="text-align:center" width="13%">创建时间</th>
+                    <th style="text-align:center" width="7%">金额</th>
+                    <th style="text-align:center" width="10%">付款方式</th>
+                    <th style="text-align:center" width="5%">状态</th>
+                    <th style="text-align:center" width="17%">会员帐号</th>              
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:u('Orders/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+				    <td style="text-align:left" id="classname" >{$vo.sn}</td>
+				    <td style="text-align:left" >{:toDate($vo["dateline"],"Y-m-d H:i:s")}</td>
+                    <td style="text-align:left" >{$vo.currencies_code}{$vo["orders_total"]}</td>
+                    <td style="text-align:left" >{$vo['payment_module_code']}</td>
+                    <td style="text-align:left" >{:get_orders_status($vo['id'])}</td>
+                    <td style="text-align:left" >{:get_members_name($vo['member_id'])}</td>
+                    <td style="text-align:center" ><a href="{:U('Orders/orders',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/order.jpg" title="订单详情" /></a>&nbsp;<a href="{:U('Orders/delivery',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pei.jpg" title="配货"/></a>&nbsp;<a href="{:u('Orders/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/see_at.jpg" title="查看" /></a>&nbsp;<a href="{:u('Orders/sendgoods',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/send_pro.jpg"  title="发货"  /></a>&nbsp;<a href="{:u('Orders/dispBills',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/print.jpg" title="打印发货单" /></a>&nbsp;<a name="del_{$vo.id}"  href="{:u('Orders/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg" title="移除"  /></a>&nbsp;<a href="###" onclick="window.open('{:U('Orders/word',array('id'=>$vo['id']))}');"><img src="__PUBLIC__/skin/admin/out.jpg" title="导出"  /></a></td>
+                </tr> 
+                </volist>
+			</table>
+			
+			 <form name="orders_status" method="post" action="{:U('Orders/orders_status','','',false)}">
+			 <p class="t-left">
+			 <input type="button" value="批量删除" onclick="delall();" />
+			 状态:
+			 <select name="orders_status" onchange="set_orders_status();" >
+                        <option value="">-请选择-</option> 
+                        
+                        <option value="1" >{:L("orders_status_1")}</option> 
+                        <option value="2" >{:L("orders_status_2")}</option> 
+                        <option value="3" >{:L("orders_status_3")}</option> 
+                        <option value="4" >{:L("orders_status_4")}</option> 
+                        
+                        </select>
+                       <input type="hidden" value="" name="id"/>
+			 </p></form>
+			 <form name="tempform" method="post" >
+			 <input type="hidden" value="" name="id" />
+			 <input type="button" value="批量打印" onclick="print_all()" />
+			 <input type="button"  value="导出订单数据" onclick="export_order()" />
+			 <input type="button"  value="导出订单列表" onclick="excel()" />
+			</form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

@@ -1,0 +1,91 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",$(this).attr("checked"));
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>折扣管理</h1>
+            <p class="msg info">提示：</p>
+            <a href="{:U('Members/discountlist')}">折扣管理</a>
+            <form action="{:U('Members/discountupdate')}" method="post" >
+            <fieldset>
+				<legend>更新折扣</legend>
+				<table class="nostyle">
+					<tbody>
+					<tr>
+						<td style="width: 70px;">名称:</td>
+						<td><input type="text" class="input-text" name="name" size="40" value="{$volist['name']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">最小金额:</td>
+						<td><input type="text" class="input-text" name="minmoney" size="40" value="{$volist['minmoney']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">最大金额:</td>
+						<td><input type="text" class="input-text" name="maxmoney" size="40" value="{$volist['maxmoney']}"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">折扣率:</td>
+						<td><input type="text" class="input-text" name="discount" size="10" value="{$volist['discount']}"></td>
+					</tr>
+					<tr>
+						<td class="t-right" colspan="2"><input type="submit" value="更新" class="input-submit"></td>
+					</tr>
+				</tbody></table>
+			</fieldset> 
+			<input type="hidden" name="id" value="{$volist['id']}" />
+			</form>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="15%">折扣名</th>
+				    <th style="text-align:center" width="15%">最小金额</th>
+                    <th style="text-align:center" width="17%">最大金额</th>   
+                    <th style="text-align:center" width="17%">折扣率</th>            
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> {$vo['id']}</td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+				    <td style="text-align:left" >{$vo['minmoney']}</td>
+                    <td style="text-align:left" >{$vo['maxmoney']}</td>
+                    <td style="text-align:left" >{$vo['discount']}</td>
+                    <td style="text-align:center" ><a href="{:u('Members/discountedit',array('id'=>$vo['id']))}">编辑</a>&nbsp;|&nbsp;<a name="del_{$vo.id}"  href="{:u('Members/discountdel',array('id'=>$vo['id']))}" >移除</a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

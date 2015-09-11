@@ -1,0 +1,121 @@
+/* =============================================================================
+
+	STYLE.CSS
+	version: 1.6
+	updated: 2009-03-06, 13:00 GMT+1
+
+============================================================================= */
+
+/* =============================================================================
+HTML - styles
+============================================================================= */
+
+body {background-color:#eaeaea; color:#303030;}
+a {color:#434343;}
+a:hover, a:active, a:focus {color:#5A8F01;}
+#content h2 {color:#5A8F01;}
+#content table {border:2px solid #cfcfcf;}
+#content table th {border-right:1px solid #0074B3; background-color:#5A8F01; color:#fff;}
+#content table td {border:1px solid #cfcfcf;}
+#content table tr.bg td {background-color:#e8f6ff;}
+#content dl dt {color:#5A8F01;}
+#content fieldset {border:1px solid #ccc;}
+#content legend {background:#FFF; color:#5A8F01;}
+#content acronym, #content abbr, #content .help {border-bottom:1px dotted #cfcfcf;}
+#think_run_time,#think_page_trace {
+	display:none;	
+} 
+/* =============================================================================
+HTML - without styles
+============================================================================= */
+
+table.nostyle th, dl.nostyle dt {color:#303030 !important;}
+
+/* =============================================================================
+LAYOUT
+============================================================================= */
+
+#tray {background-color:#303030; color:#cfcfcf;}
+#tray a, #tray strong {color:#fff;}
+#tray a:hover, #tray a:active, #tray a:focus {color:#b4e3ff;}
+#menu {
+	background-color:#FFF;
+}
+#menu ul li a {background-color:#fff; color:#303030;}
+#menu ul li a span {background-color:#FFF;}
+#menu ul li a:hover, #menu ul li a:active, #menu ul li a:focus, #menu ul li#menu-active a {background-color:#FFF; color:#5A8F01;}
+#menu ul li a:hover span, #menu ul li#menu-active a span {background-color:#FFF;}
+#menu ul li#menu-active a {color:#5A8F01;}
+#menu ul.f-right a {color:#5A8F01;}
+#content {border:1px solid #afafaf; background:#fff;}
+#footer {color:#707070;}
+#footer a {color:#707070;}
+#footer a:hover, #footer a:active, #footer a:focus {color:#303030;}
+
+/* =============================================================================
+OTHERS
+============================================================================= */
+
+#aside #logo img {border:1px solid #bfbfbf;}
+#aside #search fieldset a {color:#303030;}
+#aside #search fieldset {border:1px solid #bfbfbf;}
+#aside #search fieldset a:hover, #aside #search fieldset a:active, #aside #search fieldset a:focus {color:#5A8F01;}
+#aside #btn-create a {background-color:#fff; color:#303030;}
+#aside #btn-create a span {background-color:#fff;}
+#aside ul li a {border-bottom:1px solid #cfcfcf; color:#303030;}
+#aside ul li#submenu-active a {background-color:#5A8F01; color:#fff;margin-bottom:1px}
+#aside ul li a:hover, #aside ul li a:active, #aside ul li a:focus {color:#5A8F01;}
+#aside ul ul li a, #aside ul li#submenu-active ul li a {border-bottom:1px solid #cfcfcf; background-color:#f5f5f5; color:#303030;}
+#aside ul li ul li a {background-color:#e3e3e3;}
+#aside ul ul li a:hover, #aside ul ul li a:active, #aside ul ul li a:focus, #aside ul li#submenu-active ul li a:hover, #aside ul li#submenu-active ul li a:active, #aside ul li#submenu-active ul li a:focus {color:#5A8F01;}
+#content h1 {background-color:#303030; color:#fff;}
+#content .tabs {border-bottom:1px solid #cfcfcf;}
+#content .tabs a {color:#303030;}
+#content .tabs a span {color:#303030;}
+#content .tabs .ui-tabs-selected a {color:#fff;}
+#content .tabs .ui-tabs-selected a span {color:#fff;}
+.high {color:#5A8F01;}
+.high-bg {background:#FFB;}
+.low {color:#707070;}
+.ui-selecting {  background-color: #eee;}
+.ui-selected {  background-color: #E6F7D4;}
+
+/* =============================================================================
+MESSAGES
+============================================================================= */
+
+.msg.warning {border:2px solid #F2DD8C; background-color:#FFF5CC;}
+.msg.warning a {color:#5A8F01;} .msg.warning a:hover, .msg.warning a:active, .msg.warning a:focus {color:#303030;}
+.msg.info {border:2px solid #B8E2FB; background-color:#E8F6FF;}
+.msg.done {border:2px solid #BBDF8D; background-color:#EAF7D9;}
+.msg.error {border:2px solid #FFAEAE; background-color:#FEEBEB;}
+
+.goods_edit_img{
+	
+	float: left;
+	width: 150px;
+	border: 1px solid #999;
+	margin: 5px;
+	text-align: center;
+	padding: 5px;
+	display: block;
+}
+
+#content #btn-create a{ background:url(../design/on.jpg) no-repeat; display:block; padding:12px 13px; text-align:center; width:100px; color:#fff; text-decoration:none;  }
+#content #btn-create a:hover{ background:url(../design/hover.jpg) no-repeat; display:block; padding:12px 13px; text-align:center; width:100px; color:#000;text-decoration:none; }
+#pl a{
+	background: url(../design/on1.jpg) no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    padding: 12px 13px;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;}
+#pl a:hover{
+	background: url(../design/hover1.jpg) no-repeat scroll 0 0 transparent;
+    color: #000;
+    display: block;
+    padding: 12px 13px;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;}

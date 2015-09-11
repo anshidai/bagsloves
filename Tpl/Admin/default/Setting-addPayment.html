@@ -1,0 +1,96 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<script language="javascript">
+function ajaxFileUpload(fileToUpload,timestamp)
+{
+	
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+		{
+			url:"{:U('Setting/upload')}",
+			secureuri:false,
+			fileElementId:fileToUpload,
+			dataType: 'json',
+			success: function (data, status)
+			{
+				
+				if (status==1){
+					$("#msg").text(data.info);
+					
+				}
+				else{
+					$("#msg").text(data.info);
+					$('#imgbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+					$("#fileToUpload_look_"+timestamp).preview();
+					$("#img_url").val(data.data.savename);
+					
+				}
+
+
+			},
+			error: function (data, status, e)
+			{
+				alert(e);
+			}
+		}
+	)		
+	return false;
+
+}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>安装支付接口</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Setting/addPayment')}">安装新支付接口</a>
+            </p>
+            <form action="{:U('Setting/insertPayment')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">标识:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">显示名:</td>
+						<td><input type="text" size="40" name="title" class="input-text" value="" /></td>
+					</tr>                    
+                    
+                     <tr>
+						<td style="width:120px;">图片:</td>
+						<td><input type="file" id="fileToUpload" name="fileToUpload" class="input-text" /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload','0');" /><input type="hidden" name="img_url" id="img_url" value="" /><br/>
+						<span id="imgbox"></span>
+						</td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">简单描述:</td>
+						<td><input type="text" size="60" name="remark" class="input-text" value="" /></td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">参数:</td>
+						<td><input type="text" size="60" name="var" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="20" name="sort" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="安装" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

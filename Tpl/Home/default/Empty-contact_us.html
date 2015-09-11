@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+
+
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > Contact Us</div>
+          <div class="list2_content">
+            <div class="login">
+           {$content}
+
+
+<fieldset id="contactUsForm">
+<legend style="background-color:#CCCCCC">Contact Us</legend>
+<div class="alert alignright">* Required information</div>
+ <form action="{:U('Pro/insert_ask')}" method="post" name="contact_us" onsubmit="return Validator.Validate(this,2);">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="125"><label class="inputLabel" for="contactname">Full Name:<span class="alert">*</span></label></td>
+    <td><input type="text" name="name" dataType="Require" msg="Name is required!"  size="40" id="contactname" /></td>
+  </tr>
+  <tr>
+    <td width="125"><label class="inputLabel" for="email-address">Email Address:<span class="alert">*</span></label></td>
+    <td><input type="text" dataType="Email" msg="Email format is not correct!"   size="40" id="email-address" name="email" /></td>
+  </tr>
+  <tr>
+    <td width="125"><label class="inputLabel" for="title">Title:<span class="alert">*</span></label></td>
+    <td><input type="text"  dataType="Require" msg="Title is required!" name="title"  size="40" id="title" /></td>
+  </tr>
+  <tr>
+    <td width="125"><label  class="inputLabel" for="content">Content:<span class="alert">*</span></label></td>
+    <td><textarea  dataType="Require" msg="Content is required!" cols="20" rows="7" id="content" name="content"></textarea></td>
+  </tr>
+</table>
+</fieldset>
+<div class="buttonRow">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left"><input type="hidden" name="type" value="Contact Us" /><input type="image" src="__PUBLIC__/skin/images/button_submit.gif" alt="Submit the Information" title=" Submit the Information " /></td>
+    <td align="right"><a href="/"><img src="__PUBLIC__/skin/images/button_back.gif" alt="Back" title=" Back " border="0" width="48" height="29" /></a></td>
+  </tr>
+</table>
+</div>
+</form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+<include file="Public:footer" />

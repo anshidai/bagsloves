@@ -1,0 +1,22 @@
+/* CSS Document */
+
+body {font-family: "Times New Roman", Times, serif;font-size: 14px;line-height: 150%;margin: 0;padding: 0; background:url(../admin/line_02.png) repeat-x;}
+#easycart-login{margin:0px; padding:0px;  height:730px;}
+.form-login{ position:relative;left:700px; top:265px; padding:0px; width:320px;}
+.form-item label {display: block;font-weight: bold;}
+div.form-item input, div.form-login .form-item input, div.form-password .form-item input {margin-top:3px;width: 295px;}
+div.form-item #input{ float:left; margin-top:3px; width:200px;background:url(../admin/buttom_put.png) no-repeat; _background:#FFFFFF;} 
+input[type="text"], input[type="password"], textarea {background:url(../admin/buttom_bg.png) no-repeat;font-size: 14px;width:313px;height:33px;border:none; line-height:33px; padding-left:5px;}
+#edit-submit{margin-top:7px; padding:0px; float:left; font-weight:bold;height:35px;line-height:35px;}
+.form-required{color:#FF0000;}
+.img{ float:right; display:block; padding-top:10px; padding-right:60px;}
+.buttom_link{margin-top:30px; padding:0px;}
+.buttom_link a{color:#000000; text-decoration:none;}
+.buttom_link a:hover{color:#FF0000; text-decoration:underline;}
+#center{margin:0px auto; width:1439px; background:url(../admin/easy_bg.png) no-repeat;}
+.login{ float:left; clear:both;}
+
+#test{margin:8px 0px; float:right; display:inline; list-style:none;}
+#test li{margin:0px; padding:0px 5px; float:left;}
+#test li a{ color:#FFFFFF; text-decoration:none;}
+#test li a:hover{color:#FFFFFF; text-decoration:underline;}

@@ -1,0 +1,71 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<script type="text/javascript">
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑导航</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+           
+            <p id="btn-create" class="box">
+              <a href="{:U('Nav/index')}">导航列表</a>
+            </p>
+            
+            <form action="{:U('Nav/update')}" name="myform" method="post" enctype="multipart/form-data">
+            <div id="tab01">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">导航名称(必填):</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">链接地址(必填):</td>
+						<td><input type="text" size="40" name="url" class="input-text" value="{$list.url}" /> <br/><strong>使用文章:</strong> <select onchange="$('input[name=url]').val($(this).val());">
+						<volist name="article_list" id="vo">
+						<option value="__APP__/Article-{$vo.id}.html">{$vo.title}</option>
+						</volist>
+						</select></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="{$list.sort}" /></td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">状态:</td>
+						<td>
+						<input type="radio" value="1"  name="status" class="input-text" />启用<input type="radio" value="0"  name="status" class="input-text"   />禁用
+						</td>
+					</tr>         
+                   <tr>
+						<td style="width:120px;">是否新弹窗口:</td>
+						<td>
+						<input type="radio" value="1"  name="isnew" class="input-text"  />是<input type="radio" value="0"  name="isnew" class="input-text"  checked />否
+						</td>
+					</tr>      
+                   <tr>
+						<td style="width:120px;">位置:</td>
+						<td>
+						<select name="type">
+  <option selected="" value="top">顶部</option><option value="middle">中间</option><option value="left">左边</option><option value="right">右边</option><option value="bottom">底部 </option>
+  </select>
+						</td>
+					</tr>                  
+                   
+                  
+           		 </table>
+            	</div>
+             <p class="t-left"><input type="submit" class="input-submit" value="保存" />
+             <input type="hidden" name="id" value="{$list.id}" /></p>
+           
+            </form>
+		</div> <!-- /content -->
+		<script type="text/javascript">
+		$("input:radio[name=status][value={$list.status}]").attr('checked',true);
+		$("input:radio[name=isnew][value={$list.isnew}]").attr('checked',true);
+		$("select[name=type] option[value={$list.type}]").attr('selected',true);
+		</script>
+<include file="Public:adminfooter" />

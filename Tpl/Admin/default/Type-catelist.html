@@ -1,0 +1,55 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+$(document).ready (
+				   function(){
+					   
+					  $("a[name^='del_']").click(
+						function(){
+							var answer = confirm("确认要删除吗?");
+							if(answer){
+								window.location = $(this).attr("href");
+
+							}
+							else{
+							   
+								$(this).attr("href","javascript:void(0);");
+								
+							}
+
+						}
+						);
+				   }
+				   );
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>类型管理</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Type/add')}">添加新类型</a>
+            </p>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="45%">名称</th>
+                    <th style="text-align:center" width="7%">状态</th>                
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+                    <td style="text-align:left" >{:getStatus($vo["status"],true)}</td>
+                    <td style="text-align:center" ><a href="{:u('Type/attrlist',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/art_list.jpg"  title="属性列表" /></a>&nbsp;&nbsp;<a href="{:u('Type/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg"  title="编辑" /></a>&nbsp;&nbsp;<a name="del_{$vo.id}"  href="{:u('Type/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg"  title="移除" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

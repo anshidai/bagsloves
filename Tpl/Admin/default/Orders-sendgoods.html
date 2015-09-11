@@ -1,0 +1,128 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>发货处理</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Setting/ShippingAddress')}">修改发货地址</a>
+            </p>
+            <h4>您将使用以下信息作为发货地址信息：</h4>
+            <hr>
+            <table class="nostyle">
+            <tr>
+            <td>发件人</td>
+            <td>{:GetValue('sender_sname')}</td>
+            </tr>
+            <tr>
+            <td>城市</td>
+            <td>{:GetValue('sender_city')}</td>
+            </tr>
+            <tr>
+            <td>地区（省份）</td>
+            <td>{:GetValue('sender_region')}</td>
+            </tr>
+            <tr>
+            <td>国家</td>
+            <td>{:GetValue('sender_country')}</td>
+            </tr>
+            <tr>
+            <td>地址</td>
+            <td>{:GetValue('sender_address')}</td>
+            </tr>
+            <tr>
+            <td>邮编</td>
+            <td>{:GetValue('sender_zip')}</td>
+            </tr>
+            <tr>
+            <td>电话</td>
+            <td>{:GetValue('sender_tel')}</td>
+            </tr>
+            </table>
+            
+            <h4>以下为用户的收货信息：</h4>
+            <hr>
+            
+            <table class="nostyle">
+              <tr>
+                <td>收件人</td>
+                <td>{$list.delivery_firstname}&nbsp;&nbsp;{$list.delivery_lastname}</td>
+              </tr>
+              <tr>
+                <td>城市</td>
+                <td>{$list.delivery_city}</td>
+              </tr>
+              <tr>
+                <td>地区（省份）</td>
+                <td>{$list.delivery_state}</td>
+              </tr>
+              <tr>
+                <td>国家</td>
+                <td>{$list.delivery_country}</td>
+              </tr>
+              <tr>
+                <td>邮编</td>
+                <td>{$list.delivery_zip}</td>
+              </tr>
+              <tr>
+                <td>电话</td>
+                <td>{$list.delivery_telephone}</td>
+              </tr>
+              <tr>
+                <td>地址</td>
+                <td>{$list.delivery_address}</td>
+              </tr>
+            </table>
+            
+            <h4>请输入快递信息</h4>
+            <hr>
+            <form action="{:U('Orders/dosendgoods')}" name="myform" method="post">
+            <input type="hidden" name="sender_sname" value="{:GetValue('sender_sname')}">
+            <input type="hidden" name="sender_city" value="{:GetValue('sender_city')}">
+            <input type="hidden" name="sender_region" value="{:GetValue('sender_region')}">
+            <input type="hidden" name="sender_country" value="{:GetValue('sender_country')}">
+            <input type="hidden" name="sender_address" value="{:GetValue('sender_address')}">
+            <input type="hidden" name="sender_zip" value="{:GetValue('sender_zip')}">
+            <input type="hidden" name="sender_tel" value="{:GetValue('sender_tel')}">
+            
+            <input type="hidden" name="delivery_name" value="{$list.delivery_firstname}  {$list.delivery_lastname}">
+            <input type="hidden" name="delivery_city" value="{$list.delivery_city}">
+            <input type="hidden" name="delivery_state" value="{$list.delivery_state}">
+            <input type="hidden" name="delivery_country" value="{$list.delivery_country}">
+            <input type="hidden" name="delivery_zip" value="{$list.delivery_zip}">
+            <input type="hidden" name="delivery_telephone" value="{$list.delivery_telephone}">
+            <input type="hidden" name="delivery_address" value="{$list.delivery_address}">
+            
+            <input type="hidden" name="id" value="{$id}">
+            <input type="hidden" name="order_id" value="{$list.id}">
+            <input type="hidden" name="order_sn" value="{$list.sn}">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">快递公司:</td>
+						<td>
+                        <select name="Express" id="Express">
+                        <option value="EMS">EMS</option>
+                        <option value="DHL">DHL</option>
+                        <option value="UPS">UPS</option>
+                        <option value="Fedex">Fedex</option>
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">快递单编号:</td>
+						<td><input type="text" size="40" name="ExpressSN" class="input-text" value="{$expressSN}" /></td>
+					</tr> 
+                    
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="生成发货单" />
+                        </td>
+					</tr>
+            </table>
+           
+            </form>
+            
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

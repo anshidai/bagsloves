@@ -1,0 +1,27 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			<h1>处理图片水印</h1>
+            <p class="msg info">提示：</p>
+		<form action="{:U('Water/do_img')}" name="myform" method="get"  target="success">
+            <table class="nostyle" width="100%">
+                    <tr>
+						<td style="width:120px;">图片类型:</td>
+						<td>大图<input type="radio" size="40" name="imagetype" class="input-text" value="big" checked/> 小图<input type="radio" size="40" name="imagetype" class="input-text" value="small" /> </td>
+ 					</tr> 
+                    <tr>
+						<td style="width:120px;">每次几张:</td>
+						<td><input type="text" size="40" name="page" class="input-text" value="100" /></td>
+ 					</tr> 
+					   <tr>
+						<td colspan="2" class="t-left"><input type="submit" class="input-submit" value="开始处理" onclick="$('#msg').show();" />
+                        </td>
+					</tr>
+			</table>
+		</form> 
+<div style="display:none" id='msg'>处理进度:<br/>
+<iframe name="success" width="70%"></iframe>
+</div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

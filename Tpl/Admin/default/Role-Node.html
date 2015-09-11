@@ -1,0 +1,47 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>角色授权</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Role/add')}">添加新角色</a>
+            </p>
+            <form action="{:U('Role/setNode')}" name="myform" method="post">
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">应用名</th>
+				    <th style="text-align:center" width="15%">操作名</th>
+				    <th style="text-align:center" width="15%">类型</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="35%">描述</th>
+				</tr>
+                <volist name="nodetree" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="nodeID[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" >{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.title}</td>
+				    <td style="text-align:left" >{$vo.name}</td>
+				    <td style="text-align:left" >{:nodeLevel($vo['level'])}</td>
+                    <td style="text-align:left" >{:getStatus($vo["status"])}</td>
+                    <td style="text-align:left" >{$vo.remark}</td>
+                    
+                </tr>
+                </volist>
+				<tr>
+                    <td colspan="6" class="t-right"><input type="submit" class="input-submit" value="授权" />
+                    </td>
+                </tr>
+			</table>
+             <script language="javascript" type="text/javascript">
+			  <volist name="accesslist" id="vo">
+            $("[name='nodeID[]'][value='{$vo[node_id]}']").attr("checked",'true');
+			</volist>
+			</script>
+            <input type="hidden" name="roleID" value="{$roleID}" >
+            </form>
+            <p class="t-right"></p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

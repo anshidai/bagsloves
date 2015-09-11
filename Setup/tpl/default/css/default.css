@@ -1,0 +1,128 @@
+/* don't use '*'. */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, legend,
+form, label, textarea,
+table, caption, thead, tbody, tfoot, th, tr, td {
+	margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    vertical-align:baseline;
+	text-decoration:none;
+}
+body {
+	line-height:1;
+	font-family:Arial,Verdana,sans-serif;
+	font-size:12px;
+	background:#FCFCFC url(../images/livesino_bg.jpg) no-repeat scroll center top;
+}
+ol,ul,li { list-style:none;}
+blockquote,q { quotes:none;}
+table { border-collapse:collapse; border-spacing:0; width:100%;}
+select { margin:0; padding:0;}
+input { margin:0; padding:0; height:16px; vertical-align:baseline; font-size:12px;}
+:focus { outline:0;}
+
+
+
+/* float and text align */
+.fl { float:left;}
+.fr { float:right;}
+.cl { clear:left;}
+.cr { clear:right;}
+.cb { clear:both;}
+.tl { text-align:left;}
+.tr { text-align:right;}
+.tc { text-align:center;}
+.tj { text-align:justify;}
+
+
+
+
+/* layout */
+#container              { padding:0px; color:#545E7A; font-family:"Trebuchet MS";}
+#container em           { margin:0 5px; font-style:normal; color:#FF3399;}
+#container a:hover      { color:#f60;}
+#container select       { font-size:12px;}
+#topbar					{ clear:both;}
+#top					{
+	clear:both;
+	height:40px;
+	font-size:28px;
+	font-family:"Trebuchet MS";
+	padding:10px;
+	color:#fff;
+}
+#foot		            {
+	border-top:1px solid #CCCCCC;
+	clear:both;
+	margin:0;
+	padding:10px;
+	background:transparent url(../images/footer_bg.jpg) no-repeat scroll center bottom;
+	height:60px;
+}
+#mainbody               {
+ clear:both; width:90%; padding:10px;
+ min-height: 400px;
+ max-height: 100%;
+ } 
+#mainbody table         { margin-bottom:10px;}
+#mainbody table th		{ border:1px solid #ccc; text-align:right;}
+#mainbody table td      { border:1px solid #ccc; text-align:left;}
+#mainbody table th      { padding:4px; background:#EAF3FF; color:#000;}
+#mainbody table td      { padding:4px; background:#ffffff; color:#545E7A;}
+#mainbody tfoot td      { padding:8px;}
+.th1                    { width:15%;}
+.th2                    { width:auto;}
+.th3                    { width:20%;}
+fieldset                { padding:5px; border:1px solid #ccc;}
+legend                  { padding:3px 10px!important; padding:3px; font-weight:bolder; color:#666;}
+
+
+.err{ 
+border:1px solid #FF6600;
+padding:5px;
+}
+.err legend{ color:#FF6600;padding:1px;}
+.tips                   { overflow:hidden; margin:5px 0 5px 0; padding-top:5px; height:100%;}
+.tips p                 { margin:0 0 5px 10px; height:100%;}
+
+.tab                    { position:relative; clear:both; margin-bottom:5px; padding:6px; *padding:5px; border-bottom:1px solid #ccc;}
+.tab li                 { display:inline;}
+.tab li a               { padding:3px  6px 3px  6px; border:1px solid #ccc; border-bottom:none; background:#EAF3FF; color:#0063DC;}
+.tab li.up a            { padding:6px 10px 4px 10px; border-bottom:1px solid #fff; background:#fff; font-size:14px; font-weight:bolder; color:#83C326;}
+.tab li a:hover         { background:#fff; color:#f60;}
+
+.btn                    { 
+	BORDER: #ccc 1px solid;
+	FONT-SIZE: 12px;
+	margin: 0px;
+	background-image: url('../images/buttonbg.gif');
+    padding:3px  6px 3px  6px;
+    width: auto;
+    _width: 0;
+    overflow:visible !ie;
+    cursor: pointer;
+    height:24px;
+}
+
+.btn2                    { 
+	BORDER: #ccc 1px solid;
+	FONT-SIZE: 12px;
+	margin: 0px;
+	background-image: url('../images/buttonbg2.gif');
+    padding:3px  6px 3px  6px;
+    width: auto;
+    _width: 0;
+    overflow:visible !ie;
+    cursor: pointer;
+    height:24px;
+}
+
+.norlist li { list-style-type:disc;padding:3px  6px 2px 10px;list-style-position:inside;}

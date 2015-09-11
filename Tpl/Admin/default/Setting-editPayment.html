@@ -1,0 +1,102 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<script language="javascript">
+function ajaxFileUpload(fileToUpload,timestamp)
+{
+	
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+		{
+			url:"{:U('Setting/upload')}",
+			secureuri:false,
+			fileElementId:fileToUpload,
+			dataType: 'json',
+			success: function (data, status)
+			{
+				
+				if (status==1){
+					$("#msg").text(data.info);
+					
+				}
+				else{
+					$("#msg").text(data.info);
+					$("#imgbox").html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+					$("#imgbox").show();
+					$("#fileToUpload_look_"+timestamp).preview();
+					$("#img_url").val(data.data['savename']);
+					
+				}
+
+
+			},
+			error: function (data, status, e)
+			{
+				alert(e);
+			}
+		}
+	)		
+	return false;
+
+}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑支付接口</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Setting/payment')}">返回支付设置</a>
+            </p>
+            <form action="{:U('Setting/updatePayment')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">标识:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{:strtolower($list['name'])}" />小写</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">显示名:</td>
+						<td><input type="text" size="40" name="title" class="input-text" value="{$list['title']}" />前台显示用</td>
+					</tr>                    
+                        <tr>
+						<td style="width:120px;">图片:</td>
+						<td><input type="file" id="fileToUpload" name="fileToUpload" class="input-text" /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload','0');" /><notempty name="list['img_url']"><input type="button" onclick="window.location.href='{:U('Setting/setimg_empty',array('f'=>'img_url','id'=>$list['id']))}';" value="删除图片"/></notempty><br/>
+						<span id="imgbox"><notempty name="list['img_url']">
+		                    <img src="__ROOT__/{$list.img_url}" />
+		                    </notempty></span>
+						
+						</td>
+					</tr> 
+                    
+                    <tr>
+						<td style="width:120px;">简单描述:</td>
+						<td><input type="text" size="60" name="remark" class="input-text" value="{$list['remark']}" /></td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">参数:</td>
+						<td><input type="text" size="60" name="var" class="input-text" value="{$list['var']}" />以,逗号分隔</td> 
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="20" name="sort" class="input-text" value="{$list['sort']}" /></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            
+            <input type="hidden" name="img_url" id="img_url" value="{$list.img_url}" />
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

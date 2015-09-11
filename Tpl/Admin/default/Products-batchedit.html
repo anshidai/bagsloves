@@ -1,0 +1,176 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+function addvalues(id){
+	$("#newvalues_"+id).html($("#newvalues_"+id).html()+$("#values_"+id).html());
+}
+function getattr(form){
+	form.action="{:U('Products/batchedit')}";
+	form.submit();
+	//onchange="getattr(this.form);"
+}
+$(function(){
+	$('#cateid').change(function(){
+		$this=$(this);
+		$.post("{:U('Products/batchedit')}",$this.serialize(),function(data){
+			$('#attrs').html(data);
+		},'html');
+
+	});
+
+});
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>产品批量修改</h1>
+            <p class="msg info">提示：请填写你要修改类别的产品属性,不修改请留空！</span></p>
+            <form action="{:U('Products/doBatchUpdate')}" name="myform" method="post" enctype="multipart/form-data">
+         
+            
+            <div id="tab01" >
+             <table class="nostyle" style="width:700px;" >
+               <tr>
+                 <td style="">产品分类(必填):</td>
+                 <td><select name="cateid" id="cateid" class="input-text" >
+                   <option value="0">最上级...</option>
+                   <volist name="catetree" id="vo">
+                     <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                   </volist>
+                 </select></td>
+               </tr>
+                    <tr>
+						<td style="width:120px;">价格:</td>
+						<td><input type="text" size="40" name="price" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">特价:</td>
+						<td><input type="text" size="40" name="pricespe" class="input-text" value="" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">积分:</td>
+						<td><input type="text" size="40" name="points" class="input-text" value="" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">重量(KG):</td>
+						<td><input type="text" size="40" name="weight" class="input-text" value="" /></td>
+					</tr>
+                   <!-- <tr>
+                      <td style="">尺码:</td>
+                      <td><input type="text" size="40" name="size" class="input-text" id="size" />
+                      (以逗号分隔)</td>
+                    </tr>-->
+                   <tr id="attrs"><td style="width:120px;" colspan="2"></td></tr>
+                   <present name="attr">
+                     <volist name="attr" id="vo">
+                    <tr>
+						<td style="width:120px;">
+                        <eq name="vo['input_type']" value="1">
+                        [<a href="javascript:void(0);" onClick="addvalues('{$vo.id}');">+</a>]
+                        </eq>
+                        {$vo.name}:
+                        <input type="hidden" name="attr_id[]" value="{$vo.id}">
+                        </td>
+						<td>
+                        <label id="values_{$vo.id}">
+                        <eq name="vo['input_type']" value="0">
+                        <input type="text" size="40" name="attr_value_{$vo.id}[]" class="input-text" value="" />
+                        </eq>
+                        <eq name="vo['input_type']" value="1">
+                        <select name="attr_value_{$vo.id}[]">
+                        <option value="">请选择或删除</option>
+                        <volist name="vo['values']" id="subvo">
+                        <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                        </eq>
+                        
+                       
+                        <br>
+                        </label>
+                        
+                        <volist name="vo['attrs']" id="subvo1">
+                        
+                        
+                        <label id="values_{$vo.id}">
+                        <eq name="vo['input_type']" value="0">
+                        <input type="text" size="40" name="attr_value_{$vo.id}[]" class="input-text" value="{$subvo1}" />
+                        </eq>
+                        <eq name="vo['input_type']" value="1">
+                        <select name="attr_value_{$vo.id}[]" id="{$subvo1['id']}">
+                        <option value="">请选择或删除</option>
+                        <volist name="vo['values']" id="subvo">                       
+                         <option value="{$subvo}">{$subvo}</option>
+                        </volist>
+                        </select>
+                        <script type="text/javascript">
+                        document.getElementById("{$subvo1['id']}").value="{$subvo1['attr_value']}";
+						</script>
+                        </eq> 
+                        <br/>                       
+                        </volist>
+                        
+                        <label id="newvalues_{$vo.id}">
+                        </label>
+                        </td>
+					</tr>
+                    </volist>
+                    </present>
+                     <tr>
+						<td style="width:120px;">品牌:</td>
+						<td>
+                        <select name="brandid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="brandtree" id="vo">
+                        <option value="{$vo['id']}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="">最新产品:</td>
+						<td><input type="radio" value="1"  name="isnew" class="input-text"  />是<input type="radio" value="0"  name="isnew" class="input-text"  />否</td>
+					</tr>
+                    <tr>
+						<td style="">热卖产品:</td>
+						<td><input type="radio" value="1"  name="ishot" class="input-text"  />是<input type="radio" value="0"  name="ishot" class="input-text"  />否</td>
+					</tr>
+                    <tr>
+						<td style="">推荐产品:</td>
+						<td><input type="radio" value="1"  name="isrec" class="input-text"  />是<input type="radio" value="0"  name="isrec" class="input-text"  />否</td>
+					</tr>
+                    <tr>
+						<td style="">特价产品:</td>
+						<td><input type="radio" value="1"  name="isprice" class="input-text"  />是<input type="radio" value="0"  name="isprice" class="input-text"  />否</td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">下架:</td>
+						<td><input type="radio" value="1"  name="isdown" class="input-text"  />是<input type="radio" value="0"  name="isdown" class="input-text" />否</td>
+					</tr>
+                    <tr>
+						<td style="">产品介绍:</td>
+						<td> <html:editor id="remark" name="remark" height="400x" width="100%" type="FCKeditor" ></html:editor></td>
+					</tr>
+                    <tr>
+                <td style="">标题(SEO):</td>
+                <td><input type="text" size="60" name="pagetitle" class="input-text" value="" /></td>
+            </tr>
+            <tr>
+                <td style="">关键字(SEO):</td>
+                <td><textarea name="pagekey" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+            <tr>
+                <td style="">描述(SEO):</td>
+                <td><textarea name="pagedec" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+                        </table>
+            </div>
+           
+            <p class="t-left"><input type="submit" class="input-submit" value="批量修改" /></p>
+            </form>
+		</div> <!-- /content -->
+		<script type="text/javascript">
+		document.myform.cateid.value="{$cateid}";
+			</script>
+<include file="Public:adminfooter" />

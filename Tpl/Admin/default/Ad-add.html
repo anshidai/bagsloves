@@ -1,0 +1,122 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<script language="javascript">
+function ajaxFileUpload(fileToUpload,timestamp)
+{
+	
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+		{
+			url:"{:U('Ad/upload')}",
+			secureuri:false,
+			fileElementId:fileToUpload,
+			dataType: 'json',
+			success: function (data, status)
+			{
+				
+				if (status==1){
+					$("#msg").text(data.info);
+					
+				}
+				else{
+					$("#msg").text(data.info);
+					$('#imgbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+					$("#fileToUpload_look_"+timestamp).preview();
+					$("#img_url").val(data.data.savename);
+					
+				}
+
+
+			},
+			error: function (data, status, e)
+			{
+				alert(e);
+			}
+		}
+	)		
+	return false;
+
+}
+$(function(){
+	$('select[name=type] option').not(':last').click(function(){
+		$('#type2').hide().empty();
+	}).end().last().click(function(){
+		$('#type2').append("添加:<input type=\"text\" name=\"type2\" value=\"\" />").show();
+	});
+	
+});
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新广告</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Ad/add')}">添加新广告</a>
+            </p>
+            <form action="{:U('Ad/Insert')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle" width="100%">
+                    <tr>
+						<td style="width:120px;">介绍:</td>
+						<td><input type="text" size="40" name="remark" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">连接:</td>
+						<td><input type="text" size="40" name="link" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">类型:</td>
+						<td><select name="type">
+					         <option value="img">图片</option>
+					         <option value="flash">flash</option>
+					         <option value="code">代码</option>
+					         <option value="html">自定义HTML</option>
+					         <option value="link">链接</option>
+					         <option value="txt">纯文本</option>
+					         <volist name="type" id="vo">
+					          <option value="{$vo.type}">{$vo.type}</option>
+					         </volist>
+					         <option value="">添加新类型</option>
+					         </select> 
+					         <span id="type2" style="display:none"></span></td>
+					</tr> 
+                   <tr>
+						<td style="width:120px;">代码:</td>
+						<td><textarea rows="5" cols="28" name="code"></textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">图片:</td>
+						<td><input type="file" id="fileToUpload" name="fileToUpload" class="input-text" /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload','0');" /><br/>
+						<span id="imgbox"></span>
+						</td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">文字:</td>
+						<td><html:editor id="content" name="content" height="400x" width="100%" type="FCKeditor" ></html:editor></td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text"  size="40" name="sort" class="input-text" value="" /></td>
+					</tr>                     
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="添加" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="img_url" id="img_url" value="" />
+        </form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

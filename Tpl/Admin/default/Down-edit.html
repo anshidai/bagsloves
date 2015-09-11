@@ -1,0 +1,174 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript" src="__PUBLIC__/skin/Js/swfupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/swfupload.queue.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/fileprogress.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/handlers.js"></script>
+<script type="text/javascript">
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:"{:U('Down/upload')}",
+				secureuri:false,
+				fileElementId:'fileToUpload',
+				dataType: 'json',
+				success: function (data, status)
+				{
+					if (status==1){
+						$("#msg").text(data.info);
+					}
+					else{
+						$("#msg").text(data.info);
+						//var jsonObj = eval("("+data+")");						
+						$("#imgurlbox").attr("src","."+data.data); 
+						$("#imgurlbox").show();
+						$("#imgurl").val(data.data);
+					}
+
+
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)		
+		return false;
+
+	}
+	
+var swfu;
+
+window.onload = function() {
+	var settings = {
+		flash_url : "__PUBLIC__/skin/Js/swfupload.swf",
+		upload_url: "{:U('Down/upload')}",
+		post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+		file_size_limit : "100 MB",
+		file_types : "*.jpg;*.gif;*.png;*.bmp;*.zip;*.rar,*.7z",
+		file_types_description : "文件",
+		file_upload_limit : 1,  //配置上传个数
+		file_queue_limit : 0,
+		custom_settings : {
+			progressTarget : "fsUploadProgress",
+			cancelButtonId : "btnCancel"
+		},
+		debug: false,
+
+		// Button settings
+		button_image_url: "__PUBLIC__/skin/images/TestImageNoText_65x29.png",
+		button_width: "65",
+		button_height: "29",
+		button_placeholder_id: "spanButtonPlaceHolder",
+		button_text: '<span class="theFont">浏览</span>',
+		button_text_style: ".theFont { font-size: 16; }",
+		button_text_left_padding: 12,
+		button_text_top_padding: 3,
+
+		file_queued_handler : fileQueued,
+		file_queue_error_handler : fileQueueError,
+		file_dialog_complete_handler : fileDialogComplete,
+		upload_start_handler : uploadStart,
+		upload_progress_handler : uploadProgress,
+		upload_error_handler : uploadError,
+		upload_success_handler : uploadSuccess,
+		upload_complete_handler : uploadComplete,
+		queue_complete_handler : queueComplete
+	};
+
+	swfu = new SWFUpload(settings);
+};
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑下载</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+            
+            <p id="btn-create" class="box">
+              <a href="{:U('Down/Downlist')}">返回下载列表</a>
+            </p>
+            <form action="{:U('Down/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+                   <tr>
+						<td style="width:120px;">标题:</td>
+						<td><input type="text" size="60" name="title" class="input-text" value="{$list['title']}" /></td>
+					</tr>
+                  <tr>	
+                    <td style="width:120px;">文件:</td>
+                    <td><a href="__ROOT__/{$list['file_url']}" target="_blank">{$list.file_url}</a></td>
+                   </tr>
+                     <tr>	
+                    <td style="width:120px;">重新上传:</td>
+						<td >
+						 <link href="__PUBLIC__/skin/css/swfupload.css" rel="stylesheet" type="text/css" />
+               <div class="fieldset flash" id="fsUploadProgress">
+                              <span class="legend">重新上传</span>
+                        </div>
+                          <div id="divStatus">0 个文件已上传</div>
+                              <div>
+                                  <span id="spanButtonPlaceHolder"></span>
+                                  <input id="btnCancel" type="button" value="取消所有上传" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" /><span id="msg"></span>
+                              </div>
+            </div>
+            <label id="picmsg"></label>
+						
+						
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="{$list['sort']}" /></td>
+					</tr>
+                      <tr>
+						<td style="width:120px;">所属类别:</td>
+						<td>
+						<select name="cateid">
+						{$cateoption}
+						</select>
+
+						</td>
+					</tr>
+                   
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" checked />是<input type="radio" value="0"  name="status" class="input-text"   />否</td>
+					</tr>
+               
+					 <tr>
+						<td style="width:120px;">内容:</td>
+						<td width="550">
+						<html:editor id="content" name="content" height="400x" width="100%" type="FCKeditor" >{$list['content']}</html:editor>
+						<!--<textarea name="content" cols="60" rows="10" class="input-text"></textarea>--></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">关键字(SEO):</td>
+						<td><textarea name="keywords" cols="60" rows="10" class="input-text">{$list['keywords']}</textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">描述(SEO):</td>
+						<td><textarea name="description" cols="60" rows="10" class="input-text">{$list['description']}</textarea></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            <script language="javascript" type="text/javascript">
+			   $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

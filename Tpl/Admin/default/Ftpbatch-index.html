@@ -1,0 +1,226 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+$(function(){
+	$("#check").click(function () {
+		$("input:checkbox[name^=checkbox]").attr("checked",$(this).attr("checked"));
+	});
+
+});
+
+function import_file(key)
+{
+	if(key){
+		$('#'+key).attr('checked',true);
+	}
+	document.forms['ftpbatch'].action="{:U('Ftpbatch/moreuploadfile')}";
+	$('#form1').attr('target','success');
+	$('#msg').show();
+	$('#form1').submit();
+}
+
+function del_file(key)
+{
+	if(key){
+		$('#'+key).attr('checked',true);
+	}
+	var id=$('input:checkbox[name^=checkbox]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Ftpbatch/deletefile')}",$('#form1').serialize(),function(){
+			$('input:checkbox[name^=checkbox]:checked').parent().parent().remove();
+		});
+	}
+
+}
+
+$(function(){
+	$('#type_id').change(function(){
+		$this=$(this);
+		if($this.val()){
+			$.post("{:U('Ftpbatch/index')}",$this.serialize(),function(data){
+				$('#attrs').html(data);
+			},'html');
+		}
+
+	});
+
+});
+
+function e(str){
+	document.forms['ftpbatch'].f.value=str;
+	document.forms['ftpbatch'].submit();
+
+}
+</script>
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			<h1>FTP上传批量处理</h1>
+<p class="msg info">提示：文件夹处理成产品类别，图片处理成产品,先用FTP上传文件到路径：/Public/Uploads/temp/，处理完成后请更新缓存!
+</p>
+
+ <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>文件浏览</span></a></li>
+					<li><a href="#tab02"><span>详细描述</span></a></li>
+					<li><a href="#tab03"><span>SEO信息</span></a></li>
+					<li><a href="#tab04"><span>文件处理</span></a></li>
+				</ul>
+			</div>
+			
+<form  name="ftpbatch" id="form1" method="post">
+<div id="tab01">  
+
+<table width="100%" >
+
+<TR class="row" ><th width="8"><input type="checkbox" id="check"></th>
+
+<th>文件名</th>
+
+<th >文件路径</th>
+<th >操作</th>
+
+</TR>
+<volist name="fileName" id="vo">
+
+<TR>
+<TD width="10"><input type="checkbox" value="{$vo['file']}" name="checkbox[]" id="checkbox{$i}"></TD>
+<TD>{$vo['href']}</TD>
+<TD>{$dir}</TD>
+<TD>
+<input type="button"  onclick="del_file('checkbox{$i}')" value="删除" class="small submit" /></TD>
+</TR>
+</volist>
+
+
+</table>
+<input type="hidden" name="f" value="" >
+<INPUT TYPE="hidden" name="ajax" value="1">
+<INPUT TYPE="hidden" name="path" value="{$path}">
+<input type="button"  onclick="javascript:e('');"  value="最上级" class="small submit" />
+<input type="button"  onclick="javascript:e('{$uplevel}');"  value="上一级" class="small submit" />
+<input type="button"  onclick="history.back();"  value="后退" class="small submit" />
+<input type="button"  onclick="del_file()" value="删除文件" class="small submit" />
+<!--<input type="checkbox"  name="isDelDir" value="1" />导完不删除空目录-->
+
+ </div>
+ <div id="tab02">
+
+    <html:editor id="remark" name="remark" height="400x" width="100%" type="FCKeditor" ></html:editor>
+</div>
+ <div id="tab03">
+            <table class="nostyle">
+            <tr>
+                <td style="width:120px;">标题(SEO):</td>
+                <td><input type="text" size="60" name="pagetitle" class="input-text" value="" /></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">关键字(SEO):</td>
+                <td><textarea name="pagekey" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">描述(SEO):</td>
+                <td><textarea name="pagedec" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+            
+            </table>
+ </div>
+ <div id="tab04">
+<table class="nostyle">
+
+<tr>
+    <td style="width:120px;">产品价格:</td>
+    <td><input type="text" name="price" value=""  size="40" class="input-text" /></td>
+</tr>
+<tr>
+    <td style="width:120px;">产品特价:</td>
+    <td><input type="text" name="pricespe" value=""  size="40" class="input-text" /></td>
+</tr>
+<tr>
+						<td style="width:120px;">积分:</td>
+						<td><input type="text" size="40" name="points" class="input-text" value="" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">重量(KG):</td>
+						<td><input type="text" size="40" name="weight" class="input-text" value="" /></td>
+					</tr>
+<tr>
+    <td style="width:120px;">产品编号:</td>
+    <td><input type="text" name="serial" value="" size="40" class="input-text" /></td>
+</tr>
+<tr>
+    <td style="width:120px;">品牌:</td>
+    <td>
+    
+<select name="brandid" class="input-text" >
+<option value="0">最上级...</option>
+<volist name="brandtree" id="vo">
+<option value="{$vo['id']}">{$vo.name}</option>
+</volist>
+</select>
+    </td>
+</tr>
+<tr>
+    <td style="width:120px;">文件夹所属商品类型:</td>
+    <td>
+    
+<select name="type_id" id="type_id">
+ <option value="" selected>请选择商品类型</option>
+<volist name="type_id" id="vo">
+<option value="{$vo.id}">{$vo.name}</option>
+</volist>
+</select>(文件夹自动处理成产品类别，并设置类型)
+    </td>
+</tr>
+ <tr id="attrs"><td style="width:120px;" colspan="2"></td></tr>
+<tr>
+    <td style="width:120px;">产品属性:</td>
+    <td>
+    
+
+最新产品:<input type="radio" value="1"  name="isnew" class="input-text"  />是<input type="radio" value="0"  name="isnew" class="input-text" checked />否<br/>
+热卖产品:<input type="radio" value="1"  name="ishot" class="input-text"  />是<input type="radio" value="0"  name="ishot" class="input-text"  checked />否<br/>
+推荐产品:<input type="radio" value="1"  name="isrec" class="input-text"  />是<input type="radio" value="0"  name="isrec" class="input-text"  checked  />否<br/>
+特价产品:<input type="radio" value="1"  name="isprice" class="input-text"  />是<input type="radio" value="0"  name="isprice" class="input-text"  checked  />否<br/>
+下架产品:<input type="radio" value="1"  name="isdown" class="input-text"  />是<input type="radio" value="0"  name="isdown" class="input-text" checked/>否<br/>
+    </td>
+</tr>
+
+<tr>
+    <td style="width:120px;">产品根据类别名称自动命名:</td>
+    <td><input type="radio"  name="autoReName" value="1" />是<input type="radio"  name="autoReName" value="0" checked />否
+    </td>
+</tr>
+<tr>
+    <td style="width:120px;">是否导入到类别:</td>
+    <td><input type="radio"  name="importClass" value="1" onclick="$('#importclass').show()"/>是<input type="radio"  name="importClass" value="0" checked  onclick="$('#importclass').hide()"/>否
+    </td>
+</tr>
+<tr id='importclass' style="display:none">
+    <td style="width:120px;">导入类别:</td>
+    <td>
+<select name="cateid" class="input-text" >
+<option value="0">最上级...</option>
+<volist name="catetree" id="vo">
+<option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+</volist>
+</select>
+    </td>
+<tr>
+    <td colspan="2"><input type="button"  onclick="import_file()" value="批量处理" /></td>
+</tr>
+
+</table>
+
+</div>
+ </form>
+<div style="display:none" id='msg'>处理进度:<br/>
+<iframe name="success" width="70%"></iframe>
+</div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

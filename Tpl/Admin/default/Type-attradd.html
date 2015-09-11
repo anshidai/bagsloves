@@ -1,0 +1,53 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新属性</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Type/attradd',array('id'=>$typeid))}">添加新属性</a> &nbsp;&nbsp;<a href="{:U('Type/attrlist',array('id'=>$typeid))}">属性列表</a>
+            </p>
+            <form action="{:U('Type/attrInsert')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">名称(必填):</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">所属商品类型:</td>
+						<td>
+                        <select name="type_id" id="type_id">
+                        <volist name="type_id" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">属性值的录入方式:</td>
+						<td><input type="radio" name="input_type" value="0" onClick='$("#values").hide();'  />手工录入(可作为关键字进行搜索)<input  name="input_type" type="radio" value="1" checked="checked" onClick='$("#values").show();' />从下面的列表中选择（一行代表一个可选值）<input  name="input_type" type="radio" value="3" checked="checked" onClick='$("#values").show();' />多选项选择（一行代表一个多选值）
+                        <br>
+                        <textarea name="values" id="values" cols="40" rows="7" ></textarea>
+                      </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" name="status" value="1" checked="checked" />启用<input  name="status" type="radio" value="0"  />禁用</td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="40" name="sort" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="添加" />
+                        </td>
+					</tr>
+            </table>
+            <script type="text/javascript">
+			$("#type_id").val("{$typeid}");
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

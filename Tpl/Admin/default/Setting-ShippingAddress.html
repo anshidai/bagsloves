@@ -1,0 +1,48 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>发货地址</h1>
+            <p class="msg info">提示：请用英文填写！</p>
+            
+            <form action="{:U('Setting/doBase')}" name="myform" method="post">
+            <table class="nostyle">
+                     
+                    <tr>
+						<td style="width:120px;">发件人:</td>
+						<td><input type="text" size="40" name="sender_sname" class="input-text" value="{:GetValue('sender_sname')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">地址:</td>
+						<td><input type="text" size="40" name="sender_address" class="input-text" value="{:GetValue('sender_address')}" /></td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">城市:</td>
+						<td><input type="text" size="40" name="sender_city" class="input-text" value="{:GetValue('sender_city')}" /></td>
+					</tr>   
+                    <tr>
+						<td style="width:120px;">地区（省份）:</td>
+						<td><input type="text" size="40" name="sender_region" class="input-text" value="{:GetValue('sender_region')}" /></td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">国家:</td>
+						<td><input type="text" size="40" name="sender_country" class="input-text" value="{:GetValue('sender_country')}" /></td>
+					</tr>                 
+                    <tr>
+						<td style="width:120px;">邮编:</td>
+						<td><input type="text" size="40" name="sender_zip" class="input-text" value="{:GetValue('sender_zip')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">电话:</td>
+						<td><input type="text" size="40" name="sender_tel" class="input-text" value="{:GetValue('sender_tel')}" /></td>
+					</tr>                   
+                    <tr valign="top">
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

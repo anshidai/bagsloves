@@ -1,0 +1,241 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function sortUpdate(){
+	document.catelist.action='{:U('Cate/doSortUpdate')}';
+	document.catelist.submit();
+}
+function ishot(id,_this){
+	$.post("{:U('Cate/ishot')}",'id='+id,function(data){
+		$('img',_this).attr('src',data.data['imgurl']);
+	},'json');
+
+}
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的类别!');
+	}else{
+		$.post("{:U('Cate/delall')}","id="+id,function(data){
+			if(data.status==0){
+				alert(data.info);
+			}else{
+				var list=data.data.split(',');
+				$.each(list,function(n,i){
+					$('input:checkbox[name^=id][value='+i+']').parent().parent().remove();
+				});
+			}
+		},'json');
+
+	}
+
+}
+function moveall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要移动的类别!');
+	}else{
+		if(!$("form[name=temp]").length){
+			$dom=$("<form name='temp'></form>");
+			$dom.attr({
+			'action':"{:U('Cate/moveall')}",
+			'method':'post'
+			});
+
+			$($dom).append("<input name='id' type='hidden' value='"+id+"' />");
+			$("body").after($dom);
+		}else{
+			$("form[name=temp] input[name=id]").val(id);
+		}
+		$("form[name=temp]").submit();
+	}
+}
+function batchAddAttr(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择类别!');
+	}else{
+		if(!$("form[name=temp]").length){
+			$dom=$("<form name='temp'></form>");
+			$dom.attr({
+			'action':"{:U('Cate/batchAddAttr')}",
+			'method':'post'
+			});
+
+			$($dom).append("<input name='id' type='hidden' value='"+id+"' />");
+			$("body").after($dom);
+		}else{
+			$("form[name=temp] input[name=id]").val(id);
+		}
+		$("form[name=temp]").submit();
+	}
+}
+function batchAddType(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择类别!');
+	}else{
+		if(!$("form[name=temp]").length){
+			$dom=$("<form name='temp'></form>");
+			$dom.attr({
+			'action':"{:U('Cate/batchAddType')}",
+			'method':'post'
+			});
+
+			$($dom).append("<input name='id' type='hidden' value='"+id+"' />");
+			$("body").after($dom);
+		}else{
+			$("form[name=temp] input[name=id]").val(id);
+		}
+		$("form[name=temp]").submit();
+	}
+}
+$(function(){
+	<notpresent name="type">
+	$("tr[pid!='0']").hide();
+	</notpresent>
+	$(".classname>img").click (
+	function() {
+		var key=$(this).attr("key");
+		if($(this).attr("var")=="hide"){
+			$("tr[name^='"+key+"_']").show();
+			$(this).attr("var","show");
+			$(this).attr("src","__PUBLIC__/skin/images/menu_minus.gif");
+			$("tr[name^='"+key+"_']").attr("src","__PUBLIC__/skin/images/menu_minus.gif");
+		} else{
+			$("tr[name^='"+key+"_']").hide();
+			$(this).attr("var","hide");
+			$(this).attr("src","__PUBLIC__/skin/images/menu_plus.gif");
+			$("tr[name^='"+key+"_']").attr("src","__PUBLIC__/skin/images/menu_plus.gif");
+		}
+	});
+	$("a[name^='del_']").click(function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	});
+	$("a[name^='delproducts_']").click(
+	function(){
+		var answer = confirm("确认要删除所有产品吗?该操作不可恢复!");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+	$('input:checkbox[name^=id]').each(function(i,el){
+		var id=$(this).val();
+		$(this).parent().next().children('a:first').click(function(){
+			if(!$(this).next().length){
+				$this=$(this);
+				$(this).after("<p><textarea>"+$(this).text()+"</textarea><br/><input type='button' class='save' value='保存'/><input type='button' class='cannel' value='取消'/></p>");
+
+				$(this).siblings().find('input.cannel').click(function(){
+					$(this).parent('p').remove();
+				});
+				$(this).siblings().find('input.save').click(function(){
+					$.post("{:U('Cate/rename')}",{ 'id':id,'name':$(this).siblings('textarea').val() },function(data,status){
+						if(!data.status){
+							alert(data.info);
+						}else{
+							$this.text(data['data'].name).siblings('p').remove();
+						}
+					},'json');
+				});
+			}
+			return false;
+		});
+	}).parents('tr').mouseover(function(){
+		$(this).css('background-color','#E6F7D4');
+	}).mouseout(function(){
+		$(this).css('background-color','#fff');
+	});
+
+});
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>分类管理</h1>
+            <p class="msg info">提示：操作没有生效请点更新缓存!删除类别前，请先清空类别下所有产品，否则会造成垃圾!</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Cate/add')}">添加新分类</a>
+            </p>
+             <p id="btn-create" class="box">
+            <form action="{:U('Cate/catelist')}" method="post" >
+            <select id='type' name="type" class="input-text" >
+                        <option value="">请选择...</option> 
+                        <option value="name" <eq name="type" value="name">selected</eq>>类别名称</option> 
+                        <option value="id" <eq name="type" value="id">selected</eq>>类别ID</option>
+                        <option value="ishot" <eq name="type" value="ishot">selected</eq>>热门类别</option>
+                        <option value="nothot" <eq name="type" value="nothot">selected</eq>>不是热门类别</option>
+                        </select>
+            关键字:<input type="text" size="20" name="key" class="input-text" value="" /><input type="submit" value="搜索" />
+            
+                        <span style="float:right"><input type="button" value="批量修改商品类型" onclick="batchAddType();"/><input type="button" value="批量添加类型属性" onclick="batchAddAttr();"/><input type="button" value="批量转移类别" onclick="moveall();"/>
+                          <input type="button" value="删除类别及其子类别" onclick="delall();"/><input type="button" value="更新排序" onclick="sortUpdate();"/></span>
+            </form>
+         
+            </p>
+            <form name="catelist" method="post" action="" >
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="25%">分类名称</th>
+				    
+                    <th style="text-align:center" width="7%">类型</th>      
+                    <th style="text-align:center" width="7%">品牌</th>      
+                    <th style="text-align:center" width="7%">是否热门</th>      
+				    <th style="text-align:center" width="5%">排序</th>    
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="catetree" id="vo">
+                <tr name="{$vo.key}" id="{$vo.key}" pid="{$vo.pid}">
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:U('Cate/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+				    <td style="text-align:left" class="classname" >{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}<img var="hide" key="{$vo.key}" src="__PUBLIC__/skin/images/menu_plus.gif">&nbsp;<a href="javascript:void(0);">{$vo.name}</a>
+				    
+				    </td>
+				   
+                    <td style="text-align:left" ><a href="{:U('Type/attrlist',array('id'=>$vo['type_id']))}">{$vo.type_name}</a></td>
+                    <td style="text-align:left" >{$vo.brand_name}</td>
+                    <td style="text-align:left" ><a href="#" onclick="javascript:ishot({$vo['id']},this);">{:getStatus($vo["ishot"],true)}</a></td>
+                     <td style="text-align:left" ><input type="text" value="{$vo['sort']}" name="sort[{$vo.id}]" size="5"/></td>
+                    
+                    <td style="text-align:center" ><a href="{:u('Products/productslist',array('cateid'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/see_pro.jpg" title="查看产品" /></a>&nbsp;<a href="{:u('Products/add',array('cateid'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/add_pru.jpg" title="添加产品" /></a>&nbsp;<a href="{:u('Cate/add',array('pid'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/creat.jpg" title="创建子类别"/></a>&nbsp;<a href="{:u('Cate/movecate',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/mov_cate.jpg" title="转移类别" /></a>&nbsp;<a href="{:u('Cate/movepro',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/mov_pro.jpg" title="转移产品"/></a>&nbsp;<a name="delproducts_{$vo.id}"  href="{:u('Cate/delProducts',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/del_pro.jpg" title="清空产品"/></a>&nbsp;<a href="{:u('Cate/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" title="编辑"/></a>&nbsp;<a name="del_{$vo.id}"  href="{:u('Cate/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/pro_del.jpg" title="删除"/></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			</form>
+            <p class="t-right"><input type="button" value="批量修改商品类型" onclick="batchAddType();"/><input type="button" value="批量添加类型属性" onclick="batchAddAttr();"/><input type="button" value="批量转移类别" onclick="moveall();"/><input type="button" value="删除类别及其子类别" onclick="delall();"/><input type="button" value="更新排序" onclick="sortUpdate();"/></p>		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

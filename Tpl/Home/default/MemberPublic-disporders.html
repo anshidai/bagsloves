@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Member:left" />
+<div class="col2">
+        <div class="list1">
+          <div class="list1_title">Order form information - examination</div>
+          <div class="list2_content">
+            <div class="or_info">
+              <fieldset>
+                    <legend>Order information</legend>
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+         
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Order time :</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{:toDate($shippingInfo['dateline'],'Y-m-d H:i:s')}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Order No.:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.sn}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Total:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.currencies_code}{$shippingInfo['orders_total']}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Payment:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.payment_module_code}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>First Name:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_firstname}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Last Name:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_lastname}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Telephone Number:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_telephone}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Street Address:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_address}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>City:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_city}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>State/Province:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_state}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Zip Code:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_zip}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Country:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.delivery_country}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Customer message:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.BuyNote}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Processing:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{:get_orders_status($shippingInfo['id'])}</td>
+          </tr>
+          <tr>
+            <td height="30" style="padding-left:10px;" width="20%"><strong>Express delivery:</strong></td>
+            <td height="30" style="padding-left:10px;" align="left">{$shippingInfo.shipping_method}</td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center" height="30" style=" background-color:#efefef"><strong>Shopping List</strong></td>
+          </tr>
+                    <tr>
+            <td height="30" style="padding:5px;" align="right" colspan="2">
+              <table border="1" width="100%" style="border-collapse: collapse" bordercolor="#CCCCCC" cellspacing="0" cellpadding="4">
+					<tr align="center">
+						<td width="20%" bgcolor="#EAEAEA"><b>Item name</b></td>
+						<td width="17%" bgcolor="#EAEAEA"><b>Product ID</b></td>
+						<td width="13%" bgcolor="#EAEAEA"><b>Model</b></td>
+						<td width="17%" bgcolor="#EAEAEA"><b>Qty</b></td>
+						<td width="13%" bgcolor="#EAEAEA"><b>Price</b></td>
+						<td width="20%" bgcolor="#EAEAEA"><b>Subtotal</b></td>
+					</tr>	
+						<volist name="list" id="vo">	
+					<tr align='center'>
+					<td><img class="product" src="__ROOT__/{$vo.smallimage}" align="absmiddle" height="60" width="60">
+					<br/>
+					<a href="{:build_url($vo,'products_id')}" target='_blank' style="text-decoration:none;color:#333333">{$vo.products_name}</a>
+					</td>
+					
+					<td>{$vo.products_id}</td>
+					<td><volist name="vo['products_model']" id="subvo">
+{$subvo['name']}:{$subvo['value']}<br/>
+</volist></td>
+					<td>{$vo.products_quantity}</td>
+					<td>{$shippingInfo.currencies_code}{:get_real_price($vo['products_price'],$vo['products_pricespe'])}</td>
+					<td>{$shippingInfo.currencies_code}{$vo['products_total']}</td>
+					</tr>
+					
+					</volist>
+					
+                    </table>
+                    
+                    
+                    <table width="100%" border="0" cellspacing="2" cellpadding="0">
+  <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333">Items Total :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$products_sum}</font></td>
+  </tr>
+  <gt name="total_weight" value="0">
+    <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333"> Total Weight :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$total_weight} KG</font></td>
+  </tr>
+  </gt> 
+ <notempty name="shippingInfo['discount']">
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333"> Sub Total :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$products_total}</font></td>
+  </tr>
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333"> Discount Info :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$shippingInfo.discount}</font></td>
+  </tr>
+  </notempty>
+  
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333">  Shipping Price :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$shippingInfo.shippingmoney}</font></td>
+  </tr>
+    <present name="insurance">
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333">  Insurance :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$shippingInfo.insurance}</font></td>
+  </tr>
+    </present>
+    <present name="paymoney">
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333">  Pay Fee :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$shippingInfo.paymoney}</font></td>
+  </tr>
+    </present>
+   <tr>
+    <td bgcolor="#F5F5F5" height="30" align="right" style="padding-right:10px;"><strong style="color:#333333">  Total Amount :</strong> <font style="color:#FF6600;font-size:18px;font-weight:bold">{$shippingInfo.orders_total}</font></td>
+  </tr>       
+</table>
+            </td>
+          </tr>
+          
+          <tr>
+            <td colspan="2" align="center" height="30">【<a href='javascript:window.print()' style="font-size:13px;color:#FF6600">Prints this page</a>】</td>
+          </tr>
+        </table>
+                  </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<include file="Public:footer" />

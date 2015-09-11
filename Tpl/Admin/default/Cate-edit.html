@@ -1,0 +1,154 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+function ajaxFileUpload()
+{
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+	{
+		url:"{:U('Cate/upload')}",
+		secureuri:false,
+		fileElementId:'fileToUpload',
+		dataType: 'json',
+		success: function (data, status)
+		{
+			if (status==1){
+				$("#msg").text(data.info);
+			}
+			else{
+				$("#msg").text(data.info);
+				$('#imgurlbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");
+				$("#imgurlbox").show();
+				$("#imgurl").val(data.data['savename']);
+			}
+
+
+		},
+		error: function (data, status, e)
+		{
+			alert(e);
+		}
+	}
+	)
+	return false;
+
+}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>分类编辑</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+              <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>基本资料</span></a></li>
+					<li><a href="#tab02"><span>详细描述</span></a></li>
+                    <li><a href="#tab03"><span>SEO信息</span></a></li>
+				</ul>
+			</div> 
+            <p id="btn-create" class="box">
+              <a href="{:U('Cate/catelist')}">分类列表</a>
+            </p>
+            <form action="{:U('Cate/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <div id="tab01">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">分类名称(必填):</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list['name']}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">LOGO:</td>
+						<td><input type="file" size="20" id="fileToUpload" name="fileToUpload" class="input-text"  /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload();" /><input type="hidden" name="imgurl" id="imgurl" value="{$list['imgurl']}" /><notempty name="list['imgurl']"><input type="button" onclick="window.location.href='{:U('Cate/setimg_empty',array('f'=>'imgurl','id'=>$list['id']))}';" value="删除图片"/></notempty>
+                        <br>
+                         <span id="imgurlbox">
+                         <notempty name="list['imgurl']">
+                         <img src="__ROOT__/{$list['imgurl']}" />
+                         </notempty>
+                         </span>
+                        
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="{$list['sort']}" /></td>
+					</tr>
+                    
+                    <tr>
+						<td style="width:120px;">上级分类:</td>
+						<td>
+                        <select name="pid" id="pid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+					<tr>
+						<td style="width:120px;">品牌:</td>
+						<td>
+                        <select name="brandid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="brandtree" id="vo">
+                        <option value="{$vo['id']}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">所属商品类型:</td>
+						<td>
+                        <select name="type_id" id="type_id">
+                        <option value="0">请选择商品类型</option>
+                        <volist name="type_id" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                        </select>(关联产品属性)
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">热门类别:</td>
+						<td><input type="radio" value="1"  name="ishot" class="input-text"  />是<input type="radio" value="0"  name="ishot" class="input-text"  checked />否</td>
+					</tr>
+					</table>
+					</div>
+				<div id="tab02">
+		            <html:editor id="remark" name="remark" height="400x" width="100%" type="FCKeditor" >{$list.remark}</html:editor>
+		            </div>
+					<div id="tab03">
+					 <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">标题(SEO):</td>
+						<td><input type="text" size="60" name="pagetitle" class="input-text" value="{$list['pagetitle']}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">关键字(SEO):</td>
+						<td><textarea name="pagekey" cols="60" rows="10" class="input-text">{$list['pagekey']}</textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">描述(SEO):</td>
+						<td><textarea name="pagedec" cols="60" rows="10" class="input-text">{$list['pagedec']}</textarea></td>
+					</tr>
+				
+            </table>
+            <input type="hidden" name="id" value="{$list['id']}" />
+            
+			</div>
+			 <p class="t-left"><input type="submit" class="input-submit" value="更新" /></p>
+            </form><script language="javascript" type="text/javascript">
+            document.myform.pid.value="{$list['pid']}";
+            document.myform.brandid.value="{$list['brandid']}";
+            document.myform.type_id.value="{$list['type_id']}";
+            $("input[name='ishot'][value={$list['ishot']}]").attr("checked",true);
+			</script>
+		</div> <!-- /content --> 
+<include file="Public:adminfooter" />

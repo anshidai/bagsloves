@@ -1,0 +1,82 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript" src="__PUBLIC__/skin/Js/Region.js"></script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>修改区域</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            	
+              <p id="btn-create" class="box">
+              <a href="{:U('Shipping_area/index',array('id'=>$list['shipping_id']))}">区域列表</a>
+            </p>	
+            <form action="{:U('Shipping_area/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle" width="100%">
+                    <tr>
+						<td style="width:120px;">名称:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+					
+					<tr>
+						<td style="width:120px;">1000克以内费用:</td>
+						<td><input type="text" size="40" name="base_fee" class="input-text" value="{$list.base_fee}" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">续重每1000克或其零数的费用:</td>
+						<td><input type="text" size="40" name="step_fee" class="input-text" value="{$list.step_fee}" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">免费额度:</td>
+						<td><input type="text" size="40" name="free_money" class="input-text" value="{$list.free_money}" /></td>
+					</tr>
+                                     
+                   
+                    
+            </table>
+            <fieldset>
+				<legend>区域设置</legend>
+				<table class="nostyle">
+					<tbody>
+					<tr>
+					<td colspan="4" id="configtext">
+					<volist name="config1" id="vo">
+					<input type="checkbox" name="config[]" value="{$vo}" checked />{:get_region_name($vo)}
+					</volist>
+					</td>
+					</tr>
+					<tr>
+						
+						<td>
+						<select name="country" id="selCountries" onchange="loadRegion('selCountries',1,'selProvinces','{:U('Home-Ajax/getRegion')}');" size="10" style="width:120px">
+                    <option value="0" >请选择</option>
+                    <volist name="country" id="vo">
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                  </select>
+						</td>
+						<td>
+						<select name="Provinces" id="selProvinces" onchange="loadRegion('selProvinces',2,'selCities','{:U('Home-Ajax/getRegion')}');" size="10" style="width:120px">
+                    <option value="0">请选择</option>
+                  </select>
+						</td>
+						<td>
+						<select name="Cities" id="selCities" size="10" style="width:120px">
+                    <option value="0">请选择</option>
+                  </select>
+						</td>
+						<td>
+						<input type="button" value="+" onClick="addconfig();" />
+						</td>
+					</tr>
+					
+					
+				</tbody></table>
+			</fieldset> 
+            <input type="hidden" name="id" id="id" value="{$list.id}" />
+            
+            
+            <p class=right><input type="submit" class="input-submit" value="更新"  /></p> 
+        </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{app_name}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{tpl_path}css/default.css" />
+<script src="{tpl_path}js/common.js" type="text/javascript"></script>
+</head>
+<body id="container">
+<div id="top">
+{app_name}
+</div>
+<!-- topbar -->
+<div id="topbar">
+    <ul class="tab">
+    {topstep}
+		<li class="{step_class}"><a >{step_title}</a></li>
+	{/topstep}
+    </ul>
+</div>
+<!-- topbar end -->
+
+<!-- mainbody -->
+
+<div id="mainbody">
+{err}
+<fieldset class="err">
+    <legend>{lang.note_title}</legend>
+    <ul>
+    {note_info}
+    <li>{notes}</li>
+    {/note_info}
+    </ul>
+</fieldset>
+{/err}
+
+<form id="mainform" method="GET" action="?">
+<input type="hidden" name="action" value="check">
+<input type="hidden" name="step" value="{step_now}">
+{tpl_main}
+</form>
+
+</div>
+<!-- mainbody end -->
+
+<!-- foot -->
+<div id="foot">
+{show_next}
+<input type="button" value="{lang.btn_next}" class="btn" onclick="godourl({step_next});">
+{/show_next}
+{show_redo}
+<input type="button" value="{lang.btn_redo}" class="btn" onclick="gostepurl({step_now});">
+{/show_redo}
+<input type="button" value="{lang.btn_cancal}" class="btn2" onclick="cancal();">
+</div>
+<!-- foot end -->
+</body>
+</html>

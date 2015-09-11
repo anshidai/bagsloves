@@ -1,0 +1,80 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑用户</h1>
+            <p class="msg info">提示：</p>
+            	
+           <script type="text/javascript"> 
+		   function save(){ 
+		   $("#myform").attr("action","{:U('Members/savePWD')}");
+           $("#myform").submit();
+		   }
+		   </script>
+            <form action="{:U('Members/Update')}" name="myform" id="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">First Name:</td>
+						<td>{$list.firstname}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">Last Name:</td>
+						<td>{$list.lastname}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">新密码:</td>
+						<td><input type="password" size="40" name="newpassword" class="input-text" value="" />(不修改留空！)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">email:</td>
+						<td><input type="text" size="40" name="email" class="input-text" value="{$list.email}" /></td>
+					</tr>
+                    
+                    <tr>
+						<td style="width:120px;">地址:</td>
+						<td><input type="text" size="40" name="address" class="input-text" value="{$slist.address}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">城市:</td>
+						<td><input type="text" size="40" name="city" class="input-text" value="{$slist.city}" /></td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">省份/州:</td>
+						<td><input type="text" size="40" name="state" class="input-text" value="{$slist.state}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">邮编:</td>
+						<td><input type="text" size="40" name="zip" class="input-text" value="{$slist.zip}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">国家:</td>
+						<td>
+                        <select name="country" id="country" style="font-size:11px;font-family:Verdana, Arial, Helvetica, sans-serif;">
+  <option value="">Please Select</option> 
+  <volist name="countries" id="vo"> 
+  <option value="{$vo.countries_name}" >{$vo.countries_name}</option> 
+  </volist>
+  </select>
+                        </td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">电话:</td>
+						<td><input type="text" size="40" name="telphone" class="input-text" value="{$slist.telphone}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">传真:</td>
+						<td><input type="text" size="40" name="fax" class="input-text" value="{$slist.fax}" /></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="button" class="input-submit" value="修改密码" onClick="save();" /><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            <input type="hidden" size="40" name="id" class="input-text" value="{$list.id}" />
+            <script language="javascript">
+            document.myform.country.value="{$slist.country}";
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

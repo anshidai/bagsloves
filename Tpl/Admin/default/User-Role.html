@@ -1,0 +1,46 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>角色分配</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('User/add')}">添加新用户</a>
+            </p>
+            <form action="{:U('User/setRole')}" name="myform" method="post">
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">组名</th>
+				    <th style="text-align:center" width="15%">上级组</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="35%">描述</th> 
+				</tr>
+                <volist name="roletree" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="roleID[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" >{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</td>
+				    <td style="text-align:left" >{:getGroupName($vo['pid'])}</td>
+                    <td style="text-align:left" >{:getStatus($vo["status"])}</td>
+                    <td style="text-align:left" >{$vo.remark}</td>
+                    
+                </tr>
+                
+                </volist>
+				<tr>
+                    <td colspan="5" class="t-right"><input type="submit" class="input-submit" value="分配" />
+                    </td>
+                </tr>
+			</table>
+             <script language="javascript" type="text/javascript">
+			  <volist name="list" id="vo">
+            $("[name='roleID[]'][value='{$vo[role_id]}']").attr("checked",'true');
+			</volist>
+			</script>
+            <input type="hidden" name="userID" value="{$userID}" >
+            </form>
+            <p class="t-right"></p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

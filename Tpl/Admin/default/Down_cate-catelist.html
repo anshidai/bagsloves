@@ -1,0 +1,81 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function status(id,_this){
+	$.post("{:U('Down_cate/status')}",'id='+id,function(data){
+		$('img',_this).attr('src',data.data['img_url']);
+	},'json');
+	
+}
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Down_cate/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+	//选中
+	$('#check').click(function(){
+		$('input[name^=id]').attr('checked',this.checked);
+	});
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>下载类别管理</h1> 
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Down_cate/add')}">添加新类别</a> <a href="javascript:delall();">批量下载</a>
+            </p>
+           
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="check" /></th>
+				    <th style="text-align:center" width="15%">类别名</th>
+				    <th style="text-align:center" width="15%">排序</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="35%">分类</th>                 
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    
+                    <td style="text-align:left" >{$vo.name}</td>
+				    <td style="text-align:left" >{$vo['sort']}</td>
+                    <td style="text-align:left" ><a href="javascript:void(0);" onclick="javascript:status({$vo['id']},this);">{:getStatus($vo["status"],true)}</a></td>
+                    <td style="text-align:left" >{$vo['catename']}</td>
+                    <td style="text-align:center" ><a href="{:U('Down_cate/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" /></a>&nbsp;<a name="del_{$vo.id}"  href="{:U('Down_cate/delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

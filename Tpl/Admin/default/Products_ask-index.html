@@ -1,0 +1,87 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Products_ask/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+
+function status(id,_this){
+	$.post("{:U('Products_ask/status')}",'id='+id,function(data){
+		$('img',_this).attr('src',data.data['imgurl']);
+	},'json');
+	
+}
+$(document).ready (
+function(){
+	//选中
+	$('#check').click(function(){
+		$('input[name^=id]').attr('checked',this.checked);
+	});
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>网站留言</h1>
+            <p class="msg info">提示：</p>
+            	<p>类型: <a href="{:U('Products_ask/index')}">所有</a><volist name="type" id="vo">&nbsp;&nbsp;<a href="{:U('Products_ask/index',array('type'=>$vo['type']))}">{$vo['type']|products_ask}</a></volist>
+            	</p>
+            	<form action="{:U('Setting/doBase')}" method="post">
+			有新的留言发邮件提醒我<br/><input type="radio" value="1" name="ask_mail_enable" <if condition="GetValue('ask_mail_enable') eq 1">checked</if>/>启用 <input type="radio" value="0" name="ask_mail_enable"  <if condition="GetValue('ask_mail_enable') eq 0">checked</if>/>禁用 
+			邮箱:<input type="text" value="{:GetValue('ask_mail')}" name="ask_mail" /><input type="submit" value="设置" class="input-submit" />
+			</form>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="check" /></th>
+				    <th style="text-align:center" width="10%">星级</th>
+				    <th style="text-align:center" width="15%">标题</th>
+				    <th style="text-align:center" width="7%">类型</th>
+				    <th style="text-align:center" width="15%">客户名</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="15%">时间</th>                 
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left"  ><img src='__PUBLIC__/skin/admin/stars_{$vo.star|default="5"}_small.gif' /></td>
+				    <td style="text-align:left"  >{$vo.title}</td>
+				    <td style="text-align:left" >{$vo.type|products_ask}</td>
+				    <td style="text-align:left" >{$vo['name']}</td>
+                    <td style="text-align:left" ><a href="javascript:void(0);" onclick="javascript:status({$vo['id']},this);">{:getStatus($vo["status"],true)}</a></td>
+                    <td style="text-align:left" >{:toDate($vo['dateline'])}</td>
+                    <td style="text-align:center" ><a href="{:u('Products_ask/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" /></a>&nbsp;&nbsp;<a name="del_{$vo.id}"  href="{:u('Products_ask/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 <p class="t-left"><input type="button" value="批量删除" onclick="delall();" /></p>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

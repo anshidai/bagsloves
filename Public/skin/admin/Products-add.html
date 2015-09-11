@@ -1,0 +1,277 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<link href="__PUBLIC__/skin/css/swfupload.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/skin/Js/swfupload.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/swfupload.queue.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/fileprogress.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/handlers.js"></script>
+<script language="javascript">
+
+var swfu;
+function ajaxFileUpload(fileToUpload,timestamp)
+{
+
+	$("#loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+
+	$.ajaxFileUpload
+	(
+	{
+		url:"{:U('Products/upload')}",
+		secureuri:false,
+		fileElementId:fileToUpload,
+		dataType: 'json',
+		success: function (data, status)
+		{
+
+			if (status==1){
+				$("#msg").text(data.info);
+
+			}
+			else{
+				$("#msg").text(data.info);
+				$("#fileToUpload_look_"+timestamp).attr("href","."+data.data['savename']);
+				$("#fileToUpload_look_"+timestamp).show();
+				$("#fileToUpload_look_"+timestamp).preview();
+				$("#fileToUpload_url_"+timestamp).val(data.data['savename']);
+				//var jsonObj = eval("("+data+")");
+				/*$("#imgurlbox").attr("src",".././Public/Uploads/Products/"+data.data);
+				$("#imgurlbox").show();
+				$("#imgurl").val(data.data);*/
+			}
+
+
+		},
+		error: function (data, status, e)
+		{
+			alert(e);
+		}
+	}
+	)
+	return false;
+
+}
+$(document).ready (
+function(){
+
+	var settings = {
+		flash_url : "__PUBLIC__/skin/Js/swfupload.swf",
+		upload_url: "{:U('Products/upload')}",
+		post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+		file_size_limit : "100 MB",
+		file_types : "*.jpg;*.gif;*.png;*.bmp",
+		file_types_description : "图片",
+		file_upload_limit : 10000000000,  //配置上传个数
+		file_queue_limit : 0,
+		custom_settings : {
+			progressTarget : "fsUploadProgress",
+			cancelButtonId : "btnCancel"
+		},
+		debug: false,
+
+		// Button settings
+		button_image_url: "__PUBLIC__/skin/images/TestImageNoText_65x29.png",
+		button_width: "65",
+		button_height: "29",
+		button_placeholder_id: "spanButtonPlaceHolder",
+		button_text: '<span class="theFont">浏览</span>',
+		button_text_style: ".theFont { font-size: 16; }",
+		button_text_left_padding: 12,
+		button_text_top_padding: 3,
+
+		file_queued_handler : fileQueued,
+		file_queue_error_handler : fileQueueError,
+		file_dialog_complete_handler : fileDialogComplete,
+		upload_start_handler : uploadStart,
+		upload_progress_handler : uploadProgress,
+		upload_error_handler : uploadError,
+		upload_success_handler : uploadSuccess,
+		upload_complete_handler : uploadComplete,
+		queue_complete_handler : queueComplete
+	};
+
+	swfu = new SWFUpload(settings);
+	$("#img_add").click(function(){
+		var timestamp = Date.parse(new Date());
+		var str="<p class='t-left'><input type='hidden'  name='timestamp[]' value='"+timestamp+"' /><input type='hidden' id='fileToUpload_url_"+timestamp+"' name='imgurl[]' value='' />描述：<input type='text' size='20' name='img_desc[]' class='input-text' />&nbsp排序：<input type='text' size='5' name='sort[]' class='input-text' />&nbsp图片：<input type='file' id='fileToUpload_"+timestamp+"' name='fileToUpload[]' class='input-text' /><input type='radio' name='isIndex'  class='input-text' value='"+timestamp+"'>封面&nbsp;&nbsp;<input class='input-submit' id='upload'  type='button' name='upload' value='上传' onClick=\"return ajaxFileUpload('fileToUpload_"+timestamp+"','"+timestamp+"');\" />&nbsp;<a id='fileToUpload_look_"+timestamp+"' href='javascript:void(0);' style='display:none;'  target='_blank'><img ' src='__PUBLIC__/skin/images/look.jpg' width='15' height='15' ></a></p>";
+		//alert(str);
+		$("#img_html").html($("#img_html").html()+str);
+
+	});
+});
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新产品</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span></p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Products/productslist')}"><img src="__PUBLIC__/skin/admin/pro_list.jpg" /></a>
+            </p>
+            <!-- Tabs -->
+			<div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>通用信息</span></a></li>
+					<li><a href="#tab02"><span>详细描述</span></a></li>
+					<li><a href="#tab03"><span>商品相册</span></a></li>
+                    <li><a href="#tab04"><span>SEO信息</span></a></li>
+				</ul>
+			</div> <!-- /tabs -->
+			 <form action="{:U('Products/Insert')}" name="myform" method="post" enctype="multipart/form-data">
+            <div id="tab01">
+           
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">产品名称(必填):</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">编号:</td>
+						<td><input type="text" size="40" name="serial" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">价格:</td>
+						<td><input type="text" size="40" name="price" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">特价:</td>
+						<td><input type="text" size="40" name="pricespe" class="input-text" value="" /></td>
+					</tr>
+					  <tr>
+						<td style="width:120px;">成本价:</td>
+						<td><input type="text" size="40" name="costprice" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">供应商:</td>
+						<td><input type="text" size="40" name="provider" class="input-text" value="" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">重量(KG):</td>
+						<td><input type="text" size="40" name="weight" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">赠送积分:</td>
+						<td><input type="text" size="40" name="points" class="input-text" value="0" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">产品分类(必填):</td>
+						<td>
+                        <select name="cateid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                     <tr>
+						<td style="width:120px;">品牌:</td>
+						<td>
+                        <select name="brandid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="brandtree" id="vo">
+                        <option value="{$vo['id']}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        </td>
+					</tr>
+                  <!--  <tr>
+						<td style="width:120px;">尺码:</td>
+						<td><input type="text" size="40" name="size" class="input-text" value="" />"以","号分隔</td>
+					</tr>-->
+                    
+                    <tr>
+						<td style="width:120px;">最新产品:</td>
+						<td><input type="radio" value="1"  name="isnew" class="input-text"  />是<input type="radio" value="0"  name="isnew" class="input-text"  checked/>否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">热卖产品:</td>
+						<td><input type="radio" value="1"  name="ishot" class="input-text"  />是<input type="radio" value="0"  name="ishot" class="input-text"  checked/>否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">推荐产品:</td>
+						<td><input type="radio" value="1"  name="isrec" class="input-text"  />是<input type="radio" value="0"  name="isrec" class="input-text"  checked/>否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">特价产品:</td>
+						<td><input type="radio" value="1"  name="isprice" class="input-text"  />是<input type="radio" value="0"  name="isprice" class="input-text"  checked/>否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">下架:</td>
+						<td><input type="radio" value="1"  name="isdown" class="input-text"  />是<input type="radio" value="0"  name="isdown" class="input-text"  checked/>否</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="20" name="sort" class="input-text" value="" /></td>
+					</tr>
+                    
+            </table>
+            </div>
+            <div id="tab02">
+            <html:editor id="remark" name="remark" height="400x" width="100%" type="FCKeditor" ></html:editor>
+            </div>
+            <div id="tab03">
+            <table class="nostyle">
+           
+            <tr><td>
+            <p class="t-left">
+            <input type="hidden"  name="timestamp[]" value="0" />
+            <input type="hidden" id="fileToUpload_url_0" name="imgurl[]" value="" />
+            描述：<input type="text" size="20" name="img_desc[]" class="input-text" />
+            排序：<input type="text" size="5" name="sort[]" class="input-text" />
+            图片：<input type="file" id="fileToUpload" name="fileToUpload[]" class="input-text" /><input type="radio" name="isIndex" checked class="input-text" value="0">
+            封面 
+             <input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload','0');" />
+             &nbsp;<a id="img_add" href="javascript:void(0);" title="__PUBLIC__/skin/images/look.jpg"><img src="__PUBLIC__/skin/images/add.jpg" width="15" height="15"></a>
+             <a id='fileToUpload_look_0' href='javascript:void(0);' target="_blank" style='display:none;'><img  src='__PUBLIC__/skin/images/look.jpg' width='15' height='15' ></a></p>
+            <label id="img_html">
+            </label>
+           </td></tr>
+           <tr><td>批量上传:
+            <div class="fieldset flash" id="fsUploadProgress">
+                              <span class="legend">快速上传</span>
+                        </div>
+                          <div id="divStatus">0 个文件已上传</div>
+                              <div>
+                                  <span id="spanButtonPlaceHolder"></span>
+                                  <input id="btnCancel" type="button" value="取消所有上传" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
+                              </div>
+            </div>
+            <label id="picmsg"></label>
+           </td></tr>
+           </table>
+           
+            </div>
+            <div id="tab04">
+            <table class="nostyle">
+            <tr>
+                <td style="width:120px;">标题(SEO):</td>
+                <td><input type="text" size="60" name="pagetitle" class="input-text" value="" /></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">关键字(SEO):</td>
+                <td><textarea name="pagekey" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+            <tr>
+                <td style="width:120px;">描述(SEO):</td>
+                <td><textarea name="pagedec" cols="60" rows="10" class="input-text"></textarea></td>
+            </tr>
+            
+            </table>
+            </div>
+            <p class="t-right"><input type="submit" class="input-submit" value="添加" /></p>
+            </form>
+		</div> <!-- /content -->
+		 <notempty name="_GET['cateid']">
+             <script language="javascript" type="text/javascript">
+            document.myform.cateid.value="{$_GET['cateid']}";
+			</script>
+             </notempty>
+<include file="Public:adminfooter" />

@@ -1,0 +1,56 @@
+
+<fieldset class="large box">
+<legend>{lang.base_title}</legend>
+{app_default}
+{isdb}
+   <table>
+	   <tr>
+		   <th width="150px">{lang.step2_12}:</th><td><input name="mysql_host"  value="{mysql_host}"></td>
+		   <th width="150px">{lang.step2_11}:</th><td><input name="mysql_user" value="{mysql_user}"></td>
+		   <th width="150px">{lang.step2_10}:</th><td><input name="mysql_pwd"  value="{mysql_pwd}"></td>
+		   <th width="150px">{lang.step2_9}:</th><td><input name="mysql_port"  value="{mysql_port}"></td>
+	   </tr>
+	   <tr>
+			<th width="150px">{lang.step2_8}:</th><td>删除<input name="db_isdrop" type="radio"  value="1">
+			保留<input name="db_isdrop" type="radio"  value="0" checked>
+			</td>   
+	  		<th width="150px">{lang.step2_7}:</th><td><input name="db_name"  value="{db_name}"></td>
+		   <th width="150px">{lang.step2_6}:</th><td><input name="db_pre"  value="{db_pre}"></td>
+		   <th width="150px"></th><td></td>
+	   </tr>
+   </table>
+   <br>
+{/isdb}
+{isroot}
+    <table>
+	   <tr>
+		   <th width="150px">{lang.step2_5}:</th><td><input name="app_root"  value="{app_root}"> 注:相对于安装程序的根目录</td>
+	   </tr>
+   </table>
+   <br>
+{/isroot}
+{/app_default}
+
+{issvn}
+    <table>
+    {APP_SVN}
+	   <tr>
+		   <th width="150px">{SVN_TITLE}</th><td>{lang.step2_1}:<font color="Green">{SVN_URL}</font>,{lang.step2_2}:<font color="Green">{SVN_DIR}</font>,{lang.step2_3}:<font color="Green">{DIR_PATH}</font></td>
+	   </tr>
+	 {/APP_SVN}  
+   </table>
+   <br>
+{/issvn}   
+{issql}  
+    <table>
+    {APP_SQL}
+	   <tr>
+		   <th width="150px">{SQL_INFO}</th><td>{lang.step2_4}:<font color="Green">{SQL_FILE}</font></td>
+	   </tr>
+	 {/APP_SQL}  
+   </table>
+   <br>
+{/issql}  
+   	 </ul>
+ </fieldset>
+

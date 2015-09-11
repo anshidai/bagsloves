@@ -1,0 +1,27 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>网站地图</h1>
+            <p class="msg info">提示：你一共有{$count|default=0}个产品！</p>
+            
+            <form action="{:U('Sitemap/index')}" name="myform" method="post" target="success">
+            <table class="nostyle">
+                    <tr>
+						<td>文件:</td>
+						<td><a href="../sitemap.xml" target="_blank">Sitemap.xml</a>
+						<present name='mtime'>({$mtime})</present>
+						</td>
+						<td colspan="2" class="t-right"><input type="submit"  value="重新生成" onclick="$('#msg').show();" />
+                        </td>
+					</tr>
+                 
+            </table>
+            </form>
+ <div style="display:none" id='msg'>处理进度:<br/>
+<iframe name="success" width="70%"></iframe>
+</div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,216 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function attr(){
+	$("#listform").attr("action","{:U('Products/attredit')}");
+	$("#listform").submit();
+}
+function sortUpdate(){
+	$("#listform").attr("action","{:U('Products/doSortUpdate')}");
+	$("#listform").submit();
+}
+function delprodcuts(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Products/Delete')}","id="+id);
+		$('input:checkbox[name^=id]:checked').parent().parent().remove();
+	}
+}
+function moveProdcutsToBrand(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要转移的产品!');
+	}else{
+		$('form[name=movetobrand] input:hidden[name=id]').val(id);
+		$('form[name=movetobrand]').submit();
+	}
+}
+function moveprodcuts(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要转移的产品!');
+	}else{
+		$('form[name=move] input:hidden[name=id]').val(id);
+		$('form[name=move]').submit();
+	}
+}
+
+function setstatus(id,type,_this){
+	$.post("{:U('Products/setStatus')}",{'id':id,'type':type},function(data){
+		$('img',_this).attr('src',data.data['imgurl']);
+	},'json');
+}
+function setstatus2(form){
+
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要设置的项!');
+		return false;
+	}else{
+		$("input:hidden[name=id]",form).val(id);
+		form.submit();
+	}
+}
+$(document).ready (
+function(){
+	$('input:checkbox[name^=id]').each(function(i,el){
+		var id=$(this).val();
+		$(this).parent().next().children('a').click(function(){
+			if(!$(this).next().length){
+				$this=$(this);
+				$(this).after("<p><textarea>"+$(this).text()+"</textarea><br/><input type='button' class='save' value='保存'/><input type='button' class='cannel' value='取消'/></p>");
+
+				$(this).siblings().find('input.cannel').click(function(){
+					$(this).parent('p').remove();
+				});
+				$(this).siblings().find('input.save').click(function(){
+					$.post("{:U('Products/rename')}",{ 'id':id,'name':$(this).siblings('textarea').val() },function(data,status){
+						if(!data.status){
+							alert(data.info);
+						}else{
+							$this.text(data['data'].name).siblings('p').remove();
+						}
+					},'json');
+				});
+			}
+			return false;
+		});
+	}).parents('tr').mouseover(function(){
+		$(this).css('background-color','#E6F7D4');
+	}).mouseout(function(){
+		$(this).css('background-color','#fff');
+	});
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+	$(".preview").preview();
+	$("#cateid").val("{$cateid|default=''}");
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>产品管理</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Products/add')}">添加新产品</a>
+            </p>
+            <p id="btn-create" class="box">
+            <form action="{:U('Products/productslist')}" method="get" >
+            产品名称:<input type="text" size="20" name="name" class="input-text" value="" />分类<select id='cateid' name="cateid" class="input-text" >
+                        <option value="">请选择...</option> 
+                        <option value="isnew">最新产品</option>
+                        <option value="ishot">热卖产品</option>
+                        <option value="isrec">推荐产品</option>
+                        <option value="isprice">特价产品</option>
+                        <option value="isdown">下架产品</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        
+                        </select>
+                        <input type="submit" value="搜索" />
+            </form>
+            </p>
+            
+            <p> <form action="{:U('Products/move')}" method="post" name='move' >
+            移到分类:<select name="cateid" class="input-text" >
+                        <option value="">请选择...</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select>
+                        <input type="hidden" name="id" value="" />
+                        <input type="button" value="移动" onclick="return moveprodcuts();"/>
+            </form></p>
+             <p> <form action="{:U('Products/movetobrand')}" method="post" name='movetobrand' >
+            移到品牌:<select name="brandid" class="input-text" >
+                        <option value="0">最上级...</option>
+                        <volist name="brandtree" id="vo">
+                        <option value="{$vo['id']}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        <input type="hidden" name="id" value="" />
+                        <input type="button" value="移动" onclick="return moveProdcutsToBrand();"/>
+            </form></p>
+            <form action="#" method="post" id="listform">
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="25%">名称</th>
+				    <th style="text-align:center" width="15%">排序</th>
+                    <th style="text-align:center" width="5%">最新</th>
+                    <th style="text-align:center" width="5%">热卖</th>
+                    <th style="text-align:center" width="5%">推荐</th>
+                    <th style="text-align:center" width="5%">特价</th>                
+                    <th style="text-align:center" width="5%">下架</th>                
+                    <th style="text-align:center" width="5%">SEO</th>                
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:u('Products/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+				    <td style="text-align:left" id="classname" >
+				    <a <notempty name="vo['smallimage']">class="preview" href="../{$vo['smallimage']}"<else/>href="javascript:void(0);"</notempty> title="{$vo.name}">{$vo.name}</a></td>
+				    <td style="text-align:left" ><input type="text" value="{$vo['sort']}" name="sort[{$vo.id}]" size="5"/></td>
+                    <td style="text-align:left" ><a href="javascript:void();" onclick="javascript:setstatus({$vo['id']},'isnew',this);">{:getStatus($vo["isnew"],true)}</a></td>
+                    <td style="text-align:left" ><a href="javascript:void();" onclick="javascript:setstatus({$vo['id']},'ishot',this);">{:getStatus($vo["ishot"],true)}</a></td>
+                    <td style="text-align:left" ><a href="javascript:void();" onclick="javascript:setstatus({$vo['id']},'isrec',this);">{:getStatus($vo["isrec"],true)}</a></td>
+                    <td style="text-align:left" ><a href="javascript:void();" onclick="javascript:setstatus({$vo['id']},'isprice',this);">{:getStatus($vo["isprice"],true)}</a></td>
+                    <td style="text-align:left" ><a href="javascript:void();" onclick="javascript:setstatus({$vo['id']},'isdown',this);">{:getStatus($vo["isdown"],true)}</a></td>
+                    <td style="text-align:left" >{:is_seo('Products',$vo['id'])}</td>
+                    <td style="text-align:center" ><a href="{:u('Products/attredit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/ati_edit.jpg" title="属性编辑"/></a>&nbsp;<a href="{:u('Products/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" title="编辑" /></a>&nbsp;<a name="del_{$vo.id}"  href="{:u('Products/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg"  title="删除"/></a></td>
+                </tr>
+                </volist>
+				
+			</table></form>
+            <p class="t-left">
+            <input type="button" value="编辑属性" onclick="attr();" /> 
+            <input type="button" value="更新排序" onclick="sortUpdate();"/>
+            <input type="button" value="删除产品" onclick="delprodcuts();" />
+            <form method="get" action="">每页显示：<input type="text" name="listRows" value="{$listRows}" size="5"/><INPUT TYPE="submit" value="更改"></form>
+            
+            <form method="post" action="{:U('Products/SetStatus2','','',false)}" >
+            批量设置:
+            <input type="checkbox" value="1" name="reverse"/>反向 
+            <input type="button" onclick="this.form.action+='-type-isnew';return setstatus2(this.form);" value="最新"/>
+            <input type="button" onclick="this.form.action+='-type-ishot';return setstatus2(this.form);" value="热卖"/>
+            <input type="button" onclick="this.form.action+='-type-isrec';return setstatus2(this.form);" value="推荐"/>
+            <input type="button" onclick="this.form.action+='-type-isprice';return setstatus2(this.form);" value="特价"/>
+            <input type="hidden" value="" name="id"/></form></p>
+            <p class="t-right">{$show}</p>
+            
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

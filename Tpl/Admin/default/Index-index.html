@@ -1,0 +1,104 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>欢迎使用EasyCart系统</h1>
+            <!--<p class="msg info">提示：</p>-->	
+            <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>欢迎使用</span></a></li>
+					<li><a href="#tab02"><span>服务器信息</span></a></li>
+					<li><a href="#tab03"><span>程序发布</span></a></li>
+					<li><a href="#tab04"><span>安装使用</span></a></li>
+				</ul>
+			</div> 
+			
+			<div id="tab01">
+			<p><img src="__PUBLIC__/skin/admin/step.jpg" border="0" usemap="#Map" />
+              <map name="Map" id="Map">
+                <area shape="rect" coords="153,14,277,52" href="{:U('Type/catelist')}" />
+                <area shape="rect" coords="295,15,415,52" href="{:U('Cate/add')}" />
+                <area shape="rect" coords="432,15,556,52" href="{:U('Cate/catelist')}" />
+                <area shape="rect" coords="570,14,694,53" href="{:U('Products/add')}" />
+                <area shape="rect" coords="710,14,836,53" href="{:U('Products/productslist')}" />
+              </map>
+            </p>
+			本站共有 <a href="{:U('Products/productslist')}">{$product_count|default=0}</a> 个产品 , <a href="{:U('Cate/catelist')}">{$cate_count|default=0}</a> 个类别<br/>
+			今天共新增了 <a href="{:U('Orders/orderslist')}">{$order_count|default=0}</a> 个订单 , <a href="{:U('Members/memberslist')}">{$member_count|default=0}</a> 个会员  , <a href="{:U('Products_ask/index')}">{$ask_count|default=0}</a> 个留言 , {$cart_count|default=0} 个购物车 , 登录了 <a href="{:U('Members/memberslist')}">{$member_last_login_count|default=0}</a> 个会员 , {$orders_status1|default=0} 个未付款 , {$orders_status2|default=0} 个已付款 <br/>
+			本周共新增了 <a href="{:U('Orders/orderslist')}">{$week_order_count|default=0}</a> 个订单 , <a href="{:U('Members/memberslist')}">{$week_member_count|default=0}</a> 个会员 , <a href="{:U('Products_ask/index')}">{$week_ask_count|default=0}</a> 个留言 <br/>
+			本月共新增了 <a href="{:U('Orders/orderslist')}">{$month_order_count|default=0}</a> 个订单 , <a href="{:U('Members/memberslist')}">{$month_member_count|default=0}</a> 个会员 , <a href="{:U('Products_ask/index')}">{$month_ask_count|default=0}</a> 个留言 <br/>
+            </div> 
+            <div id="tab02">
+            <form action="{:U('Info/doInsert')}" name="myform" method="post">
+            <table width="100%">
+                    <tr>
+						<td colspan="2" >服务器信息:
+					    </td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">操作系统:</td>
+						<td>{$info['操作系统']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">运行环境:</td>
+						<td>{$info['运行环境']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">PHP运行方式:</td>
+						<td>{$info['PHP运行方式']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">版本:</td>
+						<td>{$info['版本']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">上传附件限制:</td>
+						<td>{$info['上传附件限制']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">执行时间限制:</td>
+						<td>{$info['执行时间限制']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">服务器时间:</td>
+						<td>{$info['服务器时间']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">北京时间:</td>
+						<td>{$info['北京时间']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">服务器域名/IP:</td>
+						<td>{$info['服务器域名/IP']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">剩余空间:</td>
+						<td>{$info['剩余空间']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">register_globals:</td>
+						<td>{$info['register_globals']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">magic_quotes_gpc:</td>
+						<td>{$info['magic_quotes_gpc']}</td>
+					</tr>
+                    <tr>
+						<td style="width:220px;">magic_quotes_runtime:</td>
+						<td>{$info['magic_quotes_runtime']}</td>
+					</tr>
+                                       
+               
+                    
+            </table>
+            </form>
+            </div> 
+            <div id="tab03">
+            <script type="text/javascript" src="http://www.0594trade.com/api.php?mod=js&bid=68"></script>
+            </div>
+            <div id="tab04">
+            <script type="text/javascript" src="http://www.0594trade.com/api.php?mod=js&bid=70"></script>
+            </div>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

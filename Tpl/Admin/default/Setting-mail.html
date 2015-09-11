@@ -1,0 +1,112 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>email设置</h1>
+            <p class="msg info">提示：</p>
+            <div class="tabs box">
+				<ul>
+					<li><a href="#tab01"><span>邮件设置</span></a></li>
+					<li><a href="#tab02"><span>用户注册</span></a></li>
+				</ul>
+			</div>
+			<div id="tab01">
+            <form action="{:U('Setting/doBase')}" name="myform" method="post">
+            <table class="nostyle">
+                     <tr>
+						<td style="width:120px;">发送邮件方式:</td>
+						<td><input type="radio" value="smtp"  name="sendemailtype" class="input-text"  />系统自带smtp(可直接发送邮件) <input type="radio" value="phpmail"  name="sendemailtype" class="input-text"  />phpmail</td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">发件人地址:</td>
+						<td><input type="text" size="40" name="mailfrom" class="input-text" value="{:GetValue('mailfrom')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">邮件抄送人:</td>
+						<td><input type="text" size="40" name="mailcopyTo" class="input-text" value="{:GetValue('mailcopyTo')}" />(填店主邮箱，有订单发送到这里)</td>
+					</tr>
+                    <tr>
+						<td colspan="2"><div style="border-bottom: 1px solid red;"></div>SMTP设置:(如果您选择了系统自带的smtp邮件服务，您不需要填写下面的内容。)</td>
+					</tr>
+					
+					<tbody id="smtp" <if condition="GetValue('sendemailtype') neq 'phpmail'">style="display:none"</if>>
+                    <tr>
+						<td style="width:120px;">smtp主机:</td>
+						<td><input type="text" size="40" name="smtphost" class="input-text" value="{:GetValue('smtphost')}" />(需开通smtp发信功能，主机地址请查看该邮箱的系统帮助)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">smtp用户名:</td>
+						<td><input type="text" size="40" name="smtpusername" class="input-text" value="{:GetValue('smtpusername')}" /></td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">smtp密码:</td>
+						<td><input type="text" size="40" name="smtppassword" class="input-text" value="{:GetValue('smtppassword')}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">smtp端口:</td>
+						<td><input type="text" size="40" name="smtpport" class="input-text" value="{:GetValue('smtpport')}" />(普通默认25,ssl协议默认443)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">smtp是否使用ssl协议:</td>
+						<td><input type="radio" value="0"  name="smtpisssl" class="input-text"  />否<input type="radio" value="1"  name="smtpisssl" class="input-text"  />是(一般邮箱选否，google等邮箱选是)</td>
+					</tr>
+                    </tbody>
+                   
+                    <tr valign="top">
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr>
+            </table>
+            <script language="javascript" type="text/javascript">
+            $("input[name='sendemailtype'][value={:GetValue('sendemailtype')}]").attr("checked",true);
+            $("input[name='smtpisssl'][value={:GetValue('smtpisssl')}]").attr("checked",true);
+			</script>
+            </form>
+            <script language="JavaScript" type="text/javascript">
+		$('form[name=myform] input[name=sendemailtype]').eq(0).click(
+		function(){
+			$('#smtp').hide();
+		}
+		).end().eq(1).click(function(){
+			$('#smtp').show();
+		});
+		</script>
+		</div>
+		
+		<div id="tab02">
+		<form action="{:U('Setting/doBase')}" name="myform2" method="post">
+            <table class="nostyle">
+                     <tr>
+						<td style="width:120px;">发送欢迎邮件:</td>
+						<td><input type="radio" value="1"  name="is_welcome_email" class="input-text" <if condition="GetValue('is_welcome_email') eq 1">checked</if> />是<input type="radio" value="0"  name="is_welcome_email" class="input-text" <if condition="GetValue('is_welcome_email') eq 0">checked</if> />否</td>
+					</tr>
+					
+                     <tr>
+						<td style="width:120px;">邮件内容:</td>
+						<td>标签说明: 会员名字{name} , 会员邮箱{email} , 注册时间{time} , 本站网址{url} , 网站名称{sitename} , 管理员邮箱 {adminemail}
+						
+						<br/><html:editor id="welcome_email_content" name="welcome_email_content" height="400x" width="600px" type="FCKeditor" >{:GetValue('welcome_email_content')}</html:editor></td>
+					</tr>
+					
+			      <tr valign="top">
+						<td colspan="2" class="t-right"><input type="button" class="input-submit" value="恢复默认说明" onclick="setContents('welcome_email_content',$('#default').html());" /><input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr>
+            </table>
+		</form>
+		</div>
+		
+		
+		<div id="default" style="display:none"><div>Dear <font color="#FF0000">{name}</font>, you have already registered as a member of <font color="#FF0000">{sitename}</font>, and your account is <font color="#FF0000">{email}</font>, registered time is <font color="#FF0000">{time}</font>, if you need to contact the site, you can contact us, email to <font color="#FF0000">{adminemail}</font>.</div></div>
+		
+            
+            
+            
+		</div> <!-- /content -->
+		
+		
+<include file="Public:adminfooter" />

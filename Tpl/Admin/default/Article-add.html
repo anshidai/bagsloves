@@ -1,0 +1,116 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<script type="text/javascript">
+	function ajaxFileUpload()
+	{
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload
+		(
+			{
+				url:"{:U('Article/upload')}",
+				secureuri:false,
+				fileElementId:'fileToUpload',
+				dataType: 'json',
+				success: function (data, status)
+				{
+					if (status==1){
+						$("#msg").text(data.info);
+					}
+					else{
+						$("#msg").text(data.info);		
+						$('#imgurlbox').html("<img src=\"__ROOT__/"+data.data.savename+"\"/>");	
+						$("#imgurlbox").show();
+						$("#imgurl").val(data.data['savename']);
+					}
+
+
+				},
+				error: function (data, status, e)
+				{
+					alert(e);
+				}
+			}
+		)		
+		return false;
+
+	}
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新文章</h1>
+            <p class="msg info">提示：<label id="msg"></label><span id="loading" style="display:none;"><img   src="__PUBLIC__/skin/images/loading.gif" style="height:20px;">上传中...</span>	</p>
+            
+            <p id="btn-create" class="box">
+              <a href="{:U('Article/add')}">添加新文章</a>
+            </p>
+            <form action="{:U('Article/insert')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+                      <tr>
+						<td style="width:120px;">标题(必填):</td>
+						<td><input type="text" size="60" name="title" class="input-text" value="" /></td>
+					</tr> 
+					<tr>
+						<td style="width:120px;">副标题(选填):</td>
+						<td><input type="text" size="60" name="title2" class="input-text" value="" /></td>
+					</tr>
+					<tr>
+						<td style="width:120px;">外部URL(选填):</td>
+						<td><input type="text" size="60" name="href" class="input-text" value="{$list['href']}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">LOGO:</td>
+						<td><input type="file" size="20" id="fileToUpload" name="fileToUpload" class="input-text"  /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload();" /><input type="hidden" name="img_url" id="imgurl" value="" />
+                        <br>
+                         <span id="imgurlbox"></span>
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">排序:</td>
+						<td><input type="text" size="10" name="sort" class="input-text" value="" /></td>
+					</tr>
+                    
+                     <tr>
+						<td style="width:120px;">所属类别:</td>
+						<td>
+						<select name="pid">
+						{$cateoption}
+						</select>
+
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1"  name="status" class="input-text" checked />是<input type="radio" value="0"  name="status" class="input-text"   />否</td>
+					</tr>
+                
+                    <tr>
+						<td style="width:120px;">内容:</td>
+						<td width="550">
+						<html:editor id="content" name="content" height="400x" width="100%" type="FCKeditor" ></html:editor>
+						<!--<textarea name="content" cols="60" rows="10" class="input-text"></textarea>--></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">关键字(SEO):</td>
+						<td><textarea name="keywords" cols="60" rows="10" class="input-text"></textarea></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">描述(SEO):</td>
+						<td><textarea name="description" cols="60" rows="10" class="input-text"></textarea></td>
+					</tr>
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="添加" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

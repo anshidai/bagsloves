@@ -1,0 +1,44 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>节点维护</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Node/add')}">添加新节点</a>
+            </p>
+            
+            <form method="post" action="">
+            权限验证最小级别(默认模块级):
+            操作级:<input type="radio" value="action" name="access" <eq name="access" value="action">checked</eq>/>
+            模块级:<input type="radio" value="module" name="access" <eq name="access" value="module">checked</eq> />
+            <input type="submit" value="修改" />
+            </form>
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">显示名</th>
+				    <th style="text-align:center" width="15%">类型</th>
+				    <th style="text-align:center" width="15%">应用名</th>
+                    <th style="text-align:center" width="7%">状态</th>
+				    <th style="text-align:center" width="35%">描述</th>                 
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="nodetree" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" >{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.title}</td>
+				    <td style="text-align:left" >{:nodeLevel($vo['level'])}</td>
+				    <td style="text-align:left" >{$vo.name}</td>
+                    <td style="text-align:left" >{:getStatus($vo["status"])}</td>
+                    <td style="text-align:left" >{$vo.remark}</td>
+                    <td style="text-align:center" ><a href="{:u('Node/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" title="编辑"/></a>&nbsp;<a href="{:u('Node/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg"  title="删除" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right"></p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

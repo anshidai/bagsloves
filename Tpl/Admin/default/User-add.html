@@ -1,0 +1,53 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>添加新用户</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Role/add')}">添加新用户</a>
+            </p>
+            <form action="{:U('User/Insert')}" name="myform" method="post">
+            <table class="nostyle">
+                    <tr>
+						<td style="width:120px;">用户名:</td>
+						<td><input type="text" size="40" name="account" class="input-text" value="" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">昵称:</td>
+						<td><input type="text" size="40" name="nickname" class="input-text" value="" /></td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">密码:</td>
+						<td><input type="password" size="40" name="password" class="input-text" value="" /></td>
+					</tr> 
+                    <tr>
+						<td style="width:120px;">确认密码:</td>
+						<td><input type="password" size="40" name="repassword" class="input-text" value="" /></td>
+					</tr>                   
+                    <tr>
+						<td style="width:120px;">备注:</td>
+						<td><input type="text" size="40" name="remark" class="input-text" value="" /></td>
+					</tr> 
+                    
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td><input type="radio" value="1" checked name="status" class="input-text"  />启用<input type="radio" value="0"  name="status" class="input-text"  />禁用</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">是否超级管理员:</td>
+						<td><input type="radio" value="1"  name="isadministrator" class="input-text"  />是<input type="radio" value="0"  name="isadministrator" class="input-text" checked  />否</td>
+					</tr>
+                    
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="添加" />
+                        </td>
+					</tr>
+            </table>
+            </form>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

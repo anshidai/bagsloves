@@ -1,0 +1,27 @@
+ <div id="pagebody">
+      <div class="col1">
+        <div class="menu">
+          <div class="menu_title">Categories</div>
+          <div class="menu_content">
+           <include file="Public:floatmenu" />
+          </div>
+        </div>
+        <div class="menu1">
+          <div class="menu1_title">Bestsellers</div>
+          <div class="menu1_content">
+          <volist name="HotProducts" id="vo">
+            <div class="m_pro"> 
+              <div class="m_pro_img"><a href="{:build_url($vo,'pro_url')}" altimg="{:build_url($vo,'altimg')}" title="{:build_url($vo,'pro_name')}" ><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" border="0" width="45" height="45" /></a></div>
+              <div class="m_pro_name">
+                <a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a>
+              </div>
+              <div class="m_pro_pri">
+                {:build_url($vo,'pro_price')}
+              </div>
+            </div>
+           </volist>
+            
+            
+          </div>
+        </div>
+      </div>

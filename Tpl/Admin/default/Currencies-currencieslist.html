@@ -1,0 +1,69 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function status(id,_this){
+	$.post("{:U('Currencies/status')}",'id='+id,function(data){
+		$('img',_this).attr('src',data.data['imgurl']);
+	},'json');
+
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>货币管理</h1>
+            <p class="msg info">提示：请不要随便更改美元数据</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Currencies/add')}">添加新货币</a>
+            </p>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">名称</th>
+				    <th style="text-align:center" width="15%">代码</th>
+                    <th style="text-align:center" width="15%">汇率</th>
+				    <th style="text-align:center" width="15%">标识</th>   
+                    <th style="text-align:center" width="5%">状态</th>               
+                    <th style="text-align:center" width="15%">排序</th>               
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+				    <td style="text-align:left" >{$vo['code']}</td>
+                    <td style="text-align:left" >{$vo["rate"]}</td>
+                    <td style="text-align:left" >{$vo.symbol}</td>
+                    <td style="text-align:left" ><a href="javascript:void(0);" onclick="javascript:status({$vo['id']},this);">{:getStatus($vo["status"],true)}</a></td>
+                    <td style="text-align:left" >{$vo.sort}</td>
+                    <td style="text-align:center" ><a href="{:u('Currencies/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" /></a>&nbsp;<a name="del_{$vo.id}"  href="{:u('Currencies/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg" /></a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

@@ -1,0 +1,67 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>费用设置</h1>
+            <p class="msg info">提示：不设置请为空</p>
+            
+            <form action="{:U('Setting/doBase')}" name="myform" method="post">
+            <table class="nostyle">
+                     
+                     <tr>
+						<td style="width:120px;">订单最小金额</td>
+						<td><input type="text" size="40" name="minimum_money" class="input-text" value="{:GetValue('minimum_money')}" />(低于这个金额不可下单，设为空或0禁用这个功能)</td>
+					</tr>
+				  <!-- 
+                  <tr>
+						<td style="width:120px;">运费:</td>
+						<td><input type="text" size="40" name="shippingmoney" class="input-text" value="{:GetValue('shippingmoney')}" />(基本运费)</td>
+					</tr>
+                   
+                    <tr>
+						<td style="width:120px;">免运费基于:</td>
+						<td><input type="radio" size="40" name="no_shipping" value="amount" onclick="$('#ship_qty').hide();$('#ship_amount').show();" <eq name="no_shipping" value="amount">checked</eq>/>金额<input type="radio" size="40" name="no_shipping" value="qty"  onclick="$('#ship_amount').hide();$('#ship_qty').show();" <eq name="no_shipping" value="qty">checked</eq>/>数量</td>
+					</tr> 
+					  
+                    <tr id="ship_amount"  <neq name="no_shipping" value="amount">style="display:none"</neq>>
+						<td style="width:120px;">免运费最小金额:</td>
+						<td><input type="text" size="40" name="min_freeshippingmoney" class="input-text" value="{:GetValue('min_freeshippingmoney')}" />(购买多于这个金额商品免运费)</td>
+					</tr>
+                    <tr id="ship_qty" <neq name="no_shipping" value="qty">style="display:none"</neq>>
+						<td style="width:120px;">免运费最小数量:</td>
+						<td><input type="text" size="40" name="min_freeshippingqty" class="input-text" value="{:GetValue('min_freeshippingqty')}" />(购买多于这个数量商品免运费)</td>
+					</tr>
+					 -->
+					 <tr>
+						<td style="width:120px;">免支付手续费最小金额:</td>
+						<td><input type="text" size="40" name="min_freepaymoney" class="input-text" value="{:GetValue('min_freepaymoney')}" /><input type="checkbox" onclick="$('input[name=min_freepaymoney]').val(0);"/>关闭
+						(高于这个金额商品免手续费)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">支付手续费:</td>
+						<td><input type="text" size="40" name="paymoney" class="input-text" value="{:GetValue('paymoney')}" />(手续费百分比,比如0.4)</td>
+					</tr>
+                   <tr>
+						<td style="width:120px;">保险费:</td>
+						<td><input type="text" size="40" name="insurance" class="input-text" value="{:GetValue('insurance')}" />(单位每件)</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">免保险费最小金额:</td>
+						<td><input type="text" size="40" name="min_insurance" class="input-text" value="{:GetValue('min_insurance')}" />(高于这个金额免保险费)</td>
+					</tr>
+                    
+                   
+                    <tr valign="top">
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr>
+            </table>
+            <script language="javascript" type="text/javascript">
+			   $("input[name='sendemailtype'][value={:GetValue('sendemailtype')}]").attr("checked",true);
+			   $("input[name='smtpisssl'][value={:GetValue('smtpisssl')}]").attr("checked",true);
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

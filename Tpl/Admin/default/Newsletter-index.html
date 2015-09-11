@@ -1,0 +1,45 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>邮件订阅</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            
+            <form action="{:U('Newsletter/doSend')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle">
+                      <tr>
+						<td style="width:120px;">邮件类型:</td>
+						<td><select name="type">
+						<option value="">请选择</option>
+						<option value="isNewsletter">所有订阅者</option>
+						<option value="order_email">订单中的邮箱地址</option>
+						<option value="member_email">最近三个月的会员</option>
+						<option value="member_login">最近三个月登录过的会员</option>
+						<option value="all">所有会员</option>
+						
+						</select></td>
+					</tr>
+                      <tr>
+						<td style="width:120px;">邮件标题(必填):</td>
+						<td><input type="text" size="60" name="title" class="input-text" value="" /></td>
+					</tr>
+                
+                    <tr>
+						<td style="width:120px;">邮件正文(必填):</td>
+						<td width="550">
+						<html:editor id="content" name="content" height="400x" width="100%" type="FCKeditor" ></html:editor>
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;"></td>
+						<td class="t-right">
+						<input type="submit" class="input-submit" value="发送" />
+						</td>
+					</tr>
+            </table>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

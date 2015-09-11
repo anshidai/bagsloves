@@ -1,0 +1,44 @@
+<div id="ajax_login">
+  <form method="POST" name="dologin" action="{:U('MemberPublic/doLogin')}" >
+    <table id="login_nav"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="3" valign="middle"><img src="__PUBLIC__/skin/admin/l_t.jpg" border="0" usemap="#Map"></td>
+  </tr>
+  <tr>
+    <td height="13" colspan="3" align="center" valign="top"><img src="__PUBLIC__/skin/admin/tline.jpg"></td>
+  </tr>
+  <tr>
+    <td width="101" align="right" valign="middle" class="em"><img src="__PUBLIC__/skin/admin/em.jpg"></td>
+    <td width="183" valign="middle"><input name="email" type="text" class="s_btn"  datatype="Email" msg="Email format is not correct!" /></td>
+    <td width="130" rowspan="2" align="left" valign="middle"><input type="image" onclick="return Boxy.dologin(this.form);" src="__PUBLIC__/skin/admin/s_btn.jpg" value="Login"></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" class="ps"><img src="__PUBLIC__/skin/admin/pw.jpg"></td>
+    <td valign="middle"><input name="password" type="password" class="s_btn"  dataType="Require" msg="password is required!" /></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center" valign="middle" id="he_g">
+    <table id="d_w" width="344" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="34"><img src="__PUBLIC__/skin/admin/sorw.jpg" /></td>
+        <td width="310" align="left"><a href="{:U('MemberPublic/ForgotPWD')}">Forgot your password ?</a></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center" valign="middle" id="he_g2">
+    <table id="d_w" width="344" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="34"><img src="__PUBLIC__/skin/admin/sorw.jpg" /></td>
+        <td width="310" align="left"><a href="#" onclick="Boxy.direct();">Direct payment without registration</a></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+  </form>
+</div>
+
+<map name="Map" id="Map">
+  <area shape="rect" coords="393,1,415,21" href="###" onClick="Boxy.close();"/>
+  <area shape="rect" coords="271,4,393,56" href="###" onClick="Boxy.join('{:U('Ajax/join')}');" />
+</map>

@@ -1,0 +1,53 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<tagLib name="html" />
+
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>修改配送方式</h1>
+            <p class="msg info">提示：<label id="msg"></label></p>
+            	
+             <p id="btn-create" class="box">
+              <a href="{:U('Shipping/index')}">配送方式</a>
+            </p>
+            <form action="{:U('Shipping/Update')}" name="myform" method="post" enctype="multipart/form-data">
+            <table class="nostyle" width="100%">
+                    <tr>
+						<td style="width:120px;">名称:</td>
+						<td><input type="text" size="40" name="name" class="input-text" value="{$list.name}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">代码:</td>
+						<td><input type="text" size="40" name="code" class="input-text" value="{$list.code}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">保险费用:</td>
+						<td><input type="text" size="40" name="insure" class="input-text" value="{$list.insure}" /></td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">介绍:</td>
+						<td><input type="text" size="40" name="remark" class="input-text" value="{$list.remark}" /></td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">状态:</td>
+						<td>
+						<input type="radio" value="1"  name="status" class="input-text"  />启用<input type="radio" value="0"  name="status" class="input-text"  checked />禁用
+						</td>
+					</tr>                  
+                   
+                    <tr>
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="更新" />
+                        </td>
+					</tr>
+            </table>
+            
+            <input type="hidden" name="id" id="id" value="{$list.id}" />
+             <script language="javascript" type="text/javascript">
+           
+            $("input[name='status'][value={$list['status']}]").attr("checked",true);
+			</script>
+        </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

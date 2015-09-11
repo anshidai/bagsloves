@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Member:left" />
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title">Favorites</div>
+          <div class="list2_content">
+            <div class="favorites">
+                                <fieldset>
+                    <legend>The Favorites</legend>
+                    <div class="information">NOTE: Input the order number, can query to orders.</div>
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  
+    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Products ID</strong></td>
+    <td bgcolor="#F5f5f5" height="30" align="center"><strong>IMAGE</strong></td>
+    <td bgcolor="#F5f5f5" height="30" align="center"><strong>PRICE</strong></td>
+    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Operation</strong></td>
+  </tr>
+  <volist name="list" id="vo">
+  <tr>
+  
+    <td bgcolor="#F5f5f5" height="30" align="center"><a href="{:build_url($vo,'pro_url')}" target="_blank">{$vo['id']}</a></td>
+    <td bgcolor="#F5f5f5" height="30" align="center"><a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" width="100" height="100" border="0" /></a></td>
+
+    <td bgcolor="#F5f5f5" height="30" align="center"><font color="#FF0000">{:getprice($vo["price"],$vo["pricespe"],false)}</font></td>
+    <td bgcolor="#F5f5f5" height="30" align="center"><a href="{:build_url($vo,'pro_url')}">Add to Cart</a><br/><a href="{:U('MemberIndex/Delprofav',array('id'=>$vo['id']))}">Delete</a></td>
+  </tr>
+  
+  </volist>
+  
+    <tr>
+    <td align="center" colspan="7" height="30" bgcolor="#F5f5f5">{$show}</td>
+  </tr>
+</table>
+                  </fieldset>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <include file="Public:footer" />

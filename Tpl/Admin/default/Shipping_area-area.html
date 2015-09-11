@@ -1,0 +1,106 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Shipping_area/delarea')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>区域管理</h1>
+            <p class="msg info">提示：</p>
+            <form action="{:U('Shipping_area/insertArea')}" method="post" >
+            <fieldset>
+				<legend>添加新区域</legend>
+				<table class="nostyle">
+					<tbody>
+					<tr>
+						<td style="width: 70px;">区域名称:</td>
+						<td><input type="text" class="input-text" name="name" size="40"></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">区域类型:</td>
+						<td><select name="type" >
+							<option value="0">国家</option>
+							<option value="1">省份/州</option>
+							<option value="2">城市</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td style="width: 70px;">所属区域:</td>
+						<td><select name="pid" >
+							<option value="0">最上级</option>
+							<volist name="Region" id="vo">
+							<option value="{$vo.id}">{$vo.name}</option>
+							</volist>
+							
+						</select></td>
+					</tr>
+					
+					
+					<tr>
+						<td class="t-right" colspan="2"><input type="submit" value="添加" class="input-submit"></td>
+					</tr>
+				</tbody></table>
+			</fieldset> 
+			</form>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" width="15%">区域名称</th>
+				    <th style="text-align:center" width="15%">所属区域</th>   
+				    <th style="text-align:center" width="15%">区域类型</th>   
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="Region" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> {$vo['id']}</td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+				    <td style="text-align:left" >{$vo['pid_name']}</td>
+                    <td style="text-align:left" >{$vo['type_name']}</td>
+                    <td style="text-align:center" ><a href="{:U('Shipping_area/editarea',array('id'=>$vo['id']))}">编辑</a>&nbsp;|&nbsp;<a name="del_{$vo.id}"  href="{:U('Shipping_area/delArea',array('id'=>$vo['id']))}" >移除</a></td>
+                </tr>
+                </volist>
+				
+			</table>
+			 <p class="t-left"><input type="button" value="批量删除" onclick="delall();" /></p>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+
+<link rel="stylesheet" rev="stylesheet" href="__PUBLIC__/skin/css/fancybox/jquery.fancybox-1.3.4.css" />
+<link rel="stylesheet" rev="stylesheet" href="__PUBLIC__/skin/Js/disp.css" />
+<script language="JavaScript" type="text/javascript" src="__PUBLIC__/skin/css/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+<script type="text/javascript">
+var isAjaxLogin = Boolean(parseInt("{:GetValue('isAjaxLogin')}"));
+var CartUrl='{:U('Cart/disp')}';
+</script>
+<script language="JavaScript" type="text/javascript" src="__PUBLIC__/skin/Js/jqdisp.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+
+<include file="Public:header" />
+<include file="Public:left" />
+  
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> <volist name="catep" id="vo">&nbsp;>&nbsp;
+			  <eq name="vo['id']" value="$cateinfo['id']">
+			  {$vo.name}
+			  <else/>
+			  <a href="{:build_url($vo,'cate_url')}" title="{:build_url($vo,'cate_name')}">{:build_url($vo,'cate_name')}</a> 
+			  </eq>
+		 </volist> > {:build_url($list,'pro_name')} </div>
+          <div class="list2_content">
+          <div  style="line-height:35px;"><div style="line-height:35px;">Product {$postion}/{$cate_count}</div><a href="{$prev}"><img src="__PUBLIC__/skin/images/button_prev.gif" alt="" border="0" /></a> <a href="{:build_url($cate,'cate_url')}"><img src="__PUBLIC__/skin/images/button_return_to_product_list.gif" alt="" border="0" /></a> <a href="{$next}"><img src="__PUBLIC__/skin/images/button_next.gif" alt="" border="0" /></a></div>
+           <form name="cart_quantity" action="{:U('Cart/add')}" method="post">
+			<input type="hidden" name="id" value="{$list.id}">
+            <div class="goods">
+             <div class="left_goods">
+              <div class="jqzoom" id="spec-n1" style="z-index:1;width:358px"><img src="{:build_url($list,'pro_bigimage')}" width="358" height="300" jqimg="{:build_url($list,'pro_bigimage')}"/> <br />
+                 <a rel="gallerys" href="{:build_url($list,'pro_bigimage')}" title="{:build_url($list,'pro_name')}">larger image</a>
+               </div>
+                  <div id="spec-n5">
+		<div class="control" id="spec-left">
+			<img src="__PUBLIC__/skin/css/left.gif">
+		</div>
+		<div id="spec-list">
+			<div><ul>
+			
+ 		<gt name="list['detailcount']" value="0">
+				<volist name="list['tempdetailpics']" id="vo"> 
+				<li><a rel="gallerys" href="{$vo}" title="{:build_url($list,'pro_name')}"><img src="{$vo}" ></a></li>
+				</volist>
+				<else />
+				<volist name="gallerys" id="vo">
+				<li><a rel="gallerys" href="{:build_url($vo,'g_bigimage')}" title="{:build_url($list,'pro_name')}"><img src="{:build_url($vo,'g_bigimage')}" ></a></li>
+				</volist>
+		 </gt>		   
+		 
+			</ul></div>
+		</div>
+		<div class="control" id="spec-right">
+			<img src="__PUBLIC__/skin/css/right.gif">
+		</div>
+              </div>
+              </div>
+             <div class="right_goods">
+                
+                <div class="goods_name"><strong>{:build_url($list,'pro_name')}</strong></div>
+                <div class="goods_stock"><strong style=" color:#000000;">Product ID:</strong> &nbsp;&nbsp;{$list.serial}</div>
+                <div class="goods_pri"><strong>Price:</strong>  <font color="#FF6600" style="font-size:18px;">
+     <span id="product_price">{:getprice($list['price'],$list['pricespe'],false)} </span></font><span id="attr_price"></span></div>
+                <div class="goods_stock"><strong style=" color:#000000;">Availability:</strong> &nbsp;&nbsp;<eq name="list['isdown']" value="0">In Stock  <else />Out Of Stock</eq></div>
+			    <div class="goods_size">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="attrlist"  >
+      <volist name="attrlist" id="vo">
+      <eq name="vo['input_type']" value="1">
+  <tr>
+ 
+    <td align="center" height="25"  valign="top">
+		
+			<strong>{$vo['name']}:</strong>
+		
+    </td>
+    <td>
+    <ul>
+    <volist name="vo['attrs']" id="subvo">
+    <li><input class="{$subvo['attr_value']}" attrname="{$vo['name']}" type="radio" name="attr[{$vo['name']}]" id="{$subvo['id']}" value="{$subvo['attr_value']}__{$subvo['attr_price']}" style="display:none" msg="<notempty name="subvo['attr_price']">(<gt name="subvo['attr_price']">+</gt>{:getprice_str($subvo['attr_price'])})</notempty>"/>
+     <a href="javascript:void(0)">
+		 <notempty name="subvo['img_url']">
+			<img src="__ROOT__/{$subvo['img_url']}" border="0" class="attr_img"  width="31" height="31"/>
+		 <else/> 
+		 	{$subvo['attr_value']}
+		 </notempty>
+	 </a>
+  </li>
+  </volist>
+  </ul>
+  <div id="{$vo['name']}" style="display:none"></div>
+ </td>
+ 
+ </tr>
+ </eq>
+ </volist> 
+ 
+ <tr><td id="attr_selected" align="left" colspan="2"></td></tr>
+ 
+</table></td>
+  </tr> 
+ 
+  <tr>
+  <td><strong style="color:#000">Add to cart :</strong> <input name="count" value="1" type="text" style="width:60px;" /></td>
+  </tr>
+    <tr>
+	 <td>
+    <div id="btn_width">
+		<div style="float:left; display:inline;"><a href="###"  onclick="return jQuery.addtocart();" ><img src="__PUBLIC__/skin/images/button_buy.jpg" alt="" border="0" /></a></div>
+		<div style="float:right;"><a href="###"  onclick="jQuery.savecart();" id="savecart" ><img src="__PUBLIC__/skin/images/button_in_cart.jpg" alt="" border="0"/></a></div>
+    </div>
+    
+	 <div id="cart_info">
+    <div id="cart_alert" style="display:none"></div>
+				<div id="cart_ok"  style="display:none">
+					<img src="__PUBLIC__/skin/images/add_ok.jpg" border="0" usemap="#Map">
+					<span class="cart_ok_content">Shopping Cart <a>{:itemCount()}</a> items Total {:getprice_str(cart_total())}</span>
+					<span><a href="###"  onclick="location.href='{:U('Cart/disp')}';" ><img src="__PUBLIC__/skin/images/button_check.jpg" alt="" border="0" /></a>
+						<a href="###" onclick="jQuery.hide_cart_ok_content();"><img src="__PUBLIC__/skin/images/button_shopping.jpg" alt="" border="0" /></a>
+					</span>
+					
+					<map name="Map" id="Map">
+					  <area shape="rect" coords="198,-1,214,13" href="###" onclick="jQuery.hide_cart_ok_content();" />
+					</map>
+				</div>
+    </div>
+    </td>
+  </tr>
+</table>
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+            <div class="list2_content">
+            <div class="detail">
+            <!-- AddThis Button BEGIN -->
+			
+				<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				<a class="addthis_button_preferred_4"></a>
+				<a class="addthis_button_compact"></a>
+				<a class="addthis_counter addthis_bubble_style"></a>
+				</div>
+				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ddf0d0759c90dff"></script>
+			
+			<!-- AddThis Button END -->
+              <div class="detail_title">Details: </div>
+              <div class="detail_content">
+{$list.remark}
+              </div>
+            </div>
+            <div class="button">
+<a href="{:U('MemberIndex/Addprofav',array('id'=>$list['id']))}"><img src="__PUBLIC__/skin/images/wishlist.gif" alt="" border="0" /></a> 
+<a href="{:U('Pro/write_a_review',array('id'=>$list['id']))}"><img src="__PUBLIC__/skin/images/button_write_review.gif" alt="" border="0" /></a> 
+<a href="{:U('Pro/tell_a_friend',array('id'=>$list['id']))}"><img src="__PUBLIC__/skin/images/button_TellAFriend.gif" alt="" border="0" /></a>
+            
+            </div>
+            <div class="review">
+              <a href="__APP__/reviews-id-{$list.id}"><strong style="color:#666666">Current Reviews: {$review_num|default="0"}</strong></a><br />This product was added to our catalog on {:date("D M j G:i:s T Y",$list['dateline'])}.
+            </div>
+            </div>
+			
+			
+			<div class="sameclass">people who buy the product ever bought</div>
+			<div class="list2_content">
+			
+			  <volist name="sameclass" id="vo">
+            <div class="g_pro">
+              <div class="g_pro_img"><a href="{:build_url($vo,'pro_url')}" altimg="{:build_url($vo,'altimg')}" title="{:build_url($vo,'pro_name')}" ><img src="{:build_url($vo,'pro_smallimage')}" width="160" height="160" alt="{:build_url($vo,'pro_name')}" border="0" /></a></div>
+              <div class="g_pro_name"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a><br /></div>
+              <div class="g_pro_pri">
+               {:build_url($vo,'pro_price')}
+              </div>
+            </div>
+           </volist>
+			</div>
+
+			
+			
+   </div>
+        </div>
+      </div>
+
+
+<include file="Public:footer" />
+ 

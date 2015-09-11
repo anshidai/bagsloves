@@ -1,0 +1,142 @@
+
+
+
+	<hr class="noscreen" />
+
+	<!-- Columns -->
+	<div id="cols" class="box">
+
+		<!-- Aside (Left Column) -->
+		<div id="aside" class="box">
+
+			<div class="padding box">
+
+				<!-- Logo (Max. width = 200px) -->
+				<p id="logo"><a href="__ROOT__/" target="_blank" ><img src="__PUBLIC__/skin/admin/easy_logo.jpg" alt="Our logo" title="Visit Site" style=" border:none;" /></a></p>
+
+				<!-- Search -->
+				<form action="{:U('Products/productslist')}" method="get">
+					<fieldset>
+						<legend>产品搜索</legend>
+
+						<p><input type="text" size="17" name="name" class="input-text" />&nbsp;<input type="submit" value="OK" class="input-submit-02" /><br />
+                        <select name="cateid" class="input-text" style="width:100%">
+                        <option value="">请选择...</option>
+                         <option value="isnew">最新产品</option>
+                        <option value="ishot">热卖产品</option>
+                        <option value="isrec">推荐产品</option>
+                        <option value="isprice">特价产品</option>
+                        <option value="isdown">下架产品</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+                        </volist>
+                        </select>
+                        <br />
+						
+
+					</fieldset>
+				</form>
+
+				<!-- Create a new project -->
+				<p id="btn-create" class="box"><a href="{:U('Products/add')}"><span>添加产品</span></a></p>
+
+			</div> <!-- /padding -->
+
+			<ul class="box">
+				
+                <li id="submenu-active"><a href="javascript:void(0);">系统设置</a> <!-- Active -->
+					<ul>
+						<li><a href="{:U('Setting/base')}">基本设置</a></li>
+						<li><a href="{:U('Setting/payment')}">支付设置</a></li>
+						<li><a href="{:U('Shipping/index')}">配送方式</a></li>
+						
+					    <li><a href="{:U('Members/discountlist')}">折扣管理</a></li>
+                        <li><a href="{:U('Currencies/currencieslist')}">货币设置</a></li>
+                        <li><a href="{:U('Setting/mail')}">邮件设置</a></li>
+                        <li><a href="{:U('Ad/adlist')}">广告管理</a></li>
+                        <li><a href="{:U('Sitemap/index')}">网站地图</a></li>
+                       <!-- <li><a href="{:U('Webcall/index')}">客服管理</a></li>-->
+                        <li><a href="{:U('Coupon/index')}">优惠券</a></li>
+                        <li><a href="{:U('Ipblock/index')}">区域封锁</a></li>
+                        <li><a href="{:U('Newsletter/index')}">邮件订阅</a></li>
+                        <li><a href="{:U('Nav/index')}">自定义导航</a></li>
+                        <li><a href="{:U('Setting/ShippingAddress')}">发货地址</a></li>
+                        <li><a href="{:U('Sqlbackup/index')}">数据库备份</a></li>
+                        <li><a href="{:U('Templates/index')}">模板管理</a></li>
+					</ul>
+				</li>
+                <li id="submenu-active"><a href="javascript:void(0);">分类管理</a> <!-- Active -->
+					<ul>
+						<li><a href="{:U('Cate/add')}">添加分类</a></li>
+						<li><a href="{:U('Cate/catelist')}">分类列表</a></li>
+                        <li><a href="{:U('Brand/brandlist')}">品牌管理</a></li>
+                        <li><a href="{:U('Virtualcat/index')}">虚拟分类</a></li>
+					</ul>
+				</li>
+                <li id="submenu-active"><a href="javascript:void(0);">产品管理</a> <!-- Active -->
+					<ul>
+						<li><a href="{:U('Products/add')}">添加产品</a></li>
+                        <li><a href="{:U('Products/productslist')}">产品列表</a></li>
+						<li><a href="{:U('Type/catelist')}">产品类型</a></li>
+						<li><a href="{:U('Products/csv')}">批量CSV</a></li>
+						
+                        <li><a href="{:U('Products_ask/index')}">网站留言</a></li>
+						<li><a href="{:U('Products/batchedit')}">批量修改</a></li>
+                        <li><a href="{:U('Products/easyupload')}">批量上传</a></li>
+                        <li><a href="{:U('Ftpbatch/index')}">批量处理</a></li>
+					</ul>
+				</li>
+                <li id="submenu-active"><a href="javascript:void(0);">会员/订单管理</a> <!-- Active -->
+					<ul>
+					
+					    <li><a href="{:U('Members/groupslist')}">会员等级</a></li>
+						<li><a href="{:U('Members/memberslist')}">会员列表</a></li>
+						<li><a href="{:U('Members/points')}">会员积分</a></li>
+                        <li><a href="{:U('Orders/orderslist')}">订单列表</a></li>
+					</ul>
+				
+                <li id="submenu-active"><a href="javascript:void(0);">文章/下载管理</a> <!-- Active -->
+					<ul>
+						<li><a href="{:U('Article/add')}">新增文章</a></li>
+						<li><a href="{:U('Article/articlelist')}">文章列表</a></li>
+                        <li><a href="{:U('Article_cate/catelist')}">文章类别</a></li>
+						<li><a href="{:U('Down/downlist')}">下载列表</a></li>
+                        <li><a href="{:U('Down_cate/catelist')}">下载类别</a></li>
+					</ul>
+				</li>
+				<li id="submenu-active"><a href="javascript:void(0);">权限维护</a> <!-- Active -->
+					<ul>
+						<li><a href="{:U('Role/roleList')}">角色管理</a></li>
+						<li><a href="{:U('Node/nodelist')}">节点管理</a></li>
+                        <li><a href="{:U('User/userlist')}">后台用户</a></li>
+					</ul>
+				</li>
+		
+				
+			</ul>
+
+		</div> <!-- /aside -->
+
+		<hr class="noscreen" />
+		
+		
+<script type="text/javascript">
+var submenu_active=$.cookie('submenu_active') || 0;
+$('#aside ul.box>li>ul').each(function(i){
+	if(i!=submenu_active){
+		$(this).hide();
+	}
+});
+$('#aside ul.box>li>ul>li>a').each(function(){
+	if($(this).attr('href')==$.cookie('submenu_active_a')){
+		$(this).css({'font-weight':'bold'});
+	}
+});
+$('#aside ul.box>li>ul>li>a').click(function(){
+	$.cookie('submenu_active_a',$(this).attr('href'));
+});
+$('#aside ul.box>li>a').click(function(){
+	$.cookie('submenu_active',$(this).parent().index());
+	$(this).parent().children('ul').toggle('fast').parent().siblings().children('ul').slideUp('fast');
+});
+</script>

@@ -1,0 +1,59 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+$(document).ready (
+				   function(){
+					   
+					  $("a[name^='del_']").click(
+						function(){
+							var answer = confirm("确认要删除吗?");
+							if(answer){
+								window.location = $(this).attr("href");
+
+							}
+							else{
+							   
+								$(this).attr("href","javascript:void(0);");
+								
+							}
+
+						}
+						);
+				   }
+				   );
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>属性管理</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Type/attradd',array('id'=>$typeid))}">添加新属性</a>
+            </p>
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">名称</th>
+                    <th style="text-align:center" width="15%">属性值的录入方式</th> 
+                    <th style="text-align:center" width="30%">值</th> 
+                    <th style="text-align:center" width="7%">状态</th>                
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" id="classname" >{$vo.name}</td>
+                    <td style="text-align:left" id="classname" >{:get_type_inputtype_name($vo['input_type'])}</td>
+                    <td style="text-align:left" id="classname" >{:str_replace(chr(13),",",$vo['values'])}</td>
+                    <td style="text-align:left" >{:getStatus($vo["status"],true)}</td>
+                    <td style="text-align:center" ><a href="{:u('Type/arrtedit',array('id'=>$vo['id']))}">编辑</a>&nbsp;|&nbsp;<a name="del_{$vo.id}"  href="{:u('Type/attrDelete',array('id'=>$vo['id']))}" >移除</a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

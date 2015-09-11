@@ -1,0 +1,59 @@
+﻿执行日期：20100629160433
+veryfy_result=HTTP/1.1 200 OK
+,Date: Tue, 29 Jun 2010 08:11:34 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=60.172.190.192.1277799094140.2; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=60.172.190.192.1277799094140.2|1277800894; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=C1C0E19DF7AF4F100A6E8EAB8D23D2C2; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=3lxdd$ioVTlnSNSW8ketO2NNliiRospay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ notify_url_log:sign=bdc769ff0232b7855729ed82941a8b33&mysign=bdc769ff0232b7855729ed82941a8b33,body=测试&buyer_email=349308847@qq.com&buyer_id=2088002396712354&discount=0.00&gmt_create=2010-06-29 16:11:33&is_total_fee_adjust=Y&notify_id=6a0f23063317c43c4bcbe6b2d239fa3b&notify_time=2010-06-29 16:11:33&notify_type=trade_status_sync&out_trade_no=20100629040619&payment_type=1&price=0.01&quantity=1&seller_email=tanlia_1988@163.com&seller_id=2088002892920338&subject=测试&total_fee=0.01&trade_no=2010062981220356&trade_status=WAIT_BUYER_PAY&use_coupon=N
+执行日期：20100629160446
+veryfy_result=HTTP/1.1 200 OK
+,Date: Tue, 29 Jun 2010 08:11:46 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=60.172.190.192.1277799106818.5; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=60.172.190.192.1277799106818.5|1277800906; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=2A574210E4E459BDBA3534C179D15B62; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=vLao8pIJTDks1LQI06AoLeu4o23Bxupay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ notify_url_log:sign=2ef9ae1af646b27a037d179f053bf3de&mysign=2ef9ae1af646b27a037d179f053bf3de,body=测试&buyer_email=349308847@qq.com&buyer_id=2088002396712354&discount=0.00&gmt_create=2010-06-29 16:11:33&gmt_logistics_modify=2010-06-29 16:11:33&gmt_payment=2010-06-29 16:11:46&is_total_fee_adjust=N&logistics_fee=0.00&logistics_payment=SELLER_PAY&logistics_type=EXPRESS&notify_id=c11011e7c4b42ddea2a01de692e83443&notify_time=2010-06-29 16:11:46&notify_type=trade_status_sync&out_trade_no=20100629040619&payment_type=1&price=0.01&quantity=1&receive_address=收货人地址&receive_mobile=收货人手机号码&receive_name=收货人姓名&receive_phone=收货人电话号码&receive_zip=收货人邮编&seller_email=tanlia_1988@163.com&seller_id=2088002892920338&subject=测试&total_fee=0.01&trade_no=2010062981220356&trade_status=WAIT_SELLER_SEND_GOODS&use_coupon=N
+执行日期：20100629160446
+这里写入想要调试的代码变量值，或其他运行的结果记录
+执行日期：20100629160449
+veryfy_result=HTTP/1.1 200 OK
+,Date: Tue, 29 Jun 2010 08:11:50 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=60.172.190.192.1277799110220.9; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=60.172.190.192.1277799110220.9|1277800910; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=7C7308AB1C3EA4EF12560662BDBDBD90; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=2gICYIIupQST3JK0RXrGzOgRp7RIAXpay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ return_url_log:sign=37eaec58b1a4f3c344de237ae47cac8d&mysign=37eaec58b1a4f3c344de237ae47cac8d&body=测试&buyer_email=349308847@qq.com&buyer_id=2088002396712354&discount=0.00&gmt_create=2010-06-29 16:11:33&gmt_logistics_modify=2010-06-29 16:11:33&gmt_payment=2010-06-29 16:11:46&is_success=T&is_total_fee_adjust=Y&logistics_fee=0.00&logistics_payment=SELLER_PAY&logistics_type=EXPRESS&notify_id=RqPnCoPT3K9%2Fvwbh3I%2BLUiHQGr%2BNjN3%2Fgx9M10kLO8UNsmsmj2DGlWfssVns8WVFg70S&notify_time=2010-06-29 16:11:46&notify_type=trade_status_sync&out_trade_no=20100629040619&payment_type=1&price=0.01&quantity=1&receive_address=收货人地址&receive_mobile=收货人手机号码&receive_name=收货人姓名&receive_phone=收货人电话号码&receive_zip=收货人邮编&seller_actions=SEND_GOODS&seller_email=tanlia_1988@163.com&seller_id=2088002892920338&subject=测试&total_fee=0.01&trade_no=2010062981220356&trade_status=WAIT_SELLER_SEND_GOODS&use_coupon=N

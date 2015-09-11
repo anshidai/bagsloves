@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-language" content="en" />
+	<meta name="robots" content="noindex,nofollow" />
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/reset.css" /> <!-- RESET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/main.css" /> <!-- MAIN STYLE SHEET -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/2col.css" title="2col" /> <!-- DEFAULT: 2 COLUMNS -->
+	<link rel="alternate stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/1col.css" title="1col" /> <!-- ALTERNATE: 1 COLUMN -->
+	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/style.css" /> <!-- GRAPHIC THEME -->
+	<link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/css/mystyle.css" /> <!-- WRITE YOUR CSS CODE HERE -->
+    <!-- <script type="text/javascript" src="__PUBLIC__/skin/Js/My97DatePicker/WdatePicker.js"></script>  -->
+   <link rel="stylesheet" media="screen,projection" type="text/css" href="__PUBLIC__/skin/Js/jquery-calendar.css" />
+	<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script>    
+	<script type="text/javascript" src="__PUBLIC__/skin/Js/switcher.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/skin/Js/toggle.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/skin/Js/ui.core.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/skin/Js/ui.tabs.js"></script>
+	<!--<script type="text/javascript" src="__PUBLIC__/skin/Js/ui.selectable.js"></script>-->
+    <script type="text/javascript" src="__PUBLIC__/skin/Js/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.imagePreview.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery-calendar.js"></script>
+    
+    
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(".tabs > ul").tabs();
+		var imgsrc=$('#btn-create img').attr('src');
+		$('#btn-create img').hover(function(){
+			var regexp=new RegExp('(.*)\.jpg$');
+			this.src=this.src.replace(regexp,"$1_2.jpg");
+		},function(){
+			this.src=imgsrc;
+		})
+		//$("#listform tbody").selectable();
+	});
+	</script>
+	<title>{:C('SYSTEM_NAME')}{:C('SYSTEM_VAR')}</title>
+</head>
+
+<body>
+<div id="main">
+
+	<!-- Tray -->
+	<div id="tray" class="box">
+
+		<p class="f-left box">
+
+			<!-- Switcher -->
+			<span class="f-left" id="switcher">
+				<a href="#" rel="1col" class="styleswitch ico-col1" title="Display one column"><img src="__PUBLIC__/skin/design/switcher-1col.gif" alt="1 Column" /></a>
+				<a href="#" rel="2col" class="styleswitch ico-col2" title="Display two columns"><img src="__PUBLIC__/skin/design/switcher-2col.gif" alt="2 Columns" /></a>
+			</span>
+
+			项目名称: <strong>{:C('SYSTEM_NAME')}</strong>
+
+		</p>
+
+		<p class="f-right">User: <strong><a href="#">{$userName}</a></strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong><a href="{:U('Index/loginOut')}" id="logout">Log out</a></strong></p>
+
+	</div> <!--  /tray -->
+
+	<hr class="noscreen" />
+
+	<!-- Menu -->
+	<div id="menu" class="box">
+
+		<ul class="box f-right">
+			<li><a href="__ROOT__/" target="_blank"><span><strong>网站首页 &raquo;</strong></span></a></li>
+		</ul>
+
+		<ul class="box">
+			<li id="menu-active"><a href="{:U('Admin-Index/index')}"><span>首页</span></a></li> <!-- Active -->
+			<li><a href="{:U('Ad/adlist')}"><span>广告管理</span></a></li>
+			<li><a href="{:U('Orders/orderslist')}"><span>订单管理</span></a></li>
+			<li><a href="{:U('Members/memberslist')}"><span>会员管理</span></a></li>
+			<li><a href="{:U('Cate/catelist')}"><span>类别管理</span></a></li>
+			<li><a href="{:U('Products/productslist')}"><span>产品管理</span></a></li>
+			<li><a href="{:U('Article/articlelist')}"><span>文章管理</span></a></li>
+            <li><a href="{:U('Setting/Cache')}"><span>更新缓存</span></a></li>
+		</ul>
+
+	</div> <!-- /header -->

@@ -1,0 +1,171 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script language="JavaScript" type="text/javascript">
+	function express(){
+		if($('#orders_status').val()==3){
+			$("#express").show(); 
+		}else{
+			$("#express").hide(); 
+		}
+	}
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>编辑/查看订单 {$list.sn}</h1>
+            <p class="msg info">提示：</p>
+            
+            <form action="{:U('Orders/Update')}" name="myform" id="myform" method="post">
+            <table class="nostyle" id="orders">
+            		<tr><th>基本信息</th></tr>
+                    <tr>
+						<td style="width:120px;">编号:</td>
+						<td>{$list.sn}</td>
+					</tr>
+                    
+					<notempty name="list['discount']">
+					<tr>
+						<td style="width:120px;">商品打折信息:</td>
+						<td>{$list.discount}</td>
+					</tr>
+					</notempty>
+                    
+                    <tr>
+						<td style="width:120px;">运费:</td>
+						<td>+{$list.currencies_code}{$list['shippingmoney']}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">手续费:</td>
+						<td>+{$list.currencies_code}{$list['paymoney']}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">保险金:</td>
+						<td>+{$list.currencies_code}{$list['insurance']}</td>
+					</tr>
+					<notempty name="list['coupon']">
+					
+					<tr>
+						<td style="width:120px;">优惠券优惠金额:</td>
+						<td>-{$list.currencies_code}{$list.coupon}</td>
+					</tr>
+					</notempty>
+					<tr>
+						<td style="width:120px;">金额:</td>
+						<td>{$list.currencies_code}<!--{$list.orders_total}--><input type="text" size="40" name="orders_total" class="input-text" value="{$list.orders_total}" /></td>
+					</tr>
+					
+					<tr>
+						<td style="width:120px;">运输方式:</td>
+						<td>{$list.shipping_method}</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">付款方式:</td>
+						<td>{$list.payment_module_code}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">购买时间:</td>
+						<td>{:toDate($list['dateline'])}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">IP地址:</td>
+						<td>{$list.ip_address}({$list.ip_area})
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">邮箱:</td>
+						<td>{$list.delivery_email}
+						</td>
+					</tr>
+					
+                    <tr>
+						<td style="width:120px;">附加留言:</td>
+						<td>{$list.BuyNote}
+						</td>
+					</tr>
+					 <tr>
+						<td style="width:120px;">订单价格修改备注:</td>
+						<td>
+						<textarea style="width:366px; height:170px;" name="remark">{$list.remark}</textarea>
+						
+						</td>
+					</tr>
+					<tr><th>收货地址</th></tr>
+                    <tr>
+						<td style="width:120px;">姓:</td>
+						<td>{$list.delivery_firstname}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">名:</td>
+						<td>{$list.delivery_lastname}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">地址:</td>
+						<td>{$list.delivery_address}
+						</td>
+					</tr>
+                    
+                    <tr>
+						<td style="width:120px;">电话:</td>
+						<td>{$list.delivery_telephone}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">邮编:</td>
+						<td>{$list.delivery_zip}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">城市:</td>
+						<td>{$list.delivery_city}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">省份:</td>
+						<td>{$list.delivery_state}
+						</td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">国家:</td>
+						<td>{$list.delivery_country}
+						</td>
+					</tr>
+                    <tr><th>订单状态</th></tr>
+                    <tr>
+						<td style="width:120px;">当前状态:</td>
+						<td>{:L('orders_status_'.$list['orders_status'])}
+                        </td>
+					</tr>
+                    <tr>
+						<td style="width:120px;">更改为:</td>
+						<td><select name="orders_status" id="orders_status" onclick="express();" >
+                        <option value="">-请选择-</option> 
+                        <option value="1" >{:L("orders_status_1")}</option> 
+                        <option value="2" >{:L("orders_status_2")}</option> 
+                        <option value="3" >{:L("orders_status_3")}</option> 
+                        <option value="4" >{:L("orders_status_4")}</option> 
+                        
+                        </select>
+                        </td>
+					</tr>
+                   
+                    <tr id="express" <neq name="list['orders_status']" value="3">style="display:none"</neq>>
+						<td style="width:120px;">快递方式:</td>
+						<td><input type="text" name="shipping_method" value="{$list['shipping_method']}" />
+                        </td>
+					</tr>
+                   
+                   
+            </table>
+						<p class="t-left"><input type="submit" class="input-submit" value="更新" /></p>
+            <input type="hidden" size="40" name="id" class="input-text" value="{$list.id}" />
+            <script language="javascript">
+			$("#orders_status").val("{$list.orders_status}");
+			</script>
+            </form>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,124 @@
+
+  <table class="table_frame" align="center" border="0" cellpadding="0" cellspacing="0" width="90%">
+    <tbody>
+      <tr>
+        <td><table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td class="td_frame"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody>
+                      <tr>
+                        <td colspan="3"></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><img src="__ROOT__/{:GetValue('sitelogo')}" height="60" width="150px"></td>
+                        <td width="35%"><h1>{:GetValue('sitename')}</h1> 
+                          {:GetValue('siteurl')}</td>
+                        <td style="font-size: 16pt;" width="40%"></td>
+                        <td width="20%"><p>客户：{$shippingInfo["delivery_lastname"]} {$shippingInfo["delivery_firstname"]}</p>
+                          <p> 电话：{$shippingInfo["delivery_telephone"]}</p></td>
+                      </tr>
+                    </tbody>
+                  </table></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+            <tbody>
+              <tr>
+                <td><h2>订单号：{$shippingInfo["sn"]}</h2></td>
+                <td align="right"><h2>订购日期：{:toDate($shippingInfo['dateline'])}</h2></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+            <tbody>
+              <tr class="table_data_title">
+               <td>No</td>
+                <td>ID</td>
+                <td>商品图片</td>
+                <td>商品名称</td>
+                <td>货号</td>
+                <td>成本价</td>
+                <td>供应商</td>
+                <td>单价</td>
+                <td>属性</td>
+                <td>数量</td>
+                <td>小计</td>
+              </tr>
+              <volist name="list" id="vo" key="key">
+              <tr>
+                <td>{$key}</td>
+                <td>{$vo.products_id}</td>
+                 <td><img class="product" src="__ROOT__/{$vo.bigimage}" align="absmiddle" height="60" width="60"></td> 
+                <td>{$vo.products_name}</td>
+                
+                <td>{$vo.serial}</td>
+                <td>{$vo.costprice}</td>
+                <td>{$vo.provider}</td>
+                
+                <td>{$shippingInfo.currencies_code}{$vo.price}</td>
+                <td> <volist name="vo['products_model']" id="subvo">
+					{$subvo['name']}:{$subvo['value']}<br/>
+
+</volist></td>
+                <td>{$vo.products_quantity}</td>
+                <td>{$shippingInfo.currencies_code}{$vo.products_total}</td>
+              </tr>
+              </volist>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td style="height: 150px;" valign="top" width="80%"> <p>订单附言：</p>
+                {$shippingInfo.BuyNote}
+                </td>
+                <td valign="top" width="20%">
+                 <gt name="products_total" value="0">
+                	<p>商品总价：{$shippingInfo.currencies_code}{$products_total}</p>
+                </gt>
+                <notempty name="discount['text']">
+                	<p>折扣信息：{$discount['text']}</p>
+                </notempty>
+                <gt name="shippingInfo['shippingmoney']" value="0">
+                  <p>配送费用：{$shippingInfo.currencies_code}{$shippingInfo.shippingmoney}</p>
+                  </gt>
+                  <gt name="shippingInfo['insurance']" value="0">
+                  <p>保价费用：{$shippingInfo.currencies_code}{$shippingInfo.insurance}</p>
+                  </gt>
+                  <gt name="shippingInfo['paymoney']" value="0">
+                  <p>支付手续费：{$shippingInfo.currencies_code}{$shippingInfo.paymoney}</p>
+                  </gt>
+                  <gt name="total_weight" value="0">
+                  <p>总重量：{$total_weight}千克</p>
+                  </gt>
+                  <p>总金额：{$shippingInfo.currencies_code}{$shippingInfo['orders_total']}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td class="td_frame"><table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+              <tr>
+                <td width="80%"><p>服务商：{:GetValue('sitename')}</p>
+                  <p>电话：{$shippingInfo.delivery_telephone}</p>
+                  <p>邮箱：{$shippingInfo.delivery_email}</p>
+                  <p>网址：{:GetValue('siteurl')}/</p></td>
+                <td valign="top" width="20%"><h2>应付总金额：{$shippingInfo.currencies_code}{$orders_total}</h2></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      
+    </tbody>
+  </table>

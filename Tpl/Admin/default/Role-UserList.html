@@ -1,0 +1,31 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>所属用户列表</h1>
+            <p class="msg info">提示：</p>
+            	
+            <p id="btn-create" class="box">
+              <a href="{:U('Role/roleList')}">角色维护</a>
+            </p>
+            <table width="100%">
+				<tr>
+				    <th style="text-align:center" width="7%"></th>
+				    <th style="text-align:center" width="15%">用户名</th>         
+				    <th style="text-align:center" width="15%">昵称</th>         
+                    <th style="text-align:center" >操作</th>
+				</tr>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" >{$vo.account}</td>
+				    <td style="text-align:left" >{$vo.nickname}</td>
+                    <td style="text-align:center" ><a href="{:u('Role/edit',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/admin/pro_edit.jpg" title="编辑" /></a>&nbsp;<a  href="{:u('Role/Delete',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/out_del.jpg"  title="删除" /></a>&nbsp;<a  href="{:u('Role/Node',array('id'=>$vo['id']))}" ><img src="__PUBLIC__/skin/admin/author.jpg" title="授权" /></a>&nbsp;<a  href="{:u('Role/UserList',array('id'=>$vo['id']))}" >用户列表</a></td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right"></p>
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

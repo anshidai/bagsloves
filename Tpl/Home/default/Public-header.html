@@ -1,0 +1,90 @@
+  <div id="page">
+    <div id="header">
+      <div class="logo"><a href="__ROOT__/"><img src="__ROOT__/{:GetValue('sitelogo')}" alt="" border="0" /></a></div>
+      <div class="top">
+        <div class="shopping">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="100">&nbsp;</td>
+    <td width="100" align="left">
+      <a href="{:U('Cart/disp')}">Shopping Cart</a><br />Now in your cart<br /><a href="{:U('Cart/disp')}" style="color:#CC9900">{:itemCount()} items</a>
+
+    </td>
+  </tr>
+</table>
+        </div>
+        <div class="free">
+          <a href="{:U('Cart/disp')}"><img src="__PUBLIC__/skin/images/shipping.jpg" alt="" border="0" /></a>
+        </div>
+        <div class="cart">
+        <div class="cart2">
+         
+            <a href="__ROOT__/">Home</a>
+            <gt name="mid" value="0">
+			<a href="{:U('MemberIndex/index')}">My Account</a> 
+            <a href="{:U('MemberIndex/LogOut')}">LogOut</a>
+            <else/>
+            
+			<a href="{:U('MemberPublic/Join')}">Register</a>
+            <a href="{:U('MemberPublic/Login')}">Log In</a>
+            </gt>
+            <a href="{:U('Cart/disp')}">Shopping Cart</a>
+            
+            
+          </div>
+        <form name="Currencies" id="form1" action="{:U('Index/Currencies')}" method="post">
+          <div class="cart1"> 
+          
+            <table width="180" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+   
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="padding-top:15px;">Currencies: &nbsp;</td>
+    <td style="padding-left:5px;"> <select name="Currencies" onchange="document.Currencies.submit();">
+	         <option value="">Please select...</option>
+	         <volist name="currencies" id="vo">
+	          <option value="{$vo.symbol}" <eq name="_SESSION ['currency']['symbol']" value="$vo['symbol']">selected</eq>>{$vo.name}</option>
+	         </volist>
+	         </select></td>
+  </tr>
+</table>
+    </td>
+    <td style="padding-left:5px;"><a href="#"><img src="__PUBLIC__/skin/images/icon.gif" alt="" border="0" /></a></td>
+  </tr>
+</table>
+					
+          </div>	</form>
+          
+        </div>
+      </div>
+      <div class="nav">
+        <ul>
+        <li><a href="__ROOT__/" >Home</a><span class="marker"></span></li>
+        <volist name="nav" id="vo">
+        <eq name="vo['type']" value="top">
+          <li><a href="{$vo.url}" <eq name="vo['isnew']" value="1">target="_blank"</eq>>{$vo.name}</a><span class="marker"></span></li>
+         </eq>
+        </volist> 
+        </ul>
+      </div>
+      <div class="search">
+         <form action="{:U('Search/index')}" method="post" onsubmit="return Validator.Validate(this,2);">
+          <table  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="290" align="left"><input type="text" name="key" class="input1"  dataType="Require" msg="keywords is required!" /></td>
+    <td width="60" align="left"><input type="image" src="__PUBLIC__/skin/images/search.gif" alt="Search" title=" Search " class="input2"  /></td>
+    <td  align="left" style="padding-left:5px;">Hot Search:
+    <volist name="HotClass" id="vo">
+    <gt name="i" value="1">
+    ,
+    </gt>
+    <a href="{:U('Search/index',array('key'=>$vo['name']))}">{$vo.name}</a>
+    </volist>
+    </td>
+  </tr>
+    
+</table></form>
+      </div>
+    </div>

@@ -1,0 +1,120 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+function addrelated(){
+	var id=$("#listform input:checked").map(function(){return $(this).val();}).get().join(",");
+	$("#listform input:hidden[name='id']").val(id);
+	$("#listform").submit();
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").toggle(
+	function () {
+		$("#checkAll").attr("checked",true);
+		$("input:checkbox").attr("checked",true);
+	},
+	function () {
+		$("input:checkbox").attr("checked",false);
+		$("#checkAll").attr("checked",false);
+	}
+	);
+	$(".preview").preview();
+
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div class="box" id="content">
+			<h1>增加关联产品</h1>   
+			 
+  <div class="tabs box">
+		<ul>
+		
+			<li><a href="#tab01"><span>从产品添加</span></a></li>
+			<li><a href="#tab02"><span>从分类添加</span></a></li>
+		</ul>
+	</div> 
+	<a href="{:U('Products/edit',array('id'=>$products_id))}#tab05">
+            
+            返回产品</a> | <a href="javascript:window.close();">
+            
+            关闭本页</a>
+			<div id="tab01">
+            <form action="{:U('Products/addrelated',array('id'=>$products_id))}" method="get" >
+            <p><span class="msg info">
+     
+  产品名称:<input type="text" size="20" name="name" class="input-text" value="{$name}" />分类
+  <select name="cateid" class="input-text" id="cateid1">
+    <option value="">请选择...</option>
+    <volist name="catetree" id="vo">
+      <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+    </volist>
+  </select>
+                        <input type="submit" value="搜索" />
+                        
+            </span></p>
+            </form>
+            <present name="cateid">
+            <script language="JavaScript" type="text/javascript">
+            $('#cateid1').val("{$cateid}");
+            </script>
+            </present>
+           
+<form action="{:U('Products/doAddRelated')}" method="post" id="listform">
+<table width="40%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/></th>
+				    <th style="text-align:center" width="25%">产品名称</th>
+			    </tr>
+                <volist name="list" id="vo">
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+				    <td style="text-align:left" id="classname" ><notempty name="vo['thumb_url']"><a class="preview" href="{$vo['thumb_url']}">{$vo.name}</a><else/>{$vo.name}</notempty></td>				   
+				  
+			      </tr>
+                </volist>
+				
+			</table>
+            <p><span class="t-left"><input type="button" value="增加关联" onclick="addrelated();" /></span></p>
+            <p><span class="t-right">{$show}</span></p>
+            <input type="hidden" name="products_id" value="{$products_id}" />
+            </form>
+            </div>
+            <div id="tab02">
+           
+             <form action="{:U('Products/doAddRelatedByCate')}" method="post" >
+            <p><span class="msg info">
+     
+  分类
+  <select name="cateid" class="input-text" >
+    <option value="">请选择...</option>
+    <volist name="catetree" id="vo">
+      <option value="{$vo['id']}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}</option>
+    </volist>
+  </select>
+  
+            <input type="hidden" name="products_id" value="{$products_id}" />
+                        <input type="submit" value="选择" />
+                        
+            </span></p></form>
+            </div>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />

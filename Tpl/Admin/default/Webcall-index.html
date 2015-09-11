@@ -1,0 +1,77 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+
+<tagLib name="html" />
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+		<h1>365WebCall客服设置</h1>
+			
+          
+            
+            <form action="{:U('Webcall/index')}" name="myform" method="post">
+            <table class="nostyle"  >
+               	
+                    <tr>
+						<td colspan="2"> <table cellspacing="0" cellpadding="0" border="0" class="nostyle">
+                          <tbody>
+                            <tr>
+                              <td colspan="2" align="left" style="line-height:20px;">
+                              <div><a href="http://www.365webcall.com/download/setup.rar"><img src="__PUBLIC__/skin/admin/365webcall.jpg" /></a></div>
+                                免费版365在线客服开通步骤说明：<br />
+第一步、用户名：填好需要设置的在线客服登陆用户名可以是EMAIL<br />
+第二步、EMAIL：即365在线客服的主管理帐号，<br />
+第三步、密码：填上需要开设的客服管理密码<br />
+第四步、设好前边的三个填项后，点击右下角的"<font color="#FF0000">设置</font>"，进行保存确认。<br />
+第五步、点击“<font color="#FF0000">开通客服帐号</font>”成为365在线客服的免费用户。<br />
+
+注：<br/>
+-如需要客服管理，可以下载右上角的客户端，进行桌面管理，或是直接点击“<font color="#FF0000">客服管理</font>”。<br />
+    -使用说明<a href="http://www.0594trade.com/forum.php?mod=forumdisplay&fid=69" target="_blank">http://www.0594trade.com/forum.php?mod=forumdisplay&fid=69</a><br />
+    -访问官方网站<a href="http://www.365webcall.com/default.aspx?g=FJ_putian" target="_blank">http://www.365webcall.com/default.aspx?g=FJ_putian</a><br />
+                              </td>
+                            </tr>
+                        </tbody></table></td>
+					</tr>
+                      <tr> 
+						<td >用户名:</td>
+						<td><input type="text" size="40" name="365webcall_name" class="input-text" value="{$name}" />(用户名和密码不能太简单,否则不能注册)</td>
+					</tr>
+                      <tr>
+						<td >Email:</td>
+						<td><input type="text" size="40" name="365webcall_email" class="input-text" value="{$email}" /></td>
+					</tr>
+                      <tr>
+						<td >密码:</td>
+						<td><input type="text" size="40" name="365webcall_password" class="input-text" value="{$pwd}" />
+						<if condition="$email neq '' and $pwd neq ''">
+						<a href="{:U('Webcall/opencall',array('email'=>$email,'accountid'=>$accountid,'pwd'=>$pwd,'name'=>$name))}">开通客服帐号</a> <a href="http://p.365webcall.com/manage_index.aspx?accountid={$accountid2}&userid={$email2}&timeStamp=<?php echo date('YmdHi');?>&checkstring=<?php echo substr(md5("http://p.365webcall.com/manage_index.aspx?accountid=$accountid2&userid=$email2&timeStamp=".date('YmdHi').$pwd2),0,16);?>"  target="_blank">客服管理</a></if> <td>
+						 
+					</tr>
+                    <tr>
+						<td >代码:</td>
+						<td>
+						<textarea style="width:262px;height:110px"><literal>{$_365call}</literal>
+  <script type="text/javascript" src="http://p.365webcall.com/IMMeForPartner.aspx?email={:GetValue('365webcall_email')}&accountid={:GetValue('365webcall_accountid')}&LL=1"></script>
+</textarea>
+						</td>
+					</tr>
+                    <tr>
+						<td >是否在前台显示:</td>
+						<td>是<input type="radio" size="40" name="365webcall_status" class="input-text" value="1" checked="checked" />
+							否<input type="radio" size="40" name="365webcall_status" class="input-text" value="0" /></td>
+					</tr>
+                   
+                    <tr valign="top">
+						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="设置" />
+                        </td>
+					</tr> 
+            </table>
+            
+                       
+             <script language="javascript" type="text/javascript">
+             $("input:radio[name='365webcall_status'][value={:GetValue('365webcall_status')}]").attr("checked",true);
+			</script> 
+            </form>
+           
+		</div> <!-- /content -->
+<include file="Public:adminfooter" />

@@ -1,0 +1,122 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script language="JavaScript" type="text/javascript">
+$(function(){
+	$('select[name=pid] option[value={$list.id}]').remove();
+	$('select[name=pid] option[pid={$list.id}]').remove();
+	<volist name="list" id="vo">
+	$('select[name=pid] option[value={$vo.id}]').remove();
+	$('select[name=pid] option[pid={$vo.id}]').remove();
+	</volist>
+});
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+			<h1>
+			<eq name="iscate" value="1">
+			转移分类
+			</eq>
+			<eq name="ispro" value="1">
+			转移产品
+			</eq>
+			<eq name="moveall" value="1">
+			批量转移分类
+			</eq>
+				
+				</h1>
+            <p class="msg info"><neq name="ispro" value="1">提示：移动类别只需选择最上级，既可将下级一齐移动！</neq></p>
+            <p id="btn-create" class="box">
+              <a href="{:U('Cate/catelist')}">分类列表</a>
+            </p>
+				<div align="center">
+				<eq name="iscate" value="1">
+				
+				<form method="post" action="{:U('Cate/do_movecate',array('id'=>$_GET['id']))}">
+				此操作将把分类 <font color="red">{$list.name}</font> 转移到 <font color="red">分类</font>
+				<select name="pid" class="input-text" >
+                        <option value="">请选择...</option>
+                        <option value="0">最上级</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}" pid="{$vo.pid}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}
+                        </option>
+	                        <volist name="vo['sub']" id="subvo">
+	                        <option value="{$subvo['id']}"  pid="{$subvo.pid}">{:class_str_insert($subvo['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo.name}
+	                        </option>
+	                        		 <volist name="subvo['sub']" id="subvo2">
+				                        <option value="{$subvo2['id']}"  pid="{$subvo2.pid}">{:class_str_insert($subvo2['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo2.name}
+				                        </option>
+				                        		
+				                        </volist>
+	                        </volist>
+                        </volist>
+                        </select>
+				<br/>
+				<input type="submit" value="开始转移" />
+				</form>
+				</eq>
+				
+				<eq name="ispro" value="1">
+				<form method="post" action="{:U('Cate/do_movepro',array('id'=>$_GET['id']))}">
+				此操作将把所有产品从分类 <font color="red">{$list.name}</font> 转移到 <font color="red">分类</font> <select name="cateid" class="input-text" >
+                        <option value="">请选择...</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}" pid="{$vo.pid}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}
+                        </option>
+	                        <volist name="vo['sub']" id="subvo">
+	                        <option value="{$subvo['id']}"  pid="{$subvo.pid}">{:class_str_insert($subvo['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo.name}
+	                        </option>
+	                        		 <volist name="subvo['sub']" id="subvo2">
+				                        <option value="{$subvo2['id']}"  pid="{$subvo2.pid}">{:class_str_insert($subvo2['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo2.name}
+				                        </option>
+				                        		
+				                        </volist>
+	                        </volist>
+                        </volist>
+                        </select><br/>
+                        <input type="submit" value="开始转移" />
+                        </form>
+				</eq>
+				<eq name="moveall" value="1">
+				
+				<form method="post" action="{:U('Cate/do_moveall')}">
+				此操作将把分类 <volist name="list" id="vo"><gt name="i" value="1">&nbsp;,&nbsp;</gt><font color="red">{$vo.name}</font></volist> 转移到 <font color="red">分类</font>
+				<input type="hidden" name="id" value="<volist name="list" id="vo"><gt name="i" value="1">,</gt>{$vo.id}</volist>" />
+				<select name="pid" class="input-text" >
+                        <option value="">请选择...</option>
+                        <option value="0">最上级</option>
+                        <volist name="catetree" id="vo">
+                        <option value="{$vo['id']}" pid="{$vo.pid}">{:class_str_insert($vo['deep'],"&nbsp;&nbsp;&nbsp;")}{$vo.name}
+                        </option>
+	                        <volist name="vo['sub']" id="subvo">
+	                        <option value="{$subvo['id']}"  pid="{$subvo.pid}">{:class_str_insert($subvo['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo.name}
+	                        </option>
+	                        		 <volist name="subvo['sub']" id="subvo2">
+				                        <option value="{$subvo2['id']}"  pid="{$subvo2.pid}">{:class_str_insert($subvo2['deep'],"&nbsp;&nbsp;&nbsp;")}{$subvo2.name}
+				                        </option>
+				                        		
+				                        </volist>
+	                        </volist>
+                        </volist>
+                        </select>
+				<br/>
+				<input type="submit" value="开始转移" />
+				</form>
+				</eq>
+				<eq name="addtype" value="1">
+				
+				<form method="post" action="{:U('Cate/do_addtype')}">
+				此操作将把分类 <volist name="list" id="vo"><gt name="i" value="1">&nbsp;,&nbsp;</gt><font color="red">{$vo.name}</font></volist> 的所属 <font color="red">商品类型</font> 修改为 <select name="type_id" id="type_id">
+                        <option value="0">请选择商品类型</option>
+                        <volist name="type_id" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                        </select>(修改商品类型会清空产品属性)
+                        <input type="hidden" name="id" value="<volist name="list" id="vo"><gt name="i" value="1">,</gt>{$vo.id}</volist>" />
+				<br/>
+				<input type="submit" value="提交" />
+				</form>
+				</eq>
+		</div> 
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />
