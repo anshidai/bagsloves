@@ -1,2 +1,4 @@
 Runtime/*
 config.php
+Public/Uploads/*
+*.sql
