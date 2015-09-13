@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/Region.js"></script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Member:left" />
+
+<div class="col2">
+        <div class="list1">
+          <div class="list1_title">Shipping Address</div>
+          <div class="list2_content">
+            <div class="address">
+             <form method="POST" action="{:U('MemberIndex/doShippingAddress')}" name="doShippingAddress"  onsubmit="return Validator.Validate(this,2);">
+              <fieldset>
+                    <legend style="background-color:#999999">Member Information</legend>
+                    <div class="information">NOTE: You can change your member information here .</div>
+                    
+                    
+<input type="hidden" name="id" size="30" value="{$memberInfo.id}">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                     <tr>
+
+            <th colspan="2" style="padding-left:0px;font-weight:bold" align="left">1.Your Personal Details</th>
+          </tr>
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="firstname" >First Name:</label></td>
+    <td width="80%"><!--<input type="text" name="address" size = "35" value="{$memberInfo.firstname}"  class="required"  dataType="Require" msg="firstname is required!" /><span class="alert"> *</span>-->
+    {$memberInfo.firstname}</td>
+  </tr>
+  <tr>
+
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="lastname">Last Name:</label></td>
+    <td width="80%"><!--<input type="text" name="address" size = "35" value="{$memberInfo.lastname}"  class="required"  dataType="Require" msg="lastname is required!" /><span class="alert"> *</span>-->
+    {$memberInfo.lastname}
+    </td>
+  </tr>
+    <tr>
+            <th colspan="2" height="30" style="padding-left:0px;font-weight:bold" align="left">2.Your Address</th>
+          </tr>
+  <tr>
+
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="Address">Address:</label></td>
+    <td width="80%"><input type="text" name="address" size = "35" id="Address" value="{$memberShippingAddress.address}"    class="required"  dataType="Require" msg="Address is required!"  /><span class="alert"> *</span></td>
+  </tr>
+  
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="selCountries">Country:</label></td>
+    <td width="80%">
+     <select name="country" id="selCountries" onchange="loadRegion('selCountries',1,'selProvinces','{:U('Home-Ajax/getRegion')}');" class="required" style="font-size:11px;font-family:Verdana, Arial, Helvetica, sans-serif;"  dataType="Require" msg="Country is required!" >
+    
+  <option value="">Please Select</option> 
+  <volist name="Countries" id="vo"> 
+  <option value="{$vo.id}" <eq name="memberShippingAddress['country']" value="$vo['id']">selected</eq>>{$vo.name}</option> 
+  </volist>
+  </select>
+
+  <span class="alert"> *</span></td>
+  </tr>
+  
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="selProvinces">State/Province:</label></td>
+    <td width="80%"><input type="text" name="state" size = "35" value="{$memberShippingAddress.state}"  class="required" />
+   <!-- <select name="state" id="selProvinces"  class="required"  dataType="Require" msg="State is required!" >
+            <option value="0">Please Select</option>
+             <volist name="state" id="vo"> 
+			  <option value="{$vo.id}" <eq name="memberShippingAddress['state']" value="$vo['id']">selected</eq>>{$vo.name}</option> 
+			  </volist>
+    </select>-->
+	<span class="alert"> *</span>
+    
+    </td>
+  </tr>
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="city">City or APO/FPO:</label></td>
+    <td width="80%"><input type="text" name="city" id="city" size = "35" value="{$memberShippingAddress.city}"  class="required"  dataType="Require" msg="City is required!" /><span class="alert"> *</span></td>
+
+  </tr>
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="zip">Zip/Postal Code:</label></td>
+
+    <td width="80%"><input type="text" name="zip" id="zip" size = "35" value="{$memberShippingAddress.zip}"  class="required"  dataType="Require" msg="Zip/Postal Code is required!" /><span class="alert"> *</span></td>
+  </tr>
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="telphone">Telephone:</label></td>
+    <td width="80%"><input type="text" name="telphone"  id="telphone"  class="required" size = "35" value="{$memberShippingAddress.telphone}"  dataType="Require" msg="Telephone is required!" /><span class="alert"> *</span></td>
+  </tr>
+
+ <!-- <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="fax">Fax Number:</label></td>
+    <td width="80%"><input type="text" name="fax" id="fax"  class="required" size = "35" value="{$memberShippingAddress.fax}"  dataType="Require" msg="Fax Number is required!" /><span class="alert"> *</span></td>
+  </tr>-->
+  <!--<tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="isNewsletter">Subscribe Newsletter:</label></td>
+    <td width="80%">Subscribe:
+    <input type="radio" class="required" size = "35" name="isNewsletter" value="1" <eq name="memberShippingAddress['isNewsletter']" value="1">checked</eq> />
+    Unsubscribe:
+    <input type="radio" class="required" size = "35" name="isNewsletter" value="0" <eq name="memberShippingAddress['isNewsletter']" value="0">checked</eq> dataType="Group" msg="Newsletter is required!" /><span class="alert"> *</span>
+    <present name="Newsletter">
+    <input type="hidden" name="Newsletter_id" value="{$Newsletter.id}" />
+    </present>
+    </td>
+
+  </tr>-->
+  <tr>
+    <td width="20%" align="left" height="30"><label class="inputLabel" for="email">E-mail Address:</label></td>
+    <td width="80%"><input type="text" name="email"  class="required email" id="email" size = "35" value="{$memberInfo.email}"  dataType="Email" msg="Email format is not correct!" /><span class="alert"> *</span></td>
+  </tr>
+</table>
+                    <div class="buttonRow" style="float:right;"><input type="image" src="__PUBLIC__/skin/images/button_submit.gif" alt="Submit the Information" title=" Submit the Information " /></div> 
+                  </fieldset>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<include file="Public:footer" />

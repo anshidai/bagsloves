@@ -1,0 +1,19 @@
+ <?php 
+ $count=count($ShippingList);
+ ?>
+<table width="100%" style="border:1px #CCCCCC solid" cellspacing="0" cellpadding="0" id="shippingbox">
+<volist name="ShippingList" id="vo">
+<tr>
+<td class="huo_d"> <input type="radio" value="{$vo.id}" name="shipping_id" <eq name="i" value="$count">dataType="Group"  msg="Must choose a shipping" checked="checked" </eq>> {$vo.name}</td>
+<td class="huo_f"><span><present name="vo['price']['base_fee']">
+                                                {:getprice_str($vo['price']['base_fee'])}
+	                                                <present name="vo['price']['step_fee']">
+	                                                 + {:getprice_str($vo['price']['step_fee'])}
+	                                                 </present>
+	                                             <else/>
+                                                {:getprice_str($vo['price']['price'])}
+                                                 </present></span> </td>
+</tr>
+</volist>
+
+</table>

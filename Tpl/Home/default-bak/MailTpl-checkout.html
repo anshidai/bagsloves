@@ -1,0 +1,81 @@
+  <fieldset style="background: none repeat scroll 0 0 #FCFCFC;border-color: #ECEAEA;border-right: 1px solid #ECEAEA;border-style: solid; border-width: 1px;color: #494949;margin-bottom: 20px !important;padding: 15px 20px 30px;" >
+                    <legend style="background: none repeat scroll 0 0 #FFFFFF;border-color: #ECEAEA;border-style: solid;border-width: 1px;color: #494949;margin-bottom: 15px;padding: 10px 20px;">Orders Information</legend>
+<p style="width:60%">
+your order number is {$orders_data.sn}:<br/>
+Hi,<strong>Thank you for creating an order at </strong><a target="_blank" href="{:GetValue('siteurl')}"><strong>{:GetValue('sitename')}</strong></a><strong>!</strong> . Here are the details of your order. Please make sure you go through   the payment procedure so that we can process the order for you. </p>
+<br />
+<br />
+<table width="60%" border="0" cellpadding="1" cellspacing="1" bgcolor="#ccc">
+  <tbody>
+    <tr bgcolor="#ffcece">
+      <td bgcolor="#FCFCFC">Name</td>
+      <td bgcolor="#FCFCFC">E-Mail</td>
+      <td bgcolor="#FCFCFC">Address</td>
+      <td bgcolor="#FCFCFC">Zip</td>
+      <td bgcolor="#FCFCFC">City</td>
+      <td bgcolor="#FCFCFC">State/Province</td>
+      <td bgcolor="#FCFCFC">Country</td>
+      <td bgcolor="#FCFCFC">Telephone</td>
+    </tr>
+    <tr bgcolor="white">
+      <td>{$orders_data.delivery_lastname} {$orders_data.delivery_firstname}</td>
+      <td><a target="_blank" href="mailto:{$orders_data.delivery_email}">{$orders_data.delivery_email}</a></td>
+      <td>{$orders_data.delivery_address}</td>
+      <td>{$orders_data.delivery_zip}</td>
+      <td>{$orders_data.delivery_city}</td>
+      <td>{$orders_data.delivery_state}</td>
+      <td>{$orders_data.delivery_country}</td>
+      <td>{$orders_data.delivery_telephone}</td>
+    </tr>
+  </tbody>
+</table>
+<p>COMMENTS :
+  <br />
+  {$orders_data.BuyNote}
+</p>
+<table bgcolor="#ccc" border="0"  cellpadding="1" cellspacing="1" width="60%">
+  <tbody>
+    <tr bgcolor="#ffcece">
+      <td bgcolor="#FCFCFC">ID</td>
+      <td bgcolor="#FCFCFC">Pictrue</td>
+      <td bgcolor="#FCFCFC">Prodouct name</td>
+      <td bgcolor="#FCFCFC">Size</td>
+      <td bgcolor="#FCFCFC">Quantity</td>
+      <td bgcolor="#FCFCFC">Price</td>
+      <td bgcolor="#FCFCFC">Total</td>
+    </tr>
+    <volist name="list" id="vo">
+    <tr bgcolor="white">
+      <td>{$vo.pid}</td>
+      <td><a target="_blank" href="{$this_script}{:build_url($vo,'pid')}"><img src="{$this_script}{:implode('/',array_map('rawurlencode',explode('/',build_url($vo,'pro_bigimage'))))}" alt="{:build_url($vo,'pro_name')}" width="60" border="0" /></a></td>
+      <td>{:build_url($vo,'pro_name')}</td>
+      <td><volist name="vo['model']" id="subvo">
+{$subvo['name']}:{$subvo['value']}<br/>
+</volist></td>
+      <td>{$vo.count}</td>
+      <td>{:getprice($vo['price'],$vo['pricespe'],false)}</td>
+      <td>{:getprice_str($vo['total'])}</td>
+    </tr>
+    </volist>
+  </tbody> 
+</table>
+<p  align="right" style="width:60%">
+ Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
+  <gt name="totalWeight" value="0">
+ Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
+ </gt>
+  <notempty name="discount['text']">
+ Sub Total: <strong style="color:red;font-weight:bold">{$cartTotal}</strong><br/>
+ Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
+  </notempty>
+  
+ Shipping Price:<strong style="color:red;font-weight:bold">{$shippingPrice}</strong><br/>
+  <present name="insurance">
+ Insurance: <strong style="color:red;font-weight:bold">{$insurance}</strong><br/>
+  </present>
+  <present name="paymoney">
+ Pay Fee: <strong style="color:red;font-weight:bold">{$paymoney}</strong><br/>
+  </present>
+ Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>
+</p> 
+ </fieldset>

@@ -1,0 +1,87 @@
+<volist name="catetree" id="vo">
+  <eq name="vo['subcount']" value="0">
+    <ul>
+      <li id="{$vo['id']}"><em class="off"></em><a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')}</a> </li>
+    </ul>
+  </eq>
+  <gt name="vo['subcount']" value="0">
+    <ul>
+      <li id="{$vo['id']}"><em class="off"></em><a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')}</a>
+        <ul>
+          <volist name="vo['sub']" id="subvo">
+            <eq name="subvo['subcount']" value="0">
+              <li  id="{$subvo['id']}"><em class="off"></em><a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> 
+            </eq>
+            <gt name="subvo['subcount']" value="0">
+              <li  id="{$subvo['id']}"><em  class="off"></em><a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a>
+                <ul  class="off">
+                  <volist name="subvo['sub']" id="subvo2">
+                    <li  id="{$subvo2['id']}"><a href="{:build_url($subvo2,'cate_url')}">{:build_url($subvo2,'cate_name')}</a> </li>
+                  </volist>
+                </ul>
+              </li>
+            </gt>
+          </volist>
+        </ul>
+      </li>
+    </ul>
+  </gt>
+</volist>
+<script language="JavaScript" type="text/javascript">
+function ShowMenu(){
+	var obj = this;
+	obj.id = this.id || "";
+	obj.tag = this.tag.toUpperCase() || "EM";
+	obj.css = this.css || "";
+	obj.bit = this.bit.toUpperCase() || "UL";
+	obj.Type = this.Type || false;
+	obj.ShowAll = this.ShowAll || null;
+	obj.HideAll = this.HideAll || null;
+	obj.Event = this.Event || "click"; //mouseover
+	obj.Speed = this.Speed || "fast";
+
+	$(obj.id).find(obj.tag).bind(obj.Event,function(){
+		var $this = $(this);
+		var $ul = $this.nextAll(obj.bit);
+		if( $ul.length == 0 ){return false;}
+		if( $this.attr("class") ){
+			$this.removeClass(obj.css).nextAll(obj.bit).hide(obj.Speed);
+		}else if(obj.Type){
+			$this.addClass(obj.css).nextAll(obj.bit).show(obj.Speed);
+		}else{
+			$this.addClass(obj.css)
+			.nextAll(obj.bit)
+			.show(obj.Speed)
+			.parent()
+			.siblings()
+			.children(obj.tag)
+			.removeClass(obj.css)
+			.nextAll(obj.bit)
+			.hide(obj.Speed);
+		}
+	});
+
+	if(!obj.ShowAll|| !obj.HideAll){ return false; }
+	$(obj.ShowAll).click(function(){
+		$(obj.id).find(obj.tag).addClass(obj.css).nextAll(obj.bit).show(obj.Speed);
+	});
+	$(obj.HideAll).click(function(){
+		$(obj.id).find(obj.tag).removeClass(obj.css).nextAll(obj.bit).hide(obj.Speed);
+	});
+}
+ShowMenu.call({
+       id:"#menu",
+       tag:"em",
+       css:"off",
+       bit:"ul",
+       Type: false,
+       ShowAll:"#ShowAll1",
+       HideAll:"#HideAll1"
+})
+
+<present name="cateid"> 
+$('#{$cateid}').children('ul').show().end().children('em').addClass('off').parentsUntil('#menu').show().each(function(){
+    $(this).children('em').addClass('off');
+});  
+</present>
+</script>

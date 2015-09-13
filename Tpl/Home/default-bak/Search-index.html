@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+
+
+<div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > {$disp_text} Products</a>
+	</volist></div>
+          <div class="sort_by">
+              <form method="get"><label for="disp-order-sorter">Sort by: </label>
+              <select name="order" onchange="this.form.submit();" id="disp-order-sorter">
+                <option value="id" <eq name="_REQUEST['order']" value="id">selected</eq>>Sort by id</option>
+                <option value="name" <eq name="_REQUEST['order']" value="name">selected</eq>>Sort by name</option>
+                <option value="price" <eq name="_REQUEST['order']" value="price">selected</eq>>Sort by price</option>
+                <option value="dateline" <eq name="_REQUEST['order']" value="dateline">selected</eq>>Sort by update</option>              </select>
+                 <select name="sort"  onchange="this.form.submit();" >
+              <option value="0" <eq name="_REQUEST['sort']" value="0">selected</eq>>Descending</option><option value="1" <eq name="_REQUEST['sort']" value="1">selected</eq>>Ascending</option>              </select>
+            </form>
+          </div>
+             <script language="javascript" type="text/javascript">
+$(document).ready(function(){
+
+$("#spage").change(function()
+{
+window.location.href=$("#spage").val(); 
+});
+
+});
+</script>
+          <div class="dis">
+            <table width="690" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Displaying {$startRow} to {$endRow} (of {$totalRows} products)</td>
+    <td align="right">{$page}</td>
+  </tr>
+</table>
+          </div>
+          <div class="gride">
+          <div class="gride_title">{$disp_text} Products</div>
+          <div class="gride_content">
+            <div class="gride_pai">
+              <ul>
+                <li>Price：
+                 <a href="?pr=0&pr2=50" <eq name="_REQUEST['pr2']" value="50">class="click" style="color:#FFFFFF"</eq>>0-50</a>
+                <a href="?pr=50&pr2=100" <eq name="_REQUEST['pr2']" value="100">class="click" style="color:#FFFFFF"</eq>>50-100</a>
+                <a href="?pr=100&pr2=200" <eq name="_REQUEST['pr2']" value="200">class="click" style="color:#FFFFFF"</eq>>100-200</a>
+                <a href="?pr=200&pr2=300" <eq name="_REQUEST['pr2']" value="300">class="click" style="color:#FFFFFF"</eq>>200-300</a>
+                </li>
+                <li>Type：
+                <a href="?type=ishot" <eq name="_REQUEST['type']" value="ishot">class="click" style="color:#FFFFFF"</eq>>Bestsellers</a>
+                <a href="?type=isnew" <eq name="_REQUEST['type']" value="isnew">class="click" style="color:#FFFFFF"</eq>>New</a>
+                <a href="?type=isrec" <eq name="_REQUEST['type']" value="isrec">class="click" style="color:#FFFFFF"</eq>>Recommended</a>
+                <a href="?type=isprice" <eq name="_REQUEST['type']" value="isprice">class="click" style="color:#FFFFFF"</eq>>Specials</a>
+                </li>
+              </ul>
+            </div>
+
+  <volist name="list" id="vo">
+            <div class="g_pro">
+              <div class="g_pro_img"><a href="{:build_url($vo,'pro_url')}" altimg="{:build_url($vo,'altimg')}" title="{:build_url($vo,'pro_name')}" ><img src="{:build_url($vo,'pro_smallimage')}" width="160" height="160" alt="{:build_url($vo,'pro_name')}" border="0" /></a></div>
+              <div class="g_pro_name"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></div>
+              <div class="g_pro_pri">
+               {:build_url($vo,'pro_price')}
+              <br /><br /><a href="{:build_url($vo,'pro_url')}"><img src="__PUBLIC__/skin/images/button_in_cart.gif" alt="" border="0" /></a>
+              </div>
+            </div>
+           </volist>
+            
+            
+            
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+  <include file="Public:footer" />

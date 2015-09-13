@@ -34,7 +34,7 @@ class CartAction extends CommAction {
 		
 		//强制值不为空
 		foreach ( $attrlist as $key => $value ) {
-			if($value['input_type']==1 && in_array($value ['name'],$attributes) && $_POST ['attr'][$value ['name']]){
+			if(($value['input_type']==0 || $value['input_type']==1) && in_array($value ['name'],$attributes) && $_POST ['attr'][$value ['name']]){ 
 				$model [$i] ['name'] = $value ['name'];
 				$attr_value=explode('__',$_POST ['attr'][$value ['name']]);
 				$model [$i] ['value'] = $attr_value[0];
@@ -49,7 +49,19 @@ class CartAction extends CommAction {
 		}
 		$dao->add_item ( $this->sessionID, $_POST ['id'], $_POST ['count'], serialize ( $model ) );
 		if($this->isAjax()){
-			$this->success('Shopping Cart <a>'.itemCount().'</a> items quantity <a>'.TotalCount().'</a>.<br/>Total '.getprice_str(cart_total()).'.');
+			$item_count = itemCount();
+			$total_count = TotalCount();
+			$price_total = getprice_str(cart_total());
+			$data = array(
+				'status' => 1,
+				'info' => "<em class='add_ok'></em><span id='shopping_data'>Shopping Cart <a>{$item_count}</a> items Total {$price_total}</span>",
+				'number_total' => $item_count,
+				'items_total' => $total_count,
+				'price_total' => $price_total,
+				'list' => $dao->cart_list($this->sessionID),
+			);
+			//$this->success('Shopping Cart <a>'.itemCount().'</a> items quantity <a>'.TotalCount().'</a>.<br/>Total '.getprice_str(cart_total()).'.');
+			echo json_encode($data);exit;;
 		}else{
 			$this->redirect ( 'Cart/disp' );
 		}

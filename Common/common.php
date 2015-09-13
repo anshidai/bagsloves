@@ -579,7 +579,14 @@ function get_brand_tree(){
 function get_ad_arr($type) {
 	if (S ( 'S_AD_' . $type ) == "") {
 		$dao = D ( "Ad" );
-		S ( 'S_AD_' . $type, $dao->where ( "type='" . $type."'" )->order ( "sort desc" )->select ()) ;
+		
+		$list = $dao->where ( "type='" . $type."'" )->order ( "sort desc" )->select ();
+		if($list) {
+			foreach($list as $k=>$val) {
+				$data[$val['id']] = $val;
+			}
+		}
+		S ( 'S_AD_' . $type, $data) ;
 	}
 	return S ( 'S_AD_' . $type );
 }
@@ -593,7 +600,12 @@ function get_ad($type,$field) {
 		}else{
 			$list=$dao->where ( "type='" . $type."'" )->order ( "sort desc" )->find();
 		}
-		S ( 'S_AD_' . $type,$list) ;
+		if($list) {
+			foreach($list as $k=>$val) {
+				$data[$val['id']] = $val;
+			}
+		}
+		S ( 'S_AD_' . $type,$data) ;
 	}
 	return S ( 'S_AD_' . $type );
 }
@@ -631,7 +643,8 @@ function getprice($price,$spe,$discount=true){
 		$price *= $_SESSION ['currency'] ['rate'];
 		$spe *= $_SESSION ['currency'] ['rate'];
 		if($discount){
-			$re=  '<span style="color:red;text-decoration: line-through;">'.$_SESSION ['currency'] ['code'] . $price . '</span>&nbsp;&nbsp;&nbsp;<span style="color:red;">' . $_SESSION ['currency'] ['code'] . $spe . '</span><br />Save:' . number_format ( (($price - $spe) / $price * 100), 0 ) . '% off';
+			//$re=  '<span style="color:red;text-decoration: line-through;">'.$_SESSION ['currency'] ['code'] . $price . '</span>&nbsp;&nbsp;&nbsp;<span style="color:red;">' . $_SESSION ['currency'] ['code'] . $spe . '</span><br />Save:' . number_format ( (($price - $spe) / $price * 100), 0 ) . '% off';
+			$re=  '<span class="make-price">'.$_SESSION ['currency'] ['code'] . $price . '</span><span class="shop-price">' . $_SESSION ['currency'] ['code'] . $spe . '</span>';
 		}else{
 			$re= $_SESSION ['currency'] ['code'] . $spe;
 		}

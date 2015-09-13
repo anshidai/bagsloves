@@ -1,7 +1,7 @@
-<ul id="listMenu" >
+<ul id="listMenu" class="cat-list">
   <volist name="catetree" id="vo">
     <gt name="vo['subcount']" value="0">
-      <li> <a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')} </a>
+      <li class="relative"> <a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')} </a>
         <ul>
           <volist name="vo['sub']" id="subvo">
             <eq name="subvo['subcount']" value="0">

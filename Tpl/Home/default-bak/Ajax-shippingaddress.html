@@ -1,0 +1,90 @@
+
+<div id="ajax_join">
+<form method="POST" action="{:U('MemberIndex/doShippingAddress')}" name="doShippingAddress" >
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td colspan="4" align="center" valign="middle"><img src="__PUBLIC__/skin/admin/ship_t.jpg" width="432" height="56" border="0" usemap="#Map" /></td>
+    </tr>
+    <tr>
+      <td colspan="4" height="13" align="center" valign="middle"><img src="__PUBLIC__/skin/admin/tline2.jpg" width="426" height="5" /></td>
+    </tr>
+    <tr>
+      <td width="25" align="left">&nbsp;</td>
+      <td width="138" align="left" valign="middle">First Name</td>
+      <td width="269" colspan="2" align="left" valign="middle">{$memberInfo.firstname}</td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">Last Name</span></td>
+      <td colspan="2" align="left" valign="middle">{$memberInfo.lastname} </td>
+    </tr>
+          <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">Address</span></td>
+      <td colspan="2" align="left" valign="middle"><input type="text" name="address" size = "35" id="Address" value="{$memberShippingAddress.address}"    class="sign_btn"  datatype="Require" msg="Address is required!"  /><span class="red">*</span>
+        </td>
+    </tr>
+     <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">Country</span></td>
+      <td colspan="2" align="left" valign="middle"><select name="country" id="selCountries" onchange="loadRegion('selCountries',1,'selProvinces','{:U('Home-Ajax/getRegion')}');" class="sign_btn2" style="font-size:11px;font-family:Verdana, Arial, Helvetica, sans-serif;"  datatype="Require" msg="Country is required!" >
+        <option value="">Please Select</option>
+        <volist name="Countries" id="vo"> <option value="{$vo.id}" 
+          <eq name="memberShippingAddress['country']" value="$vo['id']">selected</eq>
+          >{$vo.name}
+          </option>
+        </volist>
+      </select><span class="red">*</span></td>
+    </tr>
+        <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">State/Province</span></td>
+      <td colspan="2" align="left" valign="middle"><select name="state" id="selProvinces"  class="sign_btn2"  datatype="Require" msg="State is required!" >
+        <option value="0">Please Select</option>
+        <volist name="state" id="vo2"> <option value="{$vo.id}" 
+          <eq name="memberShippingAddress['state']" value="$vo['id']">selected</eq>
+          >{$vo.name}
+          </option>
+        </volist>
+      </select><span class="red">*</span></td>
+    </tr>
+        <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">City or APO/FPO</span></td>
+      <td colspan="2" align="left" valign="middle"><input type="text" name="city" id="city" size = "35" value="{$memberShippingAddress.city}"  class="sign_btn"  datatype="Require" msg="City is required!" /><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">Zip/Postal Code</span></td>
+      <td colspan="2" align="left" valign="middle"><input type="text" name="zip" id="zip" size = "35" value="{$memberShippingAddress.zip}"  class="sign_btn"  datatype="Require" msg="Zip/Postal Code is required!" /><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">Telephone</span></td>
+      <td colspan="2" align="left" valign="middle"><input type="text" name="telphone"  id="telphone"  class="sign_btn" size = "35" value="{$memberShippingAddress.telphone}"  datatype="Require" msg="Telephone is required!" /><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle"><span class="inputLabel">E-mail Address</span></td>
+      <td colspan="2" align="left" valign="middle"><input type="text" name="email"  class="sign_btn" id="email" size = "35" value="{$memberInfo.email}"  datatype="Email" msg="Email format is not correct!" readonly/><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="left"><table width="282" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="187" align="right"><img src="__PUBLIC__/skin/admin/bt_login.jpg" width="157" height="47" border="0" usemap="#Map2" /></td>
+          <td width="93" align="right">
+          <input type="image" src="__PUBLIC__/skin/admin/bt_submit.jpg" alt="Submit the Information" title=" Submit the Information " onclick="return Boxy.doShippingAddress(this.form);"/></td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+  
+<input type="hidden" name="id" size="30" value="{$memberID}">
+  </form>
+</div>
+<map name="Map" id="Map">
+  <area shape="rect" coords="410,1,433,20" href="##" onClick="Boxy.close();"/>
+</map>
+
+<map name="Map2" id="Map2">
+  <area shape="rect" coords="3,5,155,42" href="###" onclick="Boxy.login();" />
+</map>

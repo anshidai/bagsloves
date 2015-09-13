@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > Tell A Friend About "{$list['name']}"</div>
+          <div class="list2_content">
+            <div class="friend">
+              <form method="post" action="" name="email_friend"  onsubmit="return Validator.Validate(this,2);">
+<fieldset>
+<legend>Tell A Friend About "{$list['name']}'</legend>
+<div>* Required information</div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-name">Your Name:</label></td>
+    <td><input type="text" id="from-name" value="{$member_Info.lastname} {$member_Info.firstname}" name="from_name" dataType="Require" msg="Error: Your name must not be empty." >&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-email-address">Your Email:</label></td>
+    <td><input type="text" id="from-email-address" value="{$member_Info.email}" name="from_email_address" dataType="Email" msg="Error: Your email address does not appear to be valid. Please try again.">&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="to-name">Friend's Name:</label></td>
+    <td><input type="text" id="to-name" name="to_name" dataType="Require" msg="Error: Your friend's name must not be empty." >&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="to-email-address">Friend's Email:</label></td>
+    <td><input type="text" id="to-email-address" name="to_email_address"  dataType="Email" msg="Error: Your friend's email address does not appear to be valid. Please try again.">&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label for="email-message">Your Message:</label></td>
+    <td><textarea id="email-message" rows="5" cols="30" name="message"  dataType="Require" msg="Error: Your Message must not be empty." ></textarea></td>
+  </tr>
+</table>
+</fieldset>
+
+<div class="buttonRow">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><a href="/"><img src="__PUBLIC__/skin/images/button_back.gif" alt="Back" title=" Back " width="48" height="29" border="0" /></a></td>
+    <td align="right"><input type="image" src="__PUBLIC__/skin/images/button_send.gif" alt="Send Now" title=" Send Now " /></td>
+  </tr>
+</table>
+</div>
+<div><strong>This message is included with all emails sent from this site:</strong>
+<strong>IMPORTANT:</strong> For your protection and to prevent malicious use, all emails sent via this web site are logged and the contents recorded and available to the store owner. If you feel that you have received this email in error, please send an email to {:GetValue('email')}
+</div>
+
+</form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<include file="Public:footer" />

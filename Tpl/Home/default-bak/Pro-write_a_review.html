@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+  <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > Write A Review About "{$list['name']}"</div>
+          <div class="list2_content">
+            <div class="goods">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <div class="left_goods">
+                <a href="{:build_url($list,'pro_url')}"><img src="{:build_url($list,'pro_bigimage')}" width="75%" alt="" border="0" /></a>
+              </div>
+    <div class="left1">
+      {$list['name']}
+    </div>
+    </td>
+    <td>
+    <div class="right_goods">
+                <div class="goods_name"><strong>{$list['name']}</strong></div>
+                <div class="goods_stock"></div>
+                <div class="goods_pri">
+                
+                <strong>Product id:</strong>   <font color="#FF6600">{$vo.id}</font><br/>
+                <strong>Price:</strong>   <font color="#FF6600" style="font-size:18px;">$211.00</font>
+                </div>
+              </div>
+    </td>
+  </tr>
+</table>
+              
+              
+            </div>
+          </div>
+          <div class="list2_content">
+            <div class="ping">
+            <form method="post" action="{:U('Pro/insert_ask')}" onsubmit="return Validator.Validate(this,2);">
+
+<fieldset>
+<legend> Write A Review About "{$list['name']}'</legend>
+<div>* Required information</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td colspan="2">Choose a ranking for this item. 1 star is the worst and 5 stars is the best.</td>
+  </tr> 
+  <tr>
+    <td colspan="2">
+<input type="radio" id="rating-1" value="1" name="star">
+<label for="rating-1" class=""><img width="86" height="16" title=" One Star " alt="One Star" src="__PUBLIC__/skin/admin/stars_1_small.gif"></label>
+<input type="radio" id="rating-2" value="2" name="star"><label for="rating-2" class=""><img width="86" height="16" title=" Two Stars " alt="Two Stars" src="__PUBLIC__/skin/admin/stars_2_small.gif"></label>
+<input type="radio" id="rating-3" value="3" name="star"><label for="rating-3" class=""><img width="86" height="16" title=" Three Stars " alt="Three Stars" src="__PUBLIC__/skin/admin/stars_3_small.gif"></label>
+<input type="radio" id="rating-4" value="4" name="star"><label for="rating-4" class=""><img width="86" height="16" title=" Four Stars " alt="Four Stars" src="__PUBLIC__/skin/admin/stars_4_small.gif"></label>
+<input type="radio" id="rating-5" value="5" name="star" dataType="Group"  msg="Must choose a ranking"><label for="rating-5" class=""><img width="86" height="16" title=" Five Stars " alt="Five Stars" src="__PUBLIC__/skin/admin/stars_5_small.gif"></label>
+&nbsp;<span class="alert">*</span></td>
+  </tr> 
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-name">Review Type:</label></td>
+    <td><input type="radio" name="type" value="Review"  />Review <input type="radio" name="type" value="Ask"  />Ask <input type="radio" name="type" value="Message"  />Message <input type="radio" name="type" value="Contact Us"  />Contact Us  <input type="radio" name="type" value="Other" dataType="Group"  msg="Must choose a Review Type!"  />Other&nbsp;<span class="alert">*</span></td>
+  </tr> 
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-name">Your Name:</label></td>
+    <td><input type="text" name="name" value="{$member_Info.lastname} {$member_Info.firstname}" id="from-name"  dataType="Require" msg="Name is required!"/>&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-email-address">Your Email:</label></td>
+    <td><input type="text" name="email" value="{$member_Info.email}" id="from-email-address"  dataType="Email" msg="Email format is not correct!" />&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="title">Title:</label></td>
+    <td><input type="text" name="title" value="" id="title"  dataType="Require" msg="Title is required!"/>&nbsp;<span class="alert">*</span></td>
+  </tr>
+</table>
+<label style="line-height:20px;">Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.</label>
+<textarea name="content" cols="60" rows="5" style=" width:615px;height:100px;"  dataType="Require" msg="Content is required!"></textarea>
+<div id="reviewsWriteReviewsNotice" class="notice"><strong>NOTE:</strong>  HTML tags are not allowed.<br /><strong>NOTE:</strong>  Reviews require prior approval before they will be displayed</div>
+</fieldset>
+<div class="buttonRow" align="right">
+<input type="hidden" name="products_id" value="{$list.id}" />
+<input type="image" src="__PUBLIC__/skin/images/button_submit.gif" alt="Submit the Information" title=" Submit the Information " />
+</div>
+</form>
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+<include file="Public:footer" />

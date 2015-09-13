@@ -139,6 +139,7 @@ class EmptyAction extends CommAction {
 				$attrlist[0]['values_count']=1;
 				$attrlist[0]['attrs']=array(0=>array('attr_value'=>'nosize'));
 			}
+			
 			$this->attrlist=$attrlist;
 			$this->attrcount=count($attrlist[0]['attrs']);
 
@@ -221,7 +222,7 @@ class EmptyAction extends CommAction {
 			$products_ask=D('Products_ask');
 			$this->review_num=$products_ask->where('products_id='.$pid)->count();
 			$this->review_list=$products_ask->where('products_id='.$pid)->select();
-
+			
 			if(in_array($list['activity'],array('1'))){
 				switch ($list['activity']){
 					case 1:

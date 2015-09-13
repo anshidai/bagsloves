@@ -101,6 +101,10 @@ class CommAction extends Action{
 		//总重量
 		self::$Model=D("Cart");
 		$this->Total_weight=self::$Model->cart_total_weight($this->sessionID);
+		
+		
+		//购物车商品
+		$this->cart_list = self::$Model->cart_list($this->sessionID);
 
 		//会员等级
 		$this->memberGropuInfo=get_members_group($this->memberID);
@@ -127,11 +131,12 @@ class CommAction extends Action{
 		}
 		//打乱随机显示
 		$Products_Cache=F('Products_Cache');
-		$Products_Cache['FeaturedProducts']=$this->ProModel->rand($Products_Cache['FeaturedProducts']);
-		$Products_Cache['HotProducts']=$this->ProModel->rand($Products_Cache['HotProducts']);
-		$Products_Cache['NewProducts']=$this->ProModel->rand($Products_Cache['NewProducts']);
-		$Products_Cache['SpeProducts']=$this->ProModel->rand($Products_Cache['SpeProducts']);
+		//$Products_Cache['FeaturedProducts']=$this->ProModel->rand($Products_Cache['FeaturedProducts']);
+		//$Products_Cache['HotProducts']=$this->ProModel->rand($Products_Cache['HotProducts']);
+		//$Products_Cache['NewProducts']=$this->ProModel->rand($Products_Cache['NewProducts']);
+		//$Products_Cache['SpeProducts']=$this->ProModel->rand($Products_Cache['SpeProducts']);
 		$this->assign($Products_Cache);
+		
 
 		/**
 		 * eof缓存模板变量
@@ -164,7 +169,7 @@ class CommAction extends Action{
 		 */
 		//调用方法img_url图片content文字//remark标题get_ad('leftad','img_url');
 		//$Common_Cache['leftad'] = get_ad('leftad');//单个
-		//$Common_Cache['link'] = get_ad_arr("link");//广告组
+		$Common_Cache['ads'] = get_ad_arr("img");//广告组
 
 		//文章类别
 		self::$Model=D('Article_cate');

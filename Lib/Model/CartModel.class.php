@@ -153,5 +153,42 @@ class CartModel extends Model {
 
 		return $list;
 	}
+	
+	public function cart_list($sessionID)
+	{
+		$list = $this->where("session_id='" . $sessionID."'")->select();
+		if(empty($list)) return array();
+		
+		$data = array();
+		
+		$dao = D("Products");
+		foreach($list as $k=>$val) {
+			$product_info = $dao->getpriceInfo($val['pid'], $val['count'], $val['model']);
+			
+			if(!empty($val['model'])) {
+				$attr_tmp = unserialize($val['model']);
+				foreach($attr_tmp as $vo) {
+					$row['attr'] .= "{$vo['name']}: {$vo['value']} &nbsp;&nbsp;";
+				}
+			}
+			$row['id'] = $product_info['id'];
+			$row['cateid'] = $product_info['cateid'];
+			$row['name'] = $product_info['name'];
+			$row['url'] = build_url($product_info,'pro_url');
+			$row['price'] = $product_info['price'];
+			$row['pricespe'] = getprice($product_info['price'],$product_info['pricespe'],false);
+			$row['bigimage'] = build_url($product_info,'pro_bigimage');
+			$row['smallimage'] = build_url($product_info,'pro_smallimage');
+			$row['count'] = $product_info['count'];
+			$row['price_total'] = $product_info['price_total'];
+			$row['pricespe_total'] = $product_info['pricespe_total'];
+			$row['total'] = $product_info['total'];
+			$row['costprice'] = $product_info['costprice'];
+			$row['provider'] = $product_info['provider'];
+			$data[] = $row;
+		}
+		return $data;
+	}
+	
 }
 ?>

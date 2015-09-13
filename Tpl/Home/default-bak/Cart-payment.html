@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+
+<include file="Public:header" />
+<include file="Public:left" />
+
+
+
+
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > {$title|default="Payment"}</div>
+          
+          <div class="list2_content">
+            <div style="width:100%;background-color:#fff"><img src="__PUBLIC__/skin/images/order3.gif" /></div>
+            <div class="payment">
+              <fieldset>
+                <!--form-->
+          {$content}
+         <!-- remark-->
+          {$remark}
+              </fieldset>
+                      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<include file="Public:footer" />

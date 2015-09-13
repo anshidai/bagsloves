@@ -1,0 +1,21 @@
+
+ Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
+ <gt name="totalWeight" value="0">
+ Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
+ </gt> 
+  <notempty name="discount['text']">
+ Sub Total: <strong style="color:red;font-weight:bold">{$cartTotal}</strong><br/>
+ Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
+  </notempty>
+  
+ +Shipping Price:<strong style="color:red;font-weight:bold">{$shippingPrice}</strong><br/>
+  <present name="insurance">
+ +Insurance: <strong style="color:red;font-weight:bold">{$insurance}</strong><br/>
+  </present>
+  <present name="paymoney">
+ +Pay Fee: <strong style="color:red;font-weight:bold">{$paymoney}</strong><br/>
+  </present>
+  <present name="coupon">
+ -Coupon Amount: <strong style="color:red;font-weight:bold">{$coupon}</strong><br/>
+  </present>
+ Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>

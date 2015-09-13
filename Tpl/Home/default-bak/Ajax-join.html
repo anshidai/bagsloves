@@ -1,0 +1,52 @@
+<div id="ajax_join">
+<form action="{:U('MemberPublic/doJoin')}" method="post" name="dojoin">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td colspan="4" align="center" valign="middle"><img src="__PUBLIC__/skin/admin/sign_t.jpg" width="432" height="57" border="0" usemap="#Map" /></td>
+    </tr>
+    <tr>
+      <td colspan="4" height="13" align="center" valign="middle"><img src="__PUBLIC__/skin/admin/tline2.jpg" width="426" height="5" /></td>
+    </tr>
+    <tr>
+      <td width="25" align="left">&nbsp;</td>
+      <td width="138" align="left" valign="middle">First Name</td>
+      <td width="269" colspan="2" align="left" valign="middle"><input name="firstname" type="text" class="sign_btn" id="firstname" size = "33" max = "32"  datatype="Require" msg="firstname is required!" /><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle">Last Name</td>
+      <td colspan="2" align="left" valign="middle"><input name="lastname" type="text" class="sign_btn" id="lastname" size = "33" max = "32" datatype="Require" msg="lastname is required!" /><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle">Email Address</td>
+      <td colspan="2" align="left" valign="middle"><input name="email" type="text" class="sign_btn" id="email-address" size = "41" max= "96"  datatype="Email" msg="Email format is not correct!"/><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle">Password</td>
+      <td colspan="2" align="left" valign="middle"><input name="password" type="password" class="sign_btn2" id="password-new" size = "21" min="3" max= "40" datatype="Require" msg="password is required!"/><span class="red">*</span><span class="font">(at least 3 characters)</span></td>
+    </tr>
+    <tr>
+      <td align="left">&nbsp;</td>
+      <td align="left" valign="middle">Confirm Password</td>
+      <td colspan="2" align="left" valign="middle"><input name="password-new" type="password" class="sign_btn2" id="password-new2" size = "21" min="3" max= "40" datatype="Require" msg="confirm password is required!"/><span class="red">*</span></td>
+    </tr>
+    <tr>
+      <td colspan="4" align="left"><table width="282" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="187" align="right"><img src="__PUBLIC__/skin/admin/bt_login.jpg" width="157" height="47" border="0" usemap="#Map2" /></td>
+          <td width="93" align="right"><input type="image" src="__PUBLIC__/skin/admin/bt_submit.jpg" alt="Submit the Information" title=" Submit the Information " onclick="return Boxy.dojoin(this.form);"/></td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+  </form>
+</div>
+<map name="Map" id="Map">
+  <area shape="rect" coords="410,1,433,20" href="###" onClick="Boxy.close();"/>
+</map>
+
+<map name="Map2" id="Map2">
+  <area shape="rect" coords="4,3,155,43" href="###"  onclick="Boxy.login('{:U('Ajax/login')}');" />
+</map>

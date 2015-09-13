@@ -101,7 +101,7 @@ $(function(){
 						<td style="width:120px;">图片:</td>
 						<td><input type="file" id="fileToUpload" name="fileToUpload" class="input-text" /><input class="input-submit" id="upload"  type="button" name="upload" value="上传" onClick="return ajaxFileUpload('fileToUpload','0');" /><notempty name="list['img_url']"><input type="button" onclick="window.location.href='{:U('Ad/setimg_empty',array('f'=>'img_url','id'=>$list['id']))}';" value="删除图片"/></notempty><br/>
 						<span id="imgbox"><notempty name="list['img_url']">
-		                    <img src="__ROOT__/{$list.img_url}" />
+		                    <img src="__ROOT__/{$list.img_url}" style="max-width:250px;max-height="250px;" />
 		                    </notempty></span>
 						
 						</td>

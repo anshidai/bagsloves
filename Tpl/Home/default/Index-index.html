@@ -1,116 +1,124 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
 {:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
-
-<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
-
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
-<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
-<script language="JavaScript" type="text/javascript">
-
-$(function() {
-	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
-
-	$(".carousel").jCarouselLite({
-		btnNext: ".next",
-		btnPrev: ".prev",
-		visible: 5,
-		auto:2000
-	});
-});
-</script>
+<link href="__PUBLIC__/skin/bagsloves/css/base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/skin/bagsloves/css/common.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/skin/bagsloves/css/index.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/jquery-1.7.2.min.js"></script>
 </head>
-
-
-
-
-
 <body>
 <include file="Public:header" />
-<include file="Public:left" />
+<include file="Public:banner" />
 
+<span class="blank20" style="height:40px;"></span>
+<div class="w-hr"><div class="w1200"><span class="tit">SELECTION OF SERTES</span></div></div>
 
- <div class="col2">
-  <div id="home_txt">
- <div class="home_title">INFORMATION</div>
- {:GetValue('hottitle')}
- </div>
-        <div class="ad">
-          <div class="midd_ad">
-         
-        <include file="Public:banner" /></div>
-          <div class="right_ad">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td style="padding-bottom:5px;"><a href="{:U('Pro/hot')}"><img src="__PUBLIC__/skin/images/banner4.jpg" alt="" border="0" /></a></td>
-  </tr>
-  <tr>
-    <td style="padding-bottom:5px;"><a href="{:U('Pro/reviews')}"><img src="__PUBLIC__/skin/images/banner5.jpg" alt="" border="0" /></a></td>
-  </tr>
-  <tr>
-    <td><a href="__APP__/FAQs/"><img src="__PUBLIC__/skin/images/banner6.jpg" alt="" border="0" /></a></td>
-  </tr>
-</table>
-          </div>
-        </div>
-        <div class="list">
-          <div class="list_title">Specials</div>
-          <div class="list_content">
-            <div class="left_list">
-              <a href="###" class="prev"><img src="__PUBLIC__/skin/images/left_list.gif" alt="" border="0" /></a>
-            </div>
-            
-            <div class="midd_list carousel">
-            <ul>
-            <volist name="SpeProducts" id="vo">
-              <li><div class="pro">
-                <div class="pro_img"><a href="{:build_url($vo,'pro_url')}" altimg="{:build_url($vo,'altimg')}" title="{:build_url($vo,'pro_name')}" ><img src="{:build_url($vo,'pro_smallimage')}" width="129"  height="109" alt="{:build_url($vo,'pro_name')}"  border="0" /></a></div>
-                <div class="pro_name"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></div>
-                <div class="pro_pri">{:build_url($vo,'pro_price')}</div>
-              </div></li>
-              </volist>
-              </ul>
-            </div>
-            <div class="right_list">
-              <a href="###" class="next"><img src="__PUBLIC__/skin/images/right_list.gif" alt="" border="0" /></a>
-            </div>
-          </div>
-        </div>
-        <div class="list1">
-          <div class="list1_title">Featured Products</div>
-          <div class="list1_content">
-             <volist name="FeaturedProducts" id="vo">
-              <div class="pro">
-                <div class="pro_img"><a href="{:build_url($vo,'pro_url')}" altimg="{:build_url($vo,'altimg')}" title="{:build_url($vo,'pro_name')}" ><img src="{:build_url($vo,'pro_smallimage')}" width="129" height="109" alt="{:build_url($vo,'pro_name')}"  border="0"/></a></div>
-                <div class="pro_name"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></div>
-                <div class="pro_pri">{:build_url($vo,'pro_price')}</div>
-              </div>
-              </volist>
-          </div>
-	<div style="clear:both"></div>	  
-	<div id="cate_remark">
-   <div class="cate_txt" style="text-align:left">{$recpro_remark}</div>
-    </div>
-		  
-        </div>
-		
-		
+<div class="fashion-block w1200 clearfix">
+	<div class="tab">
+		<span>TOTES</span>
+		<span class="curr">SATYCHELS</span>
+		<span>VALUE SPREE</span>
+		<span>ACCESSORIES</span>
+		<span>FASHION MATCH</span>
+	</div>
+	<div class="data-block clearfix">
+		<ul>
+			<li><a href="<?=$ads[45]['link']? $ads[45]['link']: 'javascript:;'?>"><img src="<?=$ads[45]['img_url']?>" width="350" height="415" alt=""></a></li>
+			<li><a href="<?=$ads[46]['link']? $ads[46]['link']: 'javascript:;'?>"><img src="<?=$ads[46]['img_url']?>" width="350" height="415" alt=""></a></li>
+			<li><a href="<?=$ads[47]['link']? $ads[47]['link']: 'javascript:;'?>"><img src="<?=$ads[47]['img_url']?>" width="350" height="415" alt=""></a></li>
+		</ul>
+
+	</div>
+</div>
+<!-- fashion-block end-->
+
+<span class="blank20" style="height:40px;"></span>
+<div class="w-hr"><div class="w1200"><span class="tit">TODAY`S NEW ARRICLS</span></div></div>
+<div class="fashion-block w1200 clearfix">
+	<div class="save-top">
+		<span class="ad-left"><img src="__PUBLIC__/skin/bagsloves/images/index_ad01.jpg" height="325" alt=""></span>
+		<div class="border">
+			<ul class="mind-list fl">
+			<notempty name="NewProducts">
+			<foreach name="NewProducts" item="vo" key="k">
+				<lt name="k" value="2">
+				<li <gt name="k" value="0">class="noboder"</gt>>
+					<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="219" height="230"></a>
+					<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
+					<p class="price">{:build_url($vo,'pro_price')}</p>
+				</li>
+				</lt>
+			</foreach>
+			</notempty>
+			</ul>
+		</div>
+		<span class="ad-right"><img src="__PUBLIC__/skin/bagsloves/images/index_ad02.jpg" height="325" alt=""></span>
+	</div>
+	<!-- save-top end-->
 	
-	
-      </div>
-    </div>
+	<div class="save-bottom clearfix">
+		<ul class="mind-list">
+			<notempty name="NewProducts">
+			<foreach name="NewProducts" item="vo" key="k">
+				<gt name="k" value="1">
+				<li <gt name="k" value="2">class="noboder"</gt>>
+					<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="219" height="230"></a>
+					<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
+					<p class="price">{:build_url($vo,'pro_price')}</p>
+				</li>
+				</gt>
+			</foreach>
+			</notempty>
+		</ul>	
+	</div>
+	<!-- save-bottom end-->
+</div>
+<!-- fashion-block end-->
 
+<span class="blank20" style="height:40px;"></span>
+<div class="w-hr"><div class="w1200"><span class="tit">WHAT'S THE MOST POPULAR</span></div></div>
+<div class="fashion-block w1200 clearfix">
+	<div class="save-top">
+		<span class="ad-left"><img src="__PUBLIC__/skin/bagsloves/images/index_ad03.jpg" height="325" alt=""></span>
+		<div class="border">
+			<ul class="mind-list fl">
+				<notempty name="FeaturedProducts">
+				<foreach name="FeaturedProducts" item="vo" key="k">
+				<lt name="k" value="2">
+					<li <gt name="k" value="0">class="noboder"</gt>>
+						<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="219" height="230"></a>
+						<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
+						<p class="price">{:build_url($vo,'pro_price')}</p>
+					</li>
+				</lt>
+				</foreach>
+				</notempty>
+			</ul>
+		</div>
+		<span class="ad-right"><img src="__PUBLIC__/skin/bagsloves/images/index_ad02.jpg" height="325" alt=""></span>
+	</div>
+	<!-- save-top end-->
+	<div class="save-bottom clearfix">
+		<ul class="mind-list">
+		<notempty name="SpeProducts">
+		<foreach name="SpeProducts" item="vo" key="k" >
+			<li <gt name="k" value="0">class="noboder"</gt>>
+				<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="219" height="230"></a>
+				<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
+				<p class="price">{:build_url($vo,'pro_price')}</p>
+			</li>
+		</foreach>
+		</notempty>
+		</ul>	
+	</div>
+	<!-- save-bottom end-->
+</div>
+<!-- fashion-block end-->
 
+<include file="Public:footer" />
 
-  <include file="Public:footer" />
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>
+</body>
+</html>

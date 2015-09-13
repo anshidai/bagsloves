@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+$(function() {
+	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+
+	$(".carousel").jCarouselLite({
+		btnNext: ".next",
+		btnPrev: ".prev",
+		visible: 5,
+		auto:2000
+	});
+});
+</script>
+</head>
+
+
+
+
+
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+
+ <div class="col2">
+        <div class="list1">
+          <div class="list1_title"><a href="/">Home</a> > Guest book</div>
+          <div class="list2_content">
+          
+<volist name="list" id="vo">
+            <div class="yifa">
+              <ul>
+                <li><strong>Customer Name:</strong> {$vo.name}</li>
+                <li><strong>Messages Title:</strong> {$vo.title}</li>
+                <li><strong>Messages Content:</strong> {$vo.content}</li>
+                <li><strong>Messages Time:</strong> {:date('Y-m-d h:i:s',$vo['dateline'])}</li>
+                <notempty name="vo['replay']">
+                <li><strong  style="color:Red">Messages Reply:</strong> {$vo.replay}</li>
+                </notempty>
+              </ul>
+            </div>
+             </volist>
+          </div>
+           <p align="right">{$show}</p>
+          <div class="list2_content">
+            <div class="message">
+            <form method="post" action="{:U('Pro/insert_ask')}" onsubmit="return Validator.Validate(this,2);">
+              <fieldset>
+<legend>Message</legend>
+<div>* Required information</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-name">Your Name:</label></td>
+    <td><input type="text" name="name" value="{$member_Info.lastname} {$member_Info.firstname}" id="from-name"  dataType="Require" msg="Name is required!"/>&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="from-email-address">Your Email:</label></td>
+    <td><input type="text" name="email" value="{$member_Info.email}" id="from-email-address"  dataType="Email" msg="Email format is not correct!" />&nbsp;<span class="alert">*</span></td>
+  </tr>
+  <tr>
+    <td width="20%" height="30"><label class="inputLabel" for="title">Title:</label></td>
+    <td><input type="text" name="title" value="" id="title"  dataType="Require" msg="Title is required!"/>&nbsp;<span class="alert">*</span></td>
+  </tr>
+</table>
+<label style="line-height:20px;">Please tell us what you think and share your opinions with others. Be sure to focus your comments on the product.</label>
+<textarea name="content" cols="60" rows="5" style=" width:615px;height:100px;"  dataType="Require" msg="Content is required!"></textarea>
+<div id="reviewsWriteReviewsNotice" class="notice"><strong>NOTE:</strong>  HTML tags are not allowed.<br /><strong>NOTE:</strong>  Reviews require prior approval before they will be displayed</div>
+<div class="buttonRow" align="right">
+<input type="hidden" name="type" value="Message" />
+<input type="image" src="__PUBLIC__/skin/images/button_submit.gif" alt="Submit the Information" title=" Submit the Information " />
+</div>
+</fieldset>
+</form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<include file="Public:footer" />

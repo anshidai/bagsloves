@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+ 
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/Region.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/Js/cartdisp.js"></script>
+<script type="text/javascript"> 
+var ajaxshippingaddress="{:U('Ajax/shippingaddress')}";
+function drop(){
+	$("#cartform").attr("action","{:U('Cart/clear_cart')}");
+	$("#cartform").submit();
+}
+function save(){
+	jQuery("#cartform").attr("action","{:U('Cart/save')}");
+	jQuery("#cartform").submit();
+}
+function send(islogin){
+	var isAjaxLogin = Boolean(parseInt("{:GetValue('isAjaxLogin')}"));
+	var shippingaddress;
+	var mid=Boolean(parseInt("{$mid}"));
+	<notempty name="member_ShippingAddress">
+		shippingaddress = true;
+	</notempty>
+	
+	jQuery("#cartform").attr("action","{:U('Cart/save',array('step'=>'checkout'))}");
+	if(check()){
+		if(islogin){
+			jQuery("#cartform").submit();
+		}else if(mid && !shippingaddress){
+			Boxy.shippingaddress("{:U('Ajax/shippingaddress')}");
+		}else if(isAjaxLogin){
+			if(Boxy.login("{:U('Ajax/login')}","{$mid}")){
+				jQuery("#cartform").submit();
+			}
+		}else{
+			jQuery("#cartform").submit();
+		}
+	}
+}
+
+function check(){
+	try{
+		jQuery("#cartform select").each(function(){
+			if(jQuery(this).val()==''){
+				throw "please select item's size";
+			}
+		});
+	}
+	catch(e){
+		alert(e);
+		return false;
+	}
+	return true;
+}
+</script>
+</head>
+
+
+
+
+
+<body>
+
+<include file="Public:header" />
+
+
+
+
+<div class="col2"> 
+        <div class="list1">
+          <div class="list1_title1">
+            <table width="940" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left"><a href="/">Home</a> > Your Shopping Cart Contents</td>
+    <td align="right" style="padding-right:10px;"><a href="__APP__/help/">[help (?)]</a></td>
+  </tr>
+</table>
+
+          </div>
+          <div style="background-color:#ffffff"><img src="__PUBLIC__/skin/images/order1.gif" alt="" border="0" /></div>
+          <empty name="list">
+          <div class="shop">
+            Your Shopping Cart is empty.
+          </div>
+          <div class="cart_button">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left"> <a href="/"><img src="__PUBLIC__/skin/images/button_continue_shopping.gif" alt="" border="0" /></a> </td>
+    <td align="right"></td>
+  </tr>
+</table>
+            </div>
+          <else/>
+          
+          <div class="list2_content" style="width:920px;">
+            <div class="cart_title">
+            {$fee_readme}
+            </div>
+            <div class="cart_content">
+             <form name="form1" id="cartform" method="post" >
+              <table  border="0" width="100%" cellspacing="0" cellpadding="0" class="cart_table">
+     <tr>
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Quantity</th>
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Refresh</th>
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Item Name</th>
+        
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Model</th>
+		
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Unit</th>
+
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Total</th>
+        <th style="background-color:#fcfcfc;height:25px;line-height:25px;">Delete</th>
+     </tr>
+
+	  
+      <volist name="list" id="vo">
+     <tr>
+       <td>
+       <input type="hidden" name="pid[]" value="{$vo.pid}">
+		<input type="hidden" name="id[]" value="{$vo.id}">
+		<input type="text" size="4" value="{$vo.count}" name="count[]" ></td>
+       <td>
+	<a href="###"  onClick="save();"><img border="0"  src="__PUBLIC__/skin/images/button_update_cart.gif" /></a>
+</td>
+       <td align="center">
+         
+<a href="{:build_url($vo,'pid')}"> <img src="{:build_url($vo,'pro_smallimage')}" border="0" alt="" title="" width="109" height="109" /></a><br /><a href="{:build_url($vo,'pid')}">{:build_url($vo,'pro_name')}</a>
+       </td>
+       <td align="center">
+         <volist name="vo['model']" id="subvo">
+			{$subvo['name']}:{$subvo['value']}<br/>
+		</volist>
+		<notempty name="vo['serial']">
+				Serail:{$vo.serial}
+		</notempty>
+
+       </td>
+       <td align="center"><font color="#CC9900"><strong>{:getprice($vo['price'],$vo['pricespe'],false)}</strong></font></td>
+       <td align="center"><font color="#339900"><strong>{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</strong></font></td>
+
+       <td>
+<a href="{:U('Cart/delete',array('id'=>$vo['id']))}"><img src="__PUBLIC__/skin/images/small_delete.gif"  border="0"/></a></td>
+     </tr>
+     </volist>
+      </table>
+            </div>
+            
+            <div class="cartSubTotal">
+<strong> Items Total:</strong> <span style="color:#CC9900;font-size:18px;font-weight:bold">{$itemTotal}</span><br/>
+ <gt name="totalWeight" value="0">
+ <strong>Total Weight:</strong> <span style="color:#CC9900;font-size:18px;font-weight:bold">{$totalWeight} KG</span><br/>
+ </gt>
+  <notempty name="discount['text']">
+ <strong>Sub Total:</strong> <span style="color:#CC9900;font-size:18px;font-weight:bold">{$cartTotal}</span><br/>
+ <strong>Discount:</strong> <span style="color:#CC9900;font-size:18px;font-weight:bold">{$discount.text}</span><br/>
+  </notempty>
+ <strong>Total Amount:</strong> <span style="color:#CC9900;font-size:18px;font-weight:bold">{$totalAmount}</span>
+            
+            </div> 
+            <div class="cart_button">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left"><a href="###"  onClick="drop();"><img src="__PUBLIC__/skin/images/clear.gif" alt="" border="0" /></a> <a href="/"><img src="__PUBLIC__/skin/images/button_continue_shopping.gif" alt="" border="0" /></a> </td>
+    <td align="right"><a href="###"  onClick="save();"><img src="__PUBLIC__/skin/images/button_update_cart.gif" alt="" border="0" /></a> 
+	<a href="###" onClick="send();" ><img src="__PUBLIC__/skin/images/button_checkout.gif" alt="" border="0" /></a></td>
+  </tr>
+</table>
+</form>
+            </div>
+          </div>
+          
+          </empty>
+        </div>
+      </div>
+    </div>
+    
+<include file="Public:footer" />
