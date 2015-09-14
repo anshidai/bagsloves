@@ -1,0 +1,16 @@
+.col2{float:left;width:900px;margin-left:20px;padding:20px 30px;border:1px solid #eceaea;}
+fieldset {border:1px solid #eceaea;padding:15px 20px 20px 20px;margin-bottom:10px !important;
+	background-color:#fcfcfc;color:#494949; }
+legend{border:1px solid #eceaea;padding:10px 20px;background-color:#fff;margin-bottom:15px;
+	color:#494949;}
+.login input, .login select, .login textarea {
+    background: none repeat scroll 0 0 #FDFDFD;
+    border: 1px solid #E3E3E3;
+    color: #010101;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: normal;
+    padding: 3px;margin:3px;
+}
+.buttonRow{margin-left:20px;}
+.buttonRow  a{color:#669900;}

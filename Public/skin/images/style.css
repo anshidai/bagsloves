@@ -1,5 +1,12 @@
 @charset "utf-8";
 /* CSS Document */
+.clearfix:before,
+.clearfix:after{content:'\20';display:block;height:0;clear:both; overflow:hidden;}
+.clearfix{*zoom:1;}
+.clear{ clear:both; visibility:hidden;}
+
+.nav-menu,.list1_title1,.menu_title,.list1_title,.gride_title{background:url(sub_tit_bg.gif) repeat-x left top;color: #fff;}
+
 body {
 	margin: 0px;
 	padding: 0px;
@@ -107,13 +114,9 @@ td .top {
 	background-position: left top;
 }
 .shopping {
-	background-image: url(cart-bg.gif);
-	background-repeat: no-repeat;
-	background-position: right top;
 	float: left;
 	width: 200px;
 	height: 76px;
-	color: #FFFFFF;
 	padding-top: 10px;
 }
 .shopping a {
@@ -127,38 +130,27 @@ td .top {
 	float: left;
 	width: 100px;
 }
-.nav {
-	background-image: url(nav_bg.gif);
-	background-repeat: no-repeat;
-	background-position: left top;
-	float: left;
-	height: 40px;
-	width: 950px;
-}
-.nav ul li {
-	float: left;
-	width: auto;
-	background-image: url(nav_li_bg.gif);
-	background-position: right top;
-	background-repeat: no-repeat;
-	position: relative;
-}
-.nav ul li a {
-	color: #FFFFFF;
-	text-decoration: none;
-	line-height: 40px;
-	font-weight: bold;
-	display: block;
-	padding-right: 20px;
-	padding-left: 40px;
-	/*background-image: url(marker1.png);
-	background-repeat: no-repeat;
-	background-position: 15px center;
-	*/
-	height: 40px;
-	float: left;
-	width: auto;
-}
+
+.nav-menu{clear:both;overflow:hidden;text-align:left !important;
+	margin-bottom:10px;}
+.nav-menu .nav_item{display:inline-block;text-align:left !important;}
+.nav-menu  .nav_item li{float:left; height:31px; line-height:31px; white-space:nowrap; background:url(img/ico-img.png) -199px -72px no-repeat; padding:0 2px 0 3px;}
+.nav-menu .nav_item li.home-text{border: 0 none;background: 0 none;}
+.nav-menu  .nav_item li:hover{z-index:9999;}
+.nav-menu  .nav_item li:hover dl{visibility:visible;}
+.nav-menu  .nav_item li.home{background:url(img/home.png) no-repeat 6px 8px; width:24px; text-indent:999999px; overflow:hidden;}
+.nav-menu  .nav_item li.home:hover>a{background:none;}
+.nav-menu  .nav_item li a{text-align:center; color:#fff; font-weight:bold; text-decoration:none; display:block; padding:0 12px;}
+.nav-menu  .nav_item li a:hover{color: #ff0;}
+.nav-menu  .nav_item dl{visibility:hidden; position:absolute; width:958px; top:27px; left:0; padding:15px 10px 10px; z-index:10000; background:#eee; border:1px #e7e7e6 solid;}
+.nav-menu  .nav_item dl dd{width:181px; margin:0 5px; float:left; display:inline;}
+.nav-menu  .nav_item dl dd a{font-family:Verdana, Arial, Helvetica, sans-serif; display:block; font-weight:normal; font-size:10px; color:#888; white-space:normal; text-align:left;}
+.nav-menu  .nav_item dl dd h3{height:35px; line-height:35px; overflow:hidden;}
+.nav-menu  .nav_item dl dd h3>a{font-size:14px; color:#454545; font-weight:bold; text-transform:uppercase;}
+.nav-menu  .nav_item dl dd ul{width:181px; height:175px; overflow:hidden;}
+.nav-menu  .nav_item dl dd li{height:30px; line-height:30px; overflow:hidden; clear:both; padding:0; background:url(img/ico-img.png) -181px -37px no-repeat; padding-left:15px;}
+.nav-menu  .nav_item dl dd li a:hover{text-decoration:underline; background:none;}
+.nav-menu  .nav_item dl dd .more{margin:5px 20px 0 0; text-align:right;}
 
 span.marker {
     background: url(marker1.png) no-repeat scroll left top transparent;
@@ -217,21 +209,18 @@ span.marker {
 	width: 220px;
 	height:35px;
 	line-height:35px;
-	color: #7c7c5d;
 	text-align: left;
 	padding-left: 10px;
-	background-image: url(menu_title.gif);
-	background-repeat: no-repeat;
-	background-position: left top;
 }
 .menu_content {
 	float: left;
-	width: 230px;
+	width: 228px;
 	background-color: #FFFFFF;
+	border:1px solid #000;
 }
 .menu_content ul li {
 	float: left;
-	width: 230px;
+	width: 228px;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: #f5f5e8;
@@ -260,10 +249,8 @@ span.marker {
 .menu1_title {
 	line-height: 35px;
 	font-weight: bold;
-	color: #FFFFFF;
-	background-image: url(menu1_bg.gif);
-	background-repeat: no-repeat;
-	background-position: left top;
+	color: #fff;
+	background-color:#000;
 	text-align: left;
 	float: left;
 	height: 35px;
@@ -272,7 +259,8 @@ span.marker {
 }
 .menu1_content {
 	float: left;
-	width: 210px;
+	width: 208px;
+	border:1px solid #000;
 	padding-right: 10px;
 	padding-left: 10px;
 	background-color: #FFFFFF;
@@ -299,6 +287,8 @@ span.marker {
 	float: left;
 	width: 130px;
 }
+.m_pro_pri .make-price{text-decoration:line-through;color:#999;}
+.m_pro_pri .shop-price{margin-left:10px;}
 .m_pro_name {
 	text-align: left;
 	float: left;
@@ -408,10 +398,6 @@ span.marker {
 }
 .list1_title {
 	line-height: 35px;
-	color: #7c7c5d;
-	background-image: url(searcg_bg.gif);
-	background-repeat: no-repeat;
-	background-position: left;
 	float: left;
 	height: 35px;
 	width: 700px;
@@ -421,10 +407,6 @@ span.marker {
 }
 .list1_title1 {
 	line-height: 35px;
-	color: #7c7c5d;
-	background-image: url(searcg_bg.gif);
-	background-repeat: no-repeat;
-	background-position: left;
 	float: left;
 	height: 35px;
 	width: 940px;
@@ -433,14 +415,14 @@ span.marker {
 	text-align: left;
 }
 .list1_title a {
-	color: #000000;
+	color: #fff;
 	text-decoration: none;
 }
 .list1_title a:hover {
 	text-decoration: underline;
 }
 .list1_title1 a {
-	color: #000000;
+	color: #fff;
 	text-decoration: none;
 }
 .list1_title1 a:hover {
@@ -830,38 +812,31 @@ span.marker {
 	margin:0 auto;
 }
 .footer {
-	background-image: url(footer-bg.gif);
-	background-repeat: repeat-x;
-	background-position: left top;
+	background-color:#000;
+	color:#fff;
 	float: left;
 	height: 74px;
 	width: 930px;
-	margin-top: 10px;
-	text-align: left;
-	padding-left: 20px;
+	text-align: center;
+	margin-top:10px;
+	padding:5px 0 0 20px;
 }
 .bottom_nav {
 	float: left;
 	width: 930px;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 .bottom_nav a {
-	color: #7c7c5d;
+	color: #fff;
 	text-decoration: none;
 	display: inline;
-	padding-right: 15px;
 	line-height: 20px;
-}
-.bottom_nav a:hover {
-	color: #FF6600;
 }
 
 .copyright {
-	line-height: 20px;
-	color: #7c7c5d;
-	text-align: left;
-	float: left;
-	width: 930px;
+	margin-top:5px;
+	color: #fff;
+	text-align: center;
 }
 
 /*eof sameclass*/

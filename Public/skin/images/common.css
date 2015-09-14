@@ -471,10 +471,6 @@ LEGEND {
 }
 .gride_title {
 	line-height: 35px;
-	color: #7c7c5d;
-	background-image: url(list1_title.gif);
-	background-repeat: no-repeat;
-	background-position: left;
 	float: left;
 	height: 35px;
 	width: 700px;
@@ -483,7 +479,7 @@ LEGEND {
 	text-align: left;
 }
 .gride_title a {
-	color: #000000;
+	color: #fff;
 	text-decoration: none;
 }
 .gride_title a:hover {
@@ -537,25 +533,28 @@ LEGEND {
 
 .g_pro {
     float: left;
-	width: 130px;
+	width: 216px;
 	margin-bottom:5px;
+	text-align:center;
 }.g_pro_img {
 	float: left;
 	height:120px;
 	*height:160px;
 	_height:170px;
-	width: 130px;
-	*width: 100px;
-	_width: 100px;
+	width: 200px;
+	*width: 200px;
+	_width: 200px;
 	padding-right: 10px;
 }
 .g_pro_name {
 	float: left;
-	width: 130px;
+	width: 200px;
+	height:44px;
 	text-align: center;
 	padding-top: 0px;
 	line-height:0px;
 	padding-right: 10px;
+	overflow:hidden;
 }
 .g_pro_name a {
 	color: #70a216;
@@ -572,13 +571,16 @@ LEGEND {
 .g_pro_pri {
 	text-align: center;
 	float: left;
-	width: 130px;
+	width: 200px;
 	padding-top: 0px;
 }.g_pro_pri span {
 	line-height: 20px;
 	color: #CC0000;
 	font-weight: bold;
 }
+.g_pro_pri .make-price{text-decoration:line-through;color:#999;}
+.g_pro_pri .shop-price{margin-left:10px;}
+
 .g_pro_pri strong {
 	line-height: 20px;
 	color: #CC0000;

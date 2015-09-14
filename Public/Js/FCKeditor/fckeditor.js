@@ -41,8 +41,8 @@ var FCKeditor = function( instanceName, width, height, toolbarSet, value )
 	this.BasePath		= '/fckeditor/' ;
 	this.CheckBrowser	= true ;
 	this.DisplayErrors	= true ;
-	this.EnableSafari	= false ;		// This is a temporary property, while Safari support is under development.
-	this.EnableOpera	= false ;		// This is a temporary property, while Opera support is under development.
+	this.EnableSafari	= true ;		// This is a temporary property, while Safari support is under development.
+	this.EnableOpera	= true ;		// This is a temporary property, while Opera support is under development.
 
 	this.Config			= new Object() ;
 

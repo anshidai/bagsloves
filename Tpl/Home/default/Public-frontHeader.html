@@ -1,0 +1,107 @@
+<div class="top_bar_outer">
+	<div class="top_bar w1200">
+		
+		<form name="Currencies" id="form1" action="{:U('Index/Currencies')}" method="post">
+		<div class="currencies-block fl">
+			<span class="name">Currencies: &nbsp;</span>
+			<span class="select">
+				<select name="Currencies" onchange="document.Currencies.submit();">
+					<option value="">Please select...</option>
+					<volist name="currencies" id="vo">
+					<option value="{$vo.symbol}" <eq name="_SESSION ['currency']['symbol']" value="$vo['symbol']">selected</eq>>{$vo.name}</option>
+					</volist>
+				</select>
+			</span>
+			<!-- <span class="img">
+				<img src="__PUBLIC__/skin/images/icon.gif" alt="" border="0" />
+			</span> -->
+			
+		</div>
+		<!-- currencies-block end-->
+		</form>
+		
+		<ul class="crossn top_info fr">
+			<li class="block fl">
+            	<div class="FontColor fl">&nbsp;</div>
+                <dl class="fl">
+					<gt name="mid" value="0">
+						<dt><a class="FontColor" href="javascript:;">{$member_Info.lastname}&nbsp;{$member_Info.firstname}</a></dt>
+						<dd class="user" style="width: 37px;">
+							<a href="{:U('MemberIndex/index')}">My Orders</a>
+							<a href="">My Favorites</a>
+							<a href="">My Coupons</a>
+							<a href="">My Inbox</a>
+							<a href="{:U('MemberIndex/LogOut')}">Sign Out</a>
+							</dd>
+					<else/>
+						<dt><a class="FontColor" href="javascript:;">Welcome</a></dt>
+						<dd class="user" style="width: 37px;">
+							<a href="{:U('MemberPublic/Join')}">Register</a>
+							<a href="{:U('MemberPublic/Login')}">Log In</a>
+							<a href="{:U('Cart/disp')}">Shopping Cart</a>
+						</dd>
+					</gt>
+                </dl>
+            </li>
+            <li class="fl"><a href="/index.php/Article-63.html">Help</a></li>
+		</ul>
+	</div>
+</div>
+<!-- top_bar_outer end-->
+
+<div class="header w1200 clearfix">
+	<div class="logo-wp fl"><a href="__ROOT__/" class="logo"><img src="__ROOT__/{:GetValue('sitelogo')}" alt="" border="0" /></a></div>
+	<div class="search fl">
+		<form class="form" action="{:U('Search/index')}" method="post">
+			<input type="text" name="key" placeholder="Search entire store here..." dataType="Require" msg="keywords is required!" class="text fl">
+            <input type="submit" class="button fr FontBgColor" value="">
+		</form>
+	</div>
+	<!-- search end-->
+	
+	<div class="header_cart fr" lang="_en">
+		<a href="{:U('Cart/disp')}" class="cart_inner">
+			<span class="cart_count FontColor"></span>
+			<span class="cart_text">Cart</span>
+		</a>
+		<div class="cart_note">
+			<?php $item_count = itemCount();?>
+			<div class="cart_empty" id="cart_empty" <eq name="item_count" value="0">style="display:block;"</eq>>Your shopping cart is empty.</div>
+			<div class="cart_list" id="cart_list" <gt name="item_count" value="0">style="display:block;"</gt>>
+				<ul>
+					<notempty name="cart_list">
+					<foreach name="cart_list" item="vo">
+					<li class="cart_box">
+						<div class="cart_pro_img"><a href="{$vo.url}"><img src="{$vo.smallimage}"></a></div>
+						<span class="cart_pro_name"><a href="{$vo.url}">{$vo.name}</a></span>
+						<span class="cart_pro_property"><span>{$vo.attr}</span></span>
+						<span class="cart_pro_piece">{$vo.count} item(s)</span>
+						<span class="cart_pro_price FontColor">{$vo.pricespe}</span>
+					</li>
+					</foreach>
+					</notempty>
+				</ul>
+				<div class="cart_pro_btn">
+					<a href="{:U('Cart/disp')}"><span class="cart_view">View Cart ( <span class="cart_num"><?=!empty($cart_list)?count($cart_list):0?></span> item)</span></a>
+				</div>
+			</div>
+			<!-- cart_list end-->
+		</div>
+	</div>
+	<!-- header_cart end-->
+	
+	<div class="header_fly fr">Worldwide<br>Shipping</div>
+</div>
+<!-- header end-->
+
+<div class="nav-menu index-menu w1200 clearfix">
+	<ul class="nav_item">
+		<li class="home-text"><a href="__ROOT__/" title="Home">Home</a></li>
+		<volist name="nav" id="vo">
+		<eq name="vo['type']" value="top">
+		<li><a href="{$vo.url}" <eq name="vo['isnew']" value="1">target="_blank"</eq>>{$vo.name}</a></li>
+		</eq>
+		</volist> 
+	</ul>
+</div>
+<!-- nav-menu end-->

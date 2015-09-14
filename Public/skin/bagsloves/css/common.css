@@ -28,7 +28,8 @@
 
 .header{background:#fff;}
 .header .logo-wp{width:380px; height:86px; }
-.header .logo{display:block; width:192px;height:86px;text-indent: -999em; overflow:hidden;background: url(img/logo.png) no-repeat 0 10px;vertical-align:middle;}
+.header .logo{display:block; width:192px;height:86px; overflow:hidden;}
+.header .logo img{vertical-align:middle;}
 
 .search{width:300px; border:1px solid #e0dfe4; height:38px; margin:23px 22px 0; background:url(img/repeat-bg.png) top repeat-x;}
 .search input{height:26px; border:0; outline:0;}
@@ -77,7 +78,7 @@
 .nav-menu  .nav_item dl dd ul{width:181px; height:175px; overflow:hidden;}
 .nav-menu  .nav_item dl dd li{height:30px; line-height:30px; overflow:hidden; clear:both; padding:0; background:url(img/ico-img.png) -181px -37px no-repeat; padding-left:15px;}
 .nav-menu  .nav_item dl dd li a:hover{text-decoration:underline; background:none;}
-.nav-menu  .nav_item dl dd .more{margin:5px 20px 0 0; text-align:right;}{height: 1px;overflow: h}
+.nav-menu  .nav_item dl dd .more{margin:5px 20px 0 0; text-align:right;}
 
 .nav-hr{height: 1px;background-color: #ccc;overflow: hidden;margin:15px 0;}
 .location{color: #666;margin-left: 10px;margin-bottom: 20px;}

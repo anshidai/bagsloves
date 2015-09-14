@@ -15,7 +15,7 @@ var CartUrl='{:U('Cart/disp')}';
 </script>
 </head>
 <body>
-<include file="Public:header" />
+<include file="Public:frontHeader" />
 
 <div class="nav-hr clearfix"></div>
 <div class="outer-layer w1200">
@@ -57,7 +57,7 @@ var CartUrl='{:U('Cart/disp')}';
 					<h1 class="title">{:build_url($list,'pro_name')}</h1>
 				</div>
 				<div class="block clearfix">
-					<span class="market-price">Market Price:  </span>
+					<span class="market-price">Market Price: {:getprice_str($list['price'])} </span>
 					<span class="shop-price">Price: {:getprice($list['price'],$list['pricespe'],false)} </span>
 				</div>			
 				<div class="block relative clearfix">
@@ -403,7 +403,7 @@ $(function(){
 </script>
 
 
-<include file="Public:footer" />
+<include file="Public:frontFooter" />
 
 <script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>
 </body>

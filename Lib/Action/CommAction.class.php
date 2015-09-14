@@ -141,7 +141,6 @@ class CommAction extends Action{
 		/**
 		 * eof缓存模板变量
 		 */
-
 	}
 	private function _Common_Cache(){
 

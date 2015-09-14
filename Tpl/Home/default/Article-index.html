@@ -1,49 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
 {:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
-
-<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
-
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
-<script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
-<script type="text/javascript" src="__PUBLIC__/skin/images/boxy/boxy.js"></script>
+<link href="__PUBLIC__/skin/bagsloves/css/base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/skin/bagsloves/css/common.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/skin/bagsloves/css/page.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/jquery-1.7.2.min.js"></script>
 </head>
-
-
-
-
-
 <body>
-<include file="Public:header" />
-<include file="Public:left" />
+<include file="Public:frontHeader" />
 
+<div class="nav-hr clearfix"></div>
+<div class="outer-layer w1200">
+	<div class="location home">Location: <a href="/">Home</a> &gt; {$title}</div>	
+	<div class="help-block clearfix">
+		<div class="menu-left">
+			<div class="help-title"><h2 class="tit">HELP</h2></div>
+			<ul class="help-list">
+				<li <?=($_REQUEST['id']=='58')?'class="curr"':''?>><a href="/index.php/Article-58.html">FAQs</a></li>
+				<li <?=($_REQUEST['id']=='59')?'class="curr"':''?>><a href="/index.php/Article-59.html">Privacy Policy</a></li>
+				<li <?=($_REQUEST['id']=='60')?'class="curr"':''?>><a href="/index.php/Article-60.html">Payment & Returns</a></li>
+				<li <?=($_REQUEST['id']=='61')?'class="curr"':''?>><a href="/index.php/Article-61.html">Shipping Charges</a></li>
+				<li <?=($_REQUEST['id']=='62')?'class="curr"':''?>><a href="/index.php/Article-62.html">Safe Shopping</a></li>
+				<li <?=($_REQUEST['id']=='63')?'class="curr"':''?>><a href="/index.php/Article-63.html">About Us</a></li>
+				<li <?=($_REQUEST['id']=='64')?'class="curr"':''?>><a href="/index.php/Article-64.html">Terms Of Use</a></li>
+			</ul>
+		</div>
+		<!-- menu-left end-->
+		<div class="help-content">
+			<h1 class="title">{$title}</h1>
+			<div class="content">
+				{$content}
+			</div>
+		</div>
+		<!-- help-content end-->
+	</div>
+	<!-- help-block end-->
+</div>
+<!-- outer-layer end-->
 
-
-
- <div class="col2">
-        <div class="list1">
-          <div class="list1_title"><a href="/">Home</a> > {$title}</div>
-          <div class="list2_content">
-            <div class="login">
-
-           
-          {$content}
-       
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-<include file="Public:footer" />
+<include file="Public:frontFooter" />
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>
