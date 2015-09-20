@@ -596,6 +596,7 @@ class ProductsAction extends AdminCommAction {
 				$data['attr_value']=$_POST['attr_value'][$i];
 				$data['attr_price']=$_POST['attr_price'][$i];
 				$data['img_url']=$_POST['img_url'][$i];
+				$data['thumb_url']=$_POST['thumb_url'][$i];
 				$data['attr_id']=$_POST['attr_id'][$i];
 				$data['products_id']=$_POST['products_id'];
 				$data['sort']=$_POST['sort'][$i];
@@ -612,6 +613,7 @@ class ProductsAction extends AdminCommAction {
 			$data["attr_value"]=$_REQUEST["attr_value"];
 			$data["products_id"]=$_REQUEST["products_id"];
 			$data["img_url"]=$_REQUEST["img_url"];
+			$data["thumb_url"]=$_REQUEST["thumb_url"];
 			$data["sort"]=$_REQUEST["sort"];
 
 			/*if (empty($data["attr_value"])){

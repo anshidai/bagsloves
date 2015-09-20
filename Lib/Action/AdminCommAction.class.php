@@ -148,6 +148,8 @@ class AdminCommAction extends Action {
 					}
 				}
 				$savename ['name'] = $file ['name'];
+				$pathinfo = pathinfo($savename ['savename']);
+				$savename['thumb'] = str_replace($pathinfo['filename'], 'thumb_'.$pathinfo['filename'], $savename ['savename']);
 			}
 			$this->ajaxReturn ( $savename, '上传成功！', 1 );
 		}
