@@ -6,10 +6,10 @@
 div.zoomDiv{z-index:999;position:absolute;top:0px;left:0px;width:200px;height:200px;background:#fff;border:1px solid #ccc;display:none;text-align:center;overflow:hidden;}
 div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 transparent;cursor:move;z-index:1;}
 
-.goods_wrap .small-img{height: 74px;position: relative;}
-.goods_wrap .small-img .left-btn{display: inline-block;position: absolute;left: 0;top: 35%;width: 10px;height: 21px;
+.goods_wrap .small-img{height: 98px;position: relative;overflow:hidden;}
+.goods_wrap .small-img .left-btn{display: inline-block;position: absolute;left: 0;top: 48%;width: 10px;height: 21px;
 	background: url(img/left-btn.png) no-repeat;cursor: pointer;}
-.goods_wrap .small-img .right-btn{display: inline-block;position: absolute;right: 0;top: 35%;width: 10px;height: 21px;
+.goods_wrap .small-img .right-btn{display: inline-block;position: absolute;right: 0;top: 48%;width: 10px;height: 21px;
 	background: url(img/right-btn.png) no-repeat;cursor: pointer;}
 .goods_wrap .small-img ul{margin-left: 20px;margin-top: 20px;}
 .goods_wrap .small-img li{display: inline;float: left;margin-right: 8px;}
@@ -78,6 +78,8 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .courier-table{margin-top: 30px;margin-bottom:20px;border-collapse:separate;border-spacing: 10px 0;}
 .courier-table th{line-height: 30px;font-weight: bold; text-align: center;background-color: #ECECEC;vertical-align: middle;}
 .courier-table td{line-height: 30px;background-color: #fff;text-align: center;}
+
+.content p{line-height:20px;}
 
 /*===========================================comment start==================================================*/
 

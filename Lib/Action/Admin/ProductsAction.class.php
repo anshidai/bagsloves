@@ -132,6 +132,8 @@ class ProductsAction extends AdminCommAction {
 		$this->error ( "删除失败！" );
 	}
 	function Insert() {
+		dump($_POST);
+		exit;
 
 		for($i = 0; $i < count ( $_POST ['imgurl'] ); $i ++) {
 			//判断是否为封面

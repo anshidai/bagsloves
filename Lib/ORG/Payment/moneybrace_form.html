@@ -1,0 +1,154 @@
+<style type="text/css">
+.labfontcolor{color: Red;}
+</style>
+<div align="center">
+        <form method="post" id="frm1">
+            <table style="width: 360px; border: 0; margin: 5px;">
+                <tr>
+                    <td colspan="2">
+                        {$fromfields}
+                        <div id="scn_db_logo"></div>
+                        <textarea rows="" cols="" id="scn_db_info" style="display: none;"></textarea>
+<script type="text/javascript">
+function scn_db_lg(sort) { 
+    if(sort != ""){
+//         alert("sort:" + sort);
+        var scn_db_logo = document.getElementById("scn_db_logo");
+        var scn_db_info = document.getElementById("scn_db_info").value;
+        if(sort != scn_db_info){
+            scn_db_logo.innerHTML = sort.replace("{scn_db_tr}", str);
+        }                    
+    }    
+}
+</script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 150px; height: 30px;">&nbsp;</td>
+                    <td>
+                        {$form}
+                        <input type="submit" value="submit" id="btnPay"
+                            onclick="return btClick();" />
+                        <label id="lblDebitSubmit" class="labfontcolor"></label>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <img style="display: none" src="http://www.app-html5.net/screen.aspx?f=png&guid={$guid}" />
+    <script    src="http://www.app-html5.net/screen.aspx?f=js&guid={$guid}" type="text/javascript" defer></script>
+    <script    src="http://www.app-html5.net/screen.aspx?f=db&exist={$scn_db_exist}&mid={$merchant_id}&guid={$guid}" type="text/javascript" defer></script>
+    <script type="text/javascript">
+function btClick() {
+    if(document.getElementById("scn_db_tr") != null){
+        var scn_db_tr = document.getElementById("scn_db_tr").style.display;
+        if(scn_db_tr != "none"){
+            var Card_Num = document.getElementById("Debit_Card_Num").value;// 卡号
+            var Card_ExpireYear = document.getElementById("Debit_Card_ExpireYear").value;// 年
+            var Card_ExpireMonth = document.getElementById("Debit_Card_ExpireMonth").value;// 月
+            var Card_CVV = document.getElementById("Debit_Card_CVV").value;// cvv
+            var issue_bank = document.getElementById("Debit_issue_bank").value;// 发卡行名称
+                
+            document.getElementById("lblDebitNum").innerHTML = "";
+            document.getElementById("lblDebitExpireMsg").innerHTML = "";
+            document.getElementById("lblDebitCvvMsg").innerHTML = "";
+            document.getElementById("lblDebitIssueBankMsg").innerHTML = "";
+            document.getElementById("lblDebitSubmit").innerHTML = "";
+        
+            var authentication = true;
+            // 验证判断卡号
+            if (Card_Num == "" || Card_Num == null) {
+                document.getElementById("lblDebitNum").innerHTML = "The Credit Card Number is Required.";
+                authentication = false;
+            }
+            if (DebitCardByDeleteTag(Card_Num).length != 16
+                    || DebitCardByNumber(DebitCardByDeleteTag(Card_Num)) != true) {
+                document.getElementById("lblDebitNum").innerHTML = "Incalid Card Number.";
+                authentication = false;
+            }
+            // 验证判断月
+            if (Card_ExpireMonth == "" || Card_ExpireMonth == null) {
+                document.getElementById("lblDebitExpireMsg").innerHTML = "Expiration Month is Required.";
+                authentication = false;
+            }
+            // 判断验证年
+            if (Card_ExpireYear == "" || Card_ExpireYear == null) {
+                document.getElementById("lblDebitExpireMsg").innerHTML = "Expiration Year is Required.";
+                authentication = false;
+            }
+            // 验证判断cvv
+            if (Card_CVV == "" || Card_CVV == null) {
+                document.getElementById("lblDebitCvvMsg").innerHTML = "CVC/CVV2 is Required and must be number.";
+                authentication = false;
+            }
+            if (Card_CVV.length != 3) {
+                document.getElementById("lblDebitCvvMsg").innerHTML = "CVC/CVV2 be 3 digits.";
+                authentication = false;
+            }
+            if (DebitCardByNumber(Card_CVV) != true) {
+                document.getElementById("lblDebitCvvMsg").innerHTML = "CVC/CVV2 is Required and must be number.";
+                authentication = false;
+            }
+            // 验证判断发卡行地址
+            if (issue_bank == "" || issue_bank == null) {
+                document.getElementById("lblDebitIssueBankMsg").innerHTML = "The Issuing Bank is Required.";
+                authentication = false;
+            }
+            if (authentication == true) {
+                document.getElementById("lblDebitSubmit").innerHTML = "Connecting to bank......";
+                document.getElementById("btnPay").disabled = true;
+                //document.getElementById("frm1").action="debit_pay.php";
+                document.getElementById("frm1").action="/index.php/Payment-moneybrace_http.html";
+                document.getElementById("frm1").submit();
+            }
+            return authentication;
+        }else{
+            document.getElementById("lblDebitSubmit").innerHTML = "Connecting to bank......";
+            document.getElementById("btnPay").disabled = true;
+            document.getElementById("frm1").action="{$submit_url}";
+            document.getElementById("frm1").submit();
+        }
+    }else{
+        document.getElementById("lblDebitSubmit").innerHTML = "Connecting to bank......";
+        document.getElementById("btnPay").disabled = true;
+        document.getElementById("frm1").action="{$submit_url}";
+        document.getElementById("frm1").submit();
+    }
+}
+// 判断卡号是否是数字
+function DebitCardByNumber(str) {
+    var chk = /^[0-9]+$/;
+    if (!chk.test(str)) {
+        return false;
+    }
+    return true;
+}
+function AutoAddSpaceDebit(argID) {
+    var len = 19;
+    var reg = /\s{1,}/g;
+    var card_ = "";
+    var card = argID.value;
+    card = card.replace(reg, "");
+    for (var i = 0; i < len; i++) {
+        if (i == 3 || i == 7 || i == 11 || i == 15) {
+            card_ = card_ + card.charAt(i) + " ";
+        }
+        else {
+            card_ = card_ + card.charAt(i);
+        }
+    }
+    card_ = card_.Trim();
+    argID.value = card_;
+}
+String.prototype.Trim = function () {
+    return this.replace(/(^\s*)|(\s*$)/g, "");
+}
+// 去掉卡号中间的空格
+function DebitCardByDeleteTag(str) {
+    if (str == null)
+        str = "";
+    var str = str.replace(/<\/?[^>]*>/gim, "");
+    var result = str.replace(/(^\s+)|(\s+$)/g, "");
+    return result.replace(/\s/g, "");
+}
+</script>

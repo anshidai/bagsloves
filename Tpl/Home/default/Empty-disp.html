@@ -75,19 +75,21 @@ var CartUrl='{:U('Cart/disp')}';
 					</div>
 					<div class="clearfix"></div>
 					<div class="attr-color">
+						<notempty name="attrlist.1.name">
 						<strong class="name">Colors: </strong>
 						<eq name="attrlist.1.name" value="Colors">
 						<input type="hidden" id="attr_color" name="attr[Colors]" value="" checked="checked">
 						<ul>
 							<volist name="attrlist.1.attrs" id="vo">
 							<notempty name="vo['img_url']">
-							<li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['img_url']}" rel="__ROOT__/{$vo['img_url']}" width="30" height="30" alt=""></a></li>
+							<li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="30" height="30" alt=""></a></li>
 							<else/>
 							<li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}">{$vo['attr_value']}</a></li>
 							</notempty>							
 							</volist>
 						</ul>
 						</eq>
+						</notempty>
 					</div>
 					<div class="clearfix"></div>
 					<div class="attr_selected">Selected attribute: <strong></strong></div>

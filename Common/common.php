@@ -1009,4 +1009,16 @@ function getArticleContent($title,$id){
 	}
 	return '';
 }
+
+function currency_name()
+{
+    $currency_name = 'USD';
+    
+    $currency = $_SESSION ['currency'];
+    if(!empty($currency)) {
+        $currency_name = $currency['symbol'];     
+    }
+    return $currency_name;
+}
+
 ?>

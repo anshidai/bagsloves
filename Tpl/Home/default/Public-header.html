@@ -23,12 +23,14 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td style="padding-top:15px;">Currencies: &nbsp;</td>
+                                    <?php if(strtolower(MODULE_NAME) != 'cart' && strtolower(ACTION_NAME) != 'payment') {?>
 									<td style="padding-left:5px;"> <select name="Currencies" onchange="document.Currencies.submit();">
 									<option value="">Please select...</option>
 									<volist name="currencies" id="vo">
 									<option value="{$vo.symbol}" <eq name="_SESSION ['currency']['symbol']" value="$vo['symbol']">selected</eq>>{$vo.name}</option>
 									</volist>
 									</select></td>
+                                    <?php }?>
 								</tr>
 							</table>
 						</td>

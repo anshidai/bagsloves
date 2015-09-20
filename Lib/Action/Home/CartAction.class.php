@@ -7,6 +7,7 @@
  * @version 1.0
  * @lastupdate 2010-11-25
  */
+
 class CartAction extends CommAction {
 	function _initialize() {
 		parent::_initialize();
@@ -310,13 +311,13 @@ class CartAction extends CommAction {
 			$this->redirect ( 'Index/index' );
 		}
 		$list['orders_total']=round($list['orders_total'],2);//四舍五入保留两位
-
+        
 		/**
 		 * 在线支付
 		 */
 		$pname = $list ['payment_module_code'];
 		self::$Model=D('Payment');
-		$payment_title=self::$Model->where(array('name'=>$pname))->getField('title');
+		$payment_title=self::$Model->where(array('name'=>$pname))->getField('title'); 
 		//模板变量
 		$this->title=ucwords($payment_title).' Payment';//标题
 		$this->list=$list;

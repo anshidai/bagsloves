@@ -266,5 +266,196 @@ class PaymentAction extends CommAction{
 		echo "<a href=\"".__APP__."\">Go Home Page</a>\n";
 		echo "</body></html>\n";
 	}
+    
+    public function moneybrace_return()
+    {
+        if(!empty($_GET) && empty($_POST)) {
+            $_POST = $_GET;
+        }
+        unset($_GET);
+        if(empty($_POST)) {
+            die('data error');
+        }
+        $_GET = $_POST;
+        $merchant_id = $_GET['merchant_id']; // 商户号
+        $merch_order_id = $_GET['merch_order_id']; // 商品订单号
+        $price_currency = $_GET['price_currency']; // 订单标价币种
+        $price_amount = $_GET['price_amount']; //商品支付金额
+        $merch_order_ori_id = $_GET['merch_order_ori_id']; // 商户原始订单号 
+        $order_id = $_GET['order_id']; //支付接口公司系统生成的唯一标识该订单的订单号
+        $status = $_GET['status']; //订单支付状态 Y-成功   T-待处理   N-失败
+        $message = $_GET['message']; //订单结果的描述性信息
+        $signature = $_GET['signature'];
+        $allow2 = $_GET ['allow2'];
+        
+        $hashkey = GetValue($pname . "_key");
+        $strVale = $hashkey . $merchant_id . $merch_order_id . $price_currency . $price_amount . $order_id . $status;
+        $getsignature = md5($strVale);
+        if($getsignature != $signature) {
+            die('Signature error!');
+        }
+
+        if($allow2 != '') {
+            $logoinfo = M('moneybraceLogo')->where("id='1'")->find();
+            if($allow2 != $logoinfo['logoname']) {
+                M('moneybraceLogo')->where("id='1'")->save(array('logoname'=>$allow2));
+            }
+        }
+        
+        echo "<html>";
+        echo "<head><title>Payment Return!</title>\n";
+        echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n";
+        echo "<body >\n";
+        echo "<center><h2>Order SN:".$merch_order_id."</h2></center>\n";
+        
+        self::$Model = D("Orders");
+        
+        //根据得到的数据  进行相对应的操作
+        //$status Y-交易成功 T-处理当中 N-交易失败
+        if($status == 'Y') {
+            $data['orders_status'] = "2";
+            self::$Model->where("sn='".$merch_order_id."'")->save($data); //修改订单支付状态
+            give_member_points($merch_order_id); //赠送用户积分
+            
+            echo "<center><h2>Payment successful!</h2></center>\n";
+            echo "Transaction Amount: {$price_currency}".$price_amount."<br/>";
+        }elseif($status == 'T'){  
+            $data['orders_status'] = "1";
+            self::$Model->where("sn='".$merch_order_id."'")->save($data);  //修改订单状态为正在付款中
+                
+            echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n";
+        }else {
+           echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n"; 
+        }
+        
+        echo "<center><a href=\"".__APP__."\">Go Home Page</a></center>\n";
+        echo "</body></html>\n";
+
+    }
+    
+    public function  moneybrace_http()
+    {
+        if(!empty($_GET) && empty($_POST)) {
+            $_POST = $_GET;
+        }
+        unset($_GET);
+        if(empty($_POST)) {
+            die('data error!');
+        }
+        $_GET = $_POST;
+        $cardsNum = isset($_GET['Debit_Card_Num'])? $_GET['Debit_Card_Num']: "";
+        $Card_ExpireYear = isset($_GET['Debit_Card_ExpireYear'])? $_GET['Debit_Card_ExpireYear'] : "";
+        $Card_ExpireMonth = isset($_GET['Debit_Card_ExpireMonth'])? $_GET['Debit_Card_ExpireMonth'] : "";
+        $Card_CVV = isset($_GET['Debit_Card_CVV'] )? $_GET['Debit_Card_CVV'] : "";
+        $issue_bank = isset($_GET['Debit_issue_bank'])? $_GET['Debit_issue_bank'] : "";
+        
+        $srcString = "merchant_id=" . urlencode($_GET['merchant_id']) . 
+                    "&order_type=" . urlencode($_GET['order_type']) . 
+                    "&language=" . urlencode($_GET['language']) . 
+                    "&gw_version=" . urlencode($_GET['gw_version']) . 
+                    "&merch_order_ori_id=" . urlencode($_GET['merch_order_ori_id']) . 
+                    "&merch_order_date=" . urlencode($_GET['merch_order_date']) . 
+                    "&merch_order_id=" . urlencode($_GET['merch_order_id']) . 
+                    "&price_currency=" . urlencode($_GET['price_currency']) . 
+                    "&price_amount=" . urlencode($_GET['price_amount']) . 
+                    "&url_sync=" . urlencode($_GET['url_sync']) . 
+                    "&url_succ_back=" . urlencode($_GET['url_succ_back']) . 
+                    "&url_fail_back=" . urlencode($_GET['url_fail_back']) . 
+                    "&order_remark=" . urlencode($_GET['order_remark']) . 
+                    "&signature=" . urlencode($_GET['signature']) . 
+                    "&ip=" . urlencode($_GET['ip']) . 
+                    "&bill_address=" . urlencode($_GET['bill_address']) . 
+                    "&bill_country=" . urlencode($_GET['bill_country']) . 
+                    "&bill_province=" . urlencode($_GET['bill_province']) . 
+                    "&bill_city=" . urlencode($_GET['bill_city']) . 
+                    "&bill_email=" . urlencode($_GET['bill_email']) . 
+                    "&bill_phone=" . urlencode($_GET['bill_phone']) . 
+                    "&bill_post=" . urlencode($_GET['bill_post']) . 
+                    "&delivery_name=" . urlencode($_GET['delivery_name']) . 
+                    "&delivery_address=" . urlencode($_GET['delivery_address']) . 
+                    "&delivery_country=" . urlencode($_GET['delivery_country']) . 
+                    "&delivery_province=" . urlencode($_GET['delivery_province']) . 
+                    "&delivery_city=" . urlencode($_GET['delivery_city']) . 
+                    "&delivery_email=" . urlencode($_GET['delivery_email']) . 
+                    "&delivery_phone=" . urlencode($_GET['delivery_phone']) . 
+                    "&delivery_post=" . urlencode($_GET['delivery_post']) . 
+                    "&hash_num=" . urlencode($cardsNum) . 
+                    "&hash_sign=" . urlencode($Card_CVV) . 
+                    "&card_exp_year=" . urlencode($Card_ExpireYear) . 
+                    "&card_exp_month=" . urlencode($Card_ExpireMonth) . 
+                    "&issue_bank=" . urlencode($issue_bank) . 
+                    base64_decode($_GET['strProduct']) . 
+                    "&client_finger_cybs=" . urlencode($_GET['client_finger_cybs']). 
+                    "&channel_id=" . urlencode($_GET['channel_id']);
+                    
+        $url_server = "https://payment.onlinecreditpay.com/Payment4/Payment.aspx"; // 支付网关地址
+        
+        $curl = curl_init ();
+        curl_setopt ( $curl, CURLOPT_URL, $url_server );
+        curl_setopt ( $curl, CURLOPT_SSL_VERIFYPEER, FALSE );
+        curl_setopt ( $curl, CURLOPT_SSL_VERIFYHOST, FALSE );
+        curl_setopt ( $curl, CURLOPT_USERAGENT, $_SERVER ['HTTP_USER_AGENT'] );
+        curl_setopt ( $curl, CURLOPT_FOLLOWLOCATION, 1 );
+        curl_setopt ( $curl, CURLOPT_REFERER, $_SERVER ['HTTP_HOST'] );
+        curl_setopt ( $curl, CURLOPT_POST, 1 );
+        curl_setopt ( $curl, CURLOPT_POSTFIELDS, $srcString );
+        curl_setopt ( $curl, CURLOPT_TIMEOUT, 3000 );
+        curl_setopt ( $curl, CURLOPT_HEADER, 0 );
+        curl_setopt ( $curl, CURLOPT_RETURNTRANSFER, 1 );
+        if ($url_server) {
+            curl_setopt ( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
+            curl_setopt ( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
+        }
+        $response = curl_exec ( $curl );
+
+        if($response != '') {
+            $xml = new DOMDocument();
+            $xml->loadXML($response);
+            $merchant_id = $xml->getElementsByTagName('merchant_id')->item(0)->nodeValue;
+            $merch_order_id = $xml->getElementsByTagName('merch_order_id')->item(0)->nodeValue;    
+            
+            //商户原始订单号
+            $merch_order_ori_id = $xml->getElementsByTagName('merch_order_ori_id')->item (0)->nodeValue;
+            $order_id = $xml->getElementsByTagName('order_id')->item(0)->nodeValue;
+            $price_currency = $xml->getElementsByTagName('price_currency')->item(0)->nodeValue;
+            $price_amount = $xml->getElementsByTagName('price_amount')->item(0)->nodeValue;
+            $status = $xml->getElementsByTagName('status')->item(0)->nodeValue; 
+            $message = $xml->getElementsByTagName('message')->item(0)->nodeValue;
+            $signature = $xml->getElementsByTagName('signature')->item(0)->nodeValue;
+            $allow2 = $xml->getElementsByTagName('allow2')->item(0)->nodeValue;
+            
+            if($allow2 != '') {
+                $logoinfo = M('moneybraceLogo')->where("id='1'")->find();
+                if($allow2 != $logoinfo['logoname']) {
+                    M('moneybraceLogo')->where("id='1'")->save(array('logoname'=>$allow2));
+                }    
+            }
+            
+            //根据得到的数据  进行相对应的操作
+            //$status Y-交易成功 T-处理当中 N-交易失败
+            if($status == 'Y') {
+                $data['orders_status'] = "2";
+                self::$Model->where("sn='".$merch_order_id."'")->save($data); //修改订单支付状态
+                give_member_points($merch_order_id); //赠送用户积分
+                
+                echo "<center><h2>Payment successful!</h2></center>\n";
+                echo "Transaction Amount: {$price_currency}".$price_amount."<br/>";
+            }elseif($status == 'T'){  
+                $data['orders_status'] = "1";
+                self::$Model->where("sn='".$merch_order_id."'")->save($data);  //修改订单状态为正在付款中
+                    
+                echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n";
+            }else {
+               echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n"; 
+            }
+            
+            echo "<center><a href=\"".__APP__."\">Go Home Page</a></center>\n";
+            echo "</body></html>\n";
+            
+        
+        }
+        
+    }
+    
 }
 ?>
