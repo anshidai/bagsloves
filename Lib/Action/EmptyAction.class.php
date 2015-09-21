@@ -10,6 +10,7 @@
 class EmptyAction extends CommAction {
 	function _empty() {
 		$pathinfo=preg_replace("/(pid-|cid-){2,}/","$1",$_SERVER['PATH_INFO']);
+		
 		switch (true){
 			case false!==strpos($pathinfo,'pid-'):
 				$page=explode("pid-",$pathinfo);

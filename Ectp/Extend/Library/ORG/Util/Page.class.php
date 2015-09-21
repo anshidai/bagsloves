@@ -138,6 +138,7 @@ class Page extends Think {
 				}
 		}
 		//下拉框形式
+		/*
 		$linkPage .= "<select id='spage'>";
 		for($i=1;$i<=$this->totalPages;$i++){
 			$page=$i;
@@ -151,6 +152,7 @@ class Page extends Think {
 				}
 		}
 		$linkPage .= "</select>";
+		*/
 		$pageStr	 =	 str_replace(
 		array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%linkPage%','%end%'),
 		array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$linkPage,$theEnd),$this->config['theme']);
