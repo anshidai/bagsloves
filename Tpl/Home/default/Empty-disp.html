@@ -32,20 +32,22 @@ var CartUrl='{:U('Cart/disp')}';
 		<div class="clearfix">
 			<div class="left">
 				<div class="jqzoom-pic"><img class="jqzoom" src="{:build_url($list,'pro_bigimage')}" rel="{:build_url($list,'pro_bigimage')}" width="480" height="480" alt=""></div>
-				<div class="small-img">
-					<ul class="clearfix">
-						<gt name="list['detailcount']" value="0">
-						<volist name="list['tempdetailpics']" id="vo"> 
-						<li><a href="javascript:;"><img src="{$vo}" rel="{$vo}" width="72" height="72" alt="{:build_url($list,'pro_name')}"></a></li>
-						</volist>
-						<else />
-						<volist name="gallerys" id="vo">
-						<li><a href="javascript:;"><img src="{:build_url($vo,'g_bigimage')}" rel="{:build_url($vo,'g_bigimage')}" width="72" height="72" alt="{:build_url($list,'pro_name')}"></a></li>
-						</volist>
-						</gt>
-					</ul>
-					<span class="left-btn"></span>
-					<span class="right-btn"></span>
+				<div class="small-img" id="slider_pic">
+					<div class="slider">
+						<ul class="clearfix">
+							<gt name="list['detailcount']" value="0">
+							<volist name="list['tempdetailpics']" id="vo"> 
+							<li><a href="javascript:;"><img src="{$vo}" rel="{$vo}" width="80" height="80" alt="{:build_url($list,'pro_name')}"></a></li>
+							</volist>
+							<else />
+							<volist name="gallerys" id="vo">
+							<li><a href="javascript:;"><img src="{:build_url($vo,'g_bigimage')}" rel="{:build_url($vo,'g_bigimage')}" width="80" height="80" alt="{:build_url($list,'pro_name')}"></a></li>
+							</volist>
+							</gt>
+						</ul>
+					</div>
+					<span class="left-btn" id="prev"></span>
+					<span class="right-btn" id="next"></span>
 				</div>
 			</div>
 			<!-- left end-->
@@ -183,16 +185,16 @@ var CartUrl='{:U('Cart/disp')}';
 				<span>Inside zip and slip pockets</span>
 			</div>
 
-			<div class="content">
+			<div class="content" id="content">
 				{$list.remark}
 				<br>
 				<gt name="list['detailcount']" value="0">
 				<volist name="list['tempdetailpics']" id="vo">
-				<p class="image"><img src="{$vo}" alt="{:build_url($list,'pro_name')}"></p>
+				<p class="image"><img src="__PUBLIC__/skin/bagsloves/css/img/grey.gif" data-original="{$vo}" alt="{:build_url($list,'pro_name')}"></p>
 				</volist>
 				<else />
 				<volist name="gallerys" id="vo">
-				<p class="image"><img src="{:build_url($vo,'g_bigimage')}" alt="{:build_url($list,'pro_name')}"></p>
+				<p class="image"><img src="__PUBLIC__/skin/bagsloves/css/img/grey.gif" data-original="{:build_url($vo,'g_bigimage')}" alt="{:build_url($list,'pro_name')}"></p>
 				</volist>
 				</gt>
 			</div>
@@ -408,5 +410,13 @@ $(function(){
 <include file="Public:frontFooter" />
 
 <script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+	  $(".image").lazyload({
+		effect:'fadeIn'
+	  });
+  });
+</script>
 </body>
 </html>
