@@ -29,7 +29,7 @@ class Page extends Think {
 	protected $rollPage   ;
 	// 分页显示定制
 	// protected $config  =	array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end%');
-	protected $config  =	array('header'=>'Records','prev'=>'prev','next'=>'next','first'=>'first','last'=>'last','theme'=>' %totalRow% %header% %nowPage%/%totalPage%  %upPage% %downPage%     %linkPage%  ');
+	protected $config  =	array('header'=>'Records','prev'=>'prev','next'=>'next','first'=>'first','last'=>'last','theme'=>'%linkPage% <span>%upPage% %downPage%   Total %totalRow% %header% %nowPage%/%totalPage% </span>');
 
 	/**
      +----------------------------------------------------------
@@ -45,7 +45,7 @@ class Page extends Think {
 	public function __construct($totalRows,$listRows,$parameter='') {
 		$this->totalRows = $totalRows;
 		$this->parameter = $parameter;
-		$this->rollPage = C('PAGE_ROLLPAGE');
+		$this->rollPage = C('PAGE_ROLLPAGE')? C('PAGE_ROLLPAGE'): 10;
 		$this->listRows = !empty($listRows)?$listRows:C('PAGE_LISTROWS');
 		$this->totalPages = ceil($this->totalRows/$this->listRows);     //总页数
 		$this->coolPages  = ceil($this->totalPages/$this->rollPage);
@@ -103,13 +103,13 @@ class Page extends Think {
 		$url=auto_charset($url,'gbk','utf-8'); 
 		$url=rtrim($url,'-');
 		if ($upRow>0){
-			$upPage="[<a href='".$url.$strpath.$p.$strpath."$upRow.html'>".$this->config['prev']."</a>]";
+			$upPage="<a href='".$url.$strpath.$p.$strpath."$upRow.html'>[".$this->config['prev']."]</a>";
 		}else{
 			$upPage="";
 		}
 
 		if ($downRow <= $this->totalPages){
-			$downPage="[<a href='".$url.$strpath.$p.$strpath."$downRow.html'>".$this->config['next']."</a>]";
+			$downPage="<a href='".$url.$strpath.$p.$strpath."$downRow.html'>[".$this->config['next']."]</a>";
 		}else{
 			$downPage="";
 		}
@@ -118,7 +118,7 @@ class Page extends Think {
 			$theFirst = "";
 		}else{
 			$preRow =  $this->nowPage-$this->rollPage;
-			$theFirst = "[<a href='".$url.$strpath.$p.$strpath."1.html' >".$this->config['first']."</a>]";
+			$theFirst = "<a href='".$url.$strpath.$p.$strpath."1.html' >[".$this->config['first']."]</a>";
 		}
 		if($nowCoolPage == $this->coolPages){
 			$nextPage = "";
@@ -126,16 +126,24 @@ class Page extends Think {
 		}else{
 			$nextRow = $this->nowPage+$this->rollPage;
 			$theEndRow = $this->totalPages;
-			$theEnd = "[<a href='".$url.$strpath.$p.$strpath."$theEndRow.html' >".$this->config['last']."</a>]";
+			$theEnd = "<a href='".$url.$strpath.$p.$strpath."$theEndRow.html' >[".$this->config['last']."]</a>";
 		}
 		
 		$linkPage="";
 		// 1 2 3 4 5
-		for($i=1;$i<=$this->totalPages;$i++){
-			$page=$i;
-				if($page<=$this->totalPages){
-					$linkPage .= "&nbsp;<a href='".$url.$strpath.$p.$strpath."$page.html'>&nbsp;".$page."&nbsp;</a>";
-				}
+		for($i=1;$i<=$this->rollPage;$i++){
+			$page=($nowCoolPage-1)*$this->rollPage+$i;
+            if($page!=$this->nowPage){
+                if($page<=$this->totalPages){
+                    $linkPage .= "&nbsp;<a href='".$url.$strpath.$p.$strpath."$page.html'>&nbsp;".$page."&nbsp;</a>";
+                }else{
+                    break;
+                }
+            }else{
+                if($this->totalPages != 1){
+					$linkPage .= "&nbsp;<a href='javascript:;' class='current'>&nbsp;".$page."&nbsp;</a>";
+                }
+            }
 		}
 		//下拉框形式
 		/*
@@ -156,7 +164,7 @@ class Page extends Think {
 		$pageStr	 =	 str_replace(
 		array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%linkPage%','%end%'),
 		array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$linkPage,$theEnd),$this->config['theme']);
-		return 'total'.$pageStr;
+		return $pageStr;
 	}
 
 }
