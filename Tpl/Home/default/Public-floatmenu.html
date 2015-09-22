@@ -1,8 +1,8 @@
 <ul id="listMenu" class="cat-list">
-  <volist name="catetree" id="vo">
+  <volist name="catetree" id="vo" key="k">
     <gt name="vo['subcount']" value="0">
-      <li class="relative"> <a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')} </a>
-        <ul>
+      <li class="attr-li"><a class="arrow <eq name="k" value="1">arrow_up<else/>arrow_down</eq>" href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')} </a>
+        <ul class="menu" <eq name="k" value="1">style="display:block;"</eq>>
           <volist name="vo['sub']" id="subvo">
             <eq name="subvo['subcount']" value="0">
               <li> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> </li>
@@ -21,44 +21,32 @@
       </li>
     </gt>
     <eq name="vo['subcount']" value="0">
-      <li> <a href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')}</a> </li>
+      <li class="attr-li"><a class="arrow arrow_down" href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')}</a> </li>
     </eq>
   </volist>
 </ul>
 
 
 <script type="text/javascript">
-//<![CDATA[
-
-var listMenu = new FSMenu('listMenu', true, 'display', 'block', 'none');
-
-listMenu.showDelay = 0;
-listMenu.switchDelay = 0;
-listMenu.hideDelay = 0;
-//listMenu.cssLitClass = 'highlighted';
-//listMenu.showOnClick = 0;
-//listMenu.hideOnClick = true;
-listMenu.animInSpeed = 0.2;
-listMenu.animOutSpeed = 0.2;
-
-//listMenu.animations[listMenu.animations.length] = FSMenu.animFade;
-//listMenu.animations[listMenu.animations.length] = FSMenu.animSwipeDown;
-//listMenu.animations[listMenu.animations.length] = FSMenu.animClipDown;
-
-
-var arrow = null;
-if (document.createElement && document.documentElement)
-{
- arrow = document.createElement('span');
- arrow.appendChild(document.createTextNode('>'));
- // Feel free to replace the above two lines with these for a small arrow image...
- //arrow = document.createElement('img');
- //arrow.src = 'arrow.gif';
- //arrow.style.borderWidth = '0';
- arrow.className = 'subind'; 
-}
-addReadyEvent(new Function('listMenu.activateMenu("listMenu", arrow)'));
-
-
-//]]>
+$(document).ready(function(){
+						   
+	/* 滑动/展开 */
+	$("#listMenu .attr-li").click(function(){
+		var arrow = $(this).find("a.arrow");
+	
+		if(arrow.hasClass("arrow_up")){
+			arrow.removeClass("arrow_up");
+			arrow.addClass("arrow_down");
+		}else if(arrow.hasClass("arrow_down")){
+			arrow.removeClass("arrow_down");
+			arrow.addClass("arrow_up");
+		}
+		//$("ul.menu").hide();
+		//$(this).parent().find("ul.menu").slideToggle();
+		//$(this).find(".menu").slideToggle();
+		$(this).find(".menu").hide();
+		
+	});
+	
+});
 </script>
