@@ -219,10 +219,18 @@ class CommAction extends Action{
 		$recpro_num=GetValue('recpro_num')?GetValue('recpro_num'):9;
 		$hotpro_num=GetValue('hotpro_num')?GetValue('hotpro_num'):9;
 		$spepro_num=GetValue('spepro_num')?GetValue('spepro_num'):9;
-		$Products_Cache['FeaturedProducts']=$this->ProModel->where("isrec=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$recpro_num")->select();
-		$Products_Cache['HotProducts']=$this->ProModel->where("ishot=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$hotpro_num")->select();
-		$Products_Cache['NewProducts']=$this->ProModel->where("isnew=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$newpro_num")->select();
-		$Products_Cache['SpeProducts']=$this->ProModel->where("isprice=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$spepro_num")->select();
+		
+        //推荐商品
+        $Products_Cache['FeaturedProducts']=$this->ProModel->where("isrec=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$recpro_num")->select();
+		
+        //热卖商品
+        $Products_Cache['HotProducts']=$this->ProModel->where("ishot=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$hotpro_num")->select();
+		
+        //最新商品
+        $Products_Cache['NewProducts']=$this->ProModel->where("isnew=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$newpro_num")->select();
+		
+        //特价商品
+        $Products_Cache['SpeProducts']=$this->ProModel->where("isprice=1 and isdown!=1")->order("sort desc,id desc")->limit("0,$spepro_num")->select();
 		return $Products_Cache;
 	}
 	/**

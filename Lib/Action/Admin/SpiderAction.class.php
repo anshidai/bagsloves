@@ -60,6 +60,7 @@ class SpiderAction extends Action {
 			}else {
 				$list = $model->field('goods_id,related_id,attachment')->where("goods_id in({$info['related_id']})")->select();
 				if($list) {
+                    $attachment = array();
 					foreach($list as $k=>$val) {
 						$attachment[$k] = $val['attachment'];
 					}
@@ -97,6 +98,7 @@ class SpiderAction extends Action {
 			@fwrite($fp, $get_file);
             @fclose($fp);
 		}
+        unset($get_file);
 		return $rndFileName;
 	}
 	
@@ -121,8 +123,10 @@ class SpiderAction extends Action {
 		$width = GetValue('ImgThumbW');
 		$height = GetValue('ImgThumbH');
 		
-		$list = M('CjDetail')->where("status=1 and site_name='2015destinationbags' AND is_use=2 AND is_push=0")->order('id')->select();
+        $list = M('CjDetail')->where("status=1 and site_name='2015destinationbags' AND is_use=2 AND is_push=0")->order('id')->select();
+		//$list = M('CjDetail')->where("goods_id in(6340,6341) AND is_use=2 AND is_push=0")->order('id')->limit(30)->select();
 		foreach($list as $k=>$val) {
+            $data = array();
 			$data['name'] = $val['goods_name'];
 			$data['price'] = $val['market_price'];
 			$data['pricespe'] = $val['shop_price'];
@@ -133,7 +137,7 @@ class SpiderAction extends Action {
 			$data['brandid'] = 0;
 			$data['costprice'] = 0;
 			$data['provider'] = 0;
-			
+
 			//添加商品图册
 			if($goods_id = M('Products')->add($data)) {
 				$attachment = explode('||', $val['attachment_merge']);
@@ -180,8 +184,9 @@ class SpiderAction extends Action {
 			}
 			M('CjDetail')->where("id='{$val['id']}'")->save(array('is_push'=>1));
 			echo "compelte {$val['id']}\n<br>";
-			unset($data,$attr_list,$size_data,$color_data);
-			usleep(500000);
+			unset($data,$attr_list,$size_data,$color_data,$img);
+            usleep(500000);
+			//sleep(1);
 			//exit;
 		}
 	}

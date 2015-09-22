@@ -38,14 +38,14 @@
 <div class="w-hr"><div class="w1200"><span class="tit">TODAY`S NEW ARRICLS</span></div></div>
 <div class="fashion-block w1200 clearfix">
 	<div class="save-top">
-		<span class="ad-left"><img src="__PUBLIC__/skin/bagsloves/images/index_ad01.jpg" width="275" height="325" alt=""></span>
+		<span class="ad-left"><a href="<?=$ads[50]['link']? $ads[50]['link']: 'javascript:;'?>"><img src="<?=$ads[50]['img_url']?>" width="275" height="325" alt=""></a></span>
 		<div class="border">
 			<ul class="mind-list index-mod fl">
 			<notempty name="NewProducts">
 			<foreach name="NewProducts" item="vo" key="k">
 				<lt name="k" value="2">
 				<li <gt name="k" value="0">class="noboder"</gt>>
-					<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+					<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
 					<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
 					<p class="price">{:build_url($vo,'pro_price')}</p>
 				</li>
@@ -54,7 +54,7 @@
 			</notempty>
 			</ul>
 		</div>
-		<span class="ad-right"><img src="__PUBLIC__/skin/bagsloves/images/index_ad02.jpg" width="430" height="320" alt=""></span>
+		<span class="ad-right"><a href="<?=$ads[48]['link']? $ads[48]['link']: 'javascript:;'?>"><img src="<?=$ads[48]['img_url']?>" width="430" height="320" alt=""></a></span>
 	</div>
 	<!-- save-top end-->
 	
@@ -64,7 +64,7 @@
 			<foreach name="NewProducts" item="vo" key="k">
 				<gt name="k" value="1">
 				<li <?php if($k !=2){echo 'class="noboder"';}?>>
-					<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+					<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
 					<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
 					<p class="price">{:build_url($vo,'pro_price')}</p>
 				</li>
@@ -81,14 +81,14 @@
 <div class="w-hr"><div class="w1200"><span class="tit">WHAT'S THE MOST POPULAR</span></div></div>
 <div class="fashion-block w1200 clearfix">
 	<div class="save-top">
-		<span class="ad-left"><img src="__PUBLIC__/skin/bagsloves/images/index_ad03.jpg" width="275" height="325" alt=""></span>
+        <span class="ad-left"><a href="<?=$ads[51]['link']? $ads[51]['link']: 'javascript:;'?>"><img src="<?=$ads[51]['img_url']?>" width="275" height="325" alt=""></a></span>
 		<div class="border">
 			<ul class="mind-list index-mod fl">
-				<notempty name="FeaturedProducts">
-				<foreach name="FeaturedProducts" item="vo" key="k">
+				<notempty name="HotProducts">
+				<foreach name="HotProducts" item="vo" key="k">
 				<lt name="k" value="2">
 					<li <gt name="k" value="0">class="noboder"</gt>>
-						<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+						<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
 						<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
 						<p class="price">{:build_url($vo,'pro_price')}</p>
 					</li>
@@ -97,18 +97,20 @@
 				</notempty>
 			</ul>
 		</div>
-		<span class="ad-right"><img src="__PUBLIC__/skin/bagsloves/images/index_ad02.jpg" width="430" height="320" alt=""></span>
+		<span class="ad-right"><a href="<?=$ads[49]['link']? $ads[49]['link']: 'javascript:;'?>"><img src="<?=$ads[49]['img_url']?>" width="430" height="320" alt=""></a></span>
 	</div>
 	<!-- save-top end-->
 	<div class="save-bottom clearfix">
 		<ul class="mind-list">
-		<notempty name="SpeProducts">
-		<foreach name="SpeProducts" item="vo" key="k" >
-			<li <?php if($k >0 && ($k)%5 != 0){echo 'class="noboder"';}?>>
-				<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+		<notempty name="HotProducts">
+		<foreach name="HotProducts" item="vo" key="k" >
+        <gt name="k" value="1">
+			<li <?php if($k !=2 && $k != 7){echo 'class="noboder"';}?>>
+				<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
 				<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
 				<p class="price">{:build_url($vo,'pro_price')}</p>
 			</li>
+        </gt>
 		</foreach>
 		</notempty>
 		</ul>	

@@ -29,6 +29,7 @@ class AdminPublicAction extends Action {
 
 	}
 	public function verify() {
+        ob_clean();
 		import ( "ORG.Util.Image" );
 		Image::buildImageVerify ();
 	}

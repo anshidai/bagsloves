@@ -65,7 +65,7 @@
 				<ul class="data-list clearfix">
 					<foreach name="list" item="vo" key="k">
 					<li <?=(($k+1)%4==0) && $k !=0?'class="right"':'' ?>>
-						<a href="{:build_url($vo,'pro_url')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+						<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
 						<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
 						<p class="price">{:build_url($vo,'pro_price')}</p>
 					</li>

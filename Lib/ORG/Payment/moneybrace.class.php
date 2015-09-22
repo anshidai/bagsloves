@@ -174,6 +174,8 @@ class moneybrace {
         
         $form_html = file_get_contents(__DIR__.'/moneybrace_form.html');
         $form_html = str_replace('{$form}', $this->form, $form_html);
+        $form_html = str_replace('{$scn_db_info}', $scn_db_info, $form_html);
+        $form_html = str_replace('{$scn_db_logo}', $scn_db_logo, $form_html);
         $form_html = str_replace('{$submit_url}', $this->submit_url, $form_html);
         $form_html = str_replace('{$fromfields}', $fromfields, $form_html);
         $form_html = str_replace('{$guid}', $this->fields['client_finger_cybs'], $form_html);
