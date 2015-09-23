@@ -3,8 +3,8 @@ $config	=	require './config.php';
 $array=array(
 
 //项目参数
-'SYSTEM_NAME'=>'EasyCart',
-'SYSTEM_VAR'=>'3.0RC1预览版',
+'SYSTEM_NAME'=>'EShopping',
+'SYSTEM_VAR'=>'V2.0',
 
 //分页标示
 'VAR_PAGE'=> 'p', 

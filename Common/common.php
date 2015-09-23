@@ -964,9 +964,9 @@ function get_ip_area($ip){
 function is_seo($modelname,$id){
 	$count=M($modelname)->where("pagetitle='' and pagekey='' and pagedec='' and id=".$id)->count();
 	if($count){
-		return '<img src="'.__ROOT__.'/Tpl/default/Public/images/mod_0.gif" />';
+		return '<img src="'.__ROOT__.'/Public/skin/admin/mod_1.gif" />';
 	}else{
-		return '<img src="'.__ROOT__.'/Tpl/default/Public/images/mod_1.gif" />';
+		return '<img src="'.__ROOT__.'/Public/skin/admin/mod_0.gif" />';
 	}
 }
 function ip_location_youdao($ip) {
