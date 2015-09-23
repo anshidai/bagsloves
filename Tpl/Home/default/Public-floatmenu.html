@@ -1,8 +1,8 @@
 <ul id="listMenu" class="cat-list">
   <volist name="catetree" id="vo" key="k">
     <gt name="vo['subcount']" value="0">
-      <li class="attr-li"><a class="arrow <eq name="k" value="1">arrow_up<else/>arrow_down</eq>" href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')} </a>
-        <ul class="menu" <eq name="k" value="1">style="display:block;"</eq>>
+      <li class="attr-li"><a class="arrow <eq name="k" value="1">arrow_up<else/>arrow_down</eq>" href="javascript:;">{:build_url($vo,'cate_name')} </a>
+        <ul class="cate-menu" <eq name="k" value="1">style="display:block;"</eq>>
           <volist name="vo['sub']" id="subvo">
             <eq name="subvo['subcount']" value="0">
               <li> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> </li>
@@ -21,7 +21,7 @@
       </li>
     </gt>
     <eq name="vo['subcount']" value="0">
-      <li class="attr-li"><a class="arrow arrow_down" href="{:build_url($vo,'cate_url')}">{:build_url($vo,'cate_name')}</a> </li>
+      <li class="attr-li"><a class="arrow arrow_down" href="javascript:;">{:build_url($vo,'cate_name')}</a> </li>
     </eq>
   </volist>
 </ul>
@@ -29,8 +29,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-						   
-	/* 滑动/展开 */
 	$("#listMenu .attr-li").click(function(){
 		var arrow = $(this).find("a.arrow");
 	
@@ -41,12 +39,7 @@ $(document).ready(function(){
 			arrow.removeClass("arrow_down");
 			arrow.addClass("arrow_up");
 		}
-		//$("ul.menu").hide();
-		//$(this).parent().find("ul.menu").slideToggle();
-		//$(this).find(".menu").slideToggle();
-		$(this).find(".menu").hide();
-		
+		$(this).find(".cate-menu").slideToggle();
 	});
-	
 });
 </script>
