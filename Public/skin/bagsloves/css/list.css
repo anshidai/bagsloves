@@ -18,13 +18,19 @@
 .data{margin-top: 20px;}
 .cat-data-list{width:965px;float: left;margin-left: 20px;}
 .data-list li{text-align: center;width:235px;height:250px;margin-right:5px;margin-bottom:10px;float: left;display: inline;
-	overflow: hidden;border: 1px solid #ddd;}
+    overflow: hidden;border: 1px solid #ddd;}
 .data-list li.right{margin-right: 0;}
 .data-list li .title{text-align: left;padding: 0 10px;line-height: 20px;}
 .data-list li .title a{color:#999;}
 .data-list li .price{text-align: left;color:#999;padding-left: 15px;}
 .data-list li .make-price{text-decoration:line-through;}
 .data-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;}
+
+.thumb-list li {height:273px;}
+.thumb-list li .title{height:40px;overflow:hidden;}
+.thumb-list li .thumb{text-align:left;margin-top:10px;}
+.thumb-list li .thumb img{ border:1px solid #ccc;margin-left:4px;margin-bottom: 5px;cursor: pointer; }
+
 
 .gride_pai li{margin-bottom:5px;}
 .gride_pai li a{margin-right:10px;}
