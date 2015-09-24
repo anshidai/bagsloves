@@ -13,65 +13,80 @@
 
 <div class="nav-hr clearfix"></div>
 <div class="outer-layer w1200">
-	<div class="location home">Location: <a href="/">Home</a> &gt; {$cateinfo.name}</div>	
-	<div class="catgory-block clearfix">
-		<div class="menu-left">
-			<div class="cat-title"><h2 class="tit">CATEGORIES</h2></div>
-			<include file="Public:floatmenu" />
-		</div>
-		<!-- menu-left end-->
+    <div class="location home">Location: <a href="/">Home</a> &gt; {$cateinfo.name}</div>    
+    <div class="catgory-block clearfix">
+        <div class="menu-left">
+            <div class="cat-title"><h2 class="tit">CATEGORIES</h2></div>
+            <include file="Public:floatmenu" />
+        </div>
+        <!-- menu-left end-->
 
-		<div class="cat-data-list clearfix">
-			<div class="sort-block">
-				<div class="by">
-					<form method="get">
-					SORT BY 
-					<select name="order" onchange="this.form.submit();" id="disp-order-sorter">
-						<option value="id" <eq name="_REQUEST['order']" value="id">selected</eq>>Sort by id</option>
-						<option value="name" <eq name="_REQUEST['order']" value="name">selected</eq>>Sort by name</option>
-						<option value="price" <eq name="_REQUEST['order']" value="price">selected</eq>>Sort by price</option>
-						<option value="dateline" <eq name="_REQUEST['order']" value="dateline">selected</eq>>Sort by update</option>
-					</select>
-					<select name="sort" onchange="this.form.submit();" >
-						<option value="0" <eq name="_REQUEST['sort']" value="0">selected</eq>>Descending</option>
-						<option value="1" <eq name="_REQUEST['sort']" value="1">selected</eq>>Ascending</option>
-					</select>
-					</form>
-				</div>
-			</div>
-			
-			<div class="data clearfix">
-				<ul class="data-list clearfix">
-					<foreach name="list" item="vo" key="k">
-					<li <?=(($k+1)%4==0) && $k !=0?'class="right"':'' ?>>
-						<a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
-						<p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
-						<p class="price">{:build_url($vo,'pro_price')}</p>
-					</li>
-					</foreach>
-				</ul>
-				<div class="page">
-					<ul id="pagination-clean">{$page}</ul>
-				</div>
-				<script type="text/javascript">
-					$(document).ready(function() {
-						$("#spage").change(function() {
-							window.location.href=$("#spage").val(); 
-						});
-					});
-				</script>
-			</div>
+        <div class="cat-data-list clearfix">
+            <div class="sort-block">
+                <div class="by">
+                    <form method="get">
+                    SORT BY 
+                    <select name="order" onchange="this.form.submit();" id="disp-order-sorter">
+                        <option value="id" <eq name="_REQUEST['order']" value="id">selected</eq>>Sort by id</option>
+                        <option value="name" <eq name="_REQUEST['order']" value="name">selected</eq>>Sort by name</option>
+                        <option value="price" <eq name="_REQUEST['order']" value="price">selected</eq>>Sort by price</option>
+                        <option value="dateline" <eq name="_REQUEST['order']" value="dateline">selected</eq>>Sort by update</option>
+                    </select>
+                    <select name="sort" onchange="this.form.submit();" >
+                        <option value="0" <eq name="_REQUEST['sort']" value="0">selected</eq>>Descending</option>
+                        <option value="1" <eq name="_REQUEST['sort']" value="1">selected</eq>>Ascending</option>
+                    </select>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="data clearfix">
+                <ul class="data-list thumb-list clearfix" id="data-list">
+                    <foreach name="list" item="vo" key="k">
+                    <li <?=(($k+1)%4==0) && $k !=0?'class="right"':'' ?>>
+                        <a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+                        <p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
+                        <p class="price">{:build_url($vo,'pro_price')}</p>
+                        <notempty name="vo.color">
+                        <p class="thumb">
+                        <foreach name="vo.color" item="val">
+                        <img src="{$val.thumb_url}" alt="{$val.value}" title="{$val.value}" width="40" height="40" />
+                        </foreach>
+                        </p>
+                        </notempty>
+                    </li>
+                    </foreach>
+                </ul>
+                <div class="page">
+                    <ul id="pagination-clean">{$page}</ul>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        $("#spage").change(function() {
+                            window.location.href=$("#spage").val(); 
+                        });
+                    });
+                </script>
+            </div>
 
-		</div>
-		<!-- cat-data-list end-->
-	</div>
-	<!-- catgory-block end-->
+        </div>
+        <!-- cat-data-list end-->
+    </div>
+    <!-- catgory-block end-->
 
 </div>
 <!-- outer-layer end-->
 
 <include file="Public:frontFooter" />
 
-<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+      $("#data-list img").lazyload({
+        effect:'fadeIn'
+      });
+  });
+</script>    
 </body>
 </html>
