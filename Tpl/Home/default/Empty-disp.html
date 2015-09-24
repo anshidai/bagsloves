@@ -52,17 +52,18 @@ var CartUrl='{:U('Cart/disp')}';
             </div>
             <!-- left end-->
             
-            <div class="right">
+            <div class="right relative">
+				<span class="shopping-security"></span>
                 <form name="cart_quantity" action="{:U('Cart/add')}" method="post">
                 <input type="hidden" name="id" value="{$list.id}">
-                <div class="block clearfix">
+                <div class="block short-hr clearfix">
                     <h1 class="title">{:build_url($list,'pro_name')}</h1>
                 </div>
-                <div class="block clearfix">
+                <div class="block short-hr clearfix">
                     <span class="market-price">Market Price: {:getprice_str($list['price'])} </span>
                     <span class="shop-price">Price: {:getprice($list['price'],$list['pricespe'],false)} </span>
                 </div>            
-                <div class="block relative clearfix">
+                <div class="block relative short-hr clearfix">
                     <div class="attr-size">
                         <strong class="name">Size: </strong>
                         <span class="size-select">
@@ -107,7 +108,7 @@ var CartUrl='{:U('Cart/disp')}';
 
                 </div>
                 <!-- block end-->
-                <div class="block clearfix">
+                <div class="block short-hr clearfix">
                     <div class="qty">
                         <strong class="name">Qty: </strong>
                         <div class="number">
@@ -123,7 +124,7 @@ var CartUrl='{:U('Cart/disp')}';
                     </div>
                 </div>
                 <!-- block end-->
-                <div class="block clearfix">
+                <div class="block short-hr clearfix">
                     <div class="faeydress_star fl">
                         <span class="l_star50"></span>
                         <a href="#rwt" class="first" rel="nofollow">Reviews ({$review_num|default="0"})</a> 
@@ -133,9 +134,30 @@ var CartUrl='{:U('Cart/disp')}';
                 <!-- block end-->
                 <div class="block">
                     <div class="tips">
-                        <strong>Easy 60-Day Returns</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis.</p>
-                    </div>
+						<table class="courier-table">
+							<tr class="tit">
+								<th>Service</th>
+								<th>Estimated Delivery Time</th>
+								<th>Urgent</th>
+								<th>Area</th>
+							</tr>
+							<tbody>
+								<tr>
+									<td>DHL</td>
+									<td>5-7 days</td>
+									<td>3-5 days</td>
+									<td>200 countries wordwide</td>
+								</tr>
+								<tr>
+									<td>EMS Express Service</td>
+									<td>5-7 days</td>
+									<td>3-5 days</td>
+									<td>200 countries wordwide</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- tips end -->
                 </div>
                 <!-- block end-->
                 </form>
@@ -143,32 +165,6 @@ var CartUrl='{:U('Cart/disp')}';
             <!-- right end-->
 
         </div>
-
-        <div class="clearfix">
-            <table width="80%" class="courier-table">
-                <tr class="tit">
-                    <th>Service</th>
-                    <th>Estimated Delivery Time</th>
-                    <th>Urgent</th>
-                    <th>Area</th>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>DHL</td>
-                        <td>5-7 days</td>
-                        <td>3-5 days</td>
-                        <td>200 countries wordwide</td>
-                    </tr>
-                    <tr>
-                        <td>EMS Express Service</td>
-                        <td>5-7 days</td>
-                        <td>3-5 days</td>
-                        <td>200 countries wordwide</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
 
         <div class="clearfix">
             <div class="review-tit">

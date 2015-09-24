@@ -19,6 +19,10 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .small-img li a:hover,.goods_wrap .small-img .curr a{padding:0;border: 2px solid #FF9700;}
 
 .goods_wrap .right{float: left;width: 670px;margin-left:20px;}
+
+.goods_wrap .shopping-security{position:absolute;top:32px;right:10px;z-index:100; width:151px;height:310px;
+	display:inline-block;border:1px solid #ccc;background:url(img/banner_left.png) #fff no-repeat;overflow:hidden;}
+.goods_wrap .short-hr{margin-right:180px;}
 .goods_wrap .block{padding-bottom: 10px;padding-top:10px;border-bottom: 1px dashed #ddd;}
 .goods_wrap .block .title{font-size: 22px;}
 .goods_wrap .block .market-price{display:block;font-size: 14px;text-decoration: line-through;color: #999;}
@@ -76,7 +80,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .faeydress_right{float: right;}
 .right .faeydress_right ul li{float:left; padding:0px;margin-left:5px;}
 
-.courier-table{margin-top: 30px;margin-bottom:20px;border-collapse:separate;border-spacing: 10px 0;}
+.courier-table{width:100%;border-collapse:separate;border-spacing: 5px 0;}
 .courier-table th{line-height: 30px;font-weight: bold; text-align: center;background-color: #ECECEC;vertical-align: middle;}
 .courier-table td{line-height: 30px;background-color: #fff;text-align: center;}
 

@@ -27,7 +27,7 @@
 .mind-list li .title a{color:#999;}
 .mind-list li .price{text-align: left;color:#999;padding-left: 15px;}
 .mind-list li .make-price{text-decoration:line-through;}
-.mind-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;}
+.mind-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;font-size:15px;}
 .index-mod li{height:260px;padding-top:62px;}
 
 .ad-right{float: right;display:inline;}

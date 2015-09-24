@@ -48,9 +48,11 @@
                         <p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
                         <p class="price">{:build_url($vo,'pro_price')}</p>
                         <notempty name="vo.color">
-                        <p class="thumb <?=count($vo['color'])>5? 'more-h': ''?>">
-                        <foreach name="vo.color" item="val">
+                        <p class="thumb">
+                        <foreach name="vo.color" item="val" key="key">
+						<lt name="key" value="5">
                         <img src="{$val.thumb_url}" rel="{$val.thumb_url}" alt="{$val.value}" title="{$val.value}" width="40" height="40" />
+                        </lt>
                         </foreach>
                         </p>
                         </notempty>

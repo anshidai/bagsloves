@@ -24,14 +24,13 @@
 .data-list li .title a{color:#999;}
 .data-list li .price{text-align: left;color:#999;padding-left: 15px;}
 .data-list li .make-price{text-decoration:line-through;}
-.data-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;}
+.data-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;font-size:15px;}
 
-.thumb-list li {height:320px;}
+.thumb-list li {height:280px;}
 .thumb-list li .title{height:40px;overflow:hidden;}
-.thumb-list li .thumb{text-align:left;margin-top:42px;}
-.thumb-list li .thumb img{ border:1px solid #ccc;margin-left:4px;margin-bottom: 1px;cursor: pointer; }
-.thumb-list li .more-h{margin-top:10px;}
-.thumb-list li .thumb .curr{border:1px solid #FF9700;}
+.thumb-list li .thumb{text-align:left;margin-top:10px;}
+.thumb-list li .thumb img{ border:1px solid #fff;margin-left:4px;margin-bottom: 1px;cursor: pointer; }
+.thumb-list li .thumb .curr,.thumb-list li .thumb img:hover{border:1px solid #FF9700;}
 
 
 .gride_pai li{margin-bottom:5px;}
