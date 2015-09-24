@@ -1,14 +1,14 @@
 <ul id="listMenu" class="cat-list">
   <volist name="catetree" id="vo" key="k">
     <gt name="vo['subcount']" value="0">
-      <li class="attr-li"><a class="arrow <?php if($cateid==$vo['id']){echo 'arrow_up';}else{if($k==1){echo 'arrow_up';}else{echo 'arrow_down';}}?>" href="javascript:;">{:build_url($vo,'cate_name')} </a>
-        <ul class="cate-menu" <?php if($cateid==$vo['id']){echo 'style="display:block;"';}else{if($k==1){'style="display:block;"';}}?>>
+      <li class="attr-li"><a class="arrow arrow_up" href="javascript:;">{:build_url($vo,'cate_name')} </a>
+        <ul class="cate-menu" style="display:block;">
           <volist name="vo['sub']" id="subvo">
             <eq name="subvo['subcount']" value="0">
-              <li> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> </li>
+              <li <?=($cateid==$subvo['id'])? 'class="curr"': ''?>> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> </li>
             </eq>
             <gt name="subvo['subcount']" value="0">
-              <li> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')} </a>
+              <li <eq name="cateid" value="vo.id">class="curr"</eq>> <a href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')} </a>
                 <ul>
                   <volist name="subvo['sub']" id="subvo2">
                     <li><a href="{:build_url($subvo2,'cate_url')}">{:build_url($subvo2,'cate_name')}</a></li>
@@ -21,24 +21,26 @@
       </li>
     </gt>
     <eq name="vo['subcount']" value="0">
-      <li class="attr-li"><a class="arrow arrow_down" href="javascript:;">{:build_url($vo,'cate_name')}</a> </li>
+      <li class="attr-li <?=($cateid==$vo['id'])? 'curr': ''?>"><a class="arrow arrow_down" href="javascript:;">{:build_url($vo,'cate_name')}</a> </li>
     </eq>
   </volist>
 </ul>
 
 <script type="text/javascript">
+/*
 $(document).ready(function(){
-	$("#listMenu .attr-li").click(function(){
-		var arrow = $(this).find("a.arrow");
-	
-		if(arrow.hasClass("arrow_up")){
-			arrow.removeClass("arrow_up");
-			arrow.addClass("arrow_down");
-		}else if(arrow.hasClass("arrow_down")){
-			arrow.removeClass("arrow_down");
-			arrow.addClass("arrow_up");
-		}
-		$(this).find(".cate-menu").slideToggle();
-	});
+    $("#listMenu .attr-li").click(function(){
+        var arrow = $(this).find("a.arrow");
+    
+        if(arrow.hasClass("arrow_up")){
+            arrow.removeClass("arrow_up");
+            arrow.addClass("arrow_down");
+        }else if(arrow.hasClass("arrow_down")){
+            arrow.removeClass("arrow_down");
+            arrow.addClass("arrow_up");
+        }
+        $(this).find(".cate-menu").slideToggle();
+    });
 });
+*/
 </script>
