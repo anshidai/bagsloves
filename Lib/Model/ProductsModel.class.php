@@ -120,9 +120,10 @@ class ProductsModel extends Model {
 			$voList = $this->where($map)->order("`$order` $sort,`id` desc")->limit($p->firstRow .','.$p->listRows)->select();
 			if($voList) {
 				foreach($voList as $k=>$val) {
-					$attr_tmp = D('Products_attr')->field('attr_value,thumb_url')->where("products_id='{$val['id']}' AND attr_id=3")->select();
+					$attr_tmp = D('Products_attr')->field('attr_value,img_url,thumb_url')->where("products_id='{$val['id']}' AND attr_id=3")->select();
 					if($attr_tmp) {
 						foreach($attr_tmp as $k2=>$attr) {
+							$voList[$k]['color'][$k2]['img_url'] = build_url($attr, 'g_bigimage');
 							$voList[$k]['color'][$k2]['thumb_url'] = build_url($attr, 'g_smallimage');
 							$voList[$k]['color'][$k2]['value'] = $attr['attr_value'];
 						}

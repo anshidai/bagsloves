@@ -44,13 +44,13 @@
                 <ul class="data-list thumb-list clearfix" id="data-list">
                     <foreach name="list" item="vo" key="k">
                     <li <?=(($k+1)%4==0) && $k !=0?'class="right"':'' ?>>
-                        <a href="{:build_url($vo,'pro_url')}" target="_blank"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
+                        <a href="{:build_url($vo,'pro_url')}" target="_blank"><img class="show_img" src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="160" height="160"></a>
                         <p class="title"><a href="{:build_url($vo,'pro_url')}">{:build_url($vo,'pro_name')}</a></p>
                         <p class="price">{:build_url($vo,'pro_price')}</p>
                         <notempty name="vo.color">
-                        <p class="thumb">
+                        <p class="thumb <?=count($vo['color'])>5? 'more-h': ''?>">
                         <foreach name="vo.color" item="val">
-                        <img src="{$val.thumb_url}" alt="{$val.value}" title="{$val.value}" width="40" height="40" />
+                        <img src="{$val.thumb_url}" rel="{$val.thumb_url}" alt="{$val.value}" title="{$val.value}" width="40" height="40" />
                         </foreach>
                         </p>
                         </notempty>
@@ -86,6 +86,14 @@
       $("#data-list img").lazyload({
         effect:'fadeIn'
       });
+      
+      $(".thumb img").click(function(){
+        $(".thumb img").removeClass('curr');
+        $(this).addClass('curr');
+        $(this).parent().parent().find(".show_img").attr('src', $(this).attr('rel'));
+        //console.log($(this).parent().parent().find(".show_img").attr('alt'));
+      });
+      
   });
 </script>    
 </body>
