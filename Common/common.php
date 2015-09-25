@@ -637,11 +637,13 @@ function getprice($price,$spe,$discount=true){
 	}
 	if ( $spe >=$price) {
 		//货币汇率
-		$re= $_SESSION ['currency'] ['code'] . ($spe * $_SESSION ['currency'] ['rate']);
+		$re= $_SESSION ['currency'] ['code'] . (sprintf("%01.2f", $spe * $_SESSION ['currency'] ['rate']));
 		$r_price=$price;
 	} else {
 		$price *= $_SESSION ['currency'] ['rate'];
 		$spe *= $_SESSION ['currency'] ['rate'];
+        $spe = sprintf("%01.2f", $spe);
+        $price = sprintf("%01.2f", $price);
 		if($discount){
 			//$re=  '<span style="color:red;text-decoration: line-through;">'.$_SESSION ['currency'] ['code'] . $price . '</span>&nbsp;&nbsp;&nbsp;<span style="color:red;">' . $_SESSION ['currency'] ['code'] . $spe . '</span><br />Save:' . number_format ( (($price - $spe) / $price * 100), 0 ) . '% off';
 			$re=  '<span class="make-price">'.$_SESSION ['currency'] ['code'] . $price . '</span><span class="shop-price">' . $_SESSION ['currency'] ['code'] . $spe . '</span>';
@@ -670,7 +672,7 @@ function getprice($price,$spe,$discount=true){
 
 }
 function getprice_str($price){
-	return "<strong style='color:red;font-weight: bold;'>".$_SESSION ['currency'] ['code'] . ($price * $_SESSION ['currency'] ['rate'])."</strong>";
+	return "<strong style='color:red;font-weight: bold;'>".$_SESSION ['currency'] ['code'] . (sprintf("%01.2f", $price * $_SESSION ['currency'] ['rate']))."</strong>";
 }
 //获取真实的价格
 function get_real_price($price,$pricespe){

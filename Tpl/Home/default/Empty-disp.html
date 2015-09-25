@@ -41,7 +41,7 @@ var CartUrl='{:U('Cart/disp')}';
                             </volist>
                             <else />
                             <volist name="gallerys" id="vo">
-                            <li><a href="javascript:;"><img src="{:build_url($vo,'g_bigimage')}" rel="{:build_url($vo,'g_bigimage')}" width="80" height="80" alt="{:build_url($list,'pro_name')}"></a></li>
+                            <li><a href="javascript:;"><img src="{:build_url($vo,'g_smallimage')}" rel="{:build_url($vo,'g_bigimage')}" width="80" height="80" alt="{:build_url($list,'pro_name')}"></a></li>
                             </volist>
                             </gt>
                         </ul>
@@ -53,7 +53,7 @@ var CartUrl='{:U('Cart/disp')}';
             <!-- left end-->
             
             <div class="right relative">
-				<span class="shopping-security"></span>
+                <span class="shopping-security"></span>
                 <form name="cart_quantity" action="{:U('Cart/add')}" method="post">
                 <input type="hidden" name="id" value="{$list.id}">
                 <div class="block short-hr clearfix">
@@ -134,30 +134,30 @@ var CartUrl='{:U('Cart/disp')}';
                 <!-- block end-->
                 <div class="block">
                     <div class="tips">
-						<table class="courier-table">
-							<tr class="tit">
-								<th>Service</th>
-								<th>Estimated Delivery Time</th>
-								<th>Urgent</th>
-								<th>Area</th>
-							</tr>
-							<tbody>
-								<tr>
-									<td>DHL</td>
-									<td>5-7 days</td>
-									<td>3-5 days</td>
-									<td>200 countries wordwide</td>
-								</tr>
-								<tr>
-									<td>EMS Express Service</td>
-									<td>5-7 days</td>
-									<td>3-5 days</td>
-									<td>200 countries wordwide</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<!-- tips end -->
+                        <table class="courier-table">
+                            <tr class="tit">
+                                <th>Service</th>
+                                <th>Estimated Delivery Time</th>
+                                <th>Urgent</th>
+                                <th>Area</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>DHL</td>
+                                    <td>5-7 days</td>
+                                    <td>3-5 days</td>
+                                    <td>200 countries wordwide</td>
+                                </tr>
+                                <tr>
+                                    <td>EMS Express Service</td>
+                                    <td>5-7 days</td>
+                                    <td>3-5 days</td>
+                                    <td>200 countries wordwide</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- tips end -->
                 </div>
                 <!-- block end-->
                 </form>
