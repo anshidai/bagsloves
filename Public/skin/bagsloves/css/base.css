@@ -41,8 +41,8 @@ a.red:hover{color:red; text-decoration:underline;}
 .thide{overflow:hidden;text-overflow:ellipsis; white-space:nowrap;}
 
 .blank10{display:block;height:10px; overflow:hidden;}
-.blank15{display:block;height:10px; overflow:hidden;}
-.blank20{display:block;height:10px; overflow:hidden;}
+.blank15{display:block;height:15px; overflow:hidden;}
+.blank20{display:block;height:20px; overflow:hidden;}
 
 .bgnone{background:none!important;}
 .bornone{border:0 none!important;}

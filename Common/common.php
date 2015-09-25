@@ -1023,4 +1023,10 @@ function currency_name()
     return $currency_name;
 }
 
+function get_products_info($pid){
+	$dao=D("Products");
+	$list=$dao->where("id=".$pid)->find();
+	return $list;
+}
+
 ?>

@@ -23,7 +23,7 @@ class AdminCommAction extends Action {
 		self::$Model=D("Countries");
 		$this->countries=self::$Model->getlist();
 		//定义模型
-		if (in_array(MODULE_NAME,array('Brand','Cate','Node','Products','Role','Setting','User','Ad','Currencies','Members','Orders','Article','Article_cate','Down','Down_cate','Products_ask','Shipping','Shipping_area','Fee','Coupon'))){
+		if (in_array(MODULE_NAME,array('Brand','Cate','Node','Products','Role','Setting','User','Ad','Currencies','Members','Orders','Article','Article_cate','Down','Down_cate','Products_ask','Shipping','Shipping_area','Fee','Coupon', 'Cart'))){
 			$this->dao = D ( MODULE_NAME );
 		}
 		$this->userName = Session::get ( 'loginUserName' );

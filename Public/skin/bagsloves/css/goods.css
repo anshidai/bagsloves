@@ -85,6 +85,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .courier-table td{line-height: 30px;background-color: #fff;text-align: center;}
 
 .content p{line-height:20px;}
+.content p.image{text-align:center;}
 
 /*===========================================comment start==================================================*/
 

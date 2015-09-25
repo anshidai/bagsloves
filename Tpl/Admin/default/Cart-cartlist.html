@@ -1,0 +1,78 @@
+<include file="Public:admintop" />
+<include file="Public:adminleft" />
+<script type="text/javascript">
+
+function delall(){
+	var id=$('input:checkbox[name^=id]:checked').map(function(){
+		return $(this).val();
+	}).get().join(",");
+	if(!id){
+		alert('请选择要删除的项!');
+	}else{
+		$.post("{:U('Members/delete')}","id="+id);
+		$('input[name^=id]:checked').parent().parent().remove();
+	}
+}
+$(document).ready (
+function(){
+
+	$("a[name^='del_']").click(
+	function(){
+		var answer = confirm("确认要删除吗?");
+		if(answer){
+			window.location = $(this).attr("href");
+
+		}
+		else{
+
+			$(this).attr("href","javascript:void(0);");
+
+		}
+
+	}
+	);
+	$("#checkAll").click(
+	function () {
+		$("input:checkbox[name^=id]").attr("checked",this.checked);
+	}
+	);
+	$(".preview").preview();
+}
+);
+
+</script>
+<!-- Content (Right Column) -->
+		<div id="content" class="box">
+
+			<h1>购物车管理</h1>
+            <p class="msg info">提示：</p>
+             <form action="{:U('Cart/cartlist')}" method="get" >
+            用户标示:<input type="text" size="50" name="kwd" class="input-text" value="{$kwd}" />
+            <input type="submit" value="搜索" />
+            </form>	
+            <table width="100%">
+				<tr pid="0">
+				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/> ID</th>
+				    <th style="text-align:center" >商品名称</th>
+				    <th style="text-align:center" width="8%">商品数量</th>
+                    <th style="text-align:center" width="15%">加入时间</th>
+                    <th style="text-align:center" width="17%">用户标示</th>
+				</tr>
+                <volist name="list" id="vo">
+				<?php $product_info = get_products_info($vo['pid']);
+				//dump($product_info);
+				?>
+                <tr >
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:u('Members/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+				    <td style="text-align:left" id="classname" ><a class="preview" href="{:build_url($product_info,'pro_smallimage')}" target="_blank">{$product_info.name}</a>&nbsp;&nbsp;<a href="{:build_url($vo,'pid')}" target="_blank">预览</a></td>
+				    <td style="text-align:left" >{$vo['count']}</td>
+                    <td style="text-align:left" >{:toDate($vo["dateline"],"Y-m-d H:i:s")}</td>
+                    <td style="text-align:left" >{$vo.session_id}</td>
+                </tr>
+                </volist>
+				
+			</table>
+            <p class="t-right">{$show}</p>
+		</div> <!-- /content -->
+
+<include file="Public:adminfooter" />
