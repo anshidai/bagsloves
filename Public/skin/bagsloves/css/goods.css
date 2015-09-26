@@ -20,7 +20,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 
 .goods_wrap .right{float: left;width: 670px;margin-left:20px;}
 
-.goods_wrap .shopping-security{position:absolute;top:-20px;right:10px;z-index:100; width:151px;height:310px;
+.goods_wrap .shopping-security{position:absolute;top:0px;right:10px;z-index:100; width:151px;height:310px;
     display:inline-block;border:1px solid #ccc;background:url(img/banner_left.png) #fff no-repeat;overflow:hidden;}
 .goods_wrap .short-hr{margin-right:180px;}
 .goods_wrap .block{padding-bottom: 10px;padding-top:10px;border-bottom: 1px dashed #ddd;}
@@ -33,18 +33,18 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .block .attr-color ul{float:left;}
 .goods_wrap .block .attr-color li{float: left;display: inline;background-color: #fff;margin:5px;padding:1px;
     border:1px solid #e0e0e0;vertical-align:middle;}
-.goods_wrap .block .attr-color li a{height:30px;text-decoration:none;display: block;padding: 3px 5px;color: #000;font-size: 15px;
+.goods_wrap .block .attr-color li a{height:40px;text-decoration:none;display: block;padding: 3px 5px;color: #000;font-size: 15px;
     margin:-1px;border:2px solid #fff;}
 .goods_wrap .block .attr-color li a:hover{border: 2px solid #FF6701;margin: -1px;}
 .goods_wrap .block .attr-color .curr a{border: 2px solid #FF6701;margin: -1px;background:url(img/checked.gif) no-repeat right bottom;}
 .goods_wrap .block .attr-color .attr-price img{display:inline;overflow:hidden;float:left;}
-.goods_wrap .block .attr-color .attr-price span{float:left;line-height:30px;margin-left:10px;font-size:12px;display:inline;overflow:hidden;float:left;}
+.goods_wrap .block .attr-color .attr-price span{overflow:hidden; float:left;line-height:40px;margin-left:10px;font-size:12px;display:inline;overflow:hidden;float:left;}
 .goods_wrap .block .attr-color .curr .attr-price  span{color:#b12704;}
 .goods_wrap .block .attr-size{}
-.goods_wrap .block .attr-size .name{float:left;display: inline-block; padding-top: 5px;width: 50px;text-align: right;}
+.goods_wrap .block .attr-size .name{float:left;display: inline-block; padding-top: 5px;width: 50px;text-align: left;}
 .goods_wrap .block .attr-size .size-select{float: left;margin-left: 5px;margin-top:2px;height:20px;line-height: 20px;}
 
-.attr_selected{font-size:12px;margin-top:10px;display:none;font-weight:bold;}
+.attr_selected{font-size:12px;margin-top:10px;font-weight:bold;}
 .attr_selected strong{color:#f00;font-size:14px;margin-left:5px;}
 
 .tab-block{}
@@ -70,18 +70,19 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .block .cart_ok .button_check{width:104px;height:25px;display:inline-block;background: url(img/button_check.png) no-repeat;}
 .goods_wrap .block .cart_ok .button_shopping{width:114px;height:25px;display:inline-block;background: url(img/button_shopping.jpg) no-repeat;}
 
-.goods_wrap .block .qty .name{float:left;display: inline-block; padding-top: 5px;width: 50px;text-align: right;}
-.goods_wrap .block .qty .number{float: left;margin:4px 0 0 5px;}
-.goods_wrap .block .qty .number .reduce{float:left;width: 17px;height: 17px;display: inline-block;margin-right: 5px;
+.goods_wrap .block .qty .name{ float:left;display: inline-block; padding-top: 5px;width: 50px;text-align: left;}
+.goods_wrap .block .qty .number{position:relative;float: left;width:49px;margin:4px 0 0 5px;}
+.goods_wrap .block .qty .number .reduce{position:absolute;right:0;bottom:0; width: 17px;height: 17px;display: inline-block;
     cursor: pointer; background: url(img/reduce-ico.png) no-repeat;}
-.goods_wrap .block .qty .number .increase{float:left;width: 17px;height: 17px;display: inline-block;
+.goods_wrap .block .qty .number .increase{position:absolute;right:0;top:0;width: 17px;height: 17px;display: inline-block;
     cursor: pointer;background: url(img/increase-ico.png) no-repeat;}
-.goods_wrap .block .input-number input{float:left;width:69px;height: 15px;line-height: 15px;text-align: center; border: 1px solid #ddd;
+.goods_wrap .block .input-number input{float:left;width:31px;height: 32px;line-height: 32px;text-align: center; border: 1px solid #ddd;
     background-color: #fff;margin-right: 5px;}
-.goods_wrap .block .add-cart{margin:10px 0 0 25px;height: 36px;overflow: hidden;}
-.goods_wrap .block .add-cart .add-btn{float:left;display: inline-block; margin-right:10px;width: 150px;height: 36px;line-height: 36px;text-align: center;
-    font-size:14px;font-weight: bold; color: #fff;text-decoration: none; background: url(img/add_cart_ico.png) no-repeat;}
-.goods_wrap .block .view-cart{float:left;display: inline-block;width: 36px;height: 36px;
+.goods_wrap .block .add-cart{float:left;margin:4px 0 0 10px;height: 36px;overflow: hidden;}
+.goods_wrap .block .add-cart .add-btn{float:left;display: inline-block; margin-right:10px;width: 163px;height: 36px;line-height: 36px;text-indent:45px;
+    font-size:14px;font-weight: bold; color: #fff;text-decoration: none; background: url(img/add_cart_bg_red.png) no-repeat;}
+.goods_wrap .block .add-cart .add-btn:hover{background: url(img/add_cart_bg_red.png) no-repeat left -43px;}
+	.goods_wrap .block .view-cart{float:left;display: inline-block;width: 36px;height: 36px;
     background:url(img/cart_ico.png) no-repeat;text-align: center;}
 .tips{}
 .tips strong{font-size: 14px;color:#999;display: block;margin-bottom: 10px;}
