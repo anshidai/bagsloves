@@ -2,7 +2,7 @@
 	<div class="top_bar w1200">
 		
 		<form name="Currencies" id="form1" action="{:U('Index/Currencies')}" method="post">
-		<div class="currencies-block fl">
+		<div class="currencies-block fr">
 			<span class="name">Currencies: &nbsp;</span>
 			<span class="select">
 				<select name="Currencies" onchange="document.Currencies.submit();">
@@ -20,7 +20,7 @@
 		<!-- currencies-block end-->
 		</form>
 		
-		<ul class="crossn top_info fr">
+		<ul class="crossn top_info fl">
 			<li class="block fl">
             	<div class="FontColor fl">&nbsp;</div>
                 <dl class="fl">
@@ -28,17 +28,16 @@
 						<dt><a class="FontColor" href="javascript:;">{$member_Info.lastname}&nbsp;{$member_Info.firstname}</a></dt>
 						<dd class="user" style="width: 37px;">
 							<a href="{:U('MemberIndex/index')}">My Orders</a>
-							<a href="">My Favorites</a>
-							<a href="">My Coupons</a>
-							<a href="">My Inbox</a>
+							<a href="{:U('MemberIndex/ShippingAddress')}">My Address</a>
+							<a href="{:U('MemberIndex/Profav')}">Wish List</a>
 							<a href="{:U('MemberIndex/LogOut')}">Sign Out</a>
 							</dd>
 					<else/>
 						<dt><a class="FontColor" href="javascript:;">Join / Sign In</a></dt>
 						<dd class="user" style="width: 37px;">
-							<a href="{:U('MemberPublic/Join')}">Join In</a>
-							<a href="{:U('MemberPublic/Login')}">Sign In</a>
-							<a href="{:U('Cart/disp')}">Shopping Cart</a>
+							<a target="_parent" href="{:U('MemberPublic/Join')}">Join In</a>
+							<a target="_parent" href="{:U('MemberPublic/Login')}">Sign In</a>
+							<a target="_parent" href="{:U('Cart/disp')}">Shopping Cart</a>
 						</dd>
 					</gt>
                 </dl>
@@ -50,8 +49,8 @@
 <!-- top_bar_outer end-->
 
 <div class="header w1200 clearfix">
-	<div class="logo-wp fl"><a href="__ROOT__/" class="logo"><img src="__ROOT__/{:GetValue('sitelogo')}" alt="" border="0" /></a></div>
-	<div class="search fl">
+	<div class="logo-wp fl"><a target="_parent"href="__ROOT__/" class="logo"><img src="__ROOT__/{:GetValue('sitelogo')}" alt="" border="0" /></a></div>
+	<div class="search fl"> 
 		<form class="form" action="{:U('Search/index')}" method="post">
 			<input type="text" name="key" placeholder="Search entire store here..." dataType="Require" msg="keywords is required!" class="text fl">
             <input type="submit" class="button fr FontBgColor" value="">
@@ -60,7 +59,7 @@
 	<!-- search end-->
 	
 	<div class="header_cart fr" lang="_en">
-		<a href="{:U('Cart/disp')}" class="cart_inner">
+		<a target="_parent"href="{:U('Cart/disp')}" class="cart_inner">
 			<span class="cart_count FontColor"></span>
 			<span class="cart_text">Cart</span>
 		</a>
@@ -96,10 +95,10 @@
 
 <div class="nav-menu index-menu w1200 clearfix">
 	<ul class="nav_item">
-		<li class="home-text"><a href="__ROOT__/" title="Home">Home</a></li>
+		<li class="home-text"><a target="_parent" href="__ROOT__/" title="Home">Home</a></li>
 		<volist name="nav" id="vo">
 		<eq name="vo['type']" value="top">
-		<li><a href="{$vo.url}" <eq name="vo['isnew']" value="1">target="_blank"</eq>>{$vo.name}</a></li>
+		<li><a href="{$vo.url}" target="_parent">{$vo.name}</a></li>
 		</eq>
 		</volist> 
 	</ul>
