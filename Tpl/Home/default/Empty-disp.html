@@ -61,7 +61,7 @@ var CartUrl='{:U('Cart/disp')}';
                 </div>
                 <div class="block short-hr clearfix">
                     <span class="market-price">Market Price: {:getprice_str($list['price'])} </span>
-                    <span class="shop-price">Price: {:getprice($list['price'],$list['pricespe'],false)} </span>
+                    <span class="shop-price">Price: <span id="shop-price">{:getprice($list['price'],$list['pricespe'],false)}</span> </span>
                 </div>            
                 <div class="block relative short-hr clearfix">
                     <div class="attr-size">
@@ -77,7 +77,7 @@ var CartUrl='{:U('Cart/disp')}';
                         </span>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="attr-color">
+                    <div class="attr-color clearfix">
                         <notempty name="attrlist.1.name">
                         <strong class="name">Colors: </strong>
                         <eq name="attrlist.1.name" value="Colors">
@@ -85,9 +85,9 @@ var CartUrl='{:U('Cart/disp')}';
                         <ul>
                             <volist name="attrlist.1.attrs" id="vo">
                             <notempty name="vo['img_url']">
-                            <li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="30" height="30" alt=""></a></li>
+                            <li><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="30" height="30" alt=""><span>{:getprice_str($vo['attr_price']? $vo['attr_price']: $list['pricespe'], false)}</span></a></li>
                             <else/>
-                            <li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}">{$vo['attr_value']}</a></li>
+                            <li><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><span>{$vo['attr_value']}</span></a></li>
                             </notempty>                            
                             </volist>
                         </ul>
@@ -130,6 +130,12 @@ var CartUrl='{:U('Cart/disp')}';
                         <a href="#rwt" class="first" rel="nofollow">Reviews ({$review_num|default="0"})</a> 
                         <a href="#rwt" class="write-review" rel="nofollow">Write a review</a>
                     </div>
+					<div class="share_block">
+						<a href="javascript:;" class="facebook" onclick="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(document.location.href)+'&amp;t='+encodeURIComponent(document.title));"></a>
+						<a href="javascript:;" class="pinterest" onclick="javascript:window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title)+'&media='+encodeURIComponent('{:GetValue('siteurl')}{:ltrim($list['bigimage'],'.')}')+'&description='+encodeURIComponent('{:build_url($list,'pro_name')}')+'&is_video=false');"></a>
+						<a href="javascript:;" class="twitter" onclick="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dtwitter%26utm_source%3Dtwitter.com&text='+encodeURIComponent(document.title));"></a>
+						<a href="javascript:;" class="googleplus" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dgoogleplus&hl=en-US');" ></a>
+					</div>
                 </div>
                 <!-- block end-->
                 <div class="block">

@@ -26,15 +26,20 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .block{padding-bottom: 10px;padding-top:10px;border-bottom: 1px dashed #ddd;}
 .goods_wrap .block .title{font-size: 22px;}
 .goods_wrap .block .market-price{display:block;font-size: 14px;text-decoration: line-through;color: #999;}
-.goods_wrap .block .shop-price{display:block;color: #f00;font-size: 18px;margin-top: 5px;}
+.goods_wrap .block .market-price strong{color: #b12704!important;}
+.goods_wrap .block .shop-price{display:block;color: #b12704;font-size: 18px;margin-top: 5px;}
 .goods_wrap .block .attr-color{clear: both;margin-top: 8px;}
 .goods_wrap .block .attr-color .name{float: left;display: inline-block;width: 50px;height:20px;line-height: 20px;text-align: right;}
+.goods_wrap .block .attr-color ul{float:left;}
 .goods_wrap .block .attr-color li{float: left;display: inline;background-color: #fff;margin:5px;padding:1px;
-    border:1px solid #C8C9CD;vertical-align:middle;}
-.goods_wrap .block .attr-color li a{text-decoration:none;display: block;padding: 5px;color: #000;font-size: 15px;
+    border:1px solid #e0e0e0;vertical-align:middle;}
+.goods_wrap .block .attr-color li a{height:30px;text-decoration:none;display: block;padding: 3px 5px;color: #000;font-size: 15px;
     margin:-1px;border:2px solid #fff;}
 .goods_wrap .block .attr-color li a:hover{border: 2px solid #FF6701;margin: -1px;}
 .goods_wrap .block .attr-color .curr a{border: 2px solid #FF6701;margin: -1px;background:url(img/checked.gif) no-repeat right bottom;}
+.goods_wrap .block .attr-color .attr-price img{display:inline;overflow:hidden;float:left;}
+.goods_wrap .block .attr-color .attr-price span{float:left;line-height:30px;margin-left:10px;font-size:12px;display:inline;overflow:hidden;float:left;}
+.goods_wrap .block .attr-color .curr .attr-price  span{color:#b12704;}
 .goods_wrap .block .attr-size{}
 .goods_wrap .block .attr-size .name{float:left;display: inline-block; padding-top: 5px;width: 50px;text-align: right;}
 .goods_wrap .block .attr-size .size-select{float: left;margin-left: 5px;margin-top:2px;height:20px;line-height: 20px;}
@@ -45,6 +50,14 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .tab-block{}
 .tab-block span{height:35px;line-height: 35px;padding:0 20px;margin-right:10px;font-size:15px;
     text-align: center;display: inline-block;background-color: #ECECEC;}
+
+.share_block{float:left;margin-left:20px;}
+.share_block a{width:22px;height:22px;display:inline-block;float:left;margin-left:8px;}
+.share_block .facebook{background:url(img/facebook.png) no-repeat;}
+.share_block .pinterest{background:url(img/pinterest.png) no-repeat;}
+.share_block .twitter{background:url(img/twitter.png) no-repeat;}
+.share_block .googleplus{background:url(img/googleplus.png) no-repeat;}	
+	
 
 /*disp*/
 .goods_wrap .block .cart_alert{display:block;clear:both;border:1px solid #F00; text-align:left; line-height:35px; background:url(img/cart_alert.jpg) no-repeat #fff 5px center ; color:#F00;

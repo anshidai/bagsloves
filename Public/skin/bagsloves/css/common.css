@@ -9,7 +9,7 @@
 .top_bar .crossn li dt{height:28px; line-height:28px; margin-top:3px; border:1px solid transparent; padding:0 20px 0 8px; cursor:pointer; background:url(img/ico-img.png) right -107px no-repeat;}
 .top_bar .crossn li dt strong{width:40px; display:block; text-align:center;}
 .top_bar .crossn li dt.not_dd{background:none; padding-right:10px;}
-.top_bar .crossn li dd{padding:5px 10px 8px; border:1px solid #d1d1d1; background:#fff; position:absolute; top:31px; right:4px; display:none;}
+.top_bar .crossn li dd{padding:5px 10px 8px 17px; border:1px solid #d1d1d1; background:#fff; position:absolute; top:31px; right:4px; display:none;}
 .top_bar .crossn li dd img{margin-right:5px;}
 .top_bar .crossn li:hover dt{background-color:#fff; border:1px solid #d1d1d1; border-bottom:none; z-index:1011; position:relative; -webkit-border-radius-topleft:6px; -moz-border-radius-topleft:6px; border-top-left-radius:6px; -webkit-border-radius-topright:6px; -moz-border-radius-topright:6px; border-top-right-radius:6px; color:#333;}
 .top_bar .crossn li:hover dt.not_dd{background:none; border:1px transparent solid;}
