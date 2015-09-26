@@ -1,4 +1,4 @@
 Runtime/*
-Public/Uploads/*
+Public/Uploads/
 *.sql
 *.zip
