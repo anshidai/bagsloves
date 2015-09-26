@@ -104,6 +104,7 @@ $(function(){
         $(".jqzoom").attr('rel', $(this).find("img").attr("rel"));
 		$("#attr_color").val($(this).attr("attr"));
 		$(".attr_selected").show().find("strong").html($(this).attr("title"));
+		$("#shop-price").html($(this).find("span").html());
 
     });
     //zoom-img end
