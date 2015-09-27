@@ -62,7 +62,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 /*disp*/
 .goods_wrap .block .cart_alert{display:block;clear:both;border:1px solid #F00; text-align:left; line-height:35px; background:url(img/cart_alert.jpg) no-repeat #fff 5px center ; color:#F00;
     padding-left:40px !important;width: 200px; height:35px;margin:5px 0;position: absolute;left:25px;top:189px;}
-.goods_wrap .block .cart_ok{display: none; position: absolute;left:24px;top:193px;border:1px solid #669a11; text-align:center; width:300px;padding:10px 0;background-color:#fff}
+.goods_wrap .block .cart_ok{display: none; position: absolute;left:24px;top:193px;z-index:100;border:1px solid #669a11; text-align:center; width:300px;padding:10px 0;background-color:#fff}
 .goods_wrap .block .cart_ok .cart_ok_content{padding-top:8px;margin-bottom:8px;clear:both; color:#669a11; display:block;}
 .goods_wrap .block .cart_ok .cart_ok_content span{position:relative;top:-10px;left:0px;}
 .goods_wrap .block .cart_ok .cart_ok_content strong{color:red;font-weight: bold;}

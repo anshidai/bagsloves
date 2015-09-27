@@ -43,8 +43,12 @@ $(function(){
 	$("#add-cart").click(function(){
 		var form = document.cart_quantity;
 		$.post($(form).attr('action'),$(form).serialize(),function(data){
-			console.log(data.list)
 			if(!data.status){
+				if(data.url != '') {
+					alert(data.info);
+					location.href = data.url;
+					return;
+				}
 				jQuery('#cart_ok').hide();
 				jQuery('#cart_alert').html(data.info).fadeIn(200).delay(3000).fadeOut(200);
 			}else{
@@ -63,7 +67,7 @@ $(function(){
 						html += '</li>';
 					}
 					html += '</ul>';
-					html += '<div class="cart_pro_btn"><a href="'+CartUrl+'"><span class="cart_view">View Cart ( <span class="cart_num">'+data.list.length+'</span> item)</span></a></div>';
+					html += '<div class="cart_pro_btn"><a href="'+CartUrl+'"><span class="cart_view">View Cart ( <span class="cart_num">'+data.items_total+'</span> item)</span></a></div>';
 					$("#cart_list").html(html).show();
 					$("#cart_empty").hide();
 				}

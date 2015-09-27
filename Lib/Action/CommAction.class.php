@@ -105,6 +105,8 @@ class CommAction extends Action{
 		
 		//购物车商品
 		$this->cart_list = self::$Model->cart_list($this->sessionID);
+		$this->item_count = itemCount();
+		$this->total_count = TotalCount();
 
 		//会员等级
 		$this->memberGropuInfo=get_members_group($this->memberID);

@@ -81,7 +81,7 @@ var CartUrl='{:U('Cart/disp')}';
                         <notempty name="attrlist.1.name">
                         <strong class="name">Colors: </strong>
                         <eq name="attrlist.1.name" value="Colors">
-                        <input type="hidden" id="attr_color" name="attr[Colors]" value="" checked="checked">
+                        <input type="hidden" id="attr_color" name="attr[Colors]" value="<?=$attrlist[1]['attrs'][0]['attr_value']?>__<?=$attrlist[1]['attrs'][0]['attr_price']?>" checked="checked">
                         <ul>
                             <volist name="attrlist.1.attrs" id="vo" key="k">
                             <notempty name="vo['img_url']">

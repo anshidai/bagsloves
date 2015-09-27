@@ -18,10 +18,19 @@ class CartAction extends CommAction {
 			$this->error ( "You did not select any product!" );
 		}
 		//强制登录
-		/*if ($this->memberID <= 0 && GetValue('quickbuy')==0) {
-		echo "<script>alert('Please Log on!');location.href='".U('MemberPublic/Login')."';</script>";
-		die;
-		}*/
+		if ($this->memberID <= 0 && GetValue('quickbuy')==0) {
+			if($this->isAjax()){
+				$data = array(
+					'status' => 0,
+					'info' => 'Please Log on!',
+					'url' => U('MemberPublic/Login'),
+				);
+				echo json_encode($data);exit;;
+			}else {
+				echo "<script>alert('Please Log on!');location.href='".U('MemberPublic/Login')."';</script>";
+				exit;
+			}
+		}
 		$dao = D ( "Cart" );
 		self::$Model = D ( "Products" );
 		$prolist = self::$Model->where ( "id=" . $_POST ['id'] )->find ();
@@ -55,7 +64,7 @@ class CartAction extends CommAction {
 			$price_total = getprice_str(cart_total());
 			$data = array(
 				'status' => 1,
-				'info' => "<em class='add_ok'></em><span id='shopping_data'>Shopping Cart <a>{$item_count}</a> items Total {$price_total}</span>",
+				'info' => "<em class='add_ok'></em><span id='shopping_data'>Add <strong>{$_POST ['count']}</strong> items Goods To Cart Successful</span>",
 				'number_total' => $item_count,
 				'items_total' => $total_count,
 				'price_total' => $price_total,

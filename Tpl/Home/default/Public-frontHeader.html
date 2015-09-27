@@ -75,13 +75,13 @@
 						<span class="cart_pro_name"><a href="{$vo.url}">{$vo.name}</a></span>
 						<span class="cart_pro_property"><span>{$vo.attr}</span></span>
 						<span class="cart_pro_piece">{$vo.count} item(s)</span>
-						<span class="cart_pro_price FontColor">{$vo.pricespe}</span>
+						<span class="cart_pro_price FontColor">{$vo.pricespe_total}</span>
 					</li>
 					</foreach>
 					</notempty>
 				</ul>
 				<div class="cart_pro_btn">
-					<a href="{:U('Cart/disp')}"><span class="cart_view">View Cart ( <span class="cart_num"><?=!empty($cart_list)?count($cart_list):0?></span> item)</span></a>
+					<a href="{:U('Cart/disp')}"><span class="cart_view">View Cart ( <span class="cart_num"><?=!empty($total_count)?$total_count:0?></span> item)</span></a>
 				</div>
 			</div>
 			<!-- cart_list end-->
