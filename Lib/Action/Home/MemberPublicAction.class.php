@@ -47,7 +47,6 @@ class MemberPublicAction extends CommAction{
         if ($this->memberID > 0) {
             $this->redirect ( 'MemberIndex/index' );
         }
-        echo $_SESSION['back'];
         $this->display();
         
     }
@@ -73,10 +72,12 @@ class MemberPublicAction extends CommAction{
         
     }
     public function doLogin(){
+        
+        $url_referer = $_SESSION['urlReferer']; 
+        
         $this->waitSecond=3;
         if ($this->memberID>0){
-            $jumpUrl = !empty($_SESSION['back'])? $_SESSION['back']: U('MemberIndex/index');
-            $this->redirect ( $jumpUrl );
+            $this->redirect ( $url_referer? $url_referer: U('MemberIndex/index'));
         }
         $dao=D("Members");
 
@@ -105,11 +106,11 @@ class MemberPublicAction extends CommAction{
                 self::$Model=D("Shippingaddress");
                 $memberShippingAddress=self::$Model->where("id=".$list['id'])->find();
                 if (!$memberShippingAddress && $this->isAjax()) {
-                    $this->ajaxReturn('','noaddress',0);
-                }elseif (isset($_SESSION['back']) && !$this->isAjax()){
-                    redirect ($_SESSION['back']);
+                    $this->ajaxReturn(!empty($url_referer)? $url_referer: '','noaddress',0);
+                }elseif (isset($url_referer) && !$this->isAjax()){
+                    redirect ($url_referer);
                 }
-                $this->jumpUrl = !empty($_SESSION['back'])? $_SESSION['back']: U('MemberIndex/index');
+                $this->jumpUrl = !empty($url_referer)? $url_referer: U('MemberIndex/index');
                 $this->success("Login Successful!");
             }
         }

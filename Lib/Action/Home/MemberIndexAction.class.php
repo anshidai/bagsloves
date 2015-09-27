@@ -18,8 +18,8 @@ class MemberIndexAction extends MemberCommAction{
         $cartModel->where ( "uid='".Session::get("memberID")."' or session_id='" . Session::get('sessionID') . "'")->data ($data)->save();*/
         Session::set("memberID",0);
         
-        $jumpUrl = !empty($_SESSION['back'])? $_SESSION['back']: U('MemberPublic/Login');
-        redirect ( $jumpUrl);
+        $url_referer = !empty($_SESSION['urlReferer'])? $_SESSION['urlReferer']: U('MemberPublic/Login');
+        redirect ( $url_referer);
     }
     public function profav(){
         self::$Model = D ( "Products" );
