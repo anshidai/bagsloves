@@ -17,7 +17,7 @@ class MemberIndexAction extends MemberCommAction{
 		$data['session_id']='';
 		$cartModel->where ( "uid='".Session::get("memberID")."' or session_id='" . Session::get('sessionID') . "'")->data ($data)->save();*/
 		Session::set("memberID",0);
-		redirect ( 'MemberIndex-index' );
+		redirect ( U('MemberPublic/Login'));
 	}
 	public function profav(){
 		self::$Model = D ( "Products" );
