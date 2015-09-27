@@ -3,7 +3,7 @@
 class IndexAction extends CommAction {
 	public function index() {
 		$this->is_index=true;
-		Session::set('back',null);
+		//Session::set('back',null);
 		$this->display ();
 	}
 	public function Currencies() {

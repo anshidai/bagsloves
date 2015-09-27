@@ -8,6 +8,13 @@
  * @lastupdate 2010-11-24
  */
 class EmptyAction extends CommAction {
+	
+	function _initialize()
+	{
+		parent::_initialize();
+		Session::set('back', __SELF__);
+	}
+	
 	function _empty() {
 		$pathinfo=preg_replace("/(pid-|cid-){2,}/","$1",$_SERVER['PATH_INFO']);
 		
@@ -52,6 +59,7 @@ class EmptyAction extends CommAction {
 		return;
 	}
 	function good($pid) {
+		
 		$dao = D ( "Products" );
 		if(isset($_POST['id'])){
 			$pid=intval($_POST['id']);
@@ -250,6 +258,7 @@ class EmptyAction extends CommAction {
 
 	}
 	function cate($cid) {
+		
 		$this->catep = get_catep_arr ( $cid );//导航
 		//获取下级分类
 		$dao = D ( "Cate" );
@@ -312,6 +321,7 @@ class EmptyAction extends CommAction {
 		$this->display("Empty:cate");
 	}
 	function article($aid){
+		
 		parent::$Model=D('Article');
 
 		if(is_numeric($aid)){
@@ -391,6 +401,8 @@ class EmptyAction extends CommAction {
 		$this->display("Empty:sitemap");
 	}
 	function Reviews(){
+		Session::set( 'urlReferer', __SELF__);
+		
 		self::$Model=D("Products_ask");
 		$this->disp_text="Reviews";
 		if(isset($_REQUEST['id'])){
