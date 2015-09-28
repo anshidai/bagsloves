@@ -93,14 +93,42 @@
 </div>
 <!-- header end-->
 
-<div class="nav-menu index-menu w1200 clearfix">
-	<ul class="nav_item">
-		<li class="home-text"><a target="_parent" href="__ROOT__/" title="Home">Home</a></li>
-		<volist name="nav" id="vo">
-		<eq name="vo['type']" value="top">
-		<li><a href="{$vo.url}" target="_parent">{$vo.name}</a></li>
-		</eq>
+<div class="nav-wrap clearfix">
+<div class="nav-container clearfix">
+	<ul id="nav" class="clearfix">
+		<li><a target="_parent" href="__ROOT__/" title="Home">Home</a></li>
+		<volist name="catetree" id="vo" key="k">
+		<notempty name="vo.sub">
+		<li class="nav-{$k} level-top <?=($k==1)? 'first': ''?> parent">
+		<a href="{:build_url($vo,'cate_url')}" target="_parent"><span>{:build_url($vo,'cate_name')}</span></a>
+			<ul class="sub-nav">
+				<volist name="vo['sub']" id="subvo" key="j">
+				<li class="level2 <?php if($j==1){echo 'first';}elseif($j==count($vo['sub'])){echo 'last';}?> "><a target="_parent" href="{:build_url($subvo,'cate_url')}"><span>{:build_url($subvo,'cate_name')}</span></a></li>
+				</volist>
+			</ul>
+		</a>
+		</li>
+		<else />
+		<li class="level-top <?=($k==count($nav))? 'last': ''?>"> <a href="{:build_url($vo,'cate_url')}" target="_parent"><span>{:build_url($vo,'cate_name')}</span></a></li>
+		</notempty>
 		</volist> 
 	</ul>
 </div>
-<!-- nav-menu end-->
+<!-- nav-container end-->
+</div>
+
+<script type="text/javascript">
+$(function() {
+	var originalCur = $("#nav li.over");
+	$("#nav li.level-top").mousemove(function(){
+		$("#nav li.level-top").removeClass("over");	
+		$(this).addClass("over");		
+		$(this).children(".sub-nav").show().animate({left : 0,top : 40}, "fast");
+	});
+	$("#nav li.level-top").mouseleave(function(){
+		$(this).removeClass("over");	
+		$(this).children(".sub-nav").hide().animate();
+		originalCur.addClass("over");
+	});
+});
+</script>
