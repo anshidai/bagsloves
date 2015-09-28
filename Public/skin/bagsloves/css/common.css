@@ -27,16 +27,16 @@
 .top_bar .top_info li:hover dt>a{color:#333;}
 
 .header{background:#fff;}
-.header .logo-wp{width:380px; height:86px; }
-.header .logo{display:block; width:192px;height:86px; overflow:hidden;}
+.header .logo-wp{width:380px; height:86px;margin-top:15px;}
+.header .logo{display:block; height:86px; overflow:hidden;}
 .header .logo img{vertical-align:middle;}
 
-.search{width:300px; border:1px solid #e0dfe4; height:38px; margin:23px 22px 0; background:url(img/repeat-bg.png) top repeat-x;}
+.search{width:300px; border:1px solid #e0dfe4; height:38px; margin:35px 22px 0; background:url(img/repeat-bg.png) top repeat-x;}
 .search input{height:26px; border:0; outline:0;}
 .search .text{width:240px; line-height:28px; font-size:14px; padding:5px 4px; padding-left:8px; border:1px solid transparent;}
 .search .button{width:40px; height:38px; background-image:url(img/ico-img.png); background-position:right -212px; background-repeat:no-repeat; cursor:pointer;}
 
-.header_cart{position:relative; width:127px; height:43px; margin-top:20px; border:1px #fff solid;}
+.header_cart{position:relative; width:127px; height:43px; margin-top:30px; border:1px #fff solid;}
 .header_cart .cart_inner{height:30px; display:block; position:relative; z-index:1009; background:url(img/header_cart.png) no-repeat 20px 10px #fff; padding:8px 0 7px;}
 .header_cart .cart_count, .header_cart .cart_text{position:absolute; font-size:16px; font-weight:bold;}
 .header_cart .cart_count{left:28px; top:5px; width:30px; height:29px; text-align:center; display:none;}
@@ -58,7 +58,7 @@
 .header_cart .cart_pro_btn .cart_view{display:block; height:30px; line-height:30px; text-align:center; color:#333; cursor:pointer; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; box-shadow:0 2px 1px rgba(225,187,0,.85); border:1px #fb0 solid; background:#f5ce50; color:#333;}
 .header_cart .cart_pro_btn .cart_num{font-size:14px; font-weight:bold; color:#f30;}
 .header_active{border:1px #999 solid; -webkit-box-shadow:0 2px 7px rgba(0, 0, 0, 0.3); -moz-box-shadow:0 2px 7px rgba(0, 0, 0, 0.3); box-shadow:0 2px 7px rgba(0, 0, 0, 0.3);}
-.header_fly{background:url(img/header_fly.png) no-repeat left center; margin-top:28px; padding:0 10px 0 36px; border-right:1px #ddd solid; line-height:145%;}
+.header_fly{background:url(img/header_fly.png) no-repeat left center; margin-top:35px; padding:0 10px 0 36px; border-right:1px #ddd solid; line-height:145%;}
 
 .nav-menu{height:31px;position:relative;}
 .nav-menu .nav_item{display:inline-block;}

@@ -1,5 +1,5 @@
 *{font-family: Verdana;}
-body,html,h1,h2,h3,h4,h5,h6,big,small,sub,sup,input,select,textarea{font-size:12px; color:#333; -webkit-text-size-adjust:none; outline:0;}
+body,html,h1,h2,h3,h4,h5,h6,big,small,sub,sup,input,select,textarea{font-size:13px; color:#333; -webkit-text-size-adjust:none; outline:0;}
 header,footer,section,aside,nav,hgroup,figure,figcaption{display:block; margin:0; padding:0; border:none;}
 body,div,p,span,strong,b,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,select,textarea,blockquote{margin:0;padding:0;}
 h1,h2,h3,h4,h5,h6{font-weight:normal;}

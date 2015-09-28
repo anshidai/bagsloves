@@ -50,13 +50,6 @@
 
 <div class="header w1200 clearfix">
 	<div class="logo-wp fl"><a target="_parent"href="__ROOT__/" class="logo"><img src="__ROOT__/{:GetValue('sitelogo')}" alt="" border="0" /></a></div>
-	<div class="search fl"> 
-		<form class="form" action="{:U('Search/index')}" method="post">
-			<input type="text" name="key" placeholder="Search entire store here..." dataType="Require" msg="keywords is required!" class="text fl">
-            <input type="submit" class="button fr FontBgColor" value="">
-		</form>
-	</div>
-	<!-- search end-->
 	
 	<div class="header_cart fr" lang="_en">
 		<a target="_parent"href="{:U('Cart/disp')}" class="cart_inner">
@@ -90,6 +83,17 @@
 	<!-- header_cart end-->
 	
 	<div class="header_fly fr">Worldwide<br>Shipping</div>
+	
+	<div class="search fr"> 
+		<form class="form" action="{:U('Search/index')}" method="post">
+			<input type="text" name="key" placeholder="Search entire store here..." dataType="Require" msg="keywords is required!" class="text fl">
+            <input type="submit" class="button fr FontBgColor" value="">
+		</form>
+	</div>
+	<!-- search end-->
+	
+	
+	
 </div>
 <!-- header end-->
 

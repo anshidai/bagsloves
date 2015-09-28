@@ -2,7 +2,7 @@
 .menu-left{float: left;width: 215px;}
 .cat-title{height: 38px;background-color: #000;color:#fff;}
 .cat-title .tit{line-height: 38px; font-size: 18px;text-align: center;color:#fff;}
-.cat-list{margin-top: 15px;background-color:#F2F2F2;border:1px solid #ccc;border-top:0 none;}
+.cat-list{margin-top: 15px;font-size:13px;background-color:#F2F2F2;border:1px solid #ccc;border-top:0 none;}
 .cat-list li{line-height: 30px; }
 
 .cat-list .arrow_down,.cat-list .arrow_down:hover{font-weight:bold;background:url(img/arrow_u.png) #DEDEDE no-repeat 10px 12px;}
@@ -18,7 +18,7 @@
 .data{margin-top: 20px;}
 .cat-data-list{width:965px;float: left;margin-left: 20px;}
 .data-list li{text-align: center;width:235px;height:250px;margin-right:5px;margin-bottom:10px;float: left;display: inline;
-    overflow: hidden;border: 1px solid #ddd;}
+    overflow: hidden;border: 0 none;}
 .data-list li.right{margin-right: 0;}
 .data-list li .title{text-align: left;padding: 0 10px;line-height: 20px;}
 .data-list li .title a{color:#999;}
@@ -27,6 +27,7 @@
 .data-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;font-size:15px;}
 
 .thumb-list li {height:280px;}
+.thumb-list li.hr{clear:both;width:100%;display:block;height:1px;background-color:#ddd;overflow:hidden;margin:8px 0;padding:0;}
 .thumb-list li .title{height:40px;overflow:hidden;}
 .thumb-list li .thumb{text-align:left;margin-top:10px;}
 .thumb-list li .thumb img{ border:1px solid #fff;margin-left:4px;margin-bottom: 1px;cursor: pointer; }
