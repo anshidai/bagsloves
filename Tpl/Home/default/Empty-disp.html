@@ -56,12 +56,12 @@ var CartUrl='{:U('Cart/disp')}';
                 <span class="shopping-security"></span>
                 <form name="cart_quantity" action="{:U('Cart/add')}" method="post">
                 <input type="hidden" name="id" value="{$list.id}">
-                <div class="block short-hr clearfix">
+                <div class="block short-hr clearfix" style="padding-top:0;">
                     <h1 class="title">{:build_url($list,'pro_name')}</h1>
                 </div>
                 <div class="block short-hr clearfix">
                     <span class="market-price">Market Price: {:getprice_str($list['price'])} </span>
-                    <span class="shop-price">Price: {:getprice($list['price'],$list['pricespe'],false)} </span>
+                    <span class="shop-price">Price: <span id="shop-price">{:getprice($list['price'],$list['pricespe'],false)}</span> </span>
                 </div>            
                 <div class="block relative short-hr clearfix">
                     <div class="attr-size">
@@ -77,17 +77,17 @@ var CartUrl='{:U('Cart/disp')}';
                         </span>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="attr-color">
+                    <div class="attr-color clearfix">
                         <notempty name="attrlist.1.name">
                         <strong class="name">Colors: </strong>
                         <eq name="attrlist.1.name" value="Colors">
-                        <input type="hidden" id="attr_color" name="attr[Colors]" value="" checked="checked">
+                        <input type="hidden" id="attr_color" name="attr[Colors]" value="<?=$attrlist[1]['attrs'][0]['attr_value']?>__<?=$attrlist[1]['attrs'][0]['attr_price']?>" checked="checked">
                         <ul>
-                            <volist name="attrlist.1.attrs" id="vo">
+                            <volist name="attrlist.1.attrs" id="vo" key="k">
                             <notempty name="vo['img_url']">
-                            <li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="30" height="30" alt=""></a></li>
+                            <li <eq name="k" value="1">class="curr"</eq>><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="40" height="40" alt=""><span>{:getprice_str($vo['attr_price']? $vo['attr_price']: $list['pricespe'], false)}</span></a></li>
                             <else/>
-                            <li><a href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}">{$vo['attr_value']}</a></li>
+                            <li><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><span>{$vo['attr_value']}</span></a></li>
                             </notempty>                            
                             </volist>
                         </ul>
@@ -95,7 +95,9 @@ var CartUrl='{:U('Cart/disp')}';
                         </notempty>
                     </div>
                     <div class="clearfix"></div>
-                    <div class="attr_selected">Selected attribute: <strong></strong></div>
+					<notempty name="attrlist.1.name">
+                    <div class="attr_selected">Selected attribute: <strong><?=$attrlist[1]['attrs'][0]['attr_value']?></strong></div>
+					</notempty>
                     <div class="clearfix"></div>
                     <div class="cart_alert" id="cart_alert" style="display:none;">Please select Colors!</div>
                     <div class="cart_ok" id="cart_ok" style="display:none;">
@@ -110,17 +112,15 @@ var CartUrl='{:U('Cart/disp')}';
                 <!-- block end-->
                 <div class="block short-hr clearfix">
                     <div class="qty">
-                        <strong class="name">Qty: </strong>
+                        <!--<strong class="name">Qty: </strong>-->
                         <div class="number">
                             <span class="reduce" id="reduce_btn"></span>
                             <span class="input-number"><input type="text" name="count" value="1" id="goods_number" /></span>
                             <span class="increase" id="increase_btn"></span>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
                     <div class="add-cart">
                         <a href="javascript:;" class="add-btn" id="add-cart">Add To Bag</a>
-                        <a href="javascript:;" class="view-cart" id="go-cart"></a>
                     </div>
                 </div>
                 <!-- block end-->
@@ -130,6 +130,12 @@ var CartUrl='{:U('Cart/disp')}';
                         <a href="#rwt" class="first" rel="nofollow">Reviews ({$review_num|default="0"})</a> 
                         <a href="#rwt" class="write-review" rel="nofollow">Write a review</a>
                     </div>
+					<div class="share_block">
+						<a href="javascript:;" class="facebook" onclick="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(document.location.href)+'&amp;t='+encodeURIComponent(document.title));"></a>
+						<a href="javascript:;" class="pinterest" onclick="javascript:window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title)+'&media='+encodeURIComponent('{:GetValue('siteurl')}{:ltrim($list['bigimage'],'.')}')+'&description='+encodeURIComponent('{:build_url($list,'pro_name')}')+'&is_video=false');"></a>
+						<a href="javascript:;" class="twitter" onclick="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dtwitter%26utm_source%3Dtwitter.com&text='+encodeURIComponent(document.title));"></a>
+						<a href="javascript:;" class="googleplus" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dgoogleplus&hl=en-US');" ></a>
+					</div>
                 </div>
                 <!-- block end-->
                 <div class="block">
