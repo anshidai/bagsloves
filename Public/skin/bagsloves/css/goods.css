@@ -22,7 +22,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 
 .goods_wrap .shopping-security{position:absolute;top:0px;right:10px;z-index:100; width:151px;height:310px;
     display:inline-block;border:1px solid #ccc;background:url(img/banner_left.png) #fff no-repeat;overflow:hidden;}
-.goods_wrap .short-hr{margin-right:180px;}
+.goods_wrap .short-hr{/*margin-right:180px;*/}
 .goods_wrap .block{padding-bottom: 10px;padding-top:10px;border-bottom: 1px dashed #ddd;}
 .goods_wrap .block .title{font-size: 22px;}
 .goods_wrap .block .market-price{display:block;font-size: 14px;text-decoration: line-through;color: #999;}
@@ -56,8 +56,8 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .share_block .facebook{background:url(img/facebook.png) no-repeat;}
 .share_block .pinterest{background:url(img/pinterest.png) no-repeat;}
 .share_block .twitter{background:url(img/twitter.png) no-repeat;}
-.share_block .googleplus{background:url(img/googleplus.png) no-repeat;}	
-	
+.share_block .googleplus{background:url(img/googleplus.png) no-repeat;}    
+    
 
 /*disp*/
 .goods_wrap .block .cart_alert{display:block;clear:both;border:1px solid #F00; text-align:left; line-height:35px; background:url(img/cart_alert.jpg) no-repeat #fff 5px center ; color:#F00;
@@ -82,7 +82,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .block .add-cart .add-btn{float:left;display: inline-block; margin-right:10px;width: 163px;height: 36px;line-height: 36px;text-indent:45px;
     font-size:14px;font-weight: bold; color: #fff;text-decoration: none; background: url(img/add_cart_bg_red.png) no-repeat;}
 .goods_wrap .block .add-cart .add-btn:hover{background: url(img/add_cart_bg_red.png) no-repeat left -43px;}
-	.goods_wrap .block .view-cart{float:left;display: inline-block;width: 36px;height: 36px;
+    .goods_wrap .block .view-cart{float:left;display: inline-block;width: 36px;height: 36px;
     background:url(img/cart_ico.png) no-repeat;text-align: center;}
 .tips{}
 .tips strong{font-size: 14px;color:#999;display: block;margin-bottom: 10px;}

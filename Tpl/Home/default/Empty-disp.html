@@ -53,7 +53,7 @@ var CartUrl='{:U('Cart/disp')}';
             <!-- left end-->
             
             <div class="right relative">
-                <span class="shopping-security"></span>
+                <!--<span class="shopping-security"></span>-->
                 <form name="cart_quantity" action="{:U('Cart/add')}" method="post">
                 <input type="hidden" name="id" value="{$list.id}">
                 <div class="block short-hr clearfix" style="padding-top:0;">
@@ -95,9 +95,9 @@ var CartUrl='{:U('Cart/disp')}';
                         </notempty>
                     </div>
                     <div class="clearfix"></div>
-					<notempty name="attrlist.1.name">
+                    <notempty name="attrlist.1.name">
                     <div class="attr_selected">Selected attribute: <strong><?=$attrlist[1]['attrs'][0]['attr_value']?></strong></div>
-					</notempty>
+                    </notempty>
                     <div class="clearfix"></div>
                     <div class="cart_alert" id="cart_alert" style="display:none;">Please select Colors!</div>
                     <div class="cart_ok" id="cart_ok" style="display:none;">
@@ -130,12 +130,12 @@ var CartUrl='{:U('Cart/disp')}';
                         <a href="#rwt" class="first" rel="nofollow">Reviews ({$review_num|default="0"})</a> 
                         <a href="#rwt" class="write-review" rel="nofollow">Write a review</a>
                     </div>
-					<div class="share_block">
-						<a href="javascript:;" class="facebook" onclick="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(document.location.href)+'&amp;t='+encodeURIComponent(document.title));"></a>
-						<a href="javascript:;" class="pinterest" onclick="javascript:window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title)+'&media='+encodeURIComponent('{:GetValue('siteurl')}{:ltrim($list['bigimage'],'.')}')+'&description='+encodeURIComponent('{:build_url($list,'pro_name')}')+'&is_video=false');"></a>
-						<a href="javascript:;" class="twitter" onclick="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dtwitter%26utm_source%3Dtwitter.com&text='+encodeURIComponent(document.title));"></a>
-						<a href="javascript:;" class="googleplus" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dgoogleplus&hl=en-US');" ></a>
-					</div>
+                    <div class="share_block">
+                        <a href="javascript:;" class="facebook" onclick="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(document.location.href)+'&amp;t='+encodeURIComponent(document.title));"></a>
+                        <a href="javascript:;" class="pinterest" onclick="javascript:window.open('http://pinterest.com/pin/create/button/?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title)+'&media='+encodeURIComponent('{:GetValue('siteurl')}{:ltrim($list['bigimage'],'.')}')+'&description='+encodeURIComponent('{:build_url($list,'pro_name')}')+'&is_video=false');"></a>
+                        <a href="javascript:;" class="twitter" onclick="javascript:window.open('https://twitter.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dtwitter%26utm_source%3Dtwitter.com&text='+encodeURIComponent(document.title));"></a>
+                        <a href="javascript:;" class="googleplus" onclick="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent(document.location.href)+'%3Futm_medium%3Dgoogleplus&hl=en-US');" ></a>
+                    </div>
                 </div>
                 <!-- block end-->
                 <div class="block">
@@ -171,7 +171,7 @@ var CartUrl='{:U('Cart/disp')}';
             <!-- right end-->
 
         </div>
-		<div class="blank20"></div>
+        <div class="blank20"></div>
         <div class="clearfix">
             <div class="review-tit">
                 <h3 class="tit">Item Information</h3>

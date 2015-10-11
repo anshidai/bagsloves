@@ -5,13 +5,13 @@
         <ul class="cate-menu" style="display:block;">
           <volist name="vo['sub']" id="subvo">
             <eq name="subvo['subcount']" value="0">
-              <li <?=($cateid==$subvo['id'])? 'class="curr"': ''?>> <a target="_parent" href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')}</a> </li>
+              <li <?=($cateid==$subvo['id'])? 'class="curr"': ''?>> <a target="_parent" href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')} ({$subvo.procount})</a> </li>
             </eq>
             <gt name="subvo['subcount']" value="0">
-              <li <eq name="cateid" value="vo.id">class="curr"</eq>> <a target="_parent" href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')} </a>
+              <li <eq name="cateid" value="vo.id">class="curr"</eq>> <a target="_parent" href="{:build_url($subvo,'cate_url')}">{:build_url($subvo,'cate_name')} ({$subvo.procount})</a>
                 <ul>
                   <volist name="subvo['sub']" id="subvo2">
-                    <li><a target="_parent" href="{:build_url($subvo2,'cate_url')}">{:build_url($subvo2,'cate_name')}</a></li>
+                    <li><a target="_parent" href="{:build_url($subvo2,'cate_url')}">{:build_url($subvo2,'cate_name')} ({$subvo.procount})</a></li>
                   </volist>
                 </ul>
               </li>

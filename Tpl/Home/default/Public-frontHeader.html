@@ -107,7 +107,7 @@
 		<a href="{:build_url($vo,'cate_url')}" target="_parent"><span>{:build_url($vo,'cate_name')}</span></a>
 			<ul class="sub-nav">
 				<volist name="vo['sub']" id="subvo" key="j">
-				<li class="level2 <?php if($j==1){echo 'first';}elseif($j==count($vo['sub'])){echo 'last';}?> "><a target="_parent" href="{:build_url($subvo,'cate_url')}"><span>{:build_url($subvo,'cate_name')}</span></a></li>
+				<li class="level2 <?php if($j==1){echo 'first';}elseif($j==count($vo['sub'])){echo 'last';}?> "><a target="_parent" href="{:build_url($subvo,'cate_url')}"><span>{:build_url($subvo,'cate_name')}</span> ({$subvo.procount})</a></li>
 				</volist>
 			</ul>
 		</a>
