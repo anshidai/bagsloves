@@ -26,7 +26,7 @@
 .data-list li .make-price{text-decoration:line-through;}
 .data-list li .shop-price{margin-left: 10px;font-weight: bold;color:#f00;font-size:15px;}
 
-.thumb-list li {height:280px;}
+.thumb-list li {height:240px;}
 .thumb-list li.hr{clear:both;width:100%;display:block;height:1px;background-color:#ddd;overflow:hidden;margin:8px 0;padding:0;}
 .thumb-list li .title{height:40px;overflow:hidden;}
 .thumb-list li .thumb{text-align:left;margin-top:10px;}
