@@ -270,6 +270,9 @@ class ProductsAction extends AdminCommAction {
 			$this->cateid=$map ['cateid'] = $_GET ['cateid'];
 		}
 		$products_id=$_GET['id'];
+		
+		$this->products_info = D('Products')->where("id={$products_id}")->find();
+		
 		$this->products_id=$products_id;
 
 		//排除自己和已经关联

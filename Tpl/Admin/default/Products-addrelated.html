@@ -58,8 +58,10 @@ function(){
             关闭本页</a>
 			<div id="tab01">
             <form action="{:U('Products/addrelated',array('id'=>$products_id))}" method="get" >
-            <p><span class="msg info">
-     
+            
+			<h3>当前产品名称：{$products_info.name}</h3>
+			<p><span class="msg info">
+			
   产品名称:<input type="text" size="20" name="name" class="input-text" value="{$name}" />分类
   <select name="cateid" class="input-text" id="cateid1">
     <option value="">请选择...</option>
@@ -100,7 +102,8 @@ function(){
             <div id="tab02">
            
              <form action="{:U('Products/doAddRelatedByCate')}" method="post" >
-            <p><span class="msg info">
+            <h3>当前产品名称：{$products_info.name}</h3>
+			<p><span class="msg info">
      
   分类
   <select name="cateid" class="input-text" >
