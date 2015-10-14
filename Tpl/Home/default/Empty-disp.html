@@ -65,38 +65,43 @@ var CartUrl='{:U('Cart/disp')}';
                 </div>            
                 <div class="block relative short-hr clearfix">
                     <div class="attr-size">
+						<notempty name="attrs.Size">
                         <strong class="name">Size: </strong>
                         <span class="size-select">
-                            <eq name="attrlist.0.name" value="Size">
                             <select name="attr[Size]">
-                                <volist name="attrlist.0.attrs" id="vo">
+                                <volist name="attrs.Size.attrs" id="vo">
                                 <option value="{$vo.attr_value}">{$vo.attr_value}</option>
                                 </volist>
                             </select>
-                            </eq>
                         </span>
+						</notempty>
                     </div>
                     <div class="clearfix"></div>
                     <div class="attr-color clearfix">
-                        <notempty name="attrlist.1.name">
-                        <strong class="name">Colors: </strong>
-                        <eq name="attrlist.1.name" value="Colors">
-                        <input type="hidden" id="attr_color" name="attr[Colors]" value="<?=$attrlist[1]['attrs'][0]['attr_value']?>__<?=$attrlist[1]['attrs'][0]['attr_price']?>" checked="checked">
-                        <ul>
-                            <volist name="attrlist.1.attrs" id="vo" key="k">
-                            <notempty name="vo['img_url']">
-                            <li <eq name="k" value="1">class="curr"</eq>><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><img src="__ROOT__/{$vo['thumb_url']}" rel="__ROOT__/{$vo['img_url']}" width="40" height="40" alt=""><span>{:getprice_str($vo['attr_price']? $vo['attr_price']: $list['pricespe'], false)}</span></a></li>
-                            <else/>
-                            <li><a class="attr-price" href="javascript:;" attr="{$vo.attr_value}__{$vo.attr_price}" title="{$vo.attr_value}"><span>{$vo['attr_value']}</span></a></li>
-                            </notempty>                            
-                            </volist>
-                        </ul>
-                        </eq>
-                        </notempty>
+					
+					<notempty name="attrs.Colors">
+					<strong class="name">Colors: </strong>
+					<input type="hidden" id="attr_color" name="attr[Colors]" value="<?=$attrs['Colors']['attrs'][0]['attr_value']?>__<?=$attrs['Colors']['attrs'][0]['attr_price']?>" checked="checked">
+					<ul>
+					<volist name="related_attr_list" id="vo">
+						<volist name="vo" id="attr">
+							<eq name="attr.name" value="Colors">
+								<volist name="attr.attrs" id="color">
+									<notempty name="color['img_url']">
+									<li <if condition="$color.products_id eq $pid">class="curr"</if>><a class="attr-price" href="<if condition="$color.products_id eq $pid">javascript:;<else/>{:build_url($vo['product'],'pro_url')}</if>" attr="{$color['attr_value']}__{$color['attr_price']}" title="{$color['attr_value']}"><img src="__ROOT__/{$color['thumb_url']}" rel="__ROOT__/{$color['img_url']}" width="40" height="40" alt=""><span>{:getprice_str($color['attr_price']? $color['attr_price']: $list['pricespe'], false)}</span></a></li>
+									<else/>
+									<li><a class="attr-price" href="javascript:;" attr="{$color['attr_value']}__{$color['attr_price']}" title="{$color['attr_value']}"><span>{$color['attr_value']}</span></a></li>
+									</notempty> 
+								</volist>
+							</eq>
+						</volist>
+					</volist>
+					</ul>
+					</notempty>
                     </div>
                     <div class="clearfix"></div>
-                    <notempty name="attrlist.1.name">
-                    <div class="attr_selected">Selected attribute: <strong><?=$attrlist[1]['attrs'][0]['attr_value']?></strong></div>
+                    <notempty name="attrs.Colors">
+                    <div class="attr_selected">Selected attribute: <strong><?=$attrs['Colors']['attrs'][0]['attr_value']?></strong></div>
                     </notempty>
                     <div class="clearfix"></div>
                     <div class="cart_alert" id="cart_alert" style="display:none;">Please select Colors!</div>

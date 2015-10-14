@@ -62,6 +62,9 @@ class EmptyAction extends CommAction {
         if(isset($_POST['id'])){
             $pid=intval($_POST['id']);
         }
+		
+		$this->pid = $pid;
+		
         $list = $dao->where ( "id=" . $pid )->find ();
         if ($list) {
             $dao->viewcounts ( $pid );
@@ -139,49 +142,81 @@ class EmptyAction extends CommAction {
                 $this->next=build_url($next,'pro_url');
             }
             //获取产品属性
-            $attrlist=$dao->get_attrs($list['cateid'],$pid);
-            if(!$attrlist[0]['attrs']){
-                $attrlist[0]['name']='size';
-                $attrlist[0]['value']=array('nosize');
-                $attrlist[0]['values_count']=1;
-                $attrlist[0]['attrs']=array(0=>array('attr_value'=>'nosize'));
-            }
-            
-            $this->attrlist=$attrlist;
-            $this->attrcount=count($attrlist[0]['attrs']);
-
-
+            $attrlist = $dao->get_attrs($list['cateid'],$pid);
+			if($attrlist) {
+				foreach($attrlist as $k=>$val) {
+					$attrs[$val['name']] = $val;
+				}
+			}
+            $this->attrs = $attrs;
+            $this->attrcount = count($attrlist[0]['attrs']);
+			
+			//获取产品自身属性和关联产品的属性
+			$product_ids = array($pid);
+			$related_products_id = D('Products_related')->where("products_id={$pid}")->select();
+			if($related_products_id) {
+				foreach($related_products_id as $val) {
+					array_push($product_ids, $val['related_products_id']);
+				}
+			}
+			sort($product_ids);
+			foreach($product_ids as $product_id) {
+				$product_info = D('Products')->where("id=".$product_id)->find();
+				$related_attr_list[$product_id] = D('Products_attr')->get_attrs($product_info['cateid'], $product_id);
+				$related_attr_list[$product_id]['product'] = $product_info;
+			}
+			$this->related_attr_list = $related_attr_list;
+			
             if(!$realted_num=GetValue('realted_num')){
                 $realted_num=6;
             }
             //相同尺码相同颜色
-            $Pro_attrView=D('Pro_attrView');
-            $att_values=implode(',',array_map('reset',$Pro_attrView->field('attr_value')->where(array('products_id'=>$pid))->select()));
-            $attrs=array();
+            $Pro_attrView = D('Pro_attrView');
+            $att_values = implode(',',array_map('reset',$Pro_attrView->field('attr_value')->where(array('products_id'=>$pid))->select()));
+			$attrs_same = array();
             foreach ($attrlist as $k=>$attr){
-                $attrs[$k]['name']=$attr['name'];
-                $attrs[$k]['pro']=$Pro_attrView->where(array('attr_value'=>array('in',$att_values),'cateid'=>$list['cateid']))->group('id')->limit(5)->select();
+                $attrs_same[$k]['name'] = $attr['name'];
+                $attrs_same[$k]['pro'] = $Pro_attrView->where(array('attr_value'=>array('in',$att_values),'cateid'=>$list['cateid']))->group('id')->limit(5)->select();
             }
-            $this->attrs=$attrs;
+            $this->attrs_same = $attrs_same;
+			
             //获取同类产品,用户还买了什么产品
-            $sameclass=$dao->where(array('cateid'=>$list['cateid']))->limit($realted_num)->select();
-            $sameclass=$dao->rand($sameclass);
+            $sameclass = $dao->where(array('cateid'=>$list['cateid']))->limit($realted_num)->select();
+            $sameclass = $dao->rand($sameclass);
+	
             //类别产品数量
-            $this->cate_count=$dao->where(array('cateid'=>$list['cateid']))->count();
-            //产品位置
-            $this->postion=reset($dao->field('count(*)+1 as postion')->where("id<'".$pid."' and cateid='".$list['cateid']."'")->order('id desc')->find());
-            //获取关联产品
-            $Products_related_Model=D('Products_related');
-            $related=$Products_related_Model->field('b.*')->table(C('DB_PREFIX').'products_related a')->join(C('DB_PREFIX').'products b on a.related_products_id=b.id')->where(array('a.products_id'=>$pid))->limit($realted_num)->select();
-            empty($related)?$related=$sameclass:$related=$dao->rand($related);
-            $this->related=$related;
-            $this->sameclass=$sameclass;
+            $this->cate_count = $dao->where(array('cateid'=>$list['cateid']))->count();
+			
+			//产品位置
+            $this->postion = reset($dao->field('count(*)+1 as postion')->where("id<'".$pid."' and cateid='".$list['cateid']."'")->order('id desc')->find());
+			
+			//获取关联产品
+            $Products_related_Model = D('Products_related');
+            $related = $Products_related_Model->field('b.*')->table(C('DB_PREFIX').'products_related a')->join(C('DB_PREFIX').'products b on a.related_products_id=b.id')->where(array('a.products_id'=>$pid))->limit($realted_num)->select();
+			
+			//获取关联产品的属性
+			if($related) {
+				foreach($related as $k=>$val) {
+					$attrs = $dao->get_attrs($val['cateid'],$val['id']);
+					if($attrs) {
+						foreach($attrs as $at) {
+							$related[$k]['attrs'][$at['name']] = $at;
+						}
+					}
+				}
+			}
+
+			//没有关联产品则随机
+			//empty($related)? $related = $sameclass: $related = $dao->rand($related);
+			
+            $this->related = $related;
+            $this->sameclass = $sameclass;
 
             //欢迎词
             $dao= D('Ad');
             $this->welcome = $dao->where(array('remark'=>'产品内页欢迎词'))->getField('content');
-            //获取产品
-            //相册
+            
+			//获取产品相册
             $dao = D ( "Products_gallery" );
             $gallerys = $dao->where ( "pid=" . $pid )->order ( "sort desc" )->select ();
             if(GetValue('auto_find_gallery')){
@@ -200,13 +235,13 @@ class EmptyAction extends CommAction {
             $this->gallerys=$gallerys;
 
 
-
             $this->catep = get_catep_arr ( $list ['cateid'] );
             $classModel=D("Cate");
             //类别信息
             $this->cate=$cate=$classModel->where(array('id'=>$list['cateid']))->find();
             $classid=$list ['cateid'];
             $this->cateid=$classid;
+			
             //SEO相关
             if (! empty ( $list ['pagekey'] ) || !$classid) {
                 $this->assign ( 'pagekeywords',  $list ['pagekey'] );

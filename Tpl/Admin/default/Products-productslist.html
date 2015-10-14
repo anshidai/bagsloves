@@ -180,7 +180,7 @@ function(){
 				</tr>
                 <volist name="list" id="vo">
                 <tr >
-                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:u('Products/edit',array('id'=>$vo['id']))}">{$vo['id']}</a></td>
+                    <td style="text-align:left" ><input type="checkbox" name="id[]" value="{$vo.id}" /> <a href="{:build_url($vo,'pro_url')}" target="_blank">{$vo['id']}</a></td>
 				    <td style="text-align:left" id="classname" >
                     <notempty name="vo['cj_url']"><a href="javascript:;" onclick="window.open('{$vo.cj_url}')">[ 原地址 ]</a>&nbsp;&nbsp;</notempty>
 				    <a <notempty name="vo['smallimage']">class="preview" href="../{$vo['smallimage']}"<else/>href="javascript:void(0);"</notempty> title="{$vo.name}">{$vo.name}</a>
