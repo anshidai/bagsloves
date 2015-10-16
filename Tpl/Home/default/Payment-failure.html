@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{:Meta($pagetitle,$pagekeywords,$pagedesc,$list)}
+
+<Link href="__PUBLIC__/skin/images/style.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/bagsloves/css/respond_pay.css" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
+</head>
+<body>
+<include file="Public:header" />
+<include file="Public:left" />
+
+<div class="col2">
+
+<div class="payment-block clearfix">
+    <div class="positions">Your Postion: <a href="/">Home</a> &gt; payment error</div>
+    <div class="error-tips">
+        <div class="fail-table">
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tbody><tr>
+                    <td class="td-l">transaction date</td>
+                    <td class="td-r"><?=date('m/d/Y H:i:s')?></td>
+                    <td class="td-l">order number</td>
+                    <td class="td-r">{$orderinfo['sn']}</td>
+                </tr>
+                <tr>
+                    <td class="td-l">sum</td>
+                    <td class="td-r"><?=$_SESSION['currency']['symbol']?> {$orderinfo['orders_total']}</td>
+                    <td class="td-l">trading result</td>
+                    <td class="td-r c-red">Paid failed, return and try it again!</td>
+                </tr>
+                <tr>
+                    <td class="td-l">product link</td>
+                    <td class="td-r td-colspan" colspan="3">
+					<notempty name="order_product_info">
+					<foreach name="order_product_info" item="vo">
+						<a href="{:build_url($vo, 'products_id')}">{$vo['products_name']}</a><br>
+					</foreach>
+					</notempty>
+				</td>
+                </tr>
+            </tbody></table>
+        </div>
+    </div> 
+	<br><br><br><br>
+    <i class="fail-ico"></i>
+    <div class="tips-txt">
+        <p class="tit">Sorry, your payment was failed, the reason may be as followed:</p><br>
+        <p class="cred">Error return : orderInfo</p>
+        <p class="cred">Error return explaination: orderInfo</p><br>
+        <p class="tit">If you want to continue the transaction, we suggest you:</p>
+        <p class="cred">1.contact the issuing bank to prove that the transaction was done by yourself.</p>
+        <p class="cred">2.try another credit card.</p>
+        <p>For further questions, please contact : service@bagsloves.com</p><br>
+        <p class="tit">You can also :</p>
+        <p class="links">
+            <a href="/">Home</a>
+            <a class="cred" href="{:U('MemberIndex/Orders')}">Back to payment page</a>
+            <a href="{:U('Cart/disp')}">Back to Shopping Cart</a>
+        </p>
+    </div>
+
+</div>
+
+
+</div>
+
+  <include file="Public:footer" />

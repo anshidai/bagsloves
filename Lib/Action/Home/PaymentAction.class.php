@@ -294,22 +294,31 @@ class PaymentAction extends CommAction{
         if($getsignature != $signature) {
             die('Signature error!');
         }
-
+		
         if($allow2 != '') {
             $logoinfo = M('moneybraceLogo')->where("id='1'")->find();
             if($allow2 != $logoinfo['logoname']) {
                 M('moneybraceLogo')->where("id='1'")->save(array('logoname'=>$allow2));
             }
         }
-        
-        echo "<html>";
-        echo "<head><title>Payment Return!</title>\n";
-        echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n";
-        echo "<body >\n";
-        echo "<center><h2>Order SN:".$merch_order_id."</h2></center>\n";
-        
+
         self::$Model = D("Orders");
-        
+		
+		//查询订单相关信息
+		$orderinfo = self::$Model->where("sn='".$merch_order_id."'")->find();
+		if(empty($orderinfo)) {
+			die('Signature error!');
+		}
+		$this->orderinfo = $orderinfo;
+		
+		$order_product_info = D('OrdersProducts')->where("orders_id='{$orderinfo['id']}'")->select();
+		if($order_product_info) {
+			foreach($order_product_info as $k=>$val) {
+				$order_product_info[$k]['name'] = $val['products_name'];
+			}
+		}
+		$this->order_product_info = $order_product_info;
+
         //根据得到的数据  进行相对应的操作
         //$status Y-交易成功 T-处理当中 N-交易失败
         if($status == 'Y') {
@@ -317,20 +326,13 @@ class PaymentAction extends CommAction{
             self::$Model->where("sn='".$merch_order_id."'")->save($data); //修改订单支付状态
             give_member_points($merch_order_id); //赠送用户积分
             
-            echo "<center><h2>Payment successful!</h2></center>\n";
-            echo "Transaction Amount: {$price_currency}".$price_amount."<br/>";
-        }elseif($status == 'T'){  
+			$this->display('succeed');
+			
+        }else if($status == 'N'){  
             $data['orders_status'] = "1";
             self::$Model->where("sn='".$merch_order_id."'")->save($data);  //修改订单状态为正在付款中
-                
-            echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n";
-        }else {
-           echo "<center><h2>Payment Failure!<br/>".$message."</h2></center>\n"; 
         }
-        
-        echo "<center><a href=\"".__APP__."\">Go Home Page</a></center>\n";
-        echo "</body></html>\n";
-
+		$this->display('failure');
     }
     
     public function  moneybrace_http()

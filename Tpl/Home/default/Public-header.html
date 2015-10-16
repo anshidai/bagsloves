@@ -22,8 +22,8 @@
 						<td>
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
+                                    <?php if(strtolower(MODULE_NAME) != 'cart' && strtolower(MODULE_NAME) != 'payment' && strtolower(ACTION_NAME) != 'payment') {?>
 									<td style="padding-top:15px;">Currencies: &nbsp;</td>
-                                    <?php if(strtolower(MODULE_NAME) != 'cart' && strtolower(ACTION_NAME) != 'payment') {?>
 									<td style="padding-left:5px;"> <select name="Currencies" onchange="document.Currencies.submit();">
 									<option value="">Please select...</option>
 									<volist name="currencies" id="vo">

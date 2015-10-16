@@ -1,0 +1,20 @@
+.payment-block{margin-left:10px;}
+.payment-block .positions{line-height:35px;text-indent:12px;text-align:left;font-size:14px;background-color:#f2f2f2;}
+.payment-block .error-tips{height:120px;margin:20px auto 0;}
+.payment-block .fail-ico{display:inline-block;float:left;width:96px;height:105px;margin-top:10px;
+    background:url(img/error-ico.png) no-repeat;}
+.payment-block .right-ico{display:inline-block;width:96px;height:105px;margin-top:10px;
+    background:url(img/right-ico.png) no-repeat;}
+.payment-block .fail-table{font-size:14px;clear:both;}
+.payment-block .fail-table table{border-collapse:collapse;}
+.payment-block .fail-table td{line-height:36px;text-align:center;border:1px solid #ccc;}
+.payment-block .fail-table td.td-l{width:145px;background-color:#f2f2f2;}
+.payment-block .fail-table td.td-r{width:240px;background-color:#ffffcd;}
+.payment-block .fail-table td.td-colspan{padding:5px 10px;line-height:24px;text-align:left;}
+.payment-block .fail-table td.c-red{color:#f00;}
+.payment-block .fail-table td.c-blue{color:#288f00;}
+.payment-block .tips-txt{float:left;padding-top:10px;margin-left:20px;text-align:left;}
+.payment-block .tips-txt p{font-size:14px;line-height:34px;margin:0;}
+.payment-block .tips-txt .cred,.payment-block .tips-txt .cred a{color:#f00;}
+.payment-block .tips-txt .tit{font-weight:700;}
+.payment-block .tips-txt .links a{margin-right:15px;}
