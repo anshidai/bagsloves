@@ -343,11 +343,12 @@ function(){
              <div id="tab05">
                <a href="{:U('Products/addrelated',array('id'=>$list['id'],'cateid'=>$list['cateid']))}">添加关联产品</a>                	<div>
 <form action="{:U('Products/doDelRelated')}" method="post" id="listform" name="related">
+<h3>当前产品名称：{$list['name']}</h3>
 <table width="100%">
 				<tr pid="0">
-				    <th style="text-align:center" width="7%"><input type="checkbox" id="checkAll"/></th>
-				    <th style="text-align:center" width="25%">产品名称</th>
-				    <th style="text-align:center" >操作</th>
+				    <th style="text-align:center;width:35px;"><input type="checkbox" id="checkAll"/></th>
+				    <th style="text-align:center">产品名称</th>
+				    <th style="text-align:center;width:80px;" >操作</th>
 			    </tr>
                 <volist name="related" id="vo">
                 <tr >
