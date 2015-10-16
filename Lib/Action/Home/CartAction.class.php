@@ -109,28 +109,32 @@ class CartAction extends CommAction {
 				$this->error("Not be less than $minimum_money minimum!");
 			}
 			if ($this->memberID <= 0 && GetValue('quickbuy')==0) {
-				Session::set('back',U('Cart/checked_payment'));
+				Session::set('back',U('Cart/checked_pment'));
 				$this->redirect ( 'MemberPublic/Login' );
 			}
 			$_SESSION['guest']=0;
-			$this->redirect ( 'Cart/checked_payment' );
+			$this->redirect ( 'Cart/checked_pment' );
 
 		}elseif($_REQUEST['guest']){//非强制登录
 			$_SESSION['guest']=1;
-			$this->redirect ( 'Cart/checked_payment');
+			$this->redirect ( 'Cart/checked_pment');
 		}else{
 			$this->redirect ( 'Cart/disp' );
 		}
 
 	}
-
-	function checked_payment(){
+	
+	/**
+	* 之前当前方法名叫checked_payment, 第三方接口那边说url不能含有pay,payment字样
+	* 现改成checked_pment
+	*/
+	function checked_pment(){
 		if ($this->memberID <= 0  && GetValue('quickbuy')==0 && !$_SESSION['guest']) {
-			Session::set('back',U('Cart/checked_payment'));
+			Session::set('back',U('Cart/checked_pment'));
 			$this->redirect ( 'MemberPublic/Login' );
 		}
 		if (! $this->memberShippingAddress && GetValue('quickbuy')==0  && !$_SESSION['guest']) {
-			Session::set('back',U('Cart/checked_payment'));
+			Session::set('back',U('Cart/checked_pment'));
 			$this->redirect ( 'MemberIndex/ShippingAddress' );
 		}elseif($_SESSION['guest']){
 			$this->quickbuy=1;//不强制会员登录
@@ -162,7 +166,7 @@ class CartAction extends CommAction {
 		$this->paymentlist = self::$Model->getlist ();
 
 
-		$this->disp ();
+		$this->display('checked_payment');
 	}
 	public function checkout() {
 
@@ -173,7 +177,7 @@ class CartAction extends CommAction {
 		}
 
 		if ($this->memberID <= 0  && GetValue('quickbuy')==0 && !$_SESSION['guest']) {
-			Session::set('back',U('Cart/checked_payment'));
+			Session::set('back',U('Cart/checked_pment'));
 			$this->redirect ( 'MemberPublic/Login' );
 		}
 		if (! isset ( $_POST ['shipping_id'] ) || empty($_POST ['shipping_id'])) {
@@ -293,7 +297,7 @@ class CartAction extends CommAction {
 				$sendto=array($delivery_list['delivery_email'],GetValue('mailcopyTo'));//抄送
 				$body=$this->fetch("MailTpl:checkout");
 				sendmail($sendto,GetValue('sitename')." - new order(SN:".$orders_model->sn.")!",$body)	;
-				$this->redirect ( 'Cart/payment', array ('id' => $orders_id ) );
+				$this->redirect ( 'Cart/pment', array ('id' => $orders_id ) );
 			}else {
 				$this->error ( $orders_model->getError () );
 			}
@@ -302,11 +306,15 @@ class CartAction extends CommAction {
 			$this->error ( self::$Model->getError () );
 		}
 	}
-
-	public function payment() {
+	
+	/**
+	* 之前当前方法名叫payment, 第三方接口那边说url不能含有pay,payment字样
+	* 现改成pment
+	*/
+	public function pment() {
 		//如果是快速购物则强制登录
 		if ($this->memberID <= 0  && GetValue('quickbuy')==0 && !$_SESSION['guest']) {
-			Session::set('back',U('Cart/checked_payment'));
+			Session::set('back',U('Cart/checked_pment'));
 			$this->redirect ( 'MemberPublic/Login' );
 		}
 		$orders_id = $_GET ['id'];
@@ -342,7 +350,7 @@ class CartAction extends CommAction {
 				$remark=str_replace(array('{sn}','{time}','{payname}','{total}','{go}','{admin_email}'),array($list['sn'],toDate($list['dateline']),$list['payment_module_code'],getprice_str($list['orders_total']),"<input type=\"button\" value=\"Click Here\" onclick=\"document.forms['pay_form'].submit();\" />",GetValue('email')),$remark);
 			}
 			$this->remark=$remark;
-			$this->display ();
+			$this->display ('payment');
 		}else{
 			$this->error('Please select a payment method!');
 		}

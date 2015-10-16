@@ -76,7 +76,7 @@ $(function() {
      </eq></strong></td>
 
     <td bgcolor="#F5f5f5" height="30" align="center"><strong>  <eq name="vo['orders_status']" value="1">
-          <a href="{:U('Cart/payment',array("id"=>$vo['id']))}" target="_blank" style="color:#006699; text-decoration:underline">Pay It</a>
+          <a href="{:U('Cart/pment',array("id"=>$vo['id']))}" target="_blank" style="color:#006699; text-decoration:underline">Pay It</a>
           </eq>
           <eq name="vo['orders_status']" value="3">
           <a href="{:U('MemberIndex/ConfirmOrders',array("id"=>$vo['id']))}" style="color:#006699; text-decoration:underline">Confirm receipt</a>

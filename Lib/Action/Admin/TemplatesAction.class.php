@@ -17,7 +17,7 @@ class TemplatesAction extends AdminCommAction{
 	array("Ajax-shippingaddress.html","js收货地址"),
 	array("Article-Article_list.html","文章列表页"),
 	array("Article-index.html","文章内容页"),
-	array("Cart-checked_payment.html","购物车确认付款页"),
+	array("Cart-checked_pment.html","购物车确认付款页"),
 	array("Cart-disp.html","购物车产品列表页"),
 	array("Cart-payment.html","购物车最终付款页面"),
 	array("Down-index.html","下载列表页"),
