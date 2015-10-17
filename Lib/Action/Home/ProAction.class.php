@@ -144,18 +144,31 @@ class ProAction extends CommAction {
 	 */
 	public function insert_ask(){
 		self::$Model = D("Products_ask");
-		$this->jumpUrl=U('Pro/guestbook');
+		//$this->jumpUrl=U('Pro/guestbook');
 		if ($list=self::$Model ->create()){
-			$list['status']=1;//是否审核
+			$list['status'] = '0';//是否审核
 			$list['ip']=get_client_ip();
 			$list['dateline']=time();
 			import("ORG.Util.Input");
 			$list['content'] = Input::safeHtml($list['content']);
-			//是否产品的评论
+			
+			$email_reg = '/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/i'; 
+			if(empty($list['email']) || !preg_match($email_reg, $list['email'])) {
+				$this->error('Please fill in the email correctly.'); 
+			}
+			if(empty($list['content'])) {
+				$this->error('Please enter content.');
+			}
+			if(strlen($list['content'])<10) {
+				$this->error('Please enter content may not be less than 10 characters.');
+			}
+
+			//检查当前评论产品是否存在
 			$id=intval($list['products_id']);
-			if(!empty($id)){
-				$pro=D('Products')->find($id);
-				$this->jumpUrl=build_url($pro,'pro_url');
+			$pro=D('Products')->find($id);
+			$this->jumpUrl=build_url($pro,'pro_url');
+			if(empty($pro)){
+				$this->error('Sorry, to comment on the product does not exist.');
 			}
 			if(self::$Model->add($list)){
 				$ask_mail_enable=GetValue('ask_mail_enable');
@@ -167,9 +180,7 @@ class ProAction extends CommAction {
 					}else{
 						$products_id="";
 					}
-					sendmail($sendto,"你的网站 ".GetValue('sitename')." 有一个新的评论!",/*正文*/
-					"<table><tr><td>星级:</td><td>{$list['star']}星</td></tr><tr><td>类型:</td><td>{$list['type']}$products_id</td></tr><tr><td>邮箱:</td><td>{$list['email']}</td><tr><td>昵称:</td><td>{$list['name']}</td></tr><tr><td>标题:</td><td>{$list['title']}</td></tr><tr><td>内容:</td><td>{$list['content']}</td></tr><tr><td>IP地址:</td><td>{$list['ip']}</td></tr></table>"
-					/*正文*/);
+					//sendmail($sendto,"你的网站 ".GetValue('sitename')." 有一个新的评论!", "<table><tr><td>星级:</td><td>{$list['star']}星</td></tr><tr><td>类型:</td><td>{$list['type']}$products_id</td></tr><tr><td>邮箱:</td><td>{$list['email']}</td><tr><td>昵称:</td><td>{$list['name']}</td></tr><tr><td>标题:</td><td>{$list['title']}</td></tr><tr><td>内容:</td><td>{$list['content']}</td></tr><tr><td>IP地址:</td><td>{$list['ip']}</td></tr></table>");
 				}
 
 				$this->success('Your message has been submitted!');
@@ -177,7 +188,8 @@ class ProAction extends CommAction {
 				$this->error('Failure to submit your message!');
 			}
 		}else{
-			$this->redirect("Index/index");
+			$this->error('Failure to submit your message!');
+			//$this->redirect("Index/index");
 		}
 	}
 }

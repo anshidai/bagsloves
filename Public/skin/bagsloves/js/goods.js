@@ -139,6 +139,52 @@ $(function(){
     rateStar();
 });
 
+function submitComment()
+{  
+    var quslity_rank = $("#quslity_rank").val();
+    var email = $("#review_email").val();
+    var products_id = $("#products_id").val();
+    var comment_type = $("#comment_type").val();
+    var review_content = $("#review_content").val();
+	var email_reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/; 
+	
+	if(email == '' || !email_reg.test(email)) {
+		alert('Please fill in the email correctly.');
+        return false;  
+	}
+
+    if(review_content == '') {
+        alert('Please enter content.');
+        return false;  
+    } else if(review_content.lenght <10) {
+        alert('Please enter content may not be less than 10 characters.');
+        return false;  
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/index.php/Pro-insert_ask.html',
+        data: {
+            products_id: products_id, 
+            star: quslity_rank, 
+            email: email, 
+            type: comment_type, 
+            title: $("#review_title").val(),
+            name: $("#review_nickname").val(),
+            content: review_content, 
+        },
+        success: function(data){
+            if(data.status == '0') {
+                alert(data.info);
+                //location.replace(location.href);    
+            }else {
+                alert(data.info);  
+				$("#comment-layer").hide();
+            }
+        },
+        dataType:'json'
+    });
+}
+
 
 function showlayer(obj)
 {   
@@ -188,6 +234,7 @@ function rateStar()
         });   
     });
     
+	/*
     var value_star = $('#value_star span');
     var value_status = false;
     value_star.each(function(i){
@@ -204,7 +251,7 @@ function rateStar()
             value_status = true; 
         });   
     });
-    
+	
     var price_star = $('#price_star span');
     var price_status = false;
     price_star.each(function(i){
@@ -220,5 +267,6 @@ function rateStar()
             $('#price_rank').val(price_star.eq(i).attr('value'));
             price_status = true; 
         });   
-    });  
+    }); 
+	*/	
 }

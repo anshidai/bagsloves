@@ -812,10 +812,10 @@ class ProductsAction extends AdminCommAction {
 			$status=$this->dao->where(array('id'=>$id))->getField($type);
 			if($status==1){
 				$status=0;
-				$data['imgurl']=__ROOT__.'/Tpl/default/Public/images/mod_0.gif';
+				$data['imgurl']=__ROOT__.'/Public/skin/images/mod_0.gif';
 			}else{
 				$status=1;
-				$data['imgurl']=__ROOT__.'/Tpl/default/Public/images/mod_1.gif';
+				$data['imgurl']=__ROOT__.'/Public/skin/images/mod_1.gif';
 			}
 			$map['id']=$id;
 			$data[$type]=$status;

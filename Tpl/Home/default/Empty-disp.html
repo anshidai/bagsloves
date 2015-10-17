@@ -262,7 +262,7 @@ var CartUrl='{:U('Cart/disp')}';
                         <div class="comment-block clearfix">
                             <div class="comment-sider">
                                 <strong>{$vo.name}</strong>
-                                <span class="date">{$vo.dateline|date="d/m/Y",###}<br></span>
+                                <span class="date">{$vo.dateline|date="m/d/Y",###}<br></span>
                             </div>
                             <div class="comment-right">
                                 <div class="inner-block">
@@ -273,8 +273,6 @@ var CartUrl='{:U('Cart/disp')}';
                                 <div class="rating-box">
                                     <ul>
                                         <li><span class="name">Quality</span><div class="startbox"><span class="length" style="width:<?=$vo['star']*10?>%;"></span></div></li>
-                                        <li><span class="name">Value</span><div class="startbox"><span class="length" style="width:<?=$vo['star']*10?>%;"></span></div></li>
-                                        <li><span class="name">Price</span><div class="startbox"><span class="length" style="width:<?=$vo['star']*10?>%;"></span></div></li>
                                     </ul>
                                 </div>
                             </div>
@@ -302,44 +300,20 @@ var CartUrl='{:U('Cart/disp')}';
 
 <!-- comment-layer start -->
 <div class="comment-layer" id="comment-layer">
-    <input type="hidden" name="quslity_rank" id="quslity_rank" value="5">
-    <input type="hidden" name="value_rank" id="value_rank" value="5">
-    <input type="hidden" name="price_rank" id="price_rank" value="5">
-    <input type="hidden" name="cmt_type" id="cmt_type" value="0">
-    <input type="hidden" name="id" id="goods_id" value="{$list.id}">
+    <input type="hidden" name="star" id="quslity_rank" value="5">
+    <input type="hidden" name="type" id="comment_type" value="Review">
+    <input type="hidden" name="products_id" id="products_id" value="{$list.id}">
     <div class="header-tit">Tell us what you think about this item:</div>
     <div class="overall-raiting clearfix">
         <div class="win-top clearfix">
             <div class="left clearfix">
                 Overall Rating <em class="cred">*</em><br>
-                select the number of stars that reflect <br>
-                your overall item rating<br>
             </div>
             <div class="right clearfix">
                 <ul class="rating-box">
                     <li>
                         <span class="name">Quality</span>
                         <div class="startbox movestar" id="quslity_star">
-                            <span value="1" class="active-star"></span>
-                            <span value="2" class=""></span>
-                            <span value="3" class=""></span>
-                            <span value="4" class=""></span>
-                            <span value="5" class=""></span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="name">Value</span>
-                        <div class="startbox movestar" id="value_star">
-                            <span value="1" class="active-star"></span>
-                            <span value="2" class=""></span>
-                            <span value="3" class=""></span>
-                            <span value="4" class=""></span>
-                            <span value="5" class=""></span>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="name">Price</span>
-                        <div class="startbox movestar" id="price_star">
                             <span value="1" class="active-star"></span>
                             <span value="2" class=""></span>
                             <span value="3" class=""></span>
@@ -376,11 +350,15 @@ var CartUrl='{:U('Cart/disp')}';
             <dl class="form-dl clearfix">
                 <dd>
                     <strong>Nickname: </strong>
-                    <div class="input-comment"><input type="text" name="nickname" name="{$member_Info.lastname} {$member_Info.firstname}" id="review_nickname" class="input-text"></div>
+                    <div class="input-comment"><input type="text" name="name" value="{$member_Info.lastname} {$member_Info.firstname}" id="review_nickname" class="input-text"></div>
+                </dd>
+				<dd>
+                    <strong>Email: </strong>
+                    <div class="input-comment"><input type="text" name="email" value="{$member_Info.email}" id="review_email" class="input-text"></div>
                 </dd>
                 <dd>
                     <strong>Review Title: </strong>
-                    <div class="input-comment"><input type="text" name="title" id="review_title" class="input-text"></div>
+                    <div class="input-comment"><input type="text" name="title" id="review_title" value="{$list.name}" class="input-text"></div>
                 </dd>
                 <dd>
                     <strong>Overall Review: <em class="cred">*</em></strong>

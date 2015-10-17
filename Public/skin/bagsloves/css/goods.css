@@ -116,13 +116,13 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .average-rating .rating-box .average_p{font-size:14px;}
 .average-rating .point_start{width:120px;height:24px; margin:0 auto;overflow:hidden;background:url(img/unactive-star.png) repeat-x;}
 .average-rating .point_start .length{display:block;height:24px; background:url(img/active-star.png) repeat-x;}
-.separate-rating{position:absolute;right:35px; top:120px; width:250px;height:150px;}
+.separate-rating{position:absolute;right:35px; top:120px; width:270px;height:150px;}
 .separate-rating .minsart{height:18px;padding:5px 0;clear:both; overflow:hidden;}
 .separate-rating .minsart .startbox{display:inline-block;width:85px;height:16px;margin-left:5px;overflow:hidden; background:url(img/min-unactive-star.png) repeat-x;}
 .separate-rating .minsart .startbox .length{display:block;height:16px;background:url(img/min-active-star.png) repeat-x;}
 .separate-rating .minsart .scrollbox{display:inline-block;width:71px;height:13px;margin-left:5px;overflow:hidden; background:url(img/scroll_bar_off.jpg) repeat-x;}
 .separate-rating .minsart .scrollbox .length{display:block;height:13px;background:url(img/scroll_bar_on.jpg) repeat-x;}
-.separate-rating .minsart .percentbox{display:inline-block; width:60px;height:15px;margin-left:5px;}
+.separate-rating .minsart .percentbox{display:inline-block; width:70px;height:15px;margin-left:5px;}
 .review-top .filters{position:absolute;left:35px; top:120px;width:170px;height:120px;}
 .review-top .filters h4{font-size:14px;padding-bottom:15px;}
 .review-top .filters ul li{line-height:20px;}
@@ -145,19 +145,19 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .reviews-list .comment-right .inner-block .txt{line-height:18px;padding:10px 0;color:#332F2B;}
 .reviews-list .comment-right .rating-box{position:absolute;right:0px; top:0px;width:140px;height:75px;}
 .reviews-list .comment-right .rating-box li{height:25px;}
-.reviews-list .comment-right .rating-box .name{float:left;display:inline-block;width:38px;height:16px;line-height:16px;text-align:left;}
+.reviews-list .comment-right .rating-box .name{float:left;display:inline-block;width:50px;height:16px;line-height:16px;text-align:left;}
 .reviews-list .comment-right .rating-box .startbox{float:left;display:inline-block;width:85px;height:16px;margin-left:5px;overflow:hidden; background:url(img/min-unactive-star.png) repeat-x;}
 .reviews-list .comment-right .rating-box .startbox .length{display:block;height:16px;background:url(img/min-active-star.png) repeat-x;}
 /*===========================================comment end==================================================*/
 
 
 /*===========================================comment form start ==================================================*/
-.comment-layer{display: none; position:absolute;left:50%;top:50%; width:500px;height:490px;padding:30px 20px 20px;background-color:#fff;border:1px solid #ddd;}
+.comment-layer{display: none; position:absolute;left:50%;top:50%; width:500px;height:420px;padding:30px 20px 20px;background-color:#fff;border:1px solid #ddd;}
 .comment-layer a.close,.comment-layer a.close:hover{position:absolute;top:15px;right:15px;display:block;width:21px;height:21px;background:url(img/close_ico.png) no-repeat;}
 .comment-layer a.close:hover{background:url(img/close_ico.png) no-repeat 0 -21px;}
 .comment-layer .cred{color:#f00;}
-.comment-layer .header-tit{padding-bottom:5px;font-size:15px;font-weight:700;}
-.overall-raiting{height:80px;}
+.comment-layer .header-tit{padding-bottom:15px;font-size:15px;font-weight:700;}
+.overall-raiting{height:35px;}
 .overall-raiting .left{width:210px;float:left;line-height:20px;}
 .overall-raiting .right{width:200px;float:left;margin-left:32px;display:inline;}
 .overall-raiting .right .rating-box li{height:24px;}

@@ -267,10 +267,10 @@ class AdminCommAction extends Action {
 		$status=$this->dao->where($map)->getField('status');
 		if($status==1){
 			$status=0;
-			$data['imgurl']=__ROOT__.'/Tpl/default/Public/images/mod_0.gif';
+			$data['imgurl']=__ROOT__.'/Public/skin/images/mod_0.gif';
 		}else{
 			$status=1;
-			$data['imgurl']=__ROOT__.'/Tpl/default/Public/images/mod_1.gif';
+			$data['imgurl']=__ROOT__.'/Public/skin/images/mod_1.gif';
 		}
 		$this->dao->where($map)->data(array('status'=>$status))->save();
 		$this->ajaxReturn($data,'保存成功',1);
