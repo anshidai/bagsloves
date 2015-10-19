@@ -1033,4 +1033,10 @@ function get_products_info($pid){
 	return $list;
 }
 
+function get_members_info($uid){
+	$dao=D("Members");
+	$list=$dao->where("id=".$uid)->find();
+	return $list;
+}
+
 ?>
