@@ -52,9 +52,11 @@ $(function(){
 				jQuery('#cart_ok').hide();
 				jQuery('#cart_alert').html(data.info).fadeIn(200).delay(3000).fadeOut(200);
 			}else{
+				
+				location.href = '/index.php/Cart-disp.html';
+				return;
 				jQuery('#cart_alert').hide();
 				jQuery('#cart_ok').find('.cart_ok_content').html(data.info).end().fadeIn(200);
-				
 				if(data.list) {
 					var html = '<ul>';
 					for(var i=0; i<data.list.length; i++) {

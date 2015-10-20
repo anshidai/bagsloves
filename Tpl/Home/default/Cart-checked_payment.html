@@ -20,14 +20,14 @@
 <script language="JavaScript" type="text/javascript">
 
 $(function() {
-	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+    $( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
 
-	$(".carousel").jCarouselLite({
-		btnNext: ".next",
-		btnPrev: ".prev",
-		visible: 5,
-		auto:2000
-	});
+    $(".carousel").jCarouselLite({
+        btnNext: ".next",
+        btnPrev: ".prev",
+        visible: 5,
+        auto:2000
+    });
 });
 </script>
 
@@ -61,38 +61,38 @@ $(function() {
         <td>
         <div class="cartlist">
         <table width="100%" border="0" cellspacing="0" cellpadding="0"  style="border:1px #CCCCCC solid;border-collapse:collapse" >
-			 <tr id="huo_d">
-			    <td width="18%" height="25" bgcolor="#F5f5f5" align="center">IMAGE</td>
-			    <td width="8%" height="25" bgcolor="#F5f5f5" align="center">ID</td>
-			    <td width="32%" height="25" bgcolor="#F5f5f5" align="center">ITEM NAME</td>
-			    <td width="20%" height="25" bgcolor="#F5f5f5" align="center">Model</td>
-			    <td width="10%" height="25" bgcolor="#F5f5f5" align="center">QTY.</td>
-			    <td width="20%" height="25" bgcolor="#F5f5f5" align="center">PRICE</td>
-			    <td width="20%" height="25" bgcolor="#F5f5f5" align="center">TOTAL</td>
-			  </tr>
-			  <volist name="list" id="vo">
-			  <tr>
-			    <td width="18%" align="center"><a href="{:build_url($vo,'pid')}" target="_blank" title="{:build_url($vo,'pro_name')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="100" height="75" border="0"></a></td>
-			    <td width="8%" align="center">{$vo.pid}</td>
-			    <td width="32%" align="center">{:build_url($vo,'pro_name')}</td>
-			    <td width="20%" align="center">
-					    <volist name="vo['model']" id="subvo">
-					{$subvo['name']}:{$subvo['value']}<br/>
-					
-					<input type="hidden" name="model_name_{$vo.id}[]" value="{$subvo['name']}" />
-					<input type="hidden" name="model_value_{$vo.id}[]" value="{$subvo['value']}" /><br/>
-					</volist>
-					<notempty name="vo['serial']">
-		Serail:{$vo.serial}
+             <tr id="huo_d">
+                <td width="18%" height="25" bgcolor="#F5f5f5" align="center">IMAGE</td>
+                <td width="8%" height="25" bgcolor="#F5f5f5" align="center">ID</td>
+                <td width="32%" height="25" bgcolor="#F5f5f5" align="center">ITEM NAME</td>
+                <td width="20%" height="25" bgcolor="#F5f5f5" align="center">Model</td>
+                <td width="10%" height="25" bgcolor="#F5f5f5" align="center">QTY.</td>
+                <td width="20%" height="25" bgcolor="#F5f5f5" align="center">PRICE</td>
+                <td width="20%" height="25" bgcolor="#F5f5f5" align="center">TOTAL</td>
+              </tr>
+              <volist name="list" id="vo">
+              <tr>
+                <td width="18%" align="center"><a href="{:build_url($vo,'pid')}" target="_blank" title="{:build_url($vo,'pro_name')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="100" height="75" border="0"></a></td>
+                <td width="8%" align="center">{$vo.pid}</td>
+                <td width="32%" align="center">{:build_url($vo,'pro_name')}</td>
+                <td width="20%" align="center">
+                        <volist name="vo['model']" id="subvo">
+                    {$subvo['name']}:{$subvo['value']}<br/>
+                    
+                    <input type="hidden" name="model_name_{$vo.id}[]" value="{$subvo['name']}" />
+                    <input type="hidden" name="model_value_{$vo.id}[]" value="{$subvo['value']}" /><br/>
+                    </volist>
+                    <notempty name="vo['serial']">
+        Serail:{$vo.serial}
 </notempty>
-				</td>
-	    <td width="10%" align="center">{$vo.count}</td>
-	    <td width="20%" align="center">{:getprice($vo['price'],$vo['pricespe'],false)}</td>
-	    <td width="20%" align="center">{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</td>
-  		</tr>
-  		</volist>
-  		<tr>
-  		<td colspan="7" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount"> 
+                </td>
+        <td width="10%" align="center">{$vo.count}</td>
+        <td width="20%" align="center">{:getprice($vo['price'],$vo['pricespe'],false)}</td>
+        <td width="20%" align="center">{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</td>
+          </tr>
+          </volist>
+          <tr>
+          <td colspan="7" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount"> 
  Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
   <gt name="totalWeight" value="0">
  Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
@@ -102,9 +102,9 @@ $(function() {
  Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
   </notempty>
  Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong><br/>
- <gt name="free_shipping" value="0">Tips: Full <strong style="color:red;font-weight:bold"><?=$_SESSION['currency']['code']?> {$free_shipping}</strong> Free Shipping <br/></gt>
-		  </td>
-		  </tr>
+ <gt name="free_shipping" value="0">Tips: Full <strong style="color:red;font-weight:bold">{$Think.session.currency.code} {$free_shipping}</strong> Free Shipping <br/></gt>
+          </td>
+          </tr>
 </table>
 
         </td>
@@ -131,14 +131,14 @@ $(function() {
             <strong>Telphone</strong>:{$member_ShippingAddress['telphone']} , 
             <strong>Zip code</strong>:{$member_ShippingAddress['zip']}
             ) </li> 
-	      <input type="hidden" id="country" value="{$member_ShippingAddress['country']}" />
-	      <input type="hidden" id="state" value="{$member_ShippingAddress['state']}" />
-	      <input type="hidden" id="city" value="{:get_region_id($member_ShippingAddress['city'])}" />
-	      <input type="hidden" id="address" value="{$member_ShippingAddress['address']}" />
-	      <input type="hidden" id="firstname" value="{$member_ShippingAddress['firstname']}" />
-	      <input type="hidden" id="lastname" value="{$member_ShippingAddress['lastname']}" />
-	      <input type="hidden" id="telphone" value="{$member_ShippingAddress['telphone']}" />
-	      <input type="hidden" id="zip" value="{$member_ShippingAddress['zip']}" />
+          <input type="hidden" id="country" value="{$member_ShippingAddress['country']}" />
+          <input type="hidden" id="state" value="{$member_ShippingAddress['state']}" />
+          <input type="hidden" id="city" value="{:get_region_id($member_ShippingAddress['city'])}" />
+          <input type="hidden" id="address" value="{$member_ShippingAddress['address']}" />
+          <input type="hidden" id="firstname" value="{$member_ShippingAddress['firstname']}" />
+          <input type="hidden" id="lastname" value="{$member_ShippingAddress['lastname']}" />
+          <input type="hidden" id="telphone" value="{$member_ShippingAddress['telphone']}" />
+          <input type="hidden" id="zip" value="{$member_ShippingAddress['zip']}" />
             </gt>
             
             
@@ -152,9 +152,9 @@ $(function() {
             </ul>
             <script language="JavaScript" type="text/javascript">
             <if condition="$mid gt 0 and $quickbuy eq 0">
-            	jQuery('input:radio[name=delivery][value=0]').attr('checked',true);
+                jQuery('input:radio[name=delivery][value=0]').attr('checked',true);
             <else/>
-            	jQuery('input:radio[name=delivery][value=1]').attr('checked',true);
+                jQuery('input:radio[name=delivery][value=1]').attr('checked',true);
             </if>
             </script>
           
@@ -210,8 +210,8 @@ $(function() {
                   <!-- <select name="delivery_state" id="selProvinces" onchange="loadRegion('selProvinces',2,'selCities','{:U('Home-Ajax/getRegion')}');"    dataType="Require" msg="State/Province is required!" >
                     <option value="0" selected>-please select-</option>
                   </select>-->
-				   <input name="delivery_state" type="text" class="required"   />
-				  <span style="color:red">*</span>
+                   <input name="delivery_state" type="text" class="required"   />
+                  <span style="color:red">*</span>
                   </td>
                </tr>
                <tr>
@@ -220,8 +220,8 @@ $(function() {
                  <!--  <select name="delivery_city" id="selCities"     dataType="Require" msg="City is required!">
                     <option value="0" selected>-please select-</option>
                   </select>-->
-				  <input name="delivery_city" type="text" class="required"   />
-				  <span style="color:red">*</span>
+                  <input name="delivery_city" type="text" class="required"   />
+                  <span style="color:red">*</span>
                   </td>
                </tr>
                <tr>
@@ -260,46 +260,46 @@ $(function() {
             <?php 
             $count=count($ShippingList);
             ?>
-			<div <eq name="count" value="1">style="display:none;"</eq>>
-				<fieldset>
-					<legend> <span style="color:#669900">Distribution is recognized</span></legend>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-				  <tr>
-					<td>
-					  <div class="shou1 hide"  id="shippingmsg">
-						  Please select the delivery address！
-					  </div>
-					  <div class="songh" id="shippingtype">
-					  
-						<table width="100%" style="border:1px #CCCCCC solid" cellspacing="0" cellpadding="0" id="shippingbox">
-				  <volist name="ShippingList" id="vo">
-				   <tr>
-					<td class="huo_d"> <input type="radio"  value="{$vo.id}" name="shipping_id" <eq name="i" value="$count">dataType="Group"  msg="Must choose a shipping"</eq>> {$vo.name}</td>
-					<td class="huo_f"><span> 
-						<present name="vo['price']['base_fee']">
-							{:getprice_str($vo['price']['base_fee'])}
-								<present name="vo['price']['step_fee']">
-								 + {:getprice_str($vo['price']['step_fee'])}
-								 </present>
-							 <else/>
-							{:getprice_str($vo['price']['price'])} 
-						</present>
-						</span> 
-					</td>
-				  </tr>
-				  </volist>
-				</table>
-					  </div>
-					</td>
-				  </tr>
-				</table>
-				<gt name="free_shipping" value="0">
-				  <div style="font-size:14px;margin-top:8px;">
-				  Tips: Full <strong style="color:red;font-weight:bold"><?=$_SESSION['currency']['code']?> {$free_shipping}</strong> Free Shipping
-				  </div>
-				  </gt>
-				</fieldset>
-			</div>
+            <div <eq name="count" value="1">style="display:none;"</eq>>
+                <fieldset>
+                    <legend> <span style="color:#669900">Distribution is recognized</span></legend>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                  <tr>
+                    <td>
+                      <div class="shou1 hide"  id="shippingmsg">
+                          Please select the delivery address！
+                      </div>
+                      <div class="songh" id="shippingtype">
+                      
+                        <table width="100%" style="border:1px #CCCCCC solid" cellspacing="0" cellpadding="0" id="shippingbox">
+                  <volist name="ShippingList" id="vo">
+                   <tr>
+                    <td class="huo_d"> <input type="radio"  value="{$vo.id}" name="shipping_id" <eq name="i" value="$count">dataType="Group"  msg="Must choose a shipping"</eq>> {$vo.name}</td>
+                    <td class="huo_f"><span> 
+                        <present name="vo['price']['base_fee']">
+                            {:getprice_str($vo['price']['base_fee'])}
+                                <present name="vo['price']['step_fee']">
+                                 + {:getprice_str($vo['price']['step_fee'])}
+                                 </present>
+                             <else/>
+                            {:getprice_str($vo['price']['price'])} 
+                        </present>
+                        </span> 
+                    </td>
+                  </tr>
+                  </volist>
+                </table>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <gt name="free_shipping" value="0">
+                  <div style="font-size:14px;margin-top:8px;">
+                  Tips: Full <strong style="color:red;font-weight:bold">{$Think.session.currency.code} {$free_shipping}</strong> Free Shipping
+                  </div>
+                  </gt>
+                </fieldset>
+            </div>
             <fieldset>
                 <legend> <span style="color:#669900">Payment confirmation</span></legend>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -324,7 +324,7 @@ $(function() {
       </table>
       <table border="0" width="100%">
       <tr>
-  		<td colspan="2" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount2"> 
+          <td colspan="2" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount2"> 
 
  Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
   <gt name="totalWeight" value="0">
@@ -335,8 +335,8 @@ $(function() {
  Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
   </notempty>
  Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>
-		  </td>
-		  </tr>
+          </td>
+          </tr>
     </table>
             </fieldset>
           <div class="shou1">
