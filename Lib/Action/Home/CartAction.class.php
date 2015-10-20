@@ -164,7 +164,9 @@ class CartAction extends CommAction {
 		//支付方式列表
 		self::$Model = D ( "Payment" );
 		$this->paymentlist = self::$Model->getlist ();
-
+		
+		//满金额免运费
+		$this->free_shipping = GetValue('free_shipping');
 
 		$this->display('checked_payment');
 	}
@@ -225,6 +227,7 @@ class CartAction extends CommAction {
 			//没有价格取保险金
 			!$delivery_list['shippingmoney']?$delivery_list['shippingmoney']=$shipping_model->get_insure($delivery_list["shipping_id"]):'';
 			$delivery_list['shipping_method']=$delivery_list['shipping_module_code']=$shipping_model->get_name($delivery_list["shipping_id"]);
+			
 			$products_total=$cart_model->cart_total ( $this->sessionID );//产品总价格
 			$discount = $cart_model->discount($products_total);//打折信息
 			$sum_total=round($discount['price'],2);//打折后价格
@@ -235,6 +238,13 @@ class CartAction extends CommAction {
 			//最小订单金额
 			if($fee['minimum_money'] && $fee["total"]<=$fee['minimum_money']){
 				$this->error("Not be less than ".$fee['minimum_money']." minimum!");
+			}
+			
+			//满金额免运费, 总金额大于免运费
+			$free_shipping = GetValue('free_shipping');
+			$this->free_shipping = $free_shipping;
+			if($free_shipping && $fee['total']>=$free_shipping) {
+				$delivery_list['shippingmoney'] = 0;
 			}
 
 			$delivery_list['paymoney']=$fee["paymoney"];

@@ -93,7 +93,6 @@ $(function() {
   		</volist>
   		<tr>
   		<td colspan="7" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount"> 
-
  Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
   <gt name="totalWeight" value="0">
  Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
@@ -102,7 +101,8 @@ $(function() {
  Sub Total: <strong style="color:red;font-weight:bold">{$cartTotal}</strong><br/>
  Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
   </notempty>
- Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>
+ Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong><br/>
+ <gt name="free_shipping" value="0">Tips: Full <strong style="color:red;font-weight:bold"><?=$_SESSION['currency']['code']?> {$free_shipping}</strong> Free Shipping <br/></gt>
 		  </td>
 		  </tr>
 </table>
@@ -275,22 +275,29 @@ $(function() {
 				  <volist name="ShippingList" id="vo">
 				   <tr>
 					<td class="huo_d"> <input type="radio"  value="{$vo.id}" name="shipping_id" <eq name="i" value="$count">dataType="Group"  msg="Must choose a shipping"</eq>> {$vo.name}</td>
-					<td class="huo_f"><span> <present name="vo['price']['base_fee']">
-															{:getprice_str($vo['price']['base_fee'])}
-																<present name="vo['price']['step_fee']">
-																 + {:getprice_str($vo['price']['step_fee'])}
-																 </present>
-															 <else/>
-															{:getprice_str($vo['price']['price'])}
-															 </present></span> </td>
+					<td class="huo_f"><span> 
+						<present name="vo['price']['base_fee']">
+							{:getprice_str($vo['price']['base_fee'])}
+								<present name="vo['price']['step_fee']">
+								 + {:getprice_str($vo['price']['step_fee'])}
+								 </present>
+							 <else/>
+							{:getprice_str($vo['price']['price'])} 
+						</present>
+						</span> 
+					</td>
 				  </tr>
 				  </volist>
-				 
 				</table>
 					  </div>
 					</td>
 				  </tr>
 				</table>
+				<gt name="free_shipping" value="0">
+				  <div style="font-size:14px;margin-top:8px;">
+				  Tips: Full <strong style="color:red;font-weight:bold"><?=$_SESSION['currency']['code']?> {$free_shipping}</strong> Free Shipping
+				  </div>
+				  </gt>
 				</fieldset>
 			</div>
             <fieldset>

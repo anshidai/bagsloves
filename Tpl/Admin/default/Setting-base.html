@@ -236,9 +236,13 @@ function ajaxFileUpload2()
 						<td><input type="radio" value="1"  name="quickbuy" class="input-text" <eq name="quickbuy" value="1">checked=checked</eq> />启用
 						<input type="radio" value="0"  name="quickbuy" class="input-text" <eq name="quickbuy" value="0">checked=checked</eq> />禁用(是否强制登录)</td>
 					</tr>
-					    <tr>
+					<tr>
 						<td style="width:120px;">订单最小金额</td>
 						<td><input type="text" size="40" name="minimum_money" class="input-text" value="{:GetValue('minimum_money')}" /><input type="checkbox" onclick="if($(this).is(':checked')) $(this).prev('input').val(0);"/>关闭(低于这个金额不可下单)</td>
+					</tr>
+					<tr>
+						<td style="width:120px;">满多少金额免运费</td>
+						<td><input type="text" size="40" name="free_shipping" class="input-text" value="{:GetValue('free_shipping')}" /><input type="checkbox" onclick="if($(this).is(':checked')) $(this).prev('input').val(0);"/>关闭(大于这个金额免运费)</td>
 					</tr>
 					   <tr>
 						<td style="width:120px;">自动识别细节图</td>

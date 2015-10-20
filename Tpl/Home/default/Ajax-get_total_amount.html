@@ -19,3 +19,8 @@
  -Coupon Amount: <strong style="color:red;font-weight:bold">{$coupon}</strong><br/>
   </present>
  Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>
+ 
+ <gt name="free_shipping" value="0">
+ <br/>Tips: Full <strong style="color:red;font-weight:bold"><?=$_SESSION['currency']['code']?> {$free_shipping}</strong> Free Shipping 
+ </gt>
+ 

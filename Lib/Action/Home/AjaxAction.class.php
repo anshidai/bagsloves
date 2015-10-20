@@ -92,8 +92,7 @@ class AjaxAction extends Action{
 			$insure=$shippingModel->get_insure($shipping_id);
 			$shipping_price=$shipping_price?$shipping_price:$insure?$insure:0;
 		}
-		$this->shippingPrice=getprice_str($shipping_price);//运费
-
+		
 		$payment=$_POST['payment'];
 		if($payment){
 			$fee=get_orders_Fees($totalAmonut,$itemTotal,$payment);
@@ -101,6 +100,15 @@ class AjaxAction extends Action{
 			$fee['paymoney']>0 && $this->assign('paymoney',getprice_str($fee['paymoney']));
 			$totalAmonut=$fee['total'];//加上其它金额
 		}
+		
+		//满金额免运费, 总金额大于免运费
+		$free_shipping = GetValue('free_shipping');
+		$this->free_shipping = $free_shipping;
+		if($free_shipping && $totalAmonut>=$free_shipping) {
+			$shipping_price = 0;
+		}
+		$this->shippingPrice = getprice_str($shipping_price);//运费
+		
 		$totalAmonut+=$shipping_price;//总价加上运费
 
 		$cpdao=D("Coupon");
@@ -112,6 +120,10 @@ class AjaxAction extends Action{
 		//读取订单信息
 		$this->list = $dao->display_contents ( $sessionID );//购物车列表
 		$this->totalAmount = getprice_str($totalAmonut);//全部总价
+		
+		if($this->free_shipping) {
+			$this->actual_totalAmonut = $totalAmonut - $this->free_shipping;
+		}
 		echo $this->fetch('Ajax:get_total_amount');
 	}
 
