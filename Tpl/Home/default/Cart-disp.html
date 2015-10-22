@@ -8,7 +8,7 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" />  
 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
@@ -70,18 +70,11 @@ function check(){
 }
 </script>
 </head>
-
-
-
-
-
 <body>
+<include file="Public:frontHeader" />
+<div class="nav-hr clearfix"></div>
 
-<include file="Public:header" />
-
-
-
-
+<div id="pagebody" class="clearfix">
 <div class="col2"> 
         <div class="list1">
           <div class="list1_title1">
@@ -108,7 +101,7 @@ function check(){
             </div>
           <else/>
           
-          <div class="list2_content" style="width:920px;">
+          <div class="list2_content clearfix">
             <div class="cart_title">
             {$fee_readme}
             </div>
@@ -190,4 +183,11 @@ function check(){
       </div>
     </div>
     
-<include file="Public:footer" />
+</div>
+
+<div class="clearfix"></div>
+<include file="Public:frontFooter" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>

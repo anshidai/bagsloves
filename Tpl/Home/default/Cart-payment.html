@@ -8,8 +8,8 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" /> 
  
-
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/images/floatmenu.js"></script> 
@@ -31,25 +31,17 @@ $(function() {
 });
 </script>
 </head>
-
-
-
-
-
 <body>
+<include file="Public:frontHeader" />
+<div class="nav-hr clearfix"></div>
 
-<include file="Public:header" />
-<include file="Public:left" />
-
-
-
-
-
+<div id="pagebody" class="clearfix">
+<include file="Member:left" />
  <div class="col2">
         <div class="list1">
           <div class="list1_title"><a href="/">Home</a> > User Center</div>
           
-          <div class="list2_content">
+          <div class="list2_content clearfix">
             <div style="width:100%;background-color:#fff"><img src="__PUBLIC__/skin/images/order3.gif" /></div>
             <div class="payment">
               <fieldset>
@@ -65,4 +57,11 @@ $(function() {
     </div>
 
 
-<include file="Public:footer" />
+</div>
+
+<div class="clearfix"></div>
+<include file="Public:frontFooter" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>

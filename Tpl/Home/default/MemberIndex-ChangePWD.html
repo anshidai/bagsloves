@@ -8,7 +8,7 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" />  
 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
@@ -31,15 +31,12 @@ $(function() {
 });
 </script>
 </head>
-
-
-
-
-
 <body>
-<include file="Public:header" />
-<include file="Member:left" />
+<include file="Public:frontHeader" />
+<div class="nav-hr clearfix"></div>
 
+<div id="pagebody" class="clearfix">
+<include file="Member:left" />
   <div class="col2">
         <div class="list1">
           <div class="list1_title">Edit Password</div>
@@ -79,4 +76,11 @@ $(function() {
         </div>
       </div>
     </div>
-<include file="Public:footer" />
+</div>
+
+<div class="clearfix"></div>
+<include file="Public:frontFooter" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>

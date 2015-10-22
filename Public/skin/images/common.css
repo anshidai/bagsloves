@@ -19,6 +19,25 @@ LEGEND {
 	PADDING-TOP: 10px;
 	BORDER-BOTTOM: #eceaea 1px solid;
 }
+.clearfix:before,
+.clearfix:after{content:'\20';display:block;height:0;clear:both; overflow:hidden;}
+.clearfix{*zoom:1;}
+.clear{ clear:both; visibility:hidden;}
+.fl{float: left!important;}
+.fr{float: right!important;}
+
+.hidden {display: none!important;}
+.block {display: block!important;}
+
+.fixed{position: fixed!important;}
+.relative{position:relative!important;}
+.absolute{position:absolute!important;}
+
+.text-center{text-align:center!important;}
+.text-right{text-align:right!important;}
+.text-left{text-align:left!important;}
+.w1200{width: 1200px;min-width:1200px;margin: 0 auto;}
+.FontBgColor{background-color:#333;}
 .login {
 	text-align: left;
 	float: left;
@@ -597,6 +616,7 @@ float: left;
 	text-align: left;
 	background-color:#ffffff;
 }
+/*
 input, select, textarea {
     background: none repeat scroll 0 0 #FDFDFD;
     border: 1px solid #E3E3E3;
@@ -607,6 +627,7 @@ input, select, textarea {
     padding: 3px;
 	margin:3px;
 }
+*/
 .o_address input {
 	margin: 4px 0 3px;
     vertical-align: middle;

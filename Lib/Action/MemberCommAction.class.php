@@ -49,6 +49,14 @@ class MemberCommAction extends Action{
 			$this->memberShippingAddress = self::$Model->where ( "id=" . $this->memberID )->find ();
 
 		}
+		
+		
+		//购物车商品
+		self::$Model = D ( "Cart" );
+		$this->cart_list = self::$Model->cart_list($this->sessionID);
+		$this->item_count = itemCount();
+		$this->total_count = TotalCount();
+		
 		if(F('Common_Cache')){
 			$this->assign(F('Common_Cache'));
 		}

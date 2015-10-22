@@ -14,7 +14,7 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #000000;
-	background-color: #f5f5e8;
+	background-color: #fff;
 }
 ul,li {
 	margin: 0px;
@@ -48,6 +48,7 @@ LEGEND {
 	PADDING-TOP: 10px;
 	BORDER-BOTTOM: #eceaea 1px solid;
 }
+
 #page{
 	width: 950px;
 	margin-right: auto;
@@ -81,11 +82,13 @@ td .top {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+/*
 .select {
 	float: left;
 	width: 73px;
 	border: 1px solid #e6e6e6;
 }
+*/
 .cart2 {
 	float:right;
 	clear:both;
@@ -165,6 +168,7 @@ span.marker {
 	background-repeat: repeat-x;
 	background-position: left top;
 }
+/*
 .search {
 	float: left;
 	width: 940px;
@@ -189,11 +193,11 @@ span.marker {
 	float: left;
 	width: 283px;
 }
-
+*/
 
 #pagebody {
-	float: left;
-	width: 950px;
+	width: 1200px;
+	margin:0 auto;
 }
 .col1 {
 	float: left;
@@ -303,8 +307,8 @@ span.marker {
 	text-decoration: underline;
 }
 .col2 {
-	float: left;
-	width: 710px;
+	float: right;
+	width: 950px;
 }
 .ad {
 	float: left;
@@ -393,14 +397,14 @@ span.marker {
 	padding-top: 60px;
 }
 .list1 {
+	/*
 	float: left;
 	width: 710px;
+	*/
 }
 .list1_title {
 	line-height: 35px;
-	float: left;
 	height: 35px;
-	width: 700px;
 	padding-left: 10px;
 	font-weight: bold;
 	text-align: left;
@@ -439,8 +443,6 @@ span.marker {
 }
 .list2_content {
 	background-color: #FFFFFF;
-	float: left;
-	width: 680px;
 	border: 1px solid #CCCCCC;
 	padding: 14px;
 	margin-bottom: 5px;
@@ -805,7 +807,7 @@ span.marker {
 	text-align: left;
 }
 
-
+/*
 #footer {
 	clear: both;
 	width: 950px;
@@ -821,6 +823,7 @@ span.marker {
 	margin-top:10px;
 	padding:5px 0 0 20px;
 }
+*/
 .bottom_nav {
 	float: left;
 	width: 930px;
@@ -838,6 +841,9 @@ span.marker {
 	color: #fff;
 	text-align: center;
 }
+
+.address  input,.address  select{height:24px;line-height:24px;}
+.address  td{padding:5px 0;}
 
 /*eof sameclass*/
 .home_title{ clear:both; margin:0px; padding-bottom:10px; padding-left:10px; width:700px; height:30px; background:url(list_title.gif) repeat-x; line-height:30px; text-align:left; color:#FFFFFF; font-size:13px; font-weight:bold;}

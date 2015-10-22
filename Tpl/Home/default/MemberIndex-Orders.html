@@ -8,7 +8,7 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" />
 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
@@ -20,80 +20,86 @@
 <script language="JavaScript" type="text/javascript">
 
 $(function() {
-	$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
+$( "a[altimg] img" ).not('.m_pro_img img').aeImageResize({ width: 109, height: 109 });
 
-	$(".carousel").jCarouselLite({
-		btnNext: ".next",
-		btnPrev: ".prev",
-		visible: 5,
-		auto:2000
-	});
+$(".carousel").jCarouselLite({
+btnNext: ".next",
+btnPrev: ".prev",
+visible: 5,
+auto:2000
+});
 });
 </script>
 </head>
-
-
-
-
-
 <body>
-<include file="Public:header" />
-<include file="Member:left" />
- <div class="col2">
-        <div class="list1">
-          <div class="list1_title">All( <font color="#FF0000">{$count|default="0"}</font>)order</div>
-          <div class="list2_content">
-          <div style="text-align:left">
-          <h5>Hi, {$memberInfo.lastname}&nbsp;{$memberInfo.firstname}. WELCOME BACK TO {:GetValue('sitename')}</h5>
-<h4 class="h4">Everything you need to track your orders, update your address book, edit your account information add more is right here.</h4>
- </div> 
-            <div class="all">
-              <fieldset>
-                    <legend>Orders Information</legend>
+<include file="Public:frontHeader" />
+<div class="nav-hr clearfix"></div>
 
-                    <div class="information">NOTE: You can examine your order form here.</div>
-                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Order No.</strong></td>
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Order time</strong></td>
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Total</strong></td>
-	<td bgcolor="#F5f5f5" height="30" align="center" style="word-break:break-all"><strong>Order remarks</strong></td>
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>Status</strong></td>
+<div id="pagebody" class="clearfix">
+	<include file="Member:left" />
+	<div class="col2">
+		<div class="list1">
+			<div class="list1_title">All( <font color="#FF0000">{$count|default="0"}</font>)order</div>
+			<div class="list2_content clearfix">
+				<div style="text-align:left;">
+					<h5>Hi, {$memberInfo.lastname}&nbsp;{$memberInfo.firstname}. WELCOME BACK TO {:GetValue('sitename')}</h5>
+					<h4 class="h4">Everything you need to track your orders, update your address book, edit your account information add more is right here.</h4>
+				</div> 
+				<div class="all">
+					<fieldset>
+						<legend>Orders Information</legend>
+						<div class="information">NOTE: You can examine your order form here.</div>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>Order No.</strong></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>Order time</strong></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>Total</strong></td>
+								<td bgcolor="#F5f5f5" height="30" align="center" style="word-break:break-all"><strong>Order remarks</strong></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>Status</strong></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>All order</strong></td>
+							</tr>
+							<volist name="orderslist" id="vo">
+							<tr>
+							<td bgcolor="#F5f5f5" height="30" align="center"><a href="{:U('MemberPublic/disporders',array("id"=>$vo['id']))}" target="_blank">{$vo.sn}</a></td>
+								<td bgcolor="#F5f5f5" height="30" align="center">{:toDate($vo['dateline'],'Y-m-d H:i:s')}</td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><font color="#FF0000">{$vo.currencies_code}{$vo["orders_total"]}</font></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"  style="word-break:break-all"><font color="#FF0000">{$vo["remark"]}</font></td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>{:get_orders_status($vo['id'])}
+									<eq name="vo['orders_status']" value="3">
+									<notempty name="vo['shipping_method']">
+									({$vo['shipping_method']})
+									</notempty>
+									</eq></strong>
+								</td>
+								<td bgcolor="#F5f5f5" height="30" align="center"><strong>  <eq name="vo['orders_status']" value="1">
+								<a href="{:U('Cart/pment',array("id"=>$vo['id']))}" target="_blank" style="color:#006699; text-decoration:underline">Pay It</a>
+								</eq>
+								<eq name="vo['orders_status']" value="3">
+								<a href="{:U('MemberIndex/ConfirmOrders',array("id"=>$vo['id']))}" style="color:#006699; text-decoration:underline">Confirm receipt</a>
+								</eq></strong>
+								</td>
+							</tr>
+							</volist>
+							<tr>
+								<td align="center" colspan="7" height="30" bgcolor="#F5f5f5">{$show}</td>
+							</tr>
+						</table>
+					</fieldset>
+				</div>
+				<!-- all end-->
+			</div>
+			<!-- list2_content end-->
+		</div>
+		<!-- list1 end-->
+	</div>
+	<!-- col2 end-->
+</div>
+<!-- #pagebody end-->
+</div>
 
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>All order</strong></td>
-  </tr>
-  <volist name="orderslist" id="vo">
-  <tr>
-    <td bgcolor="#F5f5f5" height="30" align="center"><a href="{:U('MemberPublic/disporders',array("id"=>$vo['id']))}" target="_blank">{$vo.sn}</a></td>
-    <td bgcolor="#F5f5f5" height="30" align="center">{:toDate($vo['dateline'],'Y-m-d H:i:s')}</td>
-    <td bgcolor="#F5f5f5" height="30" align="center"><font color="#FF0000">{$vo.currencies_code}{$vo["orders_total"]}</font></td>
-	<td bgcolor="#F5f5f5" height="30" align="center"  style="word-break:break-all"><font color="#FF0000">{$vo["remark"]}</font></td>
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>{:get_orders_status($vo['id'])}
-     <eq name="vo['orders_status']" value="3">
-     <notempty name="vo['shipping_method']">
-     ({$vo['shipping_method']})
-     </notempty>
-     </eq></strong></td>
+<div class="clearfix"></div>
+<include file="Public:frontFooter" />
 
-    <td bgcolor="#F5f5f5" height="30" align="center"><strong>  <eq name="vo['orders_status']" value="1">
-          <a href="{:U('Cart/pment',array("id"=>$vo['id']))}" target="_blank" style="color:#006699; text-decoration:underline">Pay It</a>
-          </eq>
-          <eq name="vo['orders_status']" value="3">
-          <a href="{:U('MemberIndex/ConfirmOrders',array("id"=>$vo['id']))}" style="color:#006699; text-decoration:underline">Confirm receipt</a>
-          </eq></strong></td>
-  </tr>
-  
-  </volist>
-  
-     <tr>
-    <td align="center" colspan="7" height="30" bgcolor="#F5f5f5">{$show}</td>
-  </tr>
-</table>
-                  </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-<include file="Public:footer" />
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>

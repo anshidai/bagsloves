@@ -8,7 +8,7 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
- 
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" /> 
 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
@@ -35,16 +35,13 @@ $(function() {
 <script type="text/javascript" src="__PUBLIC__/skin/Js/cart.js"></script>
 <script type="text/javascript" src="__PUBLIC__/skin/Js/Region.js"></script>
 </head>
-
-
-
-
-
 <body>
+<include file="Public:frontHeader" />
+<div class="nav-hr clearfix"></div>
 
-<include file="Public:header" />
-
-<div class="col2" style="width:100%">
+<div id="pagebody" class="clearfix">
+<include file="Member:left" />
+<div class="col2">
     <div class="list1" style="width:100%">
       <div class="list1_title" style="width:100%;background-repeat:repeat-x;" ><a href="/">Home</a> > Shopping Cart</div>
       <div class="list2_content" style="width:98%">
@@ -64,18 +61,18 @@ $(function() {
              <tr id="huo_d">
                 <td width="18%" height="25" bgcolor="#F5f5f5" align="center">IMAGE</td>
                 <td width="8%" height="25" bgcolor="#F5f5f5" align="center">ID</td>
-                <td width="32%" height="25" bgcolor="#F5f5f5" align="center">ITEM NAME</td>
+                <td width="26%" height="25" bgcolor="#F5f5f5" align="center">ITEM NAME</td>
                 <td width="20%" height="25" bgcolor="#F5f5f5" align="center">Model</td>
-                <td width="10%" height="25" bgcolor="#F5f5f5" align="center">QTY.</td>
-                <td width="20%" height="25" bgcolor="#F5f5f5" align="center">PRICE</td>
-                <td width="20%" height="25" bgcolor="#F5f5f5" align="center">TOTAL</td>
+                <td width="6%" height="25" bgcolor="#F5f5f5" align="center">QTY.</td>
+                <td width="12%" height="25" bgcolor="#F5f5f5" align="center">PRICE</td>
+                <td width="30%" height="25" bgcolor="#F5f5f5" align="center">TOTAL</td>
               </tr>
               <volist name="list" id="vo">
               <tr>
-                <td width="18%" align="center"><a href="{:build_url($vo,'pid')}" target="_blank" title="{:build_url($vo,'pro_name')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="100" height="75" border="0"></a></td>
-                <td width="8%" align="center">{$vo.pid}</td>
-                <td width="32%" align="center">{:build_url($vo,'pro_name')}</td>
-                <td width="20%" align="center">
+                <td align="center"><a href="{:build_url($vo,'pid')}" target="_blank" title="{:build_url($vo,'pro_name')}"><img src="{:build_url($vo,'pro_smallimage')}" alt="{:build_url($vo,'pro_name')}" width="100" height="75" border="0"></a></td>
+                <td align="center">{$vo.pid}</td>
+                <td align="center">{:build_url($vo,'pro_name')}</td>
+                <td align="center">
                         <volist name="vo['model']" id="subvo">
                     {$subvo['name']}:{$subvo['value']}<br/>
                     
@@ -86,9 +83,9 @@ $(function() {
         Serail:{$vo.serial}
 </notempty>
                 </td>
-        <td width="10%" align="center">{$vo.count}</td>
-        <td width="20%" align="center">{:getprice($vo['price'],$vo['pricespe'],false)}</td>
-        <td width="20%" align="center">{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</td>
+        <td align="center">{$vo.count}</td>
+        <td align="center">{:getprice($vo['price'],$vo['pricespe'],false)}</td>
+        <td align="center">{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</td>
           </tr>
           </volist>
           <tr>
@@ -356,4 +353,11 @@ $(function() {
     <!--end col5-->
 
 
-<include file="Public:footer" />
+</div>
+
+<div class="clearfix"></div>
+<include file="Public:frontFooter" />
+
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+</body>
+</html>
