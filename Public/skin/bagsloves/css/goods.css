@@ -26,7 +26,7 @@ div.zoomMask{position:absolute;background:url(img/mask.png) repeat scroll 0 0 tr
 .goods_wrap .block{padding-bottom: 10px;padding-top:10px;border-bottom: 1px dashed #ddd;}
 .goods_wrap .block .title{font-size: 22px;}
 .goods_wrap .block .market-price{display:block;font-size: 14px;text-decoration: line-through;color: #999;}
-.goods_wrap .block .market-price strong{color: #b12704!important;}
+.goods_wrap .block .market-price strong{color: #999!important;}
 .goods_wrap .block .shop-price{display:block;color: #b12704;font-size: 18px;margin-top: 5px;}
 .goods_wrap .block .attr-color{clear: both;margin-top: 8px;}
 .goods_wrap .block .attr-color .name{float: left;display: inline-block;width: 50px;height:20px;line-height: 20px;text-align: right;}

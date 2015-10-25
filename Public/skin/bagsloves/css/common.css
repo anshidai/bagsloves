@@ -1,12 +1,12 @@
 .top_bar_outer{min-width:1200px;height:34px;background-color:#333;border-bottom:1px solid #e8e8e8;}
 .top_bar{height:34px;line-height:35px;color:#fff;}
-.top_bar .crossn{margin-right:5px;}
-.top_bar .crossn li{display:inline-block; padding:0 12px; height:34px; background:url(img/ico-img.png) -199px -72px no-repeat; position:relative; z-index:1010;}
-.top_bar .crossn li:first-child{background:url(img/ico-img.png) -166px 0 no-repeat; padding-left:36px;}
-.top_bar .crossn li.block{padding:0 4px;}
-.top_bar .crossn li:first-child.block{padding:0 4px 0 30px;}
-.top_bar .crossn li div strong{ margin-left:6px;}
-.top_bar .crossn li dt{height:28px; line-height:28px; margin-top:3px; border:1px solid transparent; padding:0 20px 0 8px; cursor:pointer; background:url(img/ico-img.png) right -107px no-repeat;}
+.top_bar .crossnm,.top_bar .crossn_no{margin-right:5px;}
+.top_bar .crossn li,.top_bar .crossn_no li{display:inline-block; padding:0 12px; height:34px; background:url(img/ico-img.png) -199px -72px no-repeat; position:relative; z-index:1010;}
+.top_bar .crossn li:first-child,.top_bar .crossn_no li:first-child{background:url(img/ico-img.png) -166px 0 no-repeat; padding-left:36px;}
+.top_bar .crossn li.block,.top_bar .crossn_no.block{padding:0 4px;}
+.top_bar .crossn li:first-child.block,.top_bar .crossn_no li:first-child.block{padding:0 4px 0 30px;}
+.top_bar .crossn li div strong,.top_bar .crossn_no li div strong{ margin-left:6px;}
+.top_bar .crossn li dt,.top_bar .crossn_no li dt{height:28px; line-height:28px; margin-top:3px; border:1px solid transparent; padding:0 20px 0 8px; cursor:pointer; background:url(img/ico-img.png) right -107px no-repeat;}
 .top_bar .crossn li dt strong{width:40px; display:block; text-align:center;}
 .top_bar .crossn li dt.not_dd{background:none; padding-right:10px;}
 .top_bar .crossn li dd{padding:5px 10px 8px 17px; border:1px solid #d1d1d1; background:#fff; position:absolute; top:31px; right:4px; display:none;}
@@ -25,6 +25,7 @@
 .top_bar .top_function li:first-child.block{background:none; padding:0 4px;}
 .top_bar .top_info li>a, .top_bar .top_info dt>a{color:#fff;}
 .top_bar .top_info li:hover dt>a{color:#333;}
+.top_bar .crossn_no:hover,.top_bar .crossn_no li:hover,.top_bar .crossn_no li a:hover{color:#fff !important;text-decoration:none;}
 
 .header{background:#fff;}
 .header .logo-wp{width:380px; height:86px;margin-top:15px;}

@@ -149,10 +149,16 @@ class CartAction extends CommAction {
 		$this->itemTotal = $dao->get_item_totalcount( $this->sessionID );//总数量
 		$this->itemCount = $dao->get_item_count($this->sessionID );//总类数
 		$cartTotal = $dao->cart_total ( $this->sessionID );//产品总价格
+
 		$this->cartTotal = getprice_str($cartTotal);
 		$this->discount = $discount = $dao->discount($cartTotal);//打折信息
-		$this->totalAmount = getprice_str($discount['price']);//全部总价
-
+		
+		//满金额免运费
+		$this->free_shipping = GetValue('free_shipping');
+		$this->shippingPrice = ($discount['price'] >= $this->free_shipping)? 0: 15;
+		
+		$this->totalAmount = getprice_str($discount['price'] + $this->shippingPrice); //全部总价 = 商品总价格 + 打折 + 运费
+		
 		//已有收货地址
 		//获取配送方式列表
 		self::$Model=D("Shipping");
@@ -165,9 +171,6 @@ class CartAction extends CommAction {
 		self::$Model = D ( "Payment" );
 		$this->paymentlist = self::$Model->getlist ();
 		
-		//满金额免运费
-		$this->free_shipping = GetValue('free_shipping');
-
 		$this->display('checked_payment');
 	}
 	public function checkout() {
@@ -182,9 +185,11 @@ class CartAction extends CommAction {
 			Session::set('back',U('Cart/checked_pment'));
 			$this->redirect ( 'MemberPublic/Login' );
 		}
+		/*
 		if (! isset ( $_POST ['shipping_id'] ) || empty($_POST ['shipping_id'])) {
 			$this->error ( 'Please select SHIPPING METHOD! ' );
 		}
+		*/
 		if (! isset ( $_POST ['payment_module_code'] ) || empty($_POST ['payment_module_code'])) {
 			$this->error ( 'Please select PAYMENT METHOD! ' );
 		}

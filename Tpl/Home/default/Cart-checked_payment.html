@@ -8,7 +8,10 @@
 <Link href="__PUBLIC__/skin/images/common.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/floatmenu.css" type="text/css" rel="stylesheet" />
 <Link href="__PUBLIC__/skin/images/boxy/boxy.css" type="text/css" rel="stylesheet" />
-<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" /> 
+<Link href="__PUBLIC__/skin/bagsloves/css/common.css" type="text/css" rel="stylesheet" />
+<style type="text/css">
+.fbold{color:red;font-weight:bold;}
+</style>
 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/bigimg.js"></script> 
@@ -88,20 +91,21 @@ $(function() {
         <td align="center">{:getprice($vo['price_total'],$vo['pricespe_total'],false)}</td>
           </tr>
           </volist>
-          <tr>
+          <tr style="font-size:13px;">
           <td colspan="7" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount"> 
- Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
+ Items Total: <span class="fbold">{$itemTotal}</span><br/>
   <gt name="totalWeight" value="0">
- Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
+ Total Weight: <span class="fbold">{$totalWeight} KG</span><br/>
  </gt>
+ +Shipping Price:<span class="fbold">{$Think.session.currency.code}{$shippingPrice}</span><br/>
   <notempty name="discount['text']">
- Sub Total: <strong style="color:red;font-weight:bold">{$cartTotal}</strong><br/>
- Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
+ Sub Total: <span class="fbold">{$cartTotal}</span><br/>
+ Discount: <span class="fbold">{$discount.text}</span><br/>
   </notempty>
- Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong><br/>
- <gt name="free_shipping" value="0">Tips: Full <strong style="color:red;font-weight:bold">{$Think.session.currency.code} {$free_shipping}</strong> Free Shipping <br/></gt>
-          </td>
-          </tr>
+ Total Amount: <span class="fbold">{$totalAmount}</span><br/>
+ <gt name="free_shipping" value="0">For your whole order:  If <span class="fbold">{$Think.session.currency.code}0 - {$Think.session.currency.code}{$free_shipping}</span>, Shipping fee is <span class="fbold">{$Think.session.currency.code}15</span>; If over <span class="fbold">{$Think.session.currency.code}{$free_shipping}</span>, free shipping<br/></gt>
+  </td>
+  </tr>
 </table>
 
         </td>
@@ -138,14 +142,7 @@ $(function() {
           <input type="hidden" id="zip" value="{$member_ShippingAddress['zip']}" />
             </gt>
             
-            
             <li> <input type="radio" name="delivery"  value="1" checked /> Other Shipping Address </li> 
-            
-            
-            
-            
-            
-            
             </ul>
             <script language="JavaScript" type="text/javascript">
             <if condition="$mid gt 0 and $quickbuy eq 0">
@@ -242,7 +239,7 @@ $(function() {
       </tr>
     </table>
             </fieldset>
-            <fieldset>
+            <!--<fieldset>
                 <legend> <span style="color:#669900">Coupon Code</span></legend>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="coupon" >
                  <tr>
@@ -250,53 +247,9 @@ $(function() {
                   <td><input name="coupon" value="" id="coupon"/><input value="{:U('Ajax/coupon')}" type="hidden" id="coupon_url"/><span>Not leave blank</span>
                   </td>
                </tr>
-               
-     
     </table>
-            </fieldset>
-            <?php 
-            $count=count($ShippingList);
-            ?>
-            <div <eq name="count" value="1">style="display:none;"</eq>>
-                <fieldset>
-                    <legend> <span style="color:#669900">Distribution is recognized</span></legend>
-                    <table width="100%" border="0" cellspacing="0" cellpadding="0" >
-                  <tr>
-                    <td>
-                      <div class="shou1 hide"  id="shippingmsg">
-                          Please select the delivery address！
-                      </div>
-                      <div class="songh" id="shippingtype">
-                      
-                        <table width="100%" style="border:1px #CCCCCC solid" cellspacing="0" cellpadding="0" id="shippingbox">
-                  <volist name="ShippingList" id="vo">
-                   <tr>
-                    <td class="huo_d"> <input type="radio"  value="{$vo.id}" name="shipping_id" <eq name="i" value="$count">dataType="Group"  msg="Must choose a shipping"</eq>> {$vo.name}</td>
-                    <td class="huo_f"><span> 
-                        <present name="vo['price']['base_fee']">
-                            {:getprice_str($vo['price']['base_fee'])}
-                                <present name="vo['price']['step_fee']">
-                                 + {:getprice_str($vo['price']['step_fee'])}
-                                 </present>
-                             <else/>
-                            {:getprice_str($vo['price']['price'])} 
-                        </present>
-                        </span> 
-                    </td>
-                  </tr>
-                  </volist>
-                </table>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-                <gt name="free_shipping" value="0">
-                  <div style="font-size:14px;margin-top:8px;">
-                  Tips: Full <strong style="color:red;font-weight:bold">{$Think.session.currency.code} {$free_shipping}</strong> Free Shipping
-                  </div>
-                  </gt>
-                </fieldset>
-            </div>
+            </fieldset>-->
+
             <fieldset>
                 <legend> <span style="color:#669900">Payment confirmation</span></legend>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -322,15 +275,7 @@ $(function() {
       <table border="0" width="100%">
       <tr>
           <td colspan="2" align="right" style="text-align: right; padding-right:5px;" id="get_total_amount2"> 
-
  Items Total: <strong style="color:red;font-weight:bold">{$itemTotal}</strong><br/>
-  <gt name="totalWeight" value="0">
- Total Weight: <strong style="color:red;font-weight:bold">{$totalWeight} KG</strong><br/>
- </gt>
-  <notempty name="discount['text']">
- Sub Total: <strong style="color:red;font-weight:bold">{$cartTotal}</strong><br/>
- Discount: <strong style="color:red;font-weight:bold">{$discount.text}</strong><br/>
-  </notempty>
  Total Amount: <strong style="color:red;font-weight:bold">{$totalAmount}</strong>
           </td>
           </tr>
