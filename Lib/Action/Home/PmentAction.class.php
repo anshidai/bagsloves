@@ -483,7 +483,7 @@ class PmentAction extends CommAction{
     public function writePaymentLog($sn = '', $status = '', $msg = '')
     {
         $time = date('Y-m-d H:i:s');
-        @file_put_contents('./payment_log_'.date('Ymd').'.txt', "{$sn}\t{$status}\t{$msg}\{$time}\n", FILE_APPEND);       
+        @file_put_contents('./payment_log_'.date('Ymd').'.txt', "{$sn}\t{$status}\t{$msg}\t{$time}\n", FILE_APPEND);       
     }
     
     
