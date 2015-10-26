@@ -18,9 +18,6 @@
 <div class="nav-hr clearfix"></div>
 
 <div id="pagebody" class="clearfix">
-<include file="Member:left" />
-<div class="col2">
-
 <div class="payment-block clearfix">
     <div class="positions">Your Postion: <a href="/">Home</a> &gt; payment error</div>
     <div class="error-tips">
@@ -34,24 +31,24 @@
                 </tr>
                 <tr>
                     <td class="td-l">sum</td>
-                    <td class="td-r"><?=$_SESSION['currency']['symbol']?> {$orderinfo['orders_total']}</td>
+                    <td class="td-r">{$orderinfo['currencies_code']} {$orderinfo['orders_total']}</td>
                     <td class="td-l">trading result</td>
                     <td class="td-r c-red">Paid failed, return and try it again!</td>
                 </tr>
                 <tr>
                     <td class="td-l">product link</td>
                     <td class="td-r td-colspan" colspan="3">
-					<notempty name="order_product_info">
-					<foreach name="order_product_info" item="vo">
-						<a href="{:build_url($vo, 'products_id')}">{$vo['products_name']}</a><br>
-					</foreach>
-					</notempty>
-				</td>
+                    <notempty name="order_product_info">
+                    <foreach name="order_product_info" item="vo">
+                        <a href="{:build_url($vo, 'products_id')}">{$vo['products_name']}</a><br>
+                    </foreach>
+                    </notempty>
+                </td>
                 </tr>
             </tbody></table>
         </div>
     </div> 
-	<br><br><br><br>
+    <br><br><br><br>
     <i class="fail-ico"></i>
     <div class="tips-txt">
         <p class="tit">Sorry, your payment was failed, the reason may be as followed:</p><br>
@@ -68,6 +65,8 @@
             <a href="{:U('Cart/disp')}">Back to Shopping Cart</a>
         </p>
     </div>
+    
+    <div class="error_msg" style="display:none">{$message}</div>
 
 </div>
 
@@ -78,6 +77,6 @@
 <div class="clearfix"></div>
 <include file="Public:frontFooter" />
 
-<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>    
 </body>
 </html>

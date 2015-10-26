@@ -59,25 +59,25 @@ class moneybrace {
         $this->add_field('price_currency', $_SESSION['currency']['symbol'] ? $_SESSION['currency']['symbol']: 'USD'); // 订单标价币种
         $this->add_field('price_amount', $list['orders_total']); // 订单标价金额
         $this->add_field('ip', $this->getIPaddress());
-        $this->add_field('url_sync', $this_script.U('Payment/moneybrace_return')); // 服务器返回地址（订单状态同步地址）
-        $this->add_field('url_succ_back', $this_script.U('Payment/moneybrace_return')); // 浏览器返回地址（成功订单返回地址）
-        $this->add_field('url_fail_back', $this_script.U('Payment/moneybrace_return'));  // 交易地址（失败订单返回地址）
+        $this->add_field('url_sync', $this_script.U('Pment/mace_return')); // 服务器返回地址（订单状态同步地址）
+        $this->add_field('url_succ_back', $this_script.U('Pment/mace_return')); // 浏览器返回地址（成功订单返回地址）
+        $this->add_field('url_fail_back', $this_script.U('Pment/mace_return'));  // 交易地址（失败订单返回地址）
         $this->add_field('order_remark', $list['remark']); // 备注
         
         $this->add_field('bill_address', $list['delivery_address']);  // 账单地址
-        $this->add_field('bill_country', 'US');  // 账单国家简码
+        $this->add_field('bill_country', 'CN');  // 账单国家简码
         $this->add_field('bill_province', $list['delivery_state']);  // 账单地区
         $this->add_field('bill_city', $list['delivery_city']);  // 账单城市
-        $this->add_field('bill_email', $list['member_email']); // 账单EMAIL
+        $this->add_field('bill_email', 'service@bagsloves.com'); // 账单EMAIL
         $this->add_field('bill_phone', $list['delivery_telephone']); // 账单电话
         $this->add_field('bill_post', $list['delivery_zip']);  // 账单邮编
         
         $this->add_field('delivery_name', $list['delivery_lastname'].' '. $list['delivery_firstname']); // 收货姓名
         $this->add_field('delivery_address', $list['delivery_address']); // 收货地址
-        $this->add_field('delivery_country', ''); // 收货国家简码
+        $this->add_field('delivery_country', 'US'); // 收货国家简码
         $this->add_field('delivery_province', $list['delivery_state']); // 收货地区
         $this->add_field('delivery_city', $list['delivery_city']); // 收货城市
-        $this->add_field('delivery_email', $list['member_email']); // 收货人联系EMAIL 
+        $this->add_field('delivery_email', $list['delivery_email']); // 收货人联系EMAIL 
         $this->add_field('delivery_phone', $list['delivery_telephone']); // 收货人联系电话
         $this->add_field('delivery_post', $list['delivery_zip']); // 收货人邮编
         

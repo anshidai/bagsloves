@@ -18,14 +18,13 @@
 <div class="nav-hr clearfix"></div>
 
 <div id="pagebody" class="clearfix">
-<include file="Member:left" />
 
-<div class="col2">
+<div class="col2" style="width: auto;float:none;">
 
 <div class="payment-block clearfix">
     <div class="positions">Your Postion: <a href="/">Home</a> &gt; payment success</div>
     
-	<div class="error-tips">
+    <div class="error-tips">
         <i class="right-ico"></i>
         <div class="fail-table">
             <table cellspacing="0" cellpadding="0" border="0">
@@ -37,24 +36,24 @@
                 </tr>
                 <tr>
                     <td class="td-l">sum</td>
-                    <td class="td-r"><?=$_SESSION['currency']['symbol']?> {$orderinfo['orders_total']}</td>
+                    <td class="td-r">{$orderinfo['currencies_code']} {$orderinfo['orders_total']}</td>
                     <td class="td-l">trading result</td>
                     <td class="td-r c-blue">Paid successfully!</td>
                 </tr>
                 <tr>
                     <td class="td-l">product link</td>
                     <td class="td-r td-colspan" colspan="3">
-					<notempty name="order_product_info">
-					<foreach name="order_product_info" item="vo">
-						<a href="{:build_url($vo, 'products_id')}">{$vo['products_name']}</a><br>
-					</foreach>
-					</notempty>
-					</td>
+                    <notempty name="order_product_info">
+                    <foreach name="order_product_info" item="vo">
+                        <a href="{:build_url($vo, 'products_id')}">{$vo['products_name']}</a><br>
+                    </foreach>
+                    </notempty>
+                    </td>
                 </tr>
             </tbody></table>
         </div>
-		
-		<br><br>
+        
+        <br><br>
     <div class="tips-txt">
         <p class="tit">You can also :</p>
         <p class="links">
@@ -62,7 +61,7 @@
             <a href="{:U('MemberIndex/Index')}">Back to User Center page</a>
         </p>
     </div>
-		
+        
     </div>
 
 </div>
@@ -75,6 +74,6 @@
 <div class="clearfix"></div>
 <include file="Public:frontFooter" />
 
-<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>	
+<script type="text/javascript" src="__PUBLIC__/skin/bagsloves/js/main.js"></script>    
 </body>
 </html>
