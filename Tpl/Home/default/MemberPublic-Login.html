@@ -20,13 +20,8 @@
 <div class="nav-hr clearfix"></div>
 <div class="w1200 clearfix">
 	<div class="location home">Location: <a href="/">Home</a> &gt; Welcome, Please Sign In</div>
-	<div class="menu-left">
-		<div class="cat-title"><h2 class="tit">CATEGORIES</h2></div>
-		<include file="Public:floatmenu" />
-	</div>
-	<!-- menu-left end-->
 	
-	<div class="col2 clearfix">
+	<div class="col2 clearfix" style="float:none;width:auto;">
 		<div class="list1 clearfix">
 			<div class="list2_content clearfix">
 				<div class="login clearfix">
@@ -54,8 +49,17 @@
 							</td>
 							</tr>
 						</table>
+						<ul class="rhelp">
+							<li><span>Need Help?</span></li>
+							<li>Need help with<a href="/index.php/Article-58.html">Log in &amp; Register</a> ?</li>
+							<li>View the<a href="/index.php/Article-58.html">Frequently Asked Questions</a>page</li>
+							<li>View the <a href="/index.php/Article-60.html">Payment & Returns</a>page or <a href="/index.php/Article-63.html">Contact Info</a></li>
+							<li>Have questions about<a href="/index.php/Article-62.html">Shipping and Delivery</a>?</li>
+						</ul>
 					</form>
-					<div style="padding:10px;clear:both" ></div>
+				</div>
+					
+				<div class="login join clearfix">
 					<form action="{:U('MemberPublic/doJoin')}" method="post" name="dojoin"  onsubmit="return Validator.Validate(this,2);">
 						<fieldset>
 							<legend style="background-color:#CCCCCC">New? Please Provide Your Billing Information</legend>

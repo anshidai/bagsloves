@@ -2,7 +2,7 @@
 fieldset {border:1px solid #eceaea;padding:15px 20px 20px 20px;margin-bottom:10px !important;
 	background-color:#fcfcfc;color:#494949; }
 legend{border:1px solid #eceaea;padding:10px 20px;background-color:#fff;margin-bottom:15px;
-	color:#494949;}
+	color:#000;}
 .login input, .login select, .login textarea {
     background: none repeat scroll 0 0 #FDFDFD;
     border: 1px solid #E3E3E3;
@@ -14,3 +14,8 @@ legend{border:1px solid #eceaea;padding:10px 20px;background-color:#fff;margin-b
 }
 .buttonRow{margin-left:20px;}
 .buttonRow  a{color:#669900;}
+.list2_content .login{width:450px;float:left;}
+.list2_content .join{width:600px;float:left;padding-left:20px;margin-left:20px;border-left:1px solid #ddd;}
+.rhelp{padding-top:30px;}
+.rhelp li{height:26px;line-height:26px;}
+.rhelp li a{text-decoration: underline;color:#669900;}

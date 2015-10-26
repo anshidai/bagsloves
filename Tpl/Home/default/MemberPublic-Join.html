@@ -14,6 +14,9 @@
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jquery.ae.image.resize.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/skin/Js/validator.js"></script>
 <script type="text/javascript" src="__PUBLIC__/skin/Js/jcarousellite.js"></script>
+<style type="text/css">
+.list2_content .join{width:100%;border:0 none;padding:0;margin:0;}
+</style>
 </head>
 <body>
 <include file="Public:frontHeader" />
@@ -21,16 +24,10 @@
 
 <div class="w1200 clearfix">
 	<div class="location home">Location: <a href="/">Home</a> &gt; Welcome, Please Sign In</div>
-	<div class="menu-left">
-		<div class="cat-title"><h2 class="tit">CATEGORIES</h2></div>
-		<include file="Public:floatmenu" />
-	</div>
-	<!-- menu-left end-->
-
-	<div class="col2">
+	<div class="col2 clearfix" style="float:none;width:auto;">
 		<div class="list1">
 			<div class="list2_content">
-				<div class="login">
+				<div class="login join">
 					<form action="{:U('MemberPublic/doJoin')}" method="post" name="dojoin"  onsubmit="return Validator.Validate(this,2);">
 						<fieldset>
 							<legend>New? Please Provide Your Billing Information</legend>
@@ -70,34 +67,7 @@
 						</fieldset>
 						<div class="buttonRow"><input type="image" src="__PUBLIC__/skin/images/button_submit.gif" alt="Submit the Information" title=" Submit the Information " /></div>
 					</form>
-					
-					<div style="padding:10px 0;clear:both"></div>
-					<form method="POST" name="dologin" action="{:U('MemberPublic/doLogin')}" onsubmit="return Validator.Validate(this,2);">
-					<fieldset>
-						<legend>Returning Customers: Please Log In</legend>
-						<table width="100%" border="0" cellspacing="0" cellpadding="0">
-							<tr>
-							<td width="125"><label class="inputLabel" for="login-email-address">Email Address:</label></td>
-							<td><input type="text"  name="email"  size = "41" max= "96" id="login-email-address" dataType="Email" msg="Email format is not correct!" /></td>
-							</tr>
-							<tr>
-							<td><label class="inputLabel" for="login-password">Password:</label></td>
-							<td><input type="password" name="password"  dataType="Require" msg="password is required!" size = "41" min="3" max= "40" id="login-password" /></td>
-							</tr>
-						</table>
-						</fieldset>
-						<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						<td><div class="buttonRow">
-							<a href="{:U('MemberPublic/ForgotPWD')}">Forgot your password?</a><br>
-							<input type="image" src="__PUBLIC__/skin/images/button_login.gif" border="0" alt="Sign In" title=" Sign In " />
-						</div>
-						</td>
-						</tr>
-						</table>
-					</form>
 				</div>
-				<!-- login end-->
 			</div>
 			<!-- list2_content end-->
 		</div>
