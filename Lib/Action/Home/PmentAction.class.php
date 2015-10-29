@@ -322,6 +322,8 @@ class PmentAction extends CommAction{
             }
         }
         $this->order_product_info = $order_product_info;
+        
+        $this->writePaymentLog($merch_order_id, $status, $message);
 
         //根据得到的数据  进行相对应的操作
         //$status Y-交易成功 T-处理当中 N-交易失败
