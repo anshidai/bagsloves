@@ -324,6 +324,23 @@ class PmentAction extends CommAction{
         $this->order_product_info = $order_product_info;
         
         $this->writePaymentLog($merch_order_id, $status, $message);
+		
+		if(strpos($message, 'GW125') !== false) {
+			$error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
+		}else if(strpos($message, 'GW126') !== false) {
+			$error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
+		}else if(strpos($message, 'GW127') !== false) {
+			$error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
+		}else if(strpos($message, 'GW128') !== false) {
+			$error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
+		}else if(strpos($message, 'GW130') !== false) {
+			$error_msg = 'Bank card card number error'; //银行卡卡号错误
+		}else if(strpos($message, 'GW132') !== false) {
+			$error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
+		}else{
+			$error_msg = 'Paid failed, return and try it again!';
+		}
+		$this->error_msg = $error_msg;
 
         //根据得到的数据  进行相对应的操作
         //$status Y-交易成功 T-处理当中 N-交易失败
@@ -462,6 +479,24 @@ class PmentAction extends CommAction{
             $this->order_product_info = $order_product_info;
             
             $this->writePaymentLog($merch_order_id, $status, $message);
+			
+			if(strpos($message, 'GW125') !== false) {
+				$error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
+			}else if(strpos($message, 'GW126') !== false) {
+				$error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
+			}else if(strpos($message, 'GW127') !== false) {
+				$error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
+			}else if(strpos($message, 'GW128') !== false) {
+				$error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
+			}else if(strpos($message, 'GW130') !== false) {
+				$error_msg = 'Bank card card number error'; //银行卡卡号错误
+			}else if(strpos($message, 'GW132') !== false) {
+				$error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
+			}else{
+				$error_msg = 'Paid failed, return and try it again!';
+			}
+			$this->error_msg = $error_msg;
+			
             
             //根据得到的数据  进行相对应的操作
             //$status Y-交易成功 T-处理当中 N-交易失败
