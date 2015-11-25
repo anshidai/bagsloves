@@ -56,7 +56,7 @@ class moneybrace {
         $this->add_field('merch_order_ori_id', $list['id']);  // 商户原始订单号
         $this->add_field('merch_order_id', $list['sn']); // 商品订单号
         $this->add_field('merch_order_date', date('YmdHis', time())); // 订单交易时间
-        $this->add_field('price_currency', $_SESSION['currency']['symbol'] ? $_SESSION['currency']['symbol']: 'USD'); // 订单标价币种
+        $this->add_field('price_currency', $list['currencies_code']); // 订单标价币种
         $this->add_field('price_amount', $list['orders_total']); // 订单标价金额
         $this->add_field('ip', $this->getIPaddress());
         $this->add_field('url_sync', $this_script.U('Pment/mace_return')); // 服务器返回地址（订单状态同步地址）
