@@ -27,19 +27,27 @@ class MemberCommAction extends Action{
 		L('_OPERATION_FAIL_','Operation Fail');
 		//$this->currencies=get_currencies_arr(); 
 		//生产一个唯一的session id
-		$this->sessionID = Session::get ( 'sessionID' );
+		$this->sessionID = Cookie::get ( 'sessionID' );
 		if (! $this->sessionID) {
-			$this->sessionID = md5 ( uniqid ( rand () ) );
-			Session::set ( 'sessionID', $this->sessionID );
+			$this->sessionID = create_session_id();
+			Cookie::set('sessionID', $this->sessionID);
 		}
 		
 		//读取用户id
-		$this->memberID = Session::get ( 'memberID' );
-		if (! $this->memberID) {
+		$auth_cookie = Cookie::get('auth');
+		if(empty($auth_cookie)) {
 			$this->memberID = 0;
 			Session::set('back',$_SERVER['REQUEST_URI']);
-			$this->redirect("Public/Login");
-		} else {
+		}else {
+			$auth = daddslashes(explode("\t", authcode($auth_cookie, 'DECODE', C('AUTHKEY'))));
+			list($member_id, $member_email) = empty($auth) || count($auth) < 2 ? array('', '') : $auth;
+			if(!empty($member_id)) {
+				$this->memberID = $member_id;
+			}
+		}
+		Cookie::set('memberID', $this->memberID);
+		
+		if($this->memberID) {
 
 			//读取用户信息
 			$this->mid=$this->memberID;
@@ -47,7 +55,6 @@ class MemberCommAction extends Action{
 			$this->member_Info = $this->memberInfo = self::$Model->where ( "id=" . $this->memberID )->find ();
 			self::$Model = D ( "Shippingaddress" );
 			$this->memberShippingAddress = self::$Model->where ( "id=" . $this->memberID )->find ();
-
 		}
 		
 		

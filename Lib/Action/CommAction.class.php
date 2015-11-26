@@ -60,17 +60,25 @@ class CommAction extends Action{
 			}
 		}
 		//生产一个唯一的session id
-		$this->sessionID = Session::get ( 'sessionID' );
+		$this->sessionID = Cookie::get('sessionID');
 		if (! $this->sessionID ) {
-			$this->sessionID  = md5 ( uniqid ( rand () ) );
-			Session::set ( 'sessionID', $this->sessionID  );
+			$this->sessionID = create_session_id();
+			Cookie::set('sessionID', $this->sessionID);
 		}
 		//读取用户id
-		$this->memberID=Session::get('memberID');
-		if (! $this->memberID ) {
-			$this->memberID=0;
+		$auth_cookie = Cookie::get('auth');
+		if(empty($auth_cookie)) {
+			$this->memberID = 0;
+		}else {
+			$auth = daddslashes(explode("\t", authcode($auth_cookie, 'DECODE', C('AUTHKEY'))));
+			list($member_id, $member_email) = empty($auth) || count($auth) < 2 ? array('', '') : $auth;
+			if(!empty($member_id)) {
+				$this->memberID = $member_id;
+			}
 		}
-		else{
+		Cookie::set('memberID', $this->memberID);
+		
+		if($this->memberID) {
 			//读取用户信息
 			$this->mid=$this->memberID;
 			self::$Model=D("Members");

@@ -15,8 +15,9 @@ class MemberIndexAction extends MemberCommAction{
         //清空会员session
         /*$cartModel=D('Cart');
         $data['session_id']='';
-        $cartModel->where ( "uid='".Session::get("memberID")."' or session_id='" . Session::get('sessionID') . "'")->data ($data)->save();*/
-        Session::set("memberID",0);
+        $cartModel->where ( "uid='".Cookie::get("memberID")."' or session_id='" . Cookie::get('sessionID') . "'")->data ($data)->save();*/
+        Cookie::set("memberID",0);
+        Cookie::set("auth",0);
         
         $url_referer = !empty($_SESSION['urlReferer'])? $_SESSION['urlReferer']: U('MemberPublic/Login');
         redirect ( $url_referer);

@@ -10,5 +10,9 @@
   'FILE_UPLOAD_MAXSIZE' => '1024000000',
   'FILE_UPLOAD_ALLOWEXTS' => 'jpg,gif,png,bmp',
   'DEFAULT_CURRENCIES_SYMBOL' => 'USD',
+  
+	//加密串，不可修改
+	'AUTHKEY' => 'NwpZOHdTYD59tNiq',
+  
 );
 ?>

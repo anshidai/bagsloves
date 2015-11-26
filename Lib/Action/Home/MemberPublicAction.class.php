@@ -28,7 +28,9 @@ class MemberPublicAction extends CommAction{
                     sendmail($sendto, 'Welcome to '.GetValue('sitename'),GetValue('welcome_email_content'));
                 }
             }
-            Session::set('memberID',$id);
+			$info = $dao->where("id='{$id}'")->find();
+			setloginstatus($info);
+			
             if($this->isAjax()){
                 $this->success('do join success');
             }elseif (isset($_SESSION['back'])){
@@ -91,13 +93,18 @@ class MemberPublicAction extends CommAction{
                 $this->error ( "Password error!");
             }
             else{
-                Session::set('memberID',$list['id']);
+				$cookietime = 0;
+				if(intval($_POST['isStay'])) {
+					$cookietime = 86400*30;
+				}
+				
+				setloginstatus($info, $cookietime);
                 //将会员帐号的sessionid修改为现在的sessionid;
                 if($list['id']>0){
                     $cartModel=D('Cart');
-                    $data['session_id']=Session::get('sessionID');
+                    $data['session_id']=Cookie::get('sessionID');
                     //$data['uid']=$list['id'];
-                    $cartModel->where ( "uid='".$list['id']."' or session_id='" . Session::get('sessionID') . "'")->data ($data)->save();
+                    $cartModel->where ( "uid='".$list['id']."' or session_id='" . Cookie::get('sessionID') . "'")->data ($data)->save();
                 }
                 $data['lastlogindate']=time();
                 $data['lastloginip']=get_client_ip();
