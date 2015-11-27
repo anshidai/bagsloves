@@ -97,8 +97,7 @@ class MemberPublicAction extends CommAction{
 				if(intval($_POST['isStay'])) {
 					$cookietime = 86400*30;
 				}
-				
-				setloginstatus($info, $cookietime);
+				setloginstatus($list, $cookietime);
                 //将会员帐号的sessionid修改为现在的sessionid;
                 if($list['id']>0){
                     $cartModel=D('Cart');
