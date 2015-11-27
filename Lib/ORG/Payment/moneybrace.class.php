@@ -65,7 +65,7 @@ class moneybrace {
         $this->add_field('order_remark', $list['remark']); // 备注
         
         $this->add_field('bill_address', $list['delivery_address']);  // 账单地址
-        $this->add_field('bill_country', 'CN');  // 账单国家简码
+        $this->add_field('bill_country', 'US');  // 账单国家简码
         $this->add_field('bill_province', $list['delivery_state']);  // 账单地区
         $this->add_field('bill_city', $list['delivery_city']);  // 账单城市
         $this->add_field('bill_email', 'service@bagsloves.com'); // 账单EMAIL
