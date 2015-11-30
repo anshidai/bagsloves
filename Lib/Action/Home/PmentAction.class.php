@@ -324,23 +324,23 @@ class PmentAction extends CommAction{
         $this->order_product_info = $order_product_info;
         
         $this->writePaymentLog($merch_order_id, $status, $message);
-		
-		if(strpos($message, 'GW125') !== false) {
-			$error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
-		}else if(strpos($message, 'GW126') !== false) {
-			$error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
-		}else if(strpos($message, 'GW127') !== false) {
-			$error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
-		}else if(strpos($message, 'GW128') !== false) {
-			$error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
-		}else if(strpos($message, 'GW130') !== false) {
-			$error_msg = 'Bank card card number error'; //银行卡卡号错误
-		}else if(strpos($message, 'GW132') !== false) {
-			$error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
-		}else{
-			$error_msg = 'Paid failed, return and try it again!';
-		}
-		$this->error_msg = $error_msg;
+        
+        if(strpos($message, 'GW125') !== false) {
+            $error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
+        }else if(strpos($message, 'GW126') !== false) {
+            $error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
+        }else if(strpos($message, 'GW127') !== false) {
+            $error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
+        }else if(strpos($message, 'GW128') !== false) {
+            $error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
+        }else if(strpos($message, 'GW130') !== false) {
+            $error_msg = 'Bank card card number error'; //银行卡卡号错误
+        }else if(strpos($message, 'GW132') !== false) {
+            $error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
+        }else{
+            $error_msg = 'Paid failed, return and try it again!';
+        }
+        $this->error_msg = $error_msg;
 
         //根据得到的数据  进行相对应的操作
         //$status Y-交易成功 T-处理当中 N-交易失败
@@ -479,24 +479,24 @@ class PmentAction extends CommAction{
             $this->order_product_info = $order_product_info;
             
             $this->writePaymentLog($merch_order_id, $status, $message);
-			
-			if(strpos($message, 'GW125') !== false) {
-				$error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
-			}else if(strpos($message, 'GW126') !== false) {
-				$error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
-			}else if(strpos($message, 'GW127') !== false) {
-				$error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
-			}else if(strpos($message, 'GW128') !== false) {
-				$error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
-			}else if(strpos($message, 'GW130') !== false) {
-				$error_msg = 'Bank card card number error'; //银行卡卡号错误
-			}else if(strpos($message, 'GW132') !== false) {
-				$error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
-			}else{
-				$error_msg = 'Paid failed, return and try it again!';
-			}
-			$this->error_msg = $error_msg;
-			
+            
+            if(strpos($message, 'GW125') !== false) {
+                $error_msg = 'Credit card type error, suspension of trading'; //信用卡类型错误，中止交易
+            }else if(strpos($message, 'GW126') !== false) {
+                $error_msg = 'Credit card number error, suspension of trading'; //信用卡号错误，中止交易
+            }else if(strpos($message, 'GW127') !== false) {
+                $error_msg = 'Security code error, suspension of trading'; //安全码错误，中止交易
+            }else if(strpos($message, 'GW128') !== false) {
+                $error_msg = 'Credit card is valid error, suspension of trading'; //信用卡有效期错误，中止交易
+            }else if(strpos($message, 'GW130') !== false) {
+                $error_msg = 'Bank card card number error'; //银行卡卡号错误
+            }else if(strpos($message, 'GW132') !== false) {
+                $error_msg = 'The validity of bank card number error'; //银行卡号有效期错误
+            }else{
+                $error_msg = 'Paid failed, return and try it again!';
+            }
+            $this->error_msg = $error_msg;
+            
             
             //根据得到的数据  进行相对应的操作
             //$status Y-交易成功 T-处理当中 N-交易失败
@@ -515,6 +515,109 @@ class PmentAction extends CommAction{
         }
         
         
+    }
+    
+    public function richcard_http()
+    {
+        if(!empty($_GET) && empty($_POST)) {
+            $_POST = $_GET;
+        }
+        unset($_GET);
+        if(empty($_POST)) {
+            die('data error!');
+        }
+        $_GET = $_POST;
+        
+        unset($_GET['btn_submit_x']);
+        unset($_GET['btn_submit_y']);
+        unset($_GET['btn_submit']);
+        
+        $returnURL= $_GET['returnURL'];
+        
+        $post_data = '';
+        foreach($_GET as $k=>$v){
+            $post_data .= $k."=".$v."&";
+        }
+        
+        //提交地址
+        $payUrl = $_REQUEST['paymentUrl'];
+        
+        $ssl = substr($payUrl, 0, 8) == "https://" ? TRUE : FALSE;
+        $wesite = "http://".$_SERVER['HTTP_HOST'];
+        
+        $ch  = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $payUrl);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_REFERER,  $wesite);
+        if($ssl) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        }
+        $paymentResult = curl_exec($ch);
+        curl_close($ch);
+        
+        self::$Model = D("Orders");
+        //查询订单相关信息
+        $orderinfo = self::$Model->where("sn='".$_GET['orderNo']."'")->find();
+        if(empty($orderinfo)) {
+            die('Signature error!');
+        }
+        $this->orderinfo = $orderinfo;
+        
+        $order_product_info = D('OrdersProducts')->where("orders_id='{$orderinfo['id']}'")->select();
+        if($order_product_info) {
+            foreach($order_product_info as $k=>$val) {
+                $order_product_info[$k]['name'] = $val['products_name'];
+            }
+        }
+        $this->order_product_info = $order_product_info;
+
+        $error_msg = 'Paid failed, return and try it again!';
+        
+        if(!empty($paymentResult)) {
+            //解析返回的xml参数
+            $payXml = simplexml_load_string($paymentResult);
+            if(!empty($payXml)) {
+                $tradeNo = (String)$payXml->tradeNo;
+                $orderNo = (String)$payXml->orderNo;
+                $amount = (String)$payXml->amount;
+                $currency = (String)$payXml->currency;
+                $succeed = (String)$payXml->succeed;
+                
+                $bankInfo = (String)$payXml->bankInfo;
+                $md5Info = (String)$payXml->md5Info;
+                $md5Info = strtoupper($md5Info);
+                $errorMsg = (String)$payXml->errorMsg;
+            
+                $this->writePaymentLog((String)$payXml->orderNo, (String)$payXml->errorCode, (String)$payXml->errorMsg);
+                
+                /* 校验数据 */
+                $merKey   = trim(GetValue('richcard_key'));
+                $signSrc  = $tradeNo.$orderNo.$merKey.$succeed.$currency.$amount;
+                $mysign   = strtoupper(md5($signSrc));
+                
+                //根据得到的数据  进行相对应的操作
+                //$succeed支付状态 0-支付失败 1-支付成功 2和3-支付待处理
+                /* 验证支付结果 */
+                if($md5Info == $mysign) {
+                    if($succeed == '1') {
+                        $data['orders_status'] = '2';
+                        self::$Model->where("sn='".$orderNo."'")->save($data); //修改订单支付状态
+                        give_member_points($orderNo); //赠送用户积分
+                        
+                        $error_msg = '';
+                        $this->display('succeed');
+                    }else{  
+                        $data['orders_status'] = '1';
+                        self::$Model->where("sn='".$orderNo."'")->save($data);  //修改订单状态为正在付款中
+                    }
+                }
+            }
+        }
+        $this->error_msg = $error_msg;
+        $this->display('failure');
     }
     
     public function writePaymentLog($sn = '', $status = '', $msg = '')
