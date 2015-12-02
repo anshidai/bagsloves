@@ -227,7 +227,7 @@ class ProductsModel extends Model {
 			$list['price']=(float)(VipPrice($list['price'])+$model_price);
 			$list['pricespe']=(float)(VipPrice($list['pricespe'])+$model_price);
 			$list['count']=$count;
-			$ginfo=get_members_group(Session::get('memberID'));
+			$ginfo=get_members_group(Cookie::get('memberID'));
 			$list['discount']=$ginfo['discount']?$ginfo['discount']:1;
 			$list['price_total']=$list['price']*$count;
 			$list['pricespe_total']=$list['pricespe']*$count;

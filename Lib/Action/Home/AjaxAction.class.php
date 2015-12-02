@@ -23,7 +23,7 @@ class AjaxAction extends Action{
 		$dao=D("Region");
 		$this->Countries=$dao->where("type=0")->order('name asc')->select();
 
-		$this->memberID=Session::get('memberID');
+		$this->memberID=Cookie::get('memberID');
 		if($this->memberID){
 			$dao=D("Members");
 			$this->memberInfo=$dao->where("id=".$this->memberID)->find();
@@ -50,7 +50,7 @@ class AjaxAction extends Action{
 	}
 	function get_shipping_list(){
 		$dao=D("Cart");
-		$weight=$dao->cart_total_weight(Session::get ( 'sessionID' ));
+		$weight=$dao->cart_total_weight(Cookie::get ( 'sessionID' ));
 
 		$dao=D("Shipping");
 		$ShippingList=$dao->get_shipping_list($_POST['country'],$_POST['state'],$_POST['city'],$weight);
@@ -61,7 +61,7 @@ class AjaxAction extends Action{
 	function get_total_amount(){
 
 		$dao = D ("Cart");
-		$sessionID = Session::get ( 'sessionID' );
+		$sessionID = Cookie::get ( 'sessionID' );
 
 		$this->totalWeight = $weight = $dao->cart_total_weight( $sessionID );//总重量
 
@@ -78,9 +78,9 @@ class AjaxAction extends Action{
 		$shipping_id=$_POST['shipping_id'];
 		$delivery=$_POST['delivery'];
 		$shippingModel=D('Shipping');
-		$member_id=Session::get('memberID');
+		$member_id=Cookie::get('memberID');
 		if($shipping_id && $delivery==0 && $member_id){//会员本身地址
-			$memberShippingAddress=Session::get('memberShippingAddress');
+			$memberShippingAddress=Cookie::get('memberShippingAddress');
 			$shipping_price=$shippingModel->get_shipping_fee($shipping_id,$memberShippingAddress['country'],$memberShippingAddress['state'],$memberShippingAddress['city'],$weight);
 
 		}else{//其它地址

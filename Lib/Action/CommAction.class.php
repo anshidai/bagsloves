@@ -86,7 +86,7 @@ class CommAction extends Action{
 			$this->member_Info=$this->memberInfo;
 			self::$Model=D("Shippingaddress");
 			$this->memberShippingAddress=self::$Model->where("id=".$this->memberID)->find();
-			Session::set('memberShippingAddress',$this->memberShippingAddress);
+			Cookie::set('memberShippingAddress',$this->memberShippingAddress);
 			$this->member_ShippingAddress=$this->memberShippingAddress;
 			/*$this->_365call="
 			<script type=\"text/javascript\">
